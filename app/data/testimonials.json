@@ -1,0 +1,12 @@
+{
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Sample Attendee",
+      "quote": "Neokizfest was an incredible experience! The music, the vibe, everything was perfect.",
+      "year": 2024,
+      "area": "main-stage",
+      "location": "Toronto, ON"
+    }
+  ]
+}

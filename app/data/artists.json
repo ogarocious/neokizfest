@@ -1,0 +1,16 @@
+{
+  "artists": [
+    {
+      "id": 1,
+      "name": "Sample Artist",
+      "genre": "Electronic",
+      "bio": "This is a sample artist bio for testing.",
+      "image": "/images/artists/sample.jpg",
+      "social": {
+        "instagram": "@sampleartist",
+        "soundcloud": "sampleartist"
+      },
+      "year": 2025
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "title": "Neokizfest 2024 Recap",
+      "youtube_id": "dQw4w9WgXcQ",
+      "year": 2024,
+      "category": "recap",
+      "description": "Official recap video from Neokizfest 2024",
+      "thumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+    }
+  ]
+}
