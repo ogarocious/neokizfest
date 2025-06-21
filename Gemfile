@@ -56,7 +56,7 @@ end
 gem "inertia_rails", "~> 3.9"
 gem "vite_rails", "~> 3.0"
 
-gem "rubocop", "~> 1.76", :group => :development
+gem "rubocop", "~> 1.77", :group => :development
 
 gem "rubocop-rails", "~> 2.32", :group => :development
 gem "rubocop-performance", "~> 1.25", :group => :development
