@@ -1,23 +1,36 @@
 import React from "react";
-import { Stack, Group, Paper, Text, Title, Grid, Button } from "@mantine/core";
+import {
+  Stack,
+  Group,
+  Paper,
+  Text,
+  Title,
+  Grid,
+  Button,
+  Collapse,
+  Badge,
+} from "@mantine/core";
+import { useState } from "react";
 import {
   IconMusic,
   IconCalendar,
-  IconMapPin,
   IconExternalLink,
+  IconChevronDown,
+  IconChevronUp,
 } from "@tabler/icons-react";
 
 interface Artist {
   id: number;
   name: string;
-  genre: string;
+  city: string;
+  country: string;
+  countryFlag: string;
+  isDJ: boolean;
+  isInstructor: boolean;
+  previousEditions: number;
+  participatedYears: number[];
   bio: string;
   image: string;
-  social: {
-    instagram?: string;
-    soundcloud?: string;
-  };
-  year: number;
 }
 
 interface Video {
@@ -36,37 +49,48 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
+  const [expandedArtist, setExpandedArtist] = useState<number | null>(null);
+
   // Sample data for demo
   const sampleArtists: Artist[] = [
     {
       id: 1,
-      name: "DJ Kizz",
-      genre: "Kizomba",
-      bio: "International Kizomba artist with over 10 years of experience bringing authentic rhythms to dance floors worldwide.",
-      image:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=250&fit=crop",
-      social: { instagram: "@djkizz" },
-      year: 2025,
+      name: "Carlos Silva",
+      city: "Lisbon",
+      country: "Portugal",
+      countryFlag: "🇵🇹",
+      isDJ: true,
+      isInstructor: true,
+      previousEditions: 3,
+      participatedYears: [2022, 2023, 2024],
+      bio: "International Kizomba artist with over 10 years of experience bringing authentic rhythms to dance floors worldwide. Carlos has been a cornerstone of the festival since its early days.",
+      image: "https://placehold.co/400x250/1a1a1a/FF6B35?text=Carlos+Silva",
     },
     {
       id: 2,
-      name: "Neo Soul Sisters",
-      genre: "Neo-Soul",
-      bio: "Dynamic duo combining modern soul with traditional African influences, creating unforgettable musical experiences.",
-      image:
-        "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&h=250&fit=crop",
-      social: { soundcloud: "neosoulsist" },
-      year: 2025,
+      name: "Maria Santos",
+      city: "São Paulo",
+      country: "Brazil",
+      countryFlag: "🇧🇷",
+      isDJ: false,
+      isInstructor: true,
+      previousEditions: 2,
+      participatedYears: [2023, 2024],
+      bio: "Dynamic instructor combining modern soul with traditional African influences, creating unforgettable learning experiences for dancers of all levels.",
+      image: "https://placehold.co/400x250/1a1a1a/FF6B35?text=Maria+Santos",
     },
     {
       id: 3,
-      name: "Rhythmic Pulse",
-      genre: "World Fusion",
-      bio: "Innovative collective blending global rhythms with contemporary beats, pushing the boundaries of festival music.",
-      image:
-        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=250&fit=crop",
-      social: { instagram: "@rhythmicpulse" },
-      year: 2025,
+      name: "DJ Kwame",
+      city: "Accra",
+      country: "Ghana",
+      countryFlag: "🇬🇭",
+      isDJ: true,
+      isInstructor: false,
+      previousEditions: 1,
+      participatedYears: [2024],
+      bio: "Innovative DJ blending global rhythms with contemporary beats, pushing the boundaries of festival music and bringing fresh African sounds to the dance floor.",
+      image: "https://placehold.co/400x250/1a1a1a/FF6B35?text=DJ+Kwame",
     },
   ];
 
@@ -106,7 +130,7 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
     },
   ];
 
-  const artists = featured_artists?.length ? featured_artists : sampleArtists;
+  const artists = sampleArtists;
   const videos = latest_videos?.length ? latest_videos : sampleVideos;
 
   return (
@@ -275,6 +299,8 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
               c="white"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                fontFamily: "Poppins, sans-serif",
+                letterSpacing: "-0.03em",
               }}
             >
               Featured Artists
@@ -287,20 +313,18 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
 
           <Grid>
             {artists.map((artist) => (
-              <Grid.Col key={artist.id} span={{ base: 12, md: 6, lg: 4 }}>
+              <Grid.Col key={artist.id} span={{ base: 6, md: 6, lg: 4 }}>
                 <Paper
                   shadow="lg"
-                  radius="xl"
+                  radius="md"
                   p="lg"
-                  h="100%"
                   style={{
-                    background: "rgba(31, 41, 55, 0.8)",
-                    border: "1px solid rgba(75, 85, 99, 1)",
+                    background: "rgba(55, 42, 31, 0.8)",
+                    border: "1px solid rgb(99, 84, 75)",
                     backdropFilter: "blur(8px)",
-                    cursor: "pointer",
                     transition: "all 0.3s ease",
                   }}
-                  className="hover:scale-105 hover:border-orange-500/50 group"
+                  className="hover:scale-105 hover:border-orange-500/50"
                 >
                   <Stack gap="md">
                     <div
@@ -317,55 +341,118 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                           width: "100%",
                           height: "16rem",
                           objectFit: "cover",
-                          transition: "transform 0.3s ease",
-                        }}
-                        className="group-hover:scale-110"
-                        onError={(e) => {
-                          e.currentTarget.src =
-                            "https://placehold.co/400x250/1a1a1a/FF6B35?text=Artist+Image";
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     </div>
 
-                    <Group justify="space-between" align="flex-start">
-                      <Text size="lg" fw={600} c="white">
-                        {artist.name}
-                      </Text>
-                      <Paper
-                        px="xs"
-                        py={4}
-                        style={{
-                          background: "rgba(249, 115, 22, 0.2)",
-                          border: "1px solid rgba(249, 115, 22, 0.3)",
-                        }}
-                        radius="sm"
-                      >
-                        <Text size="sm" c="#F59E0B">
-                          {artist.genre}
+                    <Stack gap="sm">
+                      {/* Name and Tags Row */}
+                      <Group justify="space-between" align="flex-start" mx={16}>
+                        <Stack gap={4} style={{ flex: 1 }}>
+                          <Text size="lg" fw={700} c="white">
+                            {artist.name}
+                          </Text>
+                          <Text size="12px" c="gray.3">
+                            {artist.city}, {artist.country} {artist.countryFlag}
+                          </Text>
+                        </Stack>
+
+                        <Group gap="xs">
+                          {artist.isDJ && (
+                            <Badge
+                              size="xs"
+                              style={{
+                                background: "rgba(249, 115, 22, 0.2)",
+                                border: "1px solid rgba(249, 115, 22, 0.3)",
+                              }}
+                              radius="sm"
+                            >
+                              <Text size="8px" c="#F59E0B" fw={500}>
+                                DJ
+                              </Text>
+                            </Badge>
+                          )}
+                          {artist.isInstructor && (
+                            <Badge
+                              size="xs"
+                              style={{
+                                background: "rgba(34, 197, 94, 0.2)",
+                                border: "1px solid rgba(34, 197, 94, 0.3)",
+                              }}
+                              radius="sm"
+                            >
+                              <Text size="8px" c="#22C55E" fw={500}>
+                                Instructor
+                              </Text>
+                            </Badge>
+                          )}
+                        </Group>
+                      </Group>
+
+                      {/* Participation Info */}
+                      <Group gap="xs" justify="center" align="center">
+                        <Text size="12px" c="#F59E0B" fw={600}>
+                          {artist.previousEditions === 1
+                            ? "1st Time Artist"
+                            : `${artist.previousEditions}${
+                                artist.previousEditions === 2
+                                  ? "nd"
+                                  : artist.previousEditions === 3
+                                  ? "rd"
+                                  : "th"
+                              } Time Artist`}
                         </Text>
-                      </Paper>
-                    </Group>
+                        <Text size="8px" c="gray.4">
+                          {artist.participatedYears?.length > 0
+                            ? `${artist.participatedYears.join(", ")}`
+                            : "First time participant"}
+                        </Text>
+                      </Group>
 
-                    <Text size="sm" c="gray.3" lineClamp={3}>
-                      {artist.bio}
-                    </Text>
-
-                    <Button
-                      variant="subtle"
-                      fullWidth
-                      rightSection={<IconExternalLink size={16} />}
-                      c="#F59E0B"
-                      styles={{
-                        root: {
-                          "&:hover": {
-                            backgroundColor: "rgba(249, 115, 22, 0.1)",
+                      {/* Bio Button */}
+                      <Button
+                        variant="subtle"
+                        size="sm"
+                        c="gray.3"
+                        rightSection={
+                          expandedArtist === artist.id ? (
+                            <IconChevronUp size={16} />
+                          ) : (
+                            <IconChevronDown size={16} />
+                          )
+                        }
+                        onClick={() =>
+                          setExpandedArtist(
+                            expandedArtist === artist.id ? null : artist.id
+                          )
+                        }
+                        styles={{
+                          root: {
+                            "&:hover": {
+                              backgroundColor: "rgba(156, 163, 175, 0.1)",
+                            },
                           },
-                        },
-                      }}
-                    >
-                      View Profile
-                    </Button>
+                        }}
+                      >
+                        {expandedArtist === artist.id ? "Hide Bio" : "Read Bio"}
+                      </Button>
+
+                      <Collapse in={expandedArtist === artist.id}>
+                        <Paper
+                          p="sm"
+                          style={{
+                            background: "rgba(0, 0, 0, 0.3)",
+                            border: "1px solid rgba(75, 85, 99, 0.5)",
+                          }}
+                          radius="sm"
+                        >
+                          <Text size="sm" c="gray.3">
+                            {artist.bio}
+                          </Text>
+                        </Paper>
+                      </Collapse>
+                    </Stack>
                   </Stack>
                 </Paper>
               </Grid.Col>
@@ -394,6 +481,8 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
               c="white"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                fontFamily: "Poppins, sans-serif",
+                letterSpacing: "-0.03em",
               }}
             >
               Festival Highlights
@@ -545,6 +634,8 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
               ta="center"
               style={{
                 fontSize: "clamp(2rem, 5vw, 4rem)",
+                fontFamily: "Poppins, sans-serif",
+                letterSpacing: "-0.03em",
               }}
             >
               Ready to Join the Experience?
