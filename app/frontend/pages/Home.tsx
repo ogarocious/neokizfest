@@ -9,6 +9,8 @@ import {
   Button,
   Collapse,
   Badge,
+  Box,
+  Image,
 } from "@mantine/core";
 import { useState } from "react";
 import {
@@ -18,30 +20,9 @@ import {
   IconChevronDown,
   IconChevronUp,
 } from "@tabler/icons-react";
-
-interface Artist {
-  id: number;
-  name: string;
-  city: string;
-  country: string;
-  countryFlag: string;
-  isDJ: boolean;
-  isInstructor: boolean;
-  previousEditions: number;
-  participatedYears: number[];
-  bio: string;
-  image: string;
-}
-
-interface Video {
-  id: number;
-  title: string;
-  youtube_id: string;
-  year: number;
-  category: string;
-  description: string;
-  thumbnail: string;
-}
+import { sampleArtists, type Artist } from "../data/artistsData";
+import { sampleVideos, type Video } from "../data/videosData";
+import neokizfestLogo from "/assets/NKF2025 GOLDEN HASHTAG copy.png";
 
 interface HomeProps {
   featured_artists?: Artist[];
@@ -51,86 +32,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
   const [expandedArtist, setExpandedArtist] = useState<number | null>(null);
 
-  // Sample data for demo
-  const sampleArtists: Artist[] = [
-    {
-      id: 1,
-      name: "Carlos Silva",
-      city: "Lisbon",
-      country: "Portugal",
-      countryFlag: "🇵🇹",
-      isDJ: true,
-      isInstructor: true,
-      previousEditions: 3,
-      participatedYears: [2022, 2023, 2024],
-      bio: "International Kizomba artist with over 10 years of experience bringing authentic rhythms to dance floors worldwide. Carlos has been a cornerstone of the festival since its early days.",
-      image: "https://placehold.co/400x250/1a1a1a/FF6B35?text=Carlos+Silva",
-    },
-    {
-      id: 2,
-      name: "Maria Santos",
-      city: "São Paulo",
-      country: "Brazil",
-      countryFlag: "🇧🇷",
-      isDJ: false,
-      isInstructor: true,
-      previousEditions: 2,
-      participatedYears: [2023, 2024],
-      bio: "Dynamic instructor combining modern soul with traditional African influences, creating unforgettable learning experiences for dancers of all levels.",
-      image: "https://placehold.co/400x250/1a1a1a/FF6B35?text=Maria+Santos",
-    },
-    {
-      id: 3,
-      name: "DJ Kwame",
-      city: "Accra",
-      country: "Ghana",
-      countryFlag: "🇬🇭",
-      isDJ: true,
-      isInstructor: false,
-      previousEditions: 1,
-      participatedYears: [2024],
-      bio: "Innovative DJ blending global rhythms with contemporary beats, pushing the boundaries of festival music and bringing fresh African sounds to the dance floor.",
-      image: "https://placehold.co/400x250/1a1a1a/FF6B35?text=DJ+Kwame",
-    },
-  ];
-
-  const sampleVideos: Video[] = [
-    {
-      id: 1,
-      title: "Festival Opening 2024",
-      youtube_id: "dQw4w9WgXcQ",
-      year: 2024,
-      category: "Highlights",
-      description:
-        "Relive the magical opening ceremony from last year's unforgettable festival experience.",
-      thumbnail:
-        "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&h=250&fit=crop",
-    },
-    {
-      id: 2,
-      title: "Best Dance Moments",
-      youtube_id: "dQw4w9WgXcQ",
-      year: 2024,
-      category: "Dance",
-      description:
-        "The most incredible dance performances and spontaneous moments captured throughout the festival.",
-      thumbnail:
-        "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&h=250&fit=crop",
-    },
-    {
-      id: 3,
-      title: "Artists Backstage",
-      youtube_id: "dQw4w9WgXcQ",
-      year: 2024,
-      category: "Behind Scenes",
-      description:
-        "Exclusive behind-the-scenes footage with our featured artists and their creative process.",
-      thumbnail:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=250&fit=crop",
-    },
-  ];
-
-  const artists = sampleArtists;
+  const artists = featured_artists?.length ? featured_artists : sampleArtists;
   const videos = latest_videos?.length ? latest_videos : sampleVideos;
 
   return (
@@ -139,11 +41,12 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
       style={{
         minHeight: "100vh",
         background: `
-          radial-gradient(circle at 20% 80%,rgb(244, 99, 99) 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, #FF4500 0%, transparent 50%),
-          radial-gradient(circle at 40% 40%, #FFD700 0%, transparent 50%),
-          linear-gradient(135deg, #FF6B35 0%, #E53E3E 25%,rgba(255, 68, 0, 0.68) 50%, #CC1F1F 75%, #B8860B 100%),
-          linear-gradient(45deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 69, 0, 0.2) 100%)
+          radial-gradient(circle at 15% 85%, #F45D00 0%, transparent 40%),
+          radial-gradient(circle at 85% 15%, #F19D58 0%, transparent 45%),
+          radial-gradient(circle at 45% 30%, #F45D00 0%, transparent 35%),
+          radial-gradient(circle at 70% 70%, #A25A3C 0%, transparent 40%),
+          linear-gradient(135deg, #F45D00 0%, #F19D58 25%, #F0EAE3 50%, #C7ACA4 75%, #A25A3C 100%),
+          linear-gradient(45deg, rgba(244, 93, 0, 0.2) 0%, rgba(241, 157, 88, 0.1) 100%)
         `,
         color: "#000000",
         fontFamily: "Poppins, system-ui, sans-serif",
@@ -163,256 +66,106 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
           zIndex: 1,
         }}
       >
-        {/* White stars for contrast against orange background */}
-        <div
-          style={{
-            position: "absolute",
-            top: "10%",
-            left: "15%",
-            width: "3px",
-            height: "3px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 3s ease-in-out infinite",
-            boxShadow: "0 0 6px rgba(255,255,255,0.8)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "25%",
-            left: "80%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 4s ease-in-out infinite 1s",
-            boxShadow: "0 0 4px rgba(255,255,255,0.6)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "60%",
-            left: "25%",
-            width: "2.5px",
-            height: "2.5px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 2.5s ease-in-out infinite 2s",
-            boxShadow: "0 0 8px rgba(255,255,255,0.8)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "85%",
-            left: "70%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 3.5s ease-in-out infinite 0.5s",
-            boxShadow: "0 0 5px rgba(255,255,255,0.7)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "40%",
-            left: "90%",
-            width: "3px",
-            height: "3px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 4.5s ease-in-out infinite 1.5s",
-            boxShadow: "0 0 8px rgba(255,255,255,0.8)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "75%",
-            left: "10%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 3s ease-in-out infinite 3s",
-            boxShadow: "0 0 6px rgba(255,255,255,0.6)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "20%",
-            left: "45%",
-            width: "2.5px",
-            height: "2.5px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 2s ease-in-out infinite 2.5s",
-            boxShadow: "0 0 7px rgba(255,255,255,0.7)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "90%",
-            left: "55%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 5s ease-in-out infinite 1s",
-            boxShadow: "0 0 5px rgba(255,255,255,0.6)",
-          }}
-        ></div>
+        {/* White stars */}
+        {[
+          { top: "8%", left: "12%", size: "3px", delay: "0s" },
+          { top: "22%", left: "78%", size: "2px", delay: "1s" },
+          { top: "58%", left: "28%", size: "2.5px", delay: "2s" },
+          { top: "82%", left: "68%", size: "2px", delay: "0.5s" },
+          { top: "38%", left: "88%", size: "3px", delay: "1.5s" },
+          { top: "3%", left: "32%", size: "2px", delay: "2s" },
+          { top: "42%", left: "12%", size: "2px", delay: "1s" },
+          { top: "78%", left: "92%", size: "2.5px", delay: "0s" },
+        ].map((star, i) => (
+          <div
+            key={`white-star-${i}`}
+            style={{
+              position: "absolute",
+              top: star.top,
+              left: star.left,
+              width: star.size,
+              height: star.size,
+              backgroundColor: "#FFFFFF",
+              borderRadius: "50%",
+              animation: `solarTwinkle ${3 + i * 0.5}s ease-in-out infinite ${
+                star.delay
+              }`,
+              boxShadow: "0 0 8px rgba(255,255,255,0.8)",
+            }}
+          />
+        ))}
 
-        {/* Deep red/dark nova stars for solar energy contrast */}
-        <div
-          style={{
-            position: "absolute",
-            top: "30%",
-            left: "65%",
-            width: "4px",
-            height: "4px",
-            backgroundColor: "#B62D14",
-            borderRadius: "50%",
-            animation: "novaPulse 4s ease-in-out infinite",
-            boxShadow: "0 0 12px #B62D14",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "5%",
-            width: "3px",
-            height: "3px",
-            backgroundColor: "#8B0000",
-            borderRadius: "50%",
-            animation: "novaPulse 3s ease-in-out infinite 1.5s",
-            boxShadow: "0 0 10px #8B0000",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "15%",
-            left: "75%",
-            width: "3.5px",
-            height: "3.5px",
-            backgroundColor: "#B62D14",
-            borderRadius: "50%",
-            animation: "novaPulse 3.5s ease-in-out infinite 2s",
-            boxShadow: "0 0 14px #B62D14",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "70%",
-            left: "85%",
-            width: "3px",
-            height: "3px",
-            backgroundColor: "#8B0000",
-            borderRadius: "50%",
-            animation: "novaPulse 4.5s ease-in-out infinite 0.5s",
-            boxShadow: "0 0 10px #8B0000",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "95%",
-            left: "35%",
-            width: "2.5px",
-            height: "2.5px",
-            backgroundColor: "#B62D14",
-            borderRadius: "50%",
-            animation: "novaPulse 2.5s ease-in-out infinite 3s",
-            boxShadow: "0 0 8px #B62D14",
-          }}
-        ></div>
-
-        {/* More white stars */}
-        <div
-          style={{
-            position: "absolute",
-            top: "5%",
-            left: "35%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 4s ease-in-out infinite 2s",
-            boxShadow: "0 0 5px rgba(255,255,255,0.6)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "45%",
-            left: "15%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 3s ease-in-out infinite 1s",
-            boxShadow: "0 0 6px rgba(255,255,255,0.7)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "80%",
-            left: "95%",
-            width: "2.5px",
-            height: "2.5px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 5s ease-in-out infinite",
-            boxShadow: "0 0 7px rgba(255,255,255,0.8)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "35%",
-            left: "50%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 2.5s ease-in-out infinite 4s",
-            boxShadow: "0 0 5px rgba(255,255,255,0.6)",
-          }}
-        ></div>
-        <div
-          style={{
-            position: "absolute",
-            top: "65%",
-            left: "40%",
-            width: "2px",
-            height: "2px",
-            backgroundColor: "#FFFFFF",
-            borderRadius: "50%",
-            animation: "twinkle 3.5s ease-in-out infinite 1.5s",
-            boxShadow: "0 0 6px rgba(255,255,255,0.7)",
-          }}
-        ></div>
+        {/* Solar ember stars */}
+        {[
+          {
+            top: "28%",
+            left: "62%",
+            size: "4px",
+            color: "#A25A3C",
+            delay: "0s",
+          },
+          {
+            top: "48%",
+            left: "3%",
+            size: "3px",
+            color: "#F45D00",
+            delay: "1.5s",
+          },
+          {
+            top: "12%",
+            left: "72%",
+            size: "3.5px",
+            color: "#A25A3C",
+            delay: "2s",
+          },
+          {
+            top: "68%",
+            left: "82%",
+            size: "3px",
+            color: "#F19D58",
+            delay: "0.5s",
+          },
+          {
+            top: "92%",
+            left: "32%",
+            size: "2.5px",
+            color: "#F45D00",
+            delay: "3s",
+          },
+        ].map((star, i) => (
+          <div
+            key={`ember-star-${i}`}
+            style={{
+              position: "absolute",
+              top: star.top,
+              left: star.left,
+              width: star.size,
+              height: star.size,
+              backgroundColor: star.color,
+              borderRadius: "50%",
+              animation: `solarFlare ${3.5 + i * 0.3}s ease-in-out infinite ${
+                star.delay
+              }`,
+              boxShadow: `0 0 15px ${star.color}`,
+            }}
+          />
+        ))}
       </div>
 
       <style>{`
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
+        @keyframes solarTwinkle {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.3); }
         }
         
-        @keyframes novaPulse {
-          0%, 100% { opacity: 0.6; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.5); }
+        @keyframes solarFlare {
+          0%, 100% { opacity: 0.7; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.6); }
+        }
+        
+        @keyframes solarPulse {
+          0%, 100% { filter: blur(2px); }
+          50% { filter: blur(0px); }
         }
       `}</style>
 
@@ -424,57 +177,57 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
           overflow: "hidden",
         }}
       >
-        {/* Background gradient overlay */}
+        {/* Solar atmosphere overlay */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(135deg, rgba(254, 248, 217, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(248, 189, 127, 0.08) 100%)",
+              "linear-gradient(135deg, rgba(240, 234, 227, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(241, 157, 88, 0.12) 100%)",
           }}
-        ></div>
+        />
 
-        {/* Animated background elements */}
-        <div style={{ position: "absolute", inset: 0, opacity: 0.1 }}>
+        {/* Solar flare effects */}
+        <div style={{ position: "absolute", inset: 0, opacity: 0.08 }}>
           <div
             style={{
               position: "absolute",
-              top: "5rem",
-              left: "2.5rem",
+              top: "4rem",
+              left: "2rem",
+              width: "12rem",
+              height: "12rem",
+              background: "#F45D00",
+              borderRadius: "50%",
+              filter: "blur(60px)",
+              animation: "solarPulse 4s ease-in-out infinite",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "8rem",
+              right: "3rem",
               width: "8rem",
               height: "8rem",
-              background: "#F06940",
+              background: "#F19D58",
               borderRadius: "50%",
-              filter: "blur(48px)",
-              animation: "pulse 3s ease-in-out infinite",
+              filter: "blur(40px)",
+              animation: "solarPulse 5s ease-in-out infinite 1s",
             }}
-          ></div>
+          />
           <div
             style={{
               position: "absolute",
-              top: "10rem",
-              right: "5rem",
-              width: "6rem",
-              height: "6rem",
-              background: "#FDD27C",
+              bottom: "4rem",
+              left: "30%",
+              width: "14rem",
+              height: "14rem",
+              background: "#A25A3C",
               borderRadius: "50%",
-              filter: "blur(32px)",
-              animation: "pulse 3s ease-in-out infinite 1s",
+              filter: "blur(70px)",
+              animation: "solarPulse 6s ease-in-out infinite 2s",
             }}
-          ></div>
-          <div
-            style={{
-              position: "absolute",
-              bottom: "5rem",
-              left: "33.33%",
-              width: "10rem",
-              height: "10rem",
-              background: "#B62D14",
-              borderRadius: "50%",
-              filter: "blur(48px)",
-              animation: "pulse 3s ease-in-out infinite 2s",
-            }}
-          ></div>
+          />
         </div>
 
         <Stack
@@ -486,45 +239,47 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
           maw="64rem"
           mx="auto"
         >
-          <Stack align="center" gap="lg">
-            {/* Placeholder for Photoshop title image */}
-            <div
+          <Stack align="center" gap="4px">
+            {/* NeokizFest Logo */}
+            <Box
+              w="100%"
+              maw="800px"
+              h="auto"
               style={{
-                width: "100%",
-                height: "200px",
-                background:
-                  "linear-gradient(135deg, #F06940 0%, #FDD27C 50%, #B62D14 100%)",
-                borderRadius: "1rem",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: `2px solid #F8BD7F`,
               }}
+              p="4px"
             >
-              <Text size="lg" c="#FFFFFF" fw={600} ta="center">
-                [Your Photoshop NEOKIZFEST Title Image Goes Here]
-              </Text>
-            </div>
-            <Title
-              order={2}
+              <Image
+                src={neokizfestLogo}
+                alt="NeokizFest 2025 - Nova Edition"
+                w="100%"
+                h="auto"
+                mah="200px"
+                fit="contain"
+                style={{
+                  filter: "drop-shadow(0 8px 25px rgba(244, 93, 0, 0.3))",
+                }}
+              />
+            </Box>
+
+            <Text
+              size="2rem"
+              mt={-32}
+              c="#000000"
               fw={700}
-              c="#CC1F1F"
               ta="center"
-              style={{
-                fontSize: "clamp(1.5rem, 4vw, 3rem)",
-              }}
+              style={{ letterSpacing: "-0.02em" }}
             >
-              2025
-            </Title>
-            <Text size="lg" c="#000000" fw={500} ta="center">
               9TH ANNUAL • NOVA EDITION
             </Text>
           </Stack>
 
-          <Text size="xl" ta="center" maw="48rem" c="#000000" lh={1.6}>
-            Experience the evolution of Kizomba and Neo-Soul in an unforgettable
-            festival atmosphere. Join us for three days of music, dance, and
-            cultural celebration.
+          <Text size="xl" ta="center" maw="48rem" c="#000000" lh={1.6} fw={500}>
+            Experience the one of the best festivals on earth to connect, learn,
+            and level up your urbankiz skills.
           </Text>
 
           <Group gap="lg" justify="center" style={{ flexWrap: "wrap" }}>
@@ -532,43 +287,43 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
               size="lg"
               leftSection={<IconMusic size={20} />}
               style={{
-                background: "#CC1F1F",
-                border: "2px solid #FFFFFF",
+                background: "linear-gradient(135deg, #F45D00 0%, #A25A3C 100%)",
                 fontSize: "1.125rem",
                 fontWeight: 600,
                 padding: "1rem 2rem",
                 color: "#FFFFFF",
-                boxShadow: "0 4px 15px rgba(204, 31, 31, 0.4)",
-                textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+                border: "none",
+                textShadow: "1px 1px 2px rgba(0,0,0,0.6)",
               }}
               styles={{
                 root: {
                   "&:hover": {
                     transform: "scale(1.05)",
-                    boxShadow: "0 6px 20px rgba(204, 31, 31, 0.6)",
+                    boxShadow: "0 8px 25px rgba(244, 93, 0, 0.6)",
                   },
                 },
               }}
             >
               Get Festival Passes
             </Button>
+
             <Button
               size="lg"
               variant="outline"
               leftSection={<IconCalendar size={20} />}
               style={{
-                borderColor: "#CC1F1F",
-                background: "rgba(255, 255, 255, 0.9)",
+                background: "rgba(240, 234, 227, 0.95)",
                 fontSize: "1.125rem",
                 fontWeight: 600,
                 padding: "1rem 2rem",
-                borderWidth: "2px",
-                color: "#CC1F1F",
+                border: "none",
+                color: "#A25A3C",
               }}
               styles={{
                 root: {
                   "&:hover": {
-                    background: "#CC1F1F",
+                    background:
+                      "linear-gradient(135deg, #A25A3C 0%, #F45D00 100%)",
                     color: "#FFFFFF",
                     transform: "scale(1.05)",
                   },
@@ -579,30 +334,51 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
             </Button>
           </Group>
 
-          {/* Festival stats */}
+          {/* Festival Stats */}
           <Grid maw="32rem" w="100%">
             <Grid.Col span={4}>
               <Stack align="center" gap={4}>
-                <Text size="2rem" fw={700} c="#CC1F1F">
+                <Text
+                  size="2rem"
+                  fw={700}
+                  c="#A25A3C"
+                  style={{ textShadow: "1px 1px 2px rgba(162, 90, 60, 0.2)" }}
+                >
                   20+
                 </Text>
-                <Text c="#000000">Artists</Text>
+                <Text c="#000000" fw={600}>
+                  Artists
+                </Text>
               </Stack>
             </Grid.Col>
             <Grid.Col span={4}>
               <Stack align="center" gap={4}>
-                <Text size="2rem" fw={700} c="#CC1F1F">
+                <Text
+                  size="2rem"
+                  fw={700}
+                  c="#F45D00"
+                  style={{ textShadow: "1px 1px 2px rgba(244, 93, 0, 0.2)" }}
+                >
                   3
                 </Text>
-                <Text c="#000000">Days</Text>
+                <Text c="#000000" fw={600}>
+                  Days
+                </Text>
               </Stack>
             </Grid.Col>
             <Grid.Col span={4}>
               <Stack align="center" gap={4}>
-                <Text size="2rem" fw={700} c="#CC1F1F">
+                <Text
+                  size="2rem"
+                  fw={700}
+                  c="#A25A3C"
+                  style={{ textShadow: "1px 1px 2px rgba(162, 90, 60, 0.2)" }}
+                >
                   500+
                 </Text>
-                <Text c="#000000">Attendees</Text>
+                <Text c="#000000" fw={600}>
+                  Attendees
+                </Text>
               </Stack>
             </Grid.Col>
           </Grid>
@@ -615,8 +391,8 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
         px="lg"
         style={{
           background:
-            "linear-gradient(180deg, rgba(57, 27, 11, 0.78) 0%, rgba(45, 45, 45, 0.6) 100%)",
-          backdropFilter: "blur(8px)",
+            "linear-gradient(180deg, rgba(162, 90, 60, 0.85) 0%, rgba(199, 172, 164, 0.9) 100%)",
+          backdropFilter: "blur(12px)",
           border: "none",
         }}
         radius={0}
@@ -627,29 +403,24 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
               order={2}
               fw={700}
               ta="center"
-              c="#FFFFFF"
+              c="#F0EAE3"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 3rem)",
-                fontFamily: "Rubik, sans-serif",
+                fontFamily: "Poppins, sans-serif",
                 letterSpacing: "-0.03em",
-                textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+                textShadow: "3px 3px 6px rgba(0,0,0,0.4)",
               }}
             >
               Featured Artists
             </Title>
-            <Text
-              size="lg"
-              c="rgba(254, 248, 217, 0.8)"
-              ta="center"
-              maw="32rem"
-            >
+            <Text size="lg" c="#F0EAE3" ta="center" maw="32rem" fw={500}>
               Discover the incredible lineup of artists bringing the best of
               Kizomba, Neo-Soul, and world music to our stages.
             </Text>
           </Stack>
 
           <Grid>
-            {artists.map((artist) => (
+            {artists.slice(0, 6).map((artist) => (
               <Grid.Col key={artist.id} span={{ base: 6, md: 6, lg: 4 }}>
                 <Paper
                   shadow="lg"
@@ -657,12 +428,12 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                   p="lg"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(182, 45, 20, 0.3) 0%, rgba(240, 105, 64, 0.2) 50%, rgba(248, 189, 127, 0.1) 100%)",
-                    border: `2px solid transparent`,
-                    backgroundImage: `linear-gradient(135deg, rgba(182, 45, 20, 0.3) 0%, rgba(240, 105, 64, 0.2) 50%, rgba(248, 189, 127, 0.1) 100%), linear-gradient(135deg, #F06940 0%, #FDD27C 50%, #F8BD7F 100%)`,
+                      "linear-gradient(135deg, rgba(244, 93, 0, 0.4) 0%, rgba(241, 157, 88, 0.3) 50%, rgba(240, 234, 227, 0.2) 100%)",
+
+                    backgroundImage: `linear-gradient(135deg, rgba(244, 93, 0, 0.4) 0%, rgba(241, 157, 88, 0.3) 50%, rgba(240, 234, 227, 0.2) 100%), linear-gradient(135deg, #F45D00 0%, #F19D58 50%, #F0EAE3 100%)`,
                     backgroundOrigin: "border-box",
                     backgroundClip: "content-box, border-box",
-                    backdropFilter: "blur(8px)",
+                    backdropFilter: "blur(10px)",
                     transition: "all 0.3s ease",
                   }}
                   className="hover:scale-105"
@@ -673,7 +444,6 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                         position: "relative",
                         overflow: "hidden",
                         borderRadius: "0.75rem",
-                        border: `2px solid #FDD27C`,
                       }}
                     >
                       <img
@@ -690,19 +460,25 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                           position: "absolute",
                           inset: 0,
                           background:
-                            "linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%)",
+                            "linear-gradient(to top, rgba(162, 90, 60, 0.8) 0%, transparent 100%)",
                         }}
-                      ></div>
+                      />
                     </div>
 
                     <Stack gap="sm">
-                      {/* Name and Tags Row */}
                       <Group justify="space-between" align="flex-start" mx={16}>
                         <Stack gap={4} style={{ flex: 1 }}>
-                          <Text size="lg" fw={700} c="#FFFFFF">
+                          <Text
+                            size="lg"
+                            fw={700}
+                            c="#F0EAE3"
+                            style={{
+                              textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+                            }}
+                          >
                             {artist.name}
                           </Text>
-                          <Text size="12px" c="rgba(254, 248, 217, 0.8)">
+                          <Text size="12px" c="#F0EAE3" fw={500}>
                             {artist.city}, {artist.country} {artist.countryFlag}
                           </Text>
                         </Stack>
@@ -713,13 +489,13 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                               size="xs"
                               style={{
                                 background:
-                                  "linear-gradient(135deg, #F06940 0%, #FDD27C 100%)",
-                                border: "1px solid #FDD27C",
+                                  "linear-gradient(135deg, #F45D00 0%, #F19D58 100%)",
+
                                 color: "#FFFFFF",
                               }}
                               radius="sm"
                             >
-                              <Text size="8px" c="#FFFFFF" fw={500}>
+                              <Text size="8px" c="#FFFFFF" fw={600}>
                                 DJ
                               </Text>
                             </Badge>
@@ -729,13 +505,13 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                               size="xs"
                               style={{
                                 background:
-                                  "linear-gradient(135deg, #B62D14 0%, #F8BD7F 100%)",
-                                border: "1px solid #F8BD7F",
+                                  "linear-gradient(135deg, #A25A3C 0%, #C7ACA4 100%)",
+
                                 color: "#FFFFFF",
                               }}
                               radius="sm"
                             >
-                              <Text size="8px" c="#FFFFFF" fw={500}>
+                              <Text size="8px" c="#FFFFFF" fw={600}>
                                 Instructor
                               </Text>
                             </Badge>
@@ -743,9 +519,8 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                         </Group>
                       </Group>
 
-                      {/* Participation Info */}
                       <Group gap="xs" justify="center" align="center">
-                        <Text size="12px" c="#FDD27C" fw={600}>
+                        <Text size="12px" c="#F19D58" fw={700}>
                           {artist.previousEditions === 1
                             ? "1st Time Artist"
                             : `${artist.previousEditions}${
@@ -756,21 +531,21 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                                   : "th"
                               } Time Artist`}
                         </Text>
-                        <Text size="8px" c="#F8BD7F">
+                        <Text size="8px" c="#F0EAE3" fw={500}>
                           {artist.participatedYears?.length > 0
-                            ? `${artist.participatedYears.join(", ")}`
+                            ? artist.participatedYears.join(", ")
                             : "First time participant"}
                         </Text>
                       </Group>
 
-                      {/* Bio Button */}
                       <Button
                         variant="subtle"
                         size="sm"
-                        c="rgba(254, 248, 217, 0.9)"
+                        c="#F0EAE3"
                         style={{
                           background:
-                            "linear-gradient(135deg, rgba(240, 105, 64, 0.2) 0%, rgba(253, 210, 124, 0.1) 100%)",
+                            "linear-gradient(135deg, rgba(244, 93, 0, 0.3) 0%, rgba(241, 157, 88, 0.2) 100%)",
+                          fontWeight: 600,
                         }}
                         rightSection={
                           expandedArtist === artist.id ? (
@@ -787,7 +562,7 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                         styles={{
                           root: {
                             "&:hover": {
-                              backgroundColor: "rgba(253, 210, 124, 0.2)",
+                              backgroundColor: "rgba(241, 157, 88, 0.4)",
                             },
                           },
                         }}
@@ -800,12 +575,11 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                           p="sm"
                           style={{
                             background:
-                              "linear-gradient(135deg, rgba(182, 45, 20, 0.4) 0%, rgba(10, 10, 10, 0.8) 100%)",
-                            border: `1px solid #F8BD7F`,
+                              "linear-gradient(135deg, rgba(162, 90, 60, 0.6) 0%, rgba(199, 172, 164, 0.8) 100%)",
                           }}
                           radius="sm"
                         >
-                          <Text size="sm" c="rgba(254, 248, 217, 0.9)">
+                          <Text size="sm" c="#F0EAE3" fw={500}>
                             {artist.bio}
                           </Text>
                         </Paper>
@@ -825,7 +599,7 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
         px="lg"
         style={{
           background:
-            "linear-gradient(180deg, rgba(45, 45, 45, 0.3) 0%, rgba(10, 10, 10, 0.8) 100%)",
+            "linear-gradient(180deg, rgba(199, 172, 164, 0.4) 0%, rgba(162, 90, 60, 0.8) 100%)",
           border: "none",
         }}
         radius={0}
@@ -836,28 +610,24 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
               order={2}
               fw={700}
               ta="center"
-              c="#FFFFFF"
+              c="#F0EAE3"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 3rem)",
-                fontFamily: "Rubik, sans-serif",
+                fontFamily: "Poppins, sans-serif",
                 letterSpacing: "-0.03em",
+                textShadow: "3px 3px 6px rgba(0,0,0,0.4)",
               }}
             >
               Festival Highlights
             </Title>
-            <Text
-              size="lg"
-              c="rgba(254, 248, 217, 0.8)"
-              ta="center"
-              maw="32rem"
-            >
+            <Text size="lg" c="#F0EAE3" ta="center" maw="32rem" fw={500}>
               Relive the magic of previous festivals and get a taste of what
               awaits you.
             </Text>
           </Stack>
 
           <Grid>
-            {videos.map((video) => (
+            {videos.slice(0, 6).map((video) => (
               <Grid.Col key={video.id} span={{ base: 12, md: 4 }}>
                 <Paper
                   shadow="md"
@@ -866,12 +636,12 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                   h="100%"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(240, 105, 64, 0.2) 0%, rgba(182, 45, 20, 0.3) 50%, rgba(248, 189, 127, 0.1) 100%)",
-                    border: `2px solid transparent`,
-                    backgroundImage: `linear-gradient(135deg, rgba(240, 105, 64, 0.2) 0%, rgba(182, 45, 20, 0.3) 50%, rgba(248, 189, 127, 0.1) 100%), linear-gradient(135deg, #FDD27C 0%, #F06940 50%, #B62D14 100%)`,
+                      "linear-gradient(135deg, rgba(244, 93, 0, 0.3) 0%, rgba(162, 90, 60, 0.4) 50%, rgba(199, 172, 164, 0.2) 100%)",
+
+                    backgroundImage: `linear-gradient(135deg, rgba(244, 93, 0, 0.3) 0%, rgba(162, 90, 60, 0.4) 50%, rgba(199, 172, 164, 0.2) 100%), linear-gradient(135deg, #F19D58 0%, #F45D00 50%, #A25A3C 100%)`,
                     backgroundOrigin: "border-box",
                     backgroundClip: "content-box, border-box",
-                    backdropFilter: "blur(8px)",
+                    backdropFilter: "blur(10px)",
                     cursor: "pointer",
                     transition: "all 0.3s ease",
                   }}
@@ -889,7 +659,6 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                         position: "relative",
                         overflow: "hidden",
                         borderRadius: "0.75rem",
-                        border: `2px solid #FDD27C`,
                       }}
                     >
                       <img
@@ -919,17 +688,16 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                         <Paper
                           style={{
                             background:
-                              "linear-gradient(135deg, #F06940 0%, #FDD27C 100%)",
+                              "linear-gradient(135deg, #F45D00 0%, #F19D58 100%)",
                             borderRadius: "50%",
                             width: "4rem",
                             height: "4rem",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            border: `2px solid #FFFFFF`,
                           }}
                         >
-                          <IconMusic size={24} color="white" />
+                          <IconMusic size={24} color="#F0EAE3" />
                         </Paper>
                       </div>
                       <div
@@ -937,13 +705,17 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                           position: "absolute",
                           inset: 0,
                           background:
-                            "linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%)",
+                            "linear-gradient(to top, rgba(162, 90, 60, 0.8) 0%, transparent 100%)",
                         }}
-                      ></div>
+                      />
                     </div>
 
                     <Group justify="space-between" align="flex-start">
-                      <Text fw={600} c="#FFFFFF">
+                      <Text
+                        fw={700}
+                        c="#F0EAE3"
+                        style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}
+                      >
                         {video.title}
                       </Text>
                       <Paper
@@ -951,18 +723,17 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                         py={4}
                         style={{
                           background:
-                            "linear-gradient(135deg, #F06940 0%, #B62D14 100%)",
-                          border: "1px solid #F06940",
+                            "linear-gradient(135deg, #F45D00 0%, #A25A3C 100%)",
                         }}
                         radius="sm"
                       >
-                        <Text size="sm" c="#FFFFFF">
+                        <Text size="sm" c="#F0EAE3" fw={600}>
                           {video.year}
                         </Text>
                       </Paper>
                     </Group>
 
-                    <Text size="sm" c="rgba(254, 248, 217, 0.8)" lineClamp={2}>
+                    <Text size="sm" c="#F0EAE3" lineClamp={2} fw={500}>
                       {video.description}
                     </Text>
 
@@ -971,17 +742,18 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
                       rightSection={<IconExternalLink size={16} />}
                       style={{
                         background:
-                          "linear-gradient(135deg, #F06940 0%, #FDD27C 50%, #F8BD7F 100%)",
-                        border: "2px solid #FDD27C",
-                        color: "#FFFFFF",
-                        fontWeight: 600,
+                          "linear-gradient(135deg, #F45D00 0%, #F19D58 50%, #A25A3C 100%)",
+
+                        color: "#F0EAE3",
+                        fontWeight: 700,
+                        textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
                       }}
                       styles={{
                         root: {
                           "&:hover": {
                             opacity: 0.9,
                             transform: "translateY(-2px)",
-                            boxShadow: "0 4px 15px rgba(240, 105, 64, 0.3)",
+                            boxShadow: "0 6px 20px rgba(244, 93, 0, 0.4)",
                           },
                         },
                       }}
@@ -1002,36 +774,37 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
           maw="64rem"
           mx="auto"
           p={48}
-          radius="xl"
+          radius="md"
           style={{
             background:
-              "linear-gradient(135deg, #F06940 0%, #FDD27C 30%, #F8BD7F 60%, #B62D14 100%)",
-            border: `3px solid #FEF8D9`,
-            boxShadow: "0 8px 25px rgba(240, 105, 64, 0.4)",
+              "linear-gradient(135deg, #F45D00 0%, #F19D58 30%, #C7ACA4 60%, #A25A3C 100%)",
+
+            boxShadow: "0 12px 30px rgba(244, 93, 0, 0.5)",
           }}
         >
           <Stack align="center" gap="lg">
             <Title
               order={2}
               fw={700}
-              c="#FFFFFF"
+              c="#F0EAE3"
               ta="center"
               style={{
                 fontSize: "clamp(2rem, 5vw, 4rem)",
-                fontFamily: "Rubik, sans-serif",
+                fontFamily: "Poppins, sans-serif",
                 letterSpacing: "-0.03em",
-                textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+                textShadow: "3px 3px 6px rgba(0,0,0,0.5)",
               }}
             >
               Ready to Join the Experience?
             </Title>
             <Text
               size="lg"
-              c="#FFFFFF"
+              c="#F0EAE3"
               ta="center"
               maw="36rem"
+              fw={600}
               style={{
-                textShadow: "1px 1px 2px rgba(0,0,0,0.2)",
+                textShadow: "2px 2px 4px rgba(0,0,0,0.4)",
               }}
             >
               Don't miss out on the most anticipated Kizomba festival of the
@@ -1041,20 +814,20 @@ const Home: React.FC<HomeProps> = ({ featured_artists, latest_videos }) => {
               size="lg"
               leftSection={<IconMusic size={20} />}
               style={{
-                background: "#FFFFFF",
-                color: "#B62D14",
-                fontWeight: 600,
+                background: "#F0EAE3",
+                color: "#A25A3C",
+                fontWeight: 700,
                 fontSize: "1.125rem",
                 padding: "1rem 2rem",
-                border: `2px solid #FEF8D9`,
-                boxShadow: "0 4px 15px rgba(255, 255, 255, 0.3)",
+
+                boxShadow: "0 6px 20px rgba(240, 234, 227, 0.4)",
               }}
               styles={{
                 root: {
                   "&:hover": {
-                    backgroundColor: "#FEF8D9",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 6px 20px rgba(255, 255, 255, 0.4)",
+                    backgroundColor: "#FFFFFF",
+                    transform: "translateY(-3px)",
+                    boxShadow: "0 8px 25px rgba(240, 234, 227, 0.6)",
                   },
                 },
               }}
