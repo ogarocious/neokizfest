@@ -1,0 +1,80 @@
+{
+  "stats": {
+    "totalRequests": 156,
+    "completedRefunds": 89,
+    "processingRefunds": 34,
+    "waivedRefunds": 23,
+    "totalRefundAmount": 18450,
+    "totalWaivedAmount": 5200
+  },
+  "recentCompletions": [
+    {
+      "id": "NKF-REF-000089",
+      "initials": "JS",
+      "status": "completed",
+      "passType": "full_pass",
+      "amount": 250,
+      "completedAt": "2024-12-05T14:20:00Z"
+    },
+    {
+      "id": "NKF-REF-000088",
+      "initials": "MK",
+      "status": "completed",
+      "passType": "vip_pass",
+      "amount": 400,
+      "completedAt": "2024-12-05T12:15:00Z"
+    },
+    {
+      "id": "NKF-REF-000087",
+      "initials": "AT",
+      "status": "completed",
+      "passType": "party_pass",
+      "amount": 120,
+      "completedAt": "2024-12-05T10:00:00Z"
+    }
+  ],
+  "currentlyProcessing": [
+    {
+      "id": "NKF-REF-000090",
+      "initials": "RB",
+      "status": "processing",
+      "passType": "full_pass"
+    },
+    {
+      "id": "NKF-REF-000091",
+      "initials": "LD",
+      "status": "processing",
+      "passType": "workshop_pass"
+    },
+    {
+      "id": "NKF-REF-000092",
+      "initials": "CP",
+      "status": "processing",
+      "passType": "vip_pass"
+    }
+  ],
+  "waivedList": [
+    {
+      "id": "NKF-REF-000050",
+      "initials": "AB",
+      "status": "completed",
+      "passType": "full_pass",
+      "amount": 250
+    },
+    {
+      "id": "NKF-REF-000055",
+      "initials": "CD",
+      "status": "completed",
+      "passType": "party_pass",
+      "amount": 120
+    },
+    {
+      "id": "NKF-REF-000060",
+      "initials": "EF",
+      "status": "completed",
+      "passType": "vip_pass",
+      "amount": 450
+    }
+  ],
+  "lastUpdated": "2024-12-05T15:00:00Z"
+}
