@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo Kizomba Festival</title>
+    <style>
+      /* Reset */
+      body, table, td, p, a, li, blockquote {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      table, td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+      }
+
+      /* Base Styles */
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: #0f0f0f;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #1a1a1a;
+      }
+
+      .email-header {
+        background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%);
+        padding: 30px 40px;
+        text-align: center;
+      }
+
+      .email-header h1 {
+        color: #ffffff;
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .email-body {
+        padding: 40px;
+        color: #E8E0D8;
+      }
+
+      .email-body p {
+        margin: 0 0 16px;
+        line-height: 1.6;
+        font-size: 16px;
+      }
+
+      .email-body h2 {
+        color: #F45D00;
+        font-size: 20px;
+        margin: 24px 0 16px;
+      }
+
+      .confirmation-box {
+        background-color: rgba(244, 93, 0, 0.1);
+        border: 1px solid rgba(244, 93, 0, 0.3);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        margin: 24px 0;
+      }
+
+      .confirmation-number {
+        font-size: 28px;
+        font-weight: 700;
+        color: #F45D00;
+        font-family: monospace;
+        letter-spacing: 2px;
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .info-label {
+        color: #9A8F85;
+        font-size: 14px;
+      }
+
+      .info-value {
+        color: #E8E0D8;
+        font-weight: 600;
+      }
+
+      .button {
+        display: inline-block;
+        background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%);
+        color: #ffffff !important;
+        text-decoration: none;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        margin: 16px 0;
+      }
+
+      .email-footer {
+        background-color: #141414;
+        padding: 30px 40px;
+        text-align: center;
+        color: #9A8F85;
+        font-size: 14px;
+      }
+
+      .email-footer a {
+        color: #F45D00;
+        text-decoration: none;
+      }
+
+      .muted {
+        color: #9A8F85;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #0f0f0f;">
+      <tr>
+        <td style="padding: 20px 10px;">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="email-container" width="600" style="margin: 0 auto; background-color: #1a1a1a; border-radius: 12px; overflow: hidden;">
+            <!-- Header -->
+            <tr>
+              <td class="email-header" style="background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%); padding: 30px 40px; text-align: center;">
+                <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700;">Neo Kizomba Festival</h1>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td class="email-body" style="padding: 40px; color: #E8E0D8;">
+                <%= yield %>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td class="email-footer" style="background-color: #141414; padding: 30px 40px; text-align: center; color: #9A8F85; font-size: 14px;">
+                <p style="margin: 0 0 8px;">Questions? Contact us on <a href="https://www.facebook.com/NeoKizombaFest" style="color: #F45D00;">Facebook</a></p>
+                <p style="margin: 0; font-size: 12px;">Neo Kizomba Festival - Closing with Gratitude</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

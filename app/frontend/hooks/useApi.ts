@@ -11,12 +11,13 @@ import type {
 } from "../types/refund";
 
 // Environment variable check for mock mode
-const USE_MOCK = import.meta.env.DEV || !import.meta.env.VITE_N8N_VALIDATE_EMAIL_URL;
+// Now defaults to using Rails API (set VITE_USE_MOCK=true to force mock mode)
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
-// n8n webhook URLs (set in environment)
-const N8N_VALIDATE_EMAIL_URL = import.meta.env.VITE_N8N_VALIDATE_EMAIL_URL || "";
-const N8N_SUBMIT_REQUEST_URL = import.meta.env.VITE_N8N_SUBMIT_REQUEST_URL || "";
-const N8N_CHECK_STATUS_URL = import.meta.env.VITE_N8N_CHECK_STATUS_URL || "";
+// Rails API endpoints (relative paths)
+const API_VALIDATE_EMAIL_URL = "/api/refunds/validate-email";
+const API_SUBMIT_REQUEST_URL = "/api/refunds";
+const API_CHECK_STATUS_URL = "/api/refunds/status";
 
 // ==================== MOCK DATA ====================
 
@@ -248,21 +249,23 @@ const mockFetchProgress = async (): Promise<ProgressData> => {
   };
 };
 
-// ==================== REAL API FUNCTIONS ====================
+// ==================== RAILS API FUNCTIONS ====================
 
 const realValidateEmail = async (email: string): Promise<EmailValidationResponse> => {
   try {
-    const response = await fetch(N8N_VALIDATE_EMAIL_URL, {
+    const response = await fetch(API_VALIDATE_EMAIL_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
       body: JSON.stringify({ email }),
     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    const data = await response.json();
 
-    return await response.json();
+    // Rails API returns camelCase to match frontend types
+    return data;
   } catch (error) {
     console.error("Email validation error:", error);
     return {
@@ -275,17 +278,18 @@ const realValidateEmail = async (email: string): Promise<EmailValidationResponse
 
 const realSubmitRequest = async (data: RefundRequestData): Promise<RefundSubmissionResponse> => {
   try {
-    const response = await fetch(N8N_SUBMIT_REQUEST_URL, {
+    const response = await fetch(API_SUBMIT_REQUEST_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    const result = await response.json();
 
-    return await response.json();
+    return result;
   } catch (error) {
     console.error("Submit request error:", error);
     return {
@@ -297,17 +301,18 @@ const realSubmitRequest = async (data: RefundRequestData): Promise<RefundSubmiss
 
 const realCheckStatus = async (request: StatusLookupRequest): Promise<StatusLookupResponse> => {
   try {
-    const response = await fetch(N8N_CHECK_STATUS_URL, {
+    const response = await fetch(API_CHECK_STATUS_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
       body: JSON.stringify(request),
     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    const data = await response.json();
 
-    return await response.json();
+    return data;
   } catch (error) {
     console.error("Status check error:", error);
     return {
@@ -317,19 +322,12 @@ const realCheckStatus = async (request: StatusLookupRequest): Promise<StatusLook
   }
 };
 
+// Progress is now handled by Inertia props, but keep this for backwards compatibility
 const realFetchProgress = async (): Promise<ProgressData> => {
-  try {
-    const response = await fetch("/progress.json");
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch progress error:", error);
-    throw error;
-  }
+  // This function is deprecated - Progress page now uses Inertia props
+  // Throwing an error to encourage migration
+  console.warn("realFetchProgress is deprecated. Progress page should use Inertia props.");
+  throw new Error("Progress data should be fetched via Inertia props");
 };
 
 // ==================== EXPORTED API FUNCTIONS ====================

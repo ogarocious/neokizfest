@@ -70,7 +70,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
   };
 
   return (
-    <Stack gap={{ base: "md", sm: "lg" }}>
+    <Stack gap="lg">
       <Stack gap="xs">
         <Text
           fw={600}

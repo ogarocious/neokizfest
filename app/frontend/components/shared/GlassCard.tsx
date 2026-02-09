@@ -7,6 +7,7 @@ interface GlassCardProps extends Omit<PaperProps, "style"> {
   variant?: GlassVariant;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const variantStyles: Record<GlassVariant, React.CSSProperties> = {
@@ -35,13 +36,15 @@ const GlassCard: React.FC<GlassCardProps> = ({
   children,
   style,
   radius = "lg",
-  p = { base: "md", sm: "lg" },
+  p = "lg",
+  onClick,
   ...props
 }) => {
   return (
     <Paper
       radius={radius}
       p={p}
+      onClick={onClick}
       style={{
         ...variantStyles[variant],
         ...style,

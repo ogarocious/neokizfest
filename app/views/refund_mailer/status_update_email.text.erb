@@ -1,0 +1,42 @@
+Hi <%= @name %>,
+
+<% if @status.to_s.downcase == "completed" %>
+GREAT NEWS! Your refund has been processed.
+
+We've sent your refund via Zelle. Please check your Zelle account for the incoming payment.
+<% elsif @status.to_s.downcase == "processing" %>
+Good news! Your refund request has been verified and is now being processed.
+
+We'll send you another email once your refund has been completed.
+<% else %>
+We have an update on your refund request.
+<% end %>
+
+CONFIRMATION NUMBER: <%= @confirmation_number %>
+STATUS: <%= @status_text %>
+
+<% if @details.present? %>
+DETAILS
+=======
+<% if @details[:refund_amount].present? %>
+Refund Amount: $<%= sprintf('%.2f', @details[:refund_amount]) %>
+<% end %>
+<% if @details[:method].present? %>
+Payment Method: <%= @details[:method] %>
+<% end %>
+<% if @details[:date_processed].present? %>
+Date Processed: <%= @details[:date_processed] %>
+<% end %>
+<% end %>
+
+<% if @status.to_s.downcase == "completed" %>
+Thank you for your patience. We appreciate your understanding during this transition. The Neo Kizomba community meant everything to us.
+<% end %>
+
+Check your full status at:
+<%= @status_url %>
+
+If you have any questions, don't hesitate to reach out to us on Facebook.
+
+With gratitude,
+The Neo Kizomba Festival Team

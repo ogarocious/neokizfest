@@ -1,0 +1,28 @@
+Hi <%= @name %>,
+
+Thank you for submitting your refund request. We've received your information and will process it as quickly as possible.
+
+YOUR CONFIRMATION NUMBER
+========================
+<%= @confirmation_number %>
+
+Please save this confirmation number. You'll need it to check your request status.
+
+REQUEST DETAILS
+===============
+Decision: <%= @decision_text %>
+Status: Submitted
+
+WHAT HAPPENS NEXT?
+==================
+1. We'll verify your information against our records.
+2. Once verified, we'll begin processing your refund via Zelle.
+3. You'll receive an email when your refund has been sent.
+
+Check your status anytime at:
+<%= @status_url %>
+
+If you have any questions, don't hesitate to reach out to us on Facebook.
+
+With gratitude,
+The Neo Kizomba Festival Team

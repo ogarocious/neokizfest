@@ -1,17 +1,6 @@
 import React, { useState } from "react";
-import {
-  Stack,
-  Text,
-  Group,
-  NumberInput,
-  Radio,
-  Box,
-} from "@mantine/core";
-import {
-  IconHeart,
-  IconArrowRight,
-  IconInfoCircle,
-} from "@tabler/icons-react";
+import { Stack, Text, Group, NumberInput, Radio, Box } from "@mantine/core";
+import { IconHeart, IconArrowRight, IconInfoCircle } from "@tabler/icons-react";
 import { colors, responsiveText, mobileInputStyles } from "../../styles/theme";
 import { GlassCard, GradientButton } from "../shared";
 import type { RefundDecision, PassHolder } from "../../types/refund";
@@ -26,7 +15,9 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
   onDecision,
 }) => {
   const [decision, setDecision] = useState<RefundDecision | null>(null);
-  const [partialAmount, setPartialAmount] = useState<number>(Math.floor(passHolder.amountPaid / 2));
+  const [partialAmount, setPartialAmount] = useState<number>(
+    Math.floor(passHolder.amountPaid / 2),
+  );
   const [error, setError] = useState<string | null>(null);
 
   const handleContinue = () => {
@@ -50,7 +41,7 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
   };
 
   return (
-    <Stack gap={{ base: "md", sm: "lg" }}>
+    <Stack gap="md">
       <Stack gap="xs">
         <Text
           fw={600}
@@ -60,18 +51,20 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
           Choose your refund option
         </Text>
         <Text c={colors.textMuted} style={{ fontSize: responsiveText.body }}>
-          How would you like to handle your ${passHolder.amountPaid.toFixed(2)} ticket purchase?
+          How would you like to handle your ${passHolder.amountPaid.toFixed(2)}{" "}
+          ticket purchase?
         </Text>
       </Stack>
 
-      <Stack gap={{ base: "sm", sm: "md" }}>
+      <Stack gap="md">
         {/* Full Refund Option */}
         <GlassCard
           style={{
             border: `2px solid ${decision === "full" ? colors.primary : "rgba(255, 255, 255, 0.08)"}`,
-            background: decision === "full"
-              ? "linear-gradient(135deg, rgba(244, 93, 0, 0.12) 0%, rgba(162, 90, 60, 0.16) 100%)"
-              : "rgba(255, 255, 255, 0.03)",
+            background:
+              decision === "full"
+                ? "linear-gradient(135deg, rgba(244, 93, 0, 0.12) 0%, rgba(162, 90, 60, 0.16) 100%)"
+                : "rgba(255, 255, 255, 0.03)",
             cursor: "pointer",
             transition: "all 0.2s ease",
           }}
@@ -80,31 +73,39 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
             setError(null);
           }}
         >
-          <Group justify="space-between" align="flex-start" wrap="wrap" gap="sm">
+          <Group
+            justify="space-between"
+            align="flex-start"
+            wrap="wrap"
+            gap="sm"
+          >
             <Group gap="md" align="flex-start">
               <Radio
                 checked={decision === "full"}
                 onChange={() => setDecision("full")}
-                styles={{
-                  radio: {
-                    borderColor: colors.primary,
-                    "&:checked": {
-                      backgroundColor: colors.primary,
-                      borderColor: colors.primary,
-                    },
-                  },
-                }}
+                color="orange"
               />
               <Stack gap={4}>
-                <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                <Text
+                  fw={600}
+                  c={colors.textPrimary}
+                  style={{ fontSize: responsiveText.body }}
+                >
                   Full Refund
                 </Text>
-                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                <Text
+                  c={colors.textMuted}
+                  style={{ fontSize: responsiveText.small }}
+                >
                   Receive 100% of your ticket purchase back
                 </Text>
               </Stack>
             </Group>
-            <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
+            <Text
+              fw={700}
+              c={colors.primary}
+              style={{ fontSize: responsiveText.sectionTitle }}
+            >
               ${passHolder.amountPaid.toFixed(2)}
             </Text>
           </Group>
@@ -114,9 +115,10 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
         <GlassCard
           style={{
             border: `2px solid ${decision === "partial" ? colors.primary : "rgba(255, 255, 255, 0.08)"}`,
-            background: decision === "partial"
-              ? "linear-gradient(135deg, rgba(244, 93, 0, 0.12) 0%, rgba(162, 90, 60, 0.16) 100%)"
-              : "rgba(255, 255, 255, 0.03)",
+            background:
+              decision === "partial"
+                ? "linear-gradient(135deg, rgba(244, 93, 0, 0.12) 0%, rgba(162, 90, 60, 0.16) 100%)"
+                : "rgba(255, 255, 255, 0.03)",
             cursor: "pointer",
             transition: "all 0.2s ease",
           }}
@@ -125,8 +127,13 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
             setError(null);
           }}
         >
-          <Stack gap={{ base: "sm", sm: "md" }}>
-            <Group justify="space-between" align="flex-start" wrap="wrap" gap="sm">
+          <Stack gap="md">
+            <Group
+              justify="space-between"
+              align="flex-start"
+              wrap="wrap"
+              gap="sm"
+            >
               <Group gap="md" align="flex-start">
                 <Radio
                   checked={decision === "partial"}
@@ -142,10 +149,17 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
                   }}
                 />
                 <Stack gap={4}>
-                  <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                  <Text
+                    fw={600}
+                    c={colors.textPrimary}
+                    style={{ fontSize: responsiveText.body }}
+                  >
                     Partial Refund
                   </Text>
-                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                  <Text
+                    c={colors.textMuted}
+                    style={{ fontSize: responsiveText.small }}
+                  >
                     Choose a custom amount to receive
                   </Text>
                 </Stack>
@@ -180,9 +194,10 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
         <GlassCard
           style={{
             border: `2px solid ${decision === "waive" ? colors.success : "rgba(255, 255, 255, 0.08)"}`,
-            background: decision === "waive"
-              ? "linear-gradient(135deg, rgba(34, 139, 34, 0.12) 0%, rgba(50, 205, 50, 0.16) 100%)"
-              : "rgba(255, 255, 255, 0.03)",
+            background:
+              decision === "waive"
+                ? "linear-gradient(135deg, rgba(34, 139, 34, 0.12) 0%, rgba(50, 205, 50, 0.16) 100%)"
+                : "rgba(255, 255, 255, 0.03)",
             cursor: "pointer",
             transition: "all 0.2s ease",
           }}
@@ -191,34 +206,46 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
             setError(null);
           }}
         >
-          <Group justify="space-between" align="flex-start" wrap="wrap" gap="sm">
+          <Group
+            justify="space-between"
+            align="flex-start"
+            wrap="wrap"
+            gap="sm"
+          >
             <Group gap="md" align="flex-start">
               <Radio
                 checked={decision === "waive"}
                 onChange={() => setDecision("waive")}
-                styles={{
-                  radio: {
-                    borderColor: colors.success,
-                    "&:checked": {
-                      backgroundColor: colors.success,
-                      borderColor: colors.success,
-                    },
-                  },
-                }}
+                color="green"
               />
               <Stack gap={4}>
                 <Group gap="xs">
-                  <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                  <Text
+                    fw={600}
+                    c={colors.textPrimary}
+                    style={{ fontSize: responsiveText.body }}
+                  >
                     Waive My Refund
                   </Text>
-                  <IconHeart size={18} color={colors.success} fill={colors.success} />
+                  <IconHeart
+                    size={18}
+                    color={colors.success}
+                    fill={colors.success}
+                  />
                 </Group>
-                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                <Text
+                  c={colors.textMuted}
+                  style={{ fontSize: responsiveText.small }}
+                >
                   Donate your ticket value to support the closure process
                 </Text>
               </Stack>
             </Group>
-            <Text fw={600} c={colors.success} style={{ fontSize: responsiveText.large }}>
+            <Text
+              fw={600}
+              c={colors.success}
+              style={{ fontSize: responsiveText.large }}
+            >
               Thank you!
             </Text>
           </Group>

@@ -7,7 +7,7 @@ import {
   IconArrowRight,
   IconHash,
 } from "@tabler/icons-react";
-import { colors } from "../../styles/theme";
+import { colors, responsiveText } from "../../styles/theme";
 import { GlassCard, GradientButton } from "../shared";
 import type { PassHolder, PassType } from "../../types/refund";
 
@@ -39,22 +39,22 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
   };
 
   return (
-    <Stack gap={{ base: "md", sm: "lg" }}>
+    <Stack gap="lg">
       <Stack gap="xs">
         <Text
           fw={600}
           c={colors.textPrimary}
-          style={{ fontSize: "clamp(0.95rem, 2.5vw, 1.15rem)" }}
+          style={{ fontSize: responsiveText.sectionTitle }}
         >
           We found your ticket!
         </Text>
-        <Text c={colors.textMuted} style={{ fontSize: "clamp(0.75rem, 2vw, 0.875rem)" }}>
+        <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
           Please verify these details are correct before continuing.
         </Text>
       </Stack>
 
-      <GlassCard variant="accent" p={{ base: "sm", sm: "md" }}>
-        <Stack gap={{ base: "sm", sm: "md" }}>
+      <GlassCard variant="accent" p="md" pb="lg">
+        <Stack gap="md">
           {/* Header: Name + Badge */}
           <Group justify="space-between" align="flex-start" wrap="wrap" gap="xs">
             <Stack gap={2}>
@@ -62,18 +62,18 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
                 c={colors.textMuted}
                 tt="uppercase"
                 fw={500}
-                style={{ fontSize: "clamp(0.6rem, 1.5vw, 0.7rem)", letterSpacing: "0.05em" }}
+                style={{ fontSize: responsiveText.xs, letterSpacing: "0.05em" }}
               >
                 Ticket Holder
               </Text>
               <Text
                 fw={600}
                 c={colors.textPrimary}
-                style={{ fontSize: "clamp(0.95rem, 2.5vw, 1.15rem)" }}
+                style={{ fontSize: responsiveText.body }}
               >
                 {passHolder.name}
               </Text>
-              <Text c={colors.textMuted} style={{ fontSize: "clamp(0.7rem, 1.8vw, 0.8rem)" }}>
+              <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
                 {passHolder.email}
               </Text>
             </Stack>
@@ -83,7 +83,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
               color={passConfig.color}
               variant="light"
               leftSection={<IconTicket size={12} />}
-              style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.75rem)" }}
+              style={{ fontSize: responsiveText.xs }}
             >
               {passConfig.label}
             </Badge>
@@ -92,7 +92,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
           <Divider color="rgba(244, 93, 0, 0.15)" />
 
           {/* Details Grid - 2 columns */}
-          <SimpleGrid cols={2} spacing={{ base: "xs", sm: "md" }}>
+          <SimpleGrid cols={2} spacing="md">
             <Stack gap={2}>
               <Group gap={4}>
                 <IconCurrencyDollar size={12} color={colors.textMuted} />
@@ -100,7 +100,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
                   c={colors.textMuted}
                   tt="uppercase"
                   fw={500}
-                  style={{ fontSize: "clamp(0.55rem, 1.3vw, 0.65rem)", letterSpacing: "0.05em" }}
+                  style={{ fontSize: responsiveText.xs, letterSpacing: "0.05em" }}
                 >
                   Amount Paid
                 </Text>
@@ -108,7 +108,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
               <Text
                 fw={700}
                 c={colors.primary}
-                style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)" }}
+                style={{ fontSize: responsiveText.large }}
               >
                 ${passHolder.amountPaid.toFixed(2)}
               </Text>
@@ -121,7 +121,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
                   c={colors.textMuted}
                   tt="uppercase"
                   fw={500}
-                  style={{ fontSize: "clamp(0.55rem, 1.3vw, 0.65rem)", letterSpacing: "0.05em" }}
+                  style={{ fontSize: responsiveText.xs, letterSpacing: "0.05em" }}
                 >
                   Purchase Date
                 </Text>
@@ -129,7 +129,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
               <Text
                 fw={500}
                 c={colors.textPrimary}
-                style={{ fontSize: "clamp(0.8rem, 2vw, 0.95rem)" }}
+                style={{ fontSize: responsiveText.body }}
               >
                 {formatDate(passHolder.purchaseDate)}
               </Text>
@@ -145,7 +145,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
                   c={colors.textMuted}
                   tt="uppercase"
                   fw={500}
-                  style={{ fontSize: "clamp(0.55rem, 1.3vw, 0.65rem)", letterSpacing: "0.05em" }}
+                  style={{ fontSize: responsiveText.xs, letterSpacing: "0.05em" }}
                 >
                   Original Confirmation
                 </Text>
@@ -153,7 +153,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
               <Text
                 fw={500}
                 c={colors.textPrimary}
-                style={{ fontSize: "clamp(0.75rem, 1.8vw, 0.85rem)", fontFamily: "monospace" }}
+                style={{ fontSize: responsiveText.small, fontFamily: "monospace" }}
               >
                 {passHolder.confirmationNumber}
               </Text>
@@ -167,6 +167,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
         rightSection={<IconArrowRight size={16} />}
         onClick={onConfirm}
         fullWidth
+        mb="sm"
       >
         This is Correct - Continue
       </GradientButton>
@@ -174,7 +175,7 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
       <Text
         c={colors.textMuted}
         ta="center"
-        style={{ fontSize: "clamp(0.7rem, 1.8vw, 0.8rem)" }}
+        style={{ fontSize: responsiveText.small }}
       >
         Not your ticket? Go back and try a different email address.
       </Text>

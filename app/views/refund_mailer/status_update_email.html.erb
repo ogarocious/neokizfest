@@ -1,0 +1,73 @@
+<p style="font-size: 18px; margin-bottom: 24px;">Hi <%= @name %>,</p>
+
+<% if @status.to_s.downcase == "completed" %>
+  <p style="font-size: 18px; color: #228B22; font-weight: 600;">Great news! Your refund has been processed.</p>
+  <p>We've sent your refund via Zelle. Please check your Zelle account for the incoming payment.</p>
+<% elsif @status.to_s.downcase == "processing" %>
+  <p>Good news! Your refund request has been verified and is now being processed.</p>
+  <p>We'll send you another email once your refund has been completed.</p>
+<% else %>
+  <p>We have an update on your refund request.</p>
+<% end %>
+
+<div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
+  <p style="color: #9A8F85; font-size: 14px; margin: 0 0 8px;">Confirmation Number</p>
+  <p style="font-size: 24px; font-weight: 700; color: #F45D00; font-family: monospace; letter-spacing: 2px; margin: 0 0 16px;"><%= @confirmation_number %></p>
+
+  <% status_color = @status.to_s.downcase == "completed" ? "#228B22" : "#F45D00" %>
+  <span style="display: inline-block; background-color: <%= status_color %>20; color: <%= status_color %>; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 14px;">
+    <%= @status_text %>
+  </span>
+</div>
+
+<% if @details.present? %>
+  <h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">Details</h2>
+
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <% if @details[:refund_amount].present? %>
+      <tr>
+        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+          <span style="color: #9A8F85; font-size: 14px;">Refund Amount</span>
+        </td>
+        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+          <span style="color: #228B22; font-weight: 700; font-size: 18px;">$<%= sprintf('%.2f', @details[:refund_amount]) %></span>
+        </td>
+      </tr>
+    <% end %>
+    <% if @details[:method].present? %>
+      <tr>
+        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+          <span style="color: #9A8F85; font-size: 14px;">Payment Method</span>
+        </td>
+        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+          <span style="color: #E8E0D8; font-weight: 600;"><%= @details[:method] %></span>
+        </td>
+      </tr>
+    <% end %>
+    <% if @details[:date_processed].present? %>
+      <tr>
+        <td style="padding: 12px 0;">
+          <span style="color: #9A8F85; font-size: 14px;">Date Processed</span>
+        </td>
+        <td style="padding: 12px 0; text-align: right;">
+          <span style="color: #E8E0D8; font-weight: 600;"><%= @details[:date_processed] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<% if @status.to_s.downcase == "completed" %>
+  <div style="background-color: rgba(34, 139, 34, 0.1); border: 1px solid rgba(34, 139, 34, 0.3); border-radius: 8px; padding: 20px; margin: 24px 0;">
+    <p style="color: #228B22; font-weight: 600; margin: 0 0 8px;">Thank you for your patience</p>
+    <p style="color: #E8E0D8; margin: 0; font-size: 14px;">We appreciate your understanding during this transition. The Neo Kizomba community meant everything to us.</p>
+  </div>
+<% end %>
+
+<p style="margin-top: 32px; text-align: center;">
+  <a href="<%= @status_url %>" style="display: inline-block; background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px;">View Full Status</a>
+</p>
+
+<p style="color: #9A8F85; font-size: 14px; margin-top: 32px;">If you have any questions, don't hesitate to reach out to us on Facebook.</p>
+
+<p style="margin-top: 24px;">With gratitude,<br><strong style="color: #F45D00;">The Neo Kizomba Festival Team</strong></p>

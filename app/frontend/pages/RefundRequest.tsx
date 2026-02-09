@@ -159,7 +159,7 @@ const RefundRequest: React.FC = () => {
 
   return (
     <FarewellLayout>
-      <Stack gap={{ base: "md", sm: "lg" }} maw={700} mx="auto" px={{ base: "sm", sm: "md" }} style={{ maxWidth: "100%" }}>
+      <Stack gap="lg" maw={700} mx="auto" px="md" style={{ maxWidth: "100%" }}>
         <PageHeader
           icon={<IconTicket size={28} color="white" />}
           title="Request Your Refund"
@@ -213,7 +213,7 @@ const RefundRequest: React.FC = () => {
         </div>
 
         {/* Form Container */}
-        <GlassCard p={{ base: "sm", sm: "lg" }}>
+        <GlassCard p="lg" mt="sm">
           {submissionError && (
             <GlassCard
               p="sm"

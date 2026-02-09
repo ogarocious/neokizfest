@@ -1,0 +1,47 @@
+<p style="font-size: 18px; margin-bottom: 24px;">Hi <%= @name %>,</p>
+
+<p>Thank you for submitting your refund request. We've received your information and will process it as quickly as possible.</p>
+
+<div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
+  <p style="color: #9A8F85; font-size: 14px; margin: 0 0 8px;">Your Confirmation Number</p>
+  <p style="font-size: 32px; font-weight: 700; color: #F45D00; font-family: monospace; letter-spacing: 2px; margin: 0;"><%= @confirmation_number %></p>
+</div>
+
+<p style="color: #9A8F85; font-size: 14px;">Please save this confirmation number. You'll need it to check your request status.</p>
+
+<h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">Request Details</h2>
+
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+  <tr>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <span style="color: #9A8F85; font-size: 14px;">Decision</span>
+    </td>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+      <span style="color: #E8E0D8; font-weight: 600;"><%= @decision_text %></span>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 12px 0;">
+      <span style="color: #9A8F85; font-size: 14px;">Status</span>
+    </td>
+    <td style="padding: 12px 0; text-align: right;">
+      <span style="color: #F45D00; font-weight: 600;">Submitted</span>
+    </td>
+  </tr>
+</table>
+
+<h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">What Happens Next?</h2>
+
+<ol style="padding-left: 20px; margin: 0;">
+  <li style="margin-bottom: 12px; line-height: 1.6;">We'll verify your information against our records.</li>
+  <li style="margin-bottom: 12px; line-height: 1.6;">Once verified, we'll begin processing your refund via Zelle.</li>
+  <li style="margin-bottom: 12px; line-height: 1.6;">You'll receive an email when your refund has been sent.</li>
+</ol>
+
+<p style="margin-top: 32px; text-align: center;">
+  <a href="<%= @status_url %>" style="display: inline-block; background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px;">Check Your Status</a>
+</p>
+
+<p style="color: #9A8F85; font-size: 14px; margin-top: 32px;">If you have any questions, don't hesitate to reach out to us on Facebook.</p>
+
+<p style="margin-top: 24px;">With gratitude,<br><strong style="color: #F45D00;">The Neo Kizomba Festival Team</strong></p>

@@ -183,7 +183,7 @@ const ImportantDates = () => {
                           background: `${getCategoryColor(item.category)}20`,
                           color: getCategoryColor(item.category),
                           border: `1px solid ${getCategoryColor(
-                            item.category
+                            item.category,
                           )}40`,
                         }}
                       >

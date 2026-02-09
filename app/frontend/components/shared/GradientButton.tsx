@@ -11,6 +11,7 @@ interface GradientButtonProps extends Omit<ButtonProps, "variant" | "style"> {
   href?: string;
   target?: string;
   type?: "button" | "submit" | "reset";
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
@@ -39,6 +40,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({
   href,
   target,
   type,
+  onClick,
   ...props
 }) => {
   return (
@@ -47,6 +49,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({
       href={href}
       target={target}
       type={type}
+      onClick={onClick}
       style={{
         ...variantStyles[buttonVariant],
         fontWeight: 600,

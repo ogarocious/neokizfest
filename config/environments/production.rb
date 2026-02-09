@@ -64,4 +64,27 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # ==================== Action Mailer Configuration (Brevo SMTP) ====================
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp-relay.brevo.com",
+    port: 587,
+    user_name: ENV.fetch("BREVO_SMTP_USER", nil),
+    password: ENV.fetch("BREVO_SMTP_PASSWORD", nil),
+    authentication: :login,
+    enable_starttls_auto: true
+  }
+
+  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST", "neokizombafestival.com"),
+    protocol: "https"
+  }
+  config.action_mailer.default_options = {
+    from: ENV.fetch("MAILER_FROM", "Neo Kizomba Festival <refunds@neokizombafestival.com>")
+  }
 end

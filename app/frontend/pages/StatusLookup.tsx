@@ -40,7 +40,7 @@ const lookupSchema = z.object({
   confirmationNumber: z
     .string()
     .min(1, "Please enter your confirmation number")
-    .regex(/^NKF-REF-\d+$/i, "Invalid format (e.g., NKF-REF-000001)"),
+    .regex(/^(RR-\d{4}|NKF-REF-\d+)$/i, "Invalid format (e.g., RR-0001)"),
   email: z.string().email("Please enter a valid email address"),
 });
 
@@ -116,7 +116,7 @@ const StatusLookup: React.FC = () => {
             <Group gap="xs" wrap="nowrap">
               <IconAlertCircle size={16} color="#0066CC" style={{ flexShrink: 0 }} />
               <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
-                <strong style={{ color: "#0066CC" }}>Demo:</strong> Try NKF-REF-000001, NKF-REF-000002, or NKF-REF-000003
+                <strong style={{ color: "#0066CC" }}>Demo:</strong> Try RR-0001 or RR-0002 with any email
               </Text>
             </Group>
           </GlassCard>
@@ -129,7 +129,7 @@ const StatusLookup: React.FC = () => {
               <TextInput
                 {...register("confirmationNumber")}
                 label="Confirmation Number"
-                placeholder="NKF-REF-000001"
+                placeholder="RR-0001"
                 size="sm"
                 leftSection={<IconHash size={16} />}
                 error={errors.confirmationNumber?.message}

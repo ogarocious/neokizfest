@@ -15,8 +15,8 @@ const FarewellFooter: React.FC = () => {
               Neo Kizomba Festival
             </Text>
             <Text size="sm" c="#9A8F85" maw={300}>
-              Thank you for being part of our journey. Your support over the years
-              has meant everything to us.
+              Thank you for being part of our journey. Your support over the
+              years has meant everything to us.
             </Text>
           </Stack>
 
@@ -66,11 +66,11 @@ const FarewellFooter: React.FC = () => {
 
         <Group justify="center" gap="xs">
           <Text size="xs" c="#9A8F85">
-            Made with
+            Made by
           </Text>
           <IconHeart size={14} color="#F45D00" fill="#F45D00" />
           <Text size="xs" c="#9A8F85">
-            by the Neo Kizomba Festival team
+            Ogarocious
           </Text>
         </Group>
       </Stack>

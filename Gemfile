@@ -62,3 +62,6 @@ gem "rubocop-rails", "~> 2.32", :group => :development
 gem "rubocop-performance", "~> 1.25", :group => :development
 
 gem "sprockets-rails", "~> 3.5"
+
+# Notion API client for refund system
+gem "notion-ruby-client", "~> 1.2"

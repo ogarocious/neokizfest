@@ -46,7 +46,7 @@ const ContactStep: React.FC<ContactStepProps> = ({ onSubmit, initialData }) => {
   };
 
   return (
-    <Stack gap={{ base: "md", sm: "lg" }}>
+    <Stack gap="lg">
       <Stack gap="xs">
         <Text
           fw={600}
@@ -82,9 +82,9 @@ const ContactStep: React.FC<ContactStepProps> = ({ onSubmit, initialData }) => {
       </Box>
 
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <Stack gap={{ base: "sm", sm: "md" }}>
+        <Stack gap="md">
           <GlassCard variant="subtle">
-            <Stack gap={{ base: "sm", sm: "md" }}>
+            <Stack gap="md">
               <TextInput
                 {...register("email")}
                 label="Zelle Email"

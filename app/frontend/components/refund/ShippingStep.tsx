@@ -58,7 +58,7 @@ const ShippingStep: React.FC<ShippingStepProps> = ({ onSubmit, initialData }) =>
   };
 
   return (
-    <Stack gap={{ base: "md", sm: "lg" }}>
+    <Stack gap="lg">
       <Stack gap="xs">
         <Text
           fw={600}
@@ -94,9 +94,9 @@ const ShippingStep: React.FC<ShippingStepProps> = ({ onSubmit, initialData }) =>
       </Box>
 
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <Stack gap={{ base: "sm", sm: "md" }}>
+        <Stack gap="md">
           <GlassCard variant="subtle">
-            <Stack gap={{ base: "sm", sm: "md" }}>
+            <Stack gap="md">
               <TextInput
                 {...register("name")}
                 label="Full Name"
@@ -118,7 +118,7 @@ const ShippingStep: React.FC<ShippingStepProps> = ({ onSubmit, initialData }) =>
                 styles={mobileInputStyles}
               />
 
-              <Group grow wrap="wrap" gap={{ base: "sm", sm: "md" }}>
+              <Group grow wrap="wrap" gap="md">
                 <TextInput
                   {...register("city")}
                   label="City"

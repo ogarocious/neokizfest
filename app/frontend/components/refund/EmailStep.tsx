@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Stack,
-  TextInput,
-  Text,
-  Anchor,
-  Group,
-  Box,
-} from "@mantine/core";
+import { Stack, TextInput, Text, Anchor, Group, Box } from "@mantine/core";
 import {
   IconMail,
   IconAlertCircle,
@@ -32,7 +25,10 @@ interface EmailStepProps {
   initialEmail?: string;
 }
 
-const EmailStep: React.FC<EmailStepProps> = ({ onValidated, initialEmail = "" }) => {
+const EmailStep: React.FC<EmailStepProps> = ({
+  onValidated,
+  initialEmail = "",
+}) => {
   const { validate, loading, data, reset: resetApi } = useEmailValidation();
 
   const {
@@ -56,9 +52,13 @@ const EmailStep: React.FC<EmailStepProps> = ({ onValidated, initialEmail = "" })
   const showError = data && !data.success;
 
   return (
-    <Stack gap={{ base: "md", sm: "lg" }}>
+    <Stack gap="lg">
       <Stack gap="xs">
-        <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+        <Text
+          fw={600}
+          c={colors.textPrimary}
+          style={{ fontSize: responsiveText.body }}
+        >
           Let's find your ticket
         </Text>
         <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
@@ -86,12 +86,14 @@ const EmailStep: React.FC<EmailStepProps> = ({ onValidated, initialEmail = "" })
             <Box
               p="sm"
               style={{
-                background: data.error === "chargeback"
-                  ? "rgba(220, 38, 38, 0.1)"
-                  : "rgba(255, 140, 0, 0.1)",
-                border: data.error === "chargeback"
-                  ? "1px solid rgba(220, 38, 38, 0.3)"
-                  : "1px solid rgba(255, 140, 0, 0.3)",
+                background:
+                  data.error === "chargeback"
+                    ? "rgba(220, 38, 38, 0.1)"
+                    : "rgba(255, 140, 0, 0.1)",
+                border:
+                  data.error === "chargeback"
+                    ? "1px solid rgba(220, 38, 38, 0.3)"
+                    : "1px solid rgba(255, 140, 0, 0.3)",
                 borderRadius: 12,
               }}
             >
@@ -107,16 +109,25 @@ const EmailStep: React.FC<EmailStepProps> = ({ onValidated, initialEmail = "" })
                     style={{ fontSize: responsiveText.small }}
                     c={data.error === "chargeback" ? "#DC2626" : "#FF8C00"}
                   >
-                    {data.error === "chargeback" ? "Chargeback Detected" : "Email Not Found"}
+                    {data.error === "chargeback"
+                      ? "Chargeback Detected"
+                      : "Email Not Found"}
                   </Text>
                 </Group>
-                <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
+                <Text
+                  style={{ fontSize: responsiveText.small }}
+                  c={colors.textSecondary}
+                >
                   {data.errorMessage}
                 </Text>
 
-                {(data.error === "not_found" || data.error === "chargeback") && (
+                {(data.error === "not_found" ||
+                  data.error === "chargeback") && (
                   <Group gap="xs">
-                    <Text style={{ fontSize: responsiveText.xs }} c={colors.textMuted}>
+                    <Text
+                      style={{ fontSize: responsiveText.xs }}
+                      c={colors.textMuted}
+                    >
                       Need help?
                     </Text>
                     <Anchor
@@ -125,7 +136,10 @@ const EmailStep: React.FC<EmailStepProps> = ({ onValidated, initialEmail = "" })
                       style={{ display: "flex", alignItems: "center", gap: 4 }}
                     >
                       <IconBrandFacebook size={14} color={colors.primary} />
-                      <Text style={{ fontSize: responsiveText.xs }} c={colors.primary}>
+                      <Text
+                        style={{ fontSize: responsiveText.xs }}
+                        c={colors.primary}
+                      >
                         Contact us on Facebook
                       </Text>
                     </Anchor>
@@ -141,6 +155,7 @@ const EmailStep: React.FC<EmailStepProps> = ({ onValidated, initialEmail = "" })
             rightSection={<IconArrowRight size={16} />}
             loading={loading}
             fullWidth
+            mb="xl"
           >
             Find My Ticket
           </GradientButton>
@@ -149,14 +164,25 @@ const EmailStep: React.FC<EmailStepProps> = ({ onValidated, initialEmail = "" })
 
       <GlassCard variant="accent" p="sm">
         <Stack gap="xs">
-          <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
+          <Text
+            fw={500}
+            c={colors.textPrimary}
+            style={{ fontSize: responsiveText.small }}
+          >
             Test emails for demo:
           </Text>
-          <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs, lineHeight: 1.6 }}>
-            <strong style={{ color: colors.primary }}>john@example.com</strong> - Full Pass |{" "}
-            <strong style={{ color: colors.primary }}>sarah@example.com</strong> - VIP Pass |{" "}
-            <strong style={{ color: colors.primary }}>mike@example.com</strong> - Party Pass |{" "}
-            <strong style={{ color: colors.primary }}>emma@example.com</strong> - Workshop Pass
+          <Text
+            c={colors.textMuted}
+            style={{ fontSize: responsiveText.xs, lineHeight: 1.6 }}
+          >
+            <strong style={{ color: colors.primary }}>john@example.com</strong>{" "}
+            - Full Pass |{" "}
+            <strong style={{ color: colors.primary }}>sarah@example.com</strong>{" "}
+            - VIP Pass |{" "}
+            <strong style={{ color: colors.primary }}>mike@example.com</strong>{" "}
+            - Party Pass |{" "}
+            <strong style={{ color: colors.primary }}>emma@example.com</strong>{" "}
+            - Workshop Pass
           </Text>
           <Text style={{ fontSize: responsiveText.xs }} c="#ff6b6b">
             <strong>chargeback@example.com</strong> - Blocked

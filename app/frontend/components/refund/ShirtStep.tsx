@@ -67,7 +67,7 @@ const ShirtStep: React.FC<ShirtStepProps> = ({
   };
 
   return (
-    <Stack gap={{ base: "md", sm: "lg" }}>
+    <Stack gap="lg">
       <Stack gap="xs">
         <Text
           fw={600}
@@ -132,7 +132,7 @@ const ShirtStep: React.FC<ShirtStepProps> = ({
 
       {/* Shirt Selection */}
       {wantsShirt && (
-        <Stack gap={{ base: "sm", sm: "md" }}>
+        <Stack gap="md">
           {shirts.map((shirt, index) => (
             <GlassCard key={index} variant="subtle">
               <Group justify="space-between" align="flex-end" wrap="wrap" gap="sm">

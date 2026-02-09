@@ -143,7 +143,8 @@ export const mobileInputStyles = {
   input: {
     ...componentStyles.input,
     fontSize: responsiveText.body,
-    padding: "10px 12px",
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   description: {
     color: colors.textMuted,
