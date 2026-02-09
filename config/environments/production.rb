@@ -43,18 +43,15 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+  # Use memory cache (no database required)
+  config.cache_store = :memory_store
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
-  # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
-
-  # Only use :id for inspections in production.
-  config.active_record.attributes_for_inspect = [ :id ]
+  # Use inline job processing (no database queue)
+  config.active_job.queue_adapter = :inline
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [

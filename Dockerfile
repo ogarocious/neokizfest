@@ -14,9 +14,9 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages
+# Install base packages (no postgresql - using Notion for data)
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 postgresql-client && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -30,7 +30,7 @@ FROM base AS build
 
 # Install packages needed to build gems and Node.js for Vite
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config curl && \
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config curl && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install Node.js and yarn for Vite
