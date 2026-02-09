@@ -6,16 +6,13 @@ import {
   Divider,
   Badge,
   ActionIcon,
-  Box,
 } from "@mantine/core";
 import {
   IconEdit,
   IconCheck,
   IconTicket,
   IconCash,
-  IconShirt,
   IconPhone,
-  IconMapPin,
   IconHeart,
 } from "@tabler/icons-react";
 import { colors, responsiveText } from "../../styles/theme";
@@ -23,22 +20,15 @@ import { GlassCard, GradientButton } from "../shared";
 import type {
   PassHolder,
   RefundDecision,
-  ShirtOrder,
   ZelleInfo,
-  ShippingAddress,
   RefundFormStep,
 } from "../../types/refund";
-import { SHIRT_SIZES } from "../shared/ShirtSizeSelect";
 
 interface ReviewStepProps {
   passHolder: PassHolder;
   decision: RefundDecision;
   refundAmount: number;
-  wantsShirt: boolean;
-  shirts: ShirtOrder[];
-  shirtTotal: number;
   zelleInfo: ZelleInfo | null;
-  shippingAddress: ShippingAddress | null;
   finalRefund: number;
   onEdit: (step: RefundFormStep) => void;
   onSubmit: () => void;
@@ -55,20 +45,12 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
   passHolder,
   decision,
   refundAmount,
-  wantsShirt,
-  shirts,
-  shirtTotal,
   zelleInfo,
-  shippingAddress,
   finalRefund,
   onEdit,
   onSubmit,
   isSubmitting,
 }) => {
-  const getSizeLabel = (size: string) => {
-    return SHIRT_SIZES.find((s) => s.value === size)?.label || size;
-  };
-
   return (
     <Stack gap="lg">
       <Stack gap="xs">
@@ -165,44 +147,6 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
         </Stack>
       </GlassCard>
 
-      {/* Shirt Order */}
-      <GlassCard variant="subtle">
-        <Group justify="space-between" mb="md" wrap="wrap" gap="xs">
-          <Group gap="xs">
-            <IconShirt size={18} color={colors.primary} />
-            <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
-              Commemorative T-Shirt
-            </Text>
-          </Group>
-          <ActionIcon
-            variant="light"
-            color="gray"
-            onClick={() => onEdit("shirt")}
-          >
-            <IconEdit size={16} />
-          </ActionIcon>
-        </Group>
-        {wantsShirt ? (
-          <Stack gap="xs">
-            {shirts.map((shirt, index) => (
-              <Group key={index} justify="space-between" wrap="wrap" gap="xs">
-                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
-                  {getSizeLabel(shirt.size)} x {shirt.quantity}
-                </Text>
-                <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>${(shirt.quantity * 45).toFixed(2)}</Text>
-              </Group>
-            ))}
-            <Divider color="rgba(255, 255, 255, 0.08)" />
-            <Group justify="space-between" wrap="wrap" gap="xs">
-              <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>Shirt Total</Text>
-              <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>${shirtTotal.toFixed(2)}</Text>
-            </Group>
-          </Stack>
-        ) : (
-          <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>No shirt ordered</Text>
-        )}
-      </GlassCard>
-
       {/* Contact Info (if refund) */}
       {zelleInfo && (
         <GlassCard variant="subtle">
@@ -234,34 +178,6 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
         </GlassCard>
       )}
 
-      {/* Shipping Address (if shirt) */}
-      {shippingAddress && (
-        <GlassCard variant="subtle">
-          <Group justify="space-between" mb="md" wrap="wrap" gap="xs">
-            <Group gap="xs">
-              <IconMapPin size={18} color={colors.primary} />
-              <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
-                Shipping Address
-              </Text>
-            </Group>
-            <ActionIcon
-              variant="light"
-              color="gray"
-              onClick={() => onEdit("shipping")}
-            >
-              <IconEdit size={16} />
-            </ActionIcon>
-          </Group>
-          <Stack gap={4}>
-            <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{shippingAddress.name}</Text>
-            <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>{shippingAddress.street}</Text>
-            <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
-              {shippingAddress.city}, {shippingAddress.state} {shippingAddress.zip}
-            </Text>
-          </Stack>
-        </GlassCard>
-      )}
-
       {/* Final Summary */}
       <GlassCard variant="accent">
         <Stack gap="sm">
@@ -278,27 +194,14 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
               </Text>
             </Group>
           ) : (
-            <>
-              <Group justify="space-between" wrap="wrap" gap="xs">
-                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Refund Amount</Text>
-                <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>${refundAmount.toFixed(2)}</Text>
-              </Group>
-              {shirtTotal > 0 && (
-                <Group justify="space-between" wrap="wrap" gap="xs">
-                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Less: T-Shirt Purchase</Text>
-                  <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>-${shirtTotal.toFixed(2)}</Text>
-                </Group>
-              )}
-              <Divider color="rgba(244, 93, 0, 0.15)" />
-              <Group justify="space-between" wrap="wrap" gap="xs">
-                <Text fw={600} c={colors.primary} style={{ fontSize: responsiveText.body }}>
-                  Amount to be Refunded
-                </Text>
-                <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
-                  ${finalRefund.toFixed(2)}
-                </Text>
-              </Group>
-            </>
+            <Group justify="space-between" wrap="wrap" gap="xs">
+              <Text fw={600} c={colors.primary} style={{ fontSize: responsiveText.body }}>
+                Amount to be Refunded
+              </Text>
+              <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
+                ${finalRefund.toFixed(2)}
+              </Text>
+            </Group>
           )}
         </Stack>
       </GlassCard>

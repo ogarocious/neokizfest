@@ -28,17 +28,10 @@ export const faqData: FAQItem[] = [
     category: "refund",
   },
   {
-    id: "shirt-no-ticket",
-    question: "Can I get a commemorative shirt if I didn't have a ticket?",
-    answer:
-      "Absolutely! Our commemorative t-shirts are available to everyone who wants to support us or keep a memory of Neo Kizomba Festival. Visit our Support page to purchase a shirt directly. The shirts are $45 each and come in sizes S through 2XL.",
-    category: "support",
-  },
-  {
     id: "check-status",
     question: "How do I check the status of my refund request?",
     answer:
-      "After submitting your refund request, you'll receive a confirmation number (e.g., NKF-REF-000123). Go to our Status page and enter your confirmation number along with your email address to see the current status of your request. You can also bookmark the direct link that includes your confirmation number.",
+      "After submitting your refund request, you'll receive a confirmation number (e.g., RR-0001). Go to our Status page and enter your confirmation number along with your email address to see the current status of your request. You can also bookmark the direct link that includes your confirmation number.",
     category: "process",
   },
   {
@@ -56,17 +49,10 @@ export const faqData: FAQItem[] = [
     category: "refund",
   },
   {
-    id: "shirt-deduction",
-    question: "How does the shirt purchase work with my refund?",
+    id: "donate-support",
+    question: "How can I support the festival if I want to donate?",
     answer:
-      "If you're receiving a refund and want to purchase a commemorative t-shirt ($45 each), the cost will be deducted from your refund amount. For example, if your refund is $150 and you order one shirt, you'll receive $105. If you're waiving your refund, you can still order shirts, but they'll need to be purchased separately.",
-    category: "support",
-  },
-  {
-    id: "us-shipping",
-    question: "Do you ship internationally?",
-    answer:
-      "Unfortunately, we can only ship commemorative t-shirts to addresses within the United States at this time. International shipping logistics and costs make it impractical for us to offer during the closure process. We apologize for any inconvenience.",
+      "We deeply appreciate your generosity! If you're a ticket holder, you can waive your refund during the request process, and your contribution will help cover closure costs. If you don't have a ticket but want to support us, visit our Support page to make a donation. Every contribution helps us close this chapter responsibly.",
     category: "support",
   },
   {
@@ -96,6 +82,6 @@ export const faqCategories = [
   { value: "all", label: "All Questions" },
   { value: "refund", label: "Refunds" },
   { value: "process", label: "Process" },
-  { value: "support", label: "Support & Shirts" },
+  { value: "support", label: "Support" },
   { value: "general", label: "General" },
 ];

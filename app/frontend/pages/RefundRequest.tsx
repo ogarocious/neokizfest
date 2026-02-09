@@ -8,14 +8,12 @@ import FormProgress from "../components/refund/FormProgress";
 import EmailStep from "../components/refund/EmailStep";
 import PassDetailsStep from "../components/refund/PassDetailsStep";
 import DecisionStep from "../components/refund/DecisionStep";
-import ShirtStep from "../components/refund/ShirtStep";
 import ContactStep from "../components/refund/ContactStep";
-import ShippingStep from "../components/refund/ShippingStep";
 import ReviewStep from "../components/refund/ReviewStep";
 import { useRefundForm } from "../hooks/useRefundForm";
 import { useRefundSubmission, isMockMode } from "../hooks/useApi";
 import { colors, responsiveText } from "../styles/theme";
-import type { PassHolder, RefundDecision, ShirtOrder, ZelleInfo, ShippingAddress, RefundFormStep } from "../types/refund";
+import type { PassHolder, RefundDecision, ZelleInfo, RefundFormStep } from "../types/refund";
 
 const RefundRequest: React.FC = () => {
   const form = useRefundForm();
@@ -34,16 +32,8 @@ const RefundRequest: React.FC = () => {
     form.setDecision(decision, partialAmount);
   };
 
-  const handleShirtSelection = (wantsShirt: boolean, shirts: ShirtOrder[]) => {
-    form.setShirtSelection(wantsShirt, shirts);
-  };
-
   const handleZelleInfo = (zelleInfo: ZelleInfo) => {
     form.setZelleInfo(zelleInfo);
-  };
-
-  const handleShippingAddress = (address: ShippingAddress) => {
-    form.setShippingAddress(address);
   };
 
   const handleEdit = (step: RefundFormStep) => {
@@ -71,7 +61,6 @@ const RefundRequest: React.FC = () => {
             email: form.email,
             decision: form.decision,
             refundAmount: form.finalRefund,
-            wantsShirt: form.wantsShirt,
           },
         });
       } else {
@@ -108,29 +97,11 @@ const RefundRequest: React.FC = () => {
           />
         ) : null;
 
-      case "shirt":
-        return form.passHolder && form.decision ? (
-          <ShirtStep
-            decision={form.decision}
-            amountPaid={form.passHolder.amountPaid}
-            refundAmount={form.calculatedRefund}
-            onContinue={handleShirtSelection}
-          />
-        ) : null;
-
       case "contact":
         return (
           <ContactStep
             onSubmit={handleZelleInfo}
             initialData={form.zelleInfo}
-          />
-        );
-
-      case "shipping":
-        return (
-          <ShippingStep
-            onSubmit={handleShippingAddress}
-            initialData={form.shippingAddress}
           />
         );
 
@@ -140,11 +111,7 @@ const RefundRequest: React.FC = () => {
             passHolder={form.passHolder}
             decision={form.decision}
             refundAmount={form.calculatedRefund}
-            wantsShirt={form.wantsShirt}
-            shirts={form.shirts}
-            shirtTotal={form.shirtTotal}
             zelleInfo={form.zelleInfo}
-            shippingAddress={form.shippingAddress}
             finalRefund={form.finalRefund}
             onEdit={handleEdit}
             onSubmit={handleSubmit}

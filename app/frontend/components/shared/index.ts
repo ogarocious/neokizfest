@@ -12,8 +12,6 @@ export { default as GradientButton } from "./GradientButton";
 export { default as FormSection } from "./FormSection";
 export { default as FormField } from "./FormField";
 export { default as StepIndicator } from "./StepIndicator";
-export { default as ShirtSizeSelect } from "./ShirtSizeSelect";
-export { default as USStateSelect } from "./USStateSelect";
 
 // Feedback & Status
 export { default as StatusBadge } from "./StatusBadge";

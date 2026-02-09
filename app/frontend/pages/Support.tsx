@@ -3,7 +3,6 @@ import {
   Stack,
   Text,
   Group,
-  Badge,
   SimpleGrid,
   Box,
   Divider,
@@ -11,10 +10,8 @@ import {
 import { Link } from "@inertiajs/react";
 import {
   IconHeart,
-  IconShirt,
   IconGift,
   IconExternalLink,
-  IconInfoCircle,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -23,123 +20,21 @@ import {
   BackToHome,
   GradientButton,
 } from "../components/shared";
-import { SHIRT_SIZES } from "../components/shared/ShirtSizeSelect";
 import { colors, responsiveText } from "../styles/theme";
 
-const SHIRT_PRICE = 45;
-
 const Support: React.FC = () => {
-  // Placeholder Lemon Squeezy URLs (to be replaced with actual product links)
-  const shirtPurchaseUrl = "#"; // Will be Lemon Squeezy product URL
+  // Placeholder Lemon Squeezy URL (to be replaced with actual donation link)
   const donationUrl = "#"; // Will be Lemon Squeezy donation URL
 
   return (
     <FarewellLayout>
-      <Stack gap="lg" maw={800} mx="auto" px={{ base: "sm", sm: "md" }}>
+      <Stack gap="lg" maw={800} mx="auto" px="md">
         <PageHeader
           icon={<IconHeart size={32} color="white" fill="white" />}
           title="Support Us"
           subtitle="Thank you for wanting to support Neo Kizomba Festival during this transition. Every bit helps us close this chapter responsibly."
           iconColor="success"
         />
-
-        {/* Coming Soon Notice */}
-        <GlassCard
-          p="sm"
-          style={{
-            background: "rgba(255, 140, 0, 0.1)",
-            border: "1px solid rgba(255, 140, 0, 0.3)",
-          }}
-        >
-          <Group gap="xs" wrap="nowrap">
-            <IconInfoCircle size={16} color="#FF8C00" style={{ flexShrink: 0 }} />
-            <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
-              <strong style={{ color: "#FF8C00" }}>Coming Soon:</strong> Our online store is being set up. Ticket holders can get shirts through the refund process.
-            </Text>
-          </Group>
-        </GlassCard>
-
-        {/* Commemorative Shirt */}
-        <GlassCard
-          style={{
-            border: `2px solid ${colors.borderPrimary}`,
-          }}
-        >
-          <Stack gap="md">
-            <Group justify="space-between" align="flex-start" wrap="wrap" gap="sm">
-              <Group gap="sm" wrap="nowrap">
-                <Box
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 10,
-                    background: "linear-gradient(135deg, #F45D00 0%, #A25A3C 100%)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <IconShirt size={28} color="white" />
-                </Box>
-                <Stack gap={2}>
-                  <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
-                    Commemorative T-Shirt
-                  </Text>
-                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
-                    Limited edition festival design
-                  </Text>
-                  <Badge color="orange" variant="light" size="sm">
-                    Limited Stock
-                  </Badge>
-                </Stack>
-              </Group>
-
-              <Stack align="flex-end" gap={0}>
-                <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.large }}>
-                  ${SHIRT_PRICE}
-                </Text>
-                <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
-                  per shirt
-                </Text>
-              </Stack>
-            </Group>
-
-            <Divider color="rgba(255, 255, 255, 0.08)" />
-
-            <Stack gap="xs">
-              <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
-                <strong style={{ color: colors.textPrimary }}>Description:</strong> High-quality
-                cotton t-shirt celebrating five years of Neo Kizomba Festival.
-              </Text>
-
-              <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
-                <strong style={{ color: colors.textPrimary }}>Sizes:</strong>{" "}
-                {SHIRT_SIZES.map((s) => s.label).join(", ")}
-              </Text>
-
-              <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
-                <strong style={{ color: colors.textPrimary }}>Shipping:</strong> US only. Free shipping.
-              </Text>
-            </Stack>
-
-            <GradientButton
-              size="sm"
-              fullWidth
-              rightSection={<IconExternalLink size={16} />}
-              disabled
-            >
-              {shirtPurchaseUrl === "#" ? "Coming Soon" : "Buy Shirt"}
-            </GradientButton>
-
-            <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-              Already have a ticket?{" "}
-              <Link href="/request" style={{ color: colors.primary, fontWeight: 500 }}>
-                Get your shirt through the refund process
-              </Link>
-            </Text>
-          </Stack>
-        </GlassCard>
 
         {/* Donation Option */}
         <GlassCard
@@ -188,22 +83,6 @@ const Support: React.FC = () => {
             >
               {donationUrl === "#" ? "Coming Soon" : "Make a Donation"}
             </GradientButton>
-          </Stack>
-        </GlassCard>
-
-        {/* Both Options */}
-        <GlassCard variant="accent" p={{ base: "sm", sm: "md" }}>
-          <Stack gap="xs">
-            <Group gap="xs">
-              <IconHeart size={16} color={colors.primary} />
-              <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
-                Want to do both?
-              </Text>
-            </Group>
-            <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
-              You can purchase a shirt and make a separate donation. Every form
-              of support is greatly appreciated!
-            </Text>
           </Stack>
         </GlassCard>
 
@@ -256,14 +135,14 @@ const Support: React.FC = () => {
         </GlassCard>
 
         {/* Ticket Holder Notice */}
-        <GlassCard variant="accent" p={{ base: "sm", sm: "md" }}>
+        <GlassCard variant="accent" p="md">
           <Group justify="space-between" align="center" wrap="wrap" gap="sm">
             <Stack gap={2}>
               <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
                 Already have a ticket?
               </Text>
               <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
-                Start your refund request to get your shirt and/or refund.
+                Start your refund request or donate your pass to support us.
               </Text>
             </Stack>
             <Link href="/request" style={{ textDecoration: "none" }}>

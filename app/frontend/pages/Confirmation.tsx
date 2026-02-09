@@ -36,7 +36,6 @@ const Confirmation: React.FC = () => {
   const email = params.get("email") || "";
   const decision = (params.get("decision") as RefundDecision) || "full";
   const refundAmount = parseFloat(params.get("refundAmount") || "0");
-  const wantsShirt = params.get("wantsShirt") === "true";
 
   const isWaived = decision === "waive";
 
@@ -189,15 +188,6 @@ const Confirmation: React.FC = () => {
                 </Text>
               </Group>
             )}
-
-            {wantsShirt && (
-              <Group justify="space-between" wrap="wrap" gap="sm">
-                <Text c={colors.textMuted}>T-Shirt Ordered</Text>
-                <Badge color="blue" variant="light">
-                  Yes
-                </Badge>
-              </Group>
-            )}
           </Stack>
         </Paper>
 
@@ -263,31 +253,6 @@ const Confirmation: React.FC = () => {
                     </Text>
                   </Group>
                 </>
-              )}
-
-              {wantsShirt && (
-                <Group gap="sm" align="flex-start">
-                  <Box
-                    style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: "50%",
-                      background: "rgba(244, 93, 0, 0.1)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Text size="sm" fw={600} c={colors.primary}>
-                      {isWaived ? "1" : "3"}
-                    </Text>
-                  </Box>
-                  <Text size="sm" c={colors.textMuted}>
-                    Your commemorative t-shirt will be shipped to your address
-                    once available.
-                  </Text>
-                </Group>
               )}
 
               <Group gap="sm" align="flex-start">

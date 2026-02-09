@@ -17,7 +17,6 @@ import {
   IconBrandFacebook,
   IconCheck,
   IconLoader,
-  IconShirt,
   IconCash,
   IconHeart,
 } from "@tabler/icons-react";
@@ -267,22 +266,6 @@ const StatusLookup: React.FC = () => {
                     <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.large }}>
                       ${result.request.refundAmount.toFixed(2)}
                     </Text>
-                  </Group>
-                )}
-
-                {result.request.shirtOrdered && (
-                  <Group justify="space-between" wrap="wrap" gap="xs">
-                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
-                      T-Shirt Order
-                    </Text>
-                    <Group gap="xs">
-                      <IconShirt size={14} color={colors.primary} />
-                      <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
-                        {result.request.shirtDetails
-                          ?.map((s) => `${s.size} x${s.quantity}`)
-                          .join(", ")}
-                      </Text>
-                    </Group>
                   </Group>
                 )}
               </Stack>

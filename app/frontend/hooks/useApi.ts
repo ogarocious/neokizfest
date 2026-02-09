@@ -79,7 +79,7 @@ const MOCK_PASS_HOLDERS: MockPassHolderData = {
     hasChargeback: false,
   },
 
-  // Edge case: Small amount (less than shirt price)
+  // Edge case: Small refund amount
   "tiny@example.com": {
     email: "tiny@example.com",
     name: "Tim Iny",
@@ -87,17 +87,6 @@ const MOCK_PASS_HOLDERS: MockPassHolderData = {
     amountPaid: 30,
     purchaseDate: "2024-08-01",
     confirmationNumber: "NKF-2024-006789",
-    hasChargeback: false,
-  },
-
-  // Edge case: Exact shirt price amount
-  "exact@example.com": {
-    email: "exact@example.com",
-    name: "Eve Xact",
-    passType: "workshop_pass",
-    amountPaid: 45,
-    purchaseDate: "2024-07-15",
-    confirmationNumber: "NKF-2024-007890",
     hasChargeback: false,
   },
 
@@ -110,31 +99,26 @@ const MOCK_PASS_HOLDERS: MockPassHolderData = {
 };
 
 const MOCK_STATUS_DATA: { [key: string]: StatusLookupResponse["request"] } = {
-  "NKF-REF-000001": {
-    confirmationNumber: "NKF-REF-000001",
+  "RR-0001": {
+    confirmationNumber: "RR-0001",
     status: "completed",
     decision: "full",
     refundAmount: 250,
-    shirtOrdered: false,
     submittedAt: "2024-12-01T10:30:00Z",
     completedAt: "2024-12-05T14:20:00Z",
   },
-  "NKF-REF-000002": {
-    confirmationNumber: "NKF-REF-000002",
+  "RR-0002": {
+    confirmationNumber: "RR-0002",
     status: "processing",
     decision: "partial",
     refundAmount: 150,
-    shirtOrdered: true,
-    shirtDetails: [{ size: "M", quantity: 1 }],
     submittedAt: "2024-12-03T09:15:00Z",
   },
-  "NKF-REF-000003": {
-    confirmationNumber: "NKF-REF-000003",
+  "RR-0003": {
+    confirmationNumber: "RR-0003",
     status: "pending",
     decision: "waive",
     refundAmount: 0,
-    shirtOrdered: true,
-    shirtDetails: [{ size: "L", quantity: 2 }],
     submittedAt: "2024-12-04T16:45:00Z",
   },
 };

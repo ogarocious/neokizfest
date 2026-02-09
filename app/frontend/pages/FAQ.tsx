@@ -53,7 +53,7 @@ const FAQ: React.FC = () => {
         <PageHeader
           icon={<IconQuestionMark size={36} color="white" />}
           title="Frequently Asked Questions"
-          subtitle="Find answers to common questions about the refund process, commemorative shirts, and more."
+          subtitle="Find answers to common questions about the refund process and more."
         />
 
         {/* Category Filter */}

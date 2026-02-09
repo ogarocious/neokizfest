@@ -4,9 +4,7 @@ import {
   IconMail,
   IconTicket,
   IconCash,
-  IconShirt,
   IconPhone,
-  IconMapPin,
   IconChecklist,
 } from "@tabler/icons-react";
 import { colors, responsiveText } from "../../styles/theme";
@@ -26,9 +24,7 @@ const STEP_CONFIG: Record<
   email: { label: "Email", icon: IconMail },
   passDetails: { label: "Pass Details", icon: IconTicket },
   decision: { label: "Decision", icon: IconCash },
-  shirt: { label: "Shirt", icon: IconShirt },
   contact: { label: "Contact", icon: IconPhone },
-  shipping: { label: "Shipping", icon: IconMapPin },
   review: { label: "Review", icon: IconChecklist },
 };
 

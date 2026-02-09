@@ -4,13 +4,9 @@ import type {
   RefundFormStep,
   PassHolder,
   RefundDecision,
-  ShirtOrder,
   ZelleInfo,
-  ShippingAddress,
   RefundRequestData,
 } from "../types/refund";
-
-const SHIRT_PRICE = 45;
 
 const initialState: RefundFormState = {
   currentStep: "email",
@@ -19,22 +15,13 @@ const initialState: RefundFormState = {
   passHolder: null,
   decision: null,
   partialAmount: null,
-  wantsShirt: false,
-  shirts: [],
   zelleInfo: null,
-  shippingAddress: null,
   calculatedRefund: 0,
-  shirtTotal: 0,
   finalRefund: 0,
 };
 
 export function useRefundForm() {
   const [state, setState] = useState<RefundFormState>(initialState);
-
-  // Calculate shirt total
-  const shirtTotal = useMemo(() => {
-    return state.shirts.reduce((total, shirt) => total + shirt.quantity * SHIRT_PRICE, 0);
-  }, [state.shirts]);
 
   // Calculate refund based on decision
   const calculatedRefund = useMemo(() => {
@@ -52,34 +39,23 @@ export function useRefundForm() {
     }
   }, [state.passHolder, state.decision, state.partialAmount]);
 
-  // Final refund after shirt deduction
-  const finalRefund = useMemo(() => {
-    const refundAfterShirts = calculatedRefund - shirtTotal;
-    return Math.max(0, refundAfterShirts);
-  }, [calculatedRefund, shirtTotal]);
+  // Final refund amount
+  const finalRefund = calculatedRefund;
 
   // Determine which steps are needed based on form state
   const requiredSteps = useMemo((): RefundFormStep[] => {
     const steps: RefundFormStep[] = ["email", "passDetails", "decision"];
-
-    // Shirt step is always shown
-    steps.push("shirt");
 
     // Contact step needed if getting a refund
     if (state.decision === "full" || state.decision === "partial") {
       steps.push("contact");
     }
 
-    // Shipping step needed if ordering shirts
-    if (state.wantsShirt && state.shirts.length > 0) {
-      steps.push("shipping");
-    }
-
     // Review step always last
     steps.push("review");
 
     return steps;
-  }, [state.decision, state.wantsShirt, state.shirts.length]);
+  }, [state.decision]);
 
   // Get step index for progress display
   const getStepIndex = useCallback(
@@ -131,60 +107,25 @@ export function useRefundForm() {
 
   // Set refund decision
   const setDecision = useCallback((decision: RefundDecision, partialAmount?: number) => {
-    setState((prev) => ({
-      ...prev,
-      decision,
-      partialAmount: decision === "partial" ? (partialAmount ?? null) : null,
-      completedSteps: [...prev.completedSteps.filter((s) => s !== "decision"), "decision"],
-      currentStep: "shirt",
-    }));
-  }, []);
-
-  // Set shirt selection
-  const setShirtSelection = useCallback((wantsShirt: boolean, shirts: ShirtOrder[] = []) => {
     setState((prev) => {
-      const needsShipping = wantsShirt && shirts.length > 0;
-      const needsContact = prev.decision === "full" || prev.decision === "partial";
-
-      let nextStep: RefundFormStep;
-      if (needsContact) {
-        nextStep = "contact";
-      } else if (needsShipping) {
-        nextStep = "shipping";
-      } else {
-        nextStep = "review";
-      }
+      const needsContact = decision === "full" || decision === "partial";
 
       return {
         ...prev,
-        wantsShirt,
-        shirts,
-        completedSteps: [...prev.completedSteps.filter((s) => s !== "shirt"), "shirt"],
-        currentStep: nextStep,
+        decision,
+        partialAmount: decision === "partial" ? (partialAmount ?? null) : null,
+        completedSteps: [...prev.completedSteps.filter((s) => s !== "decision"), "decision"],
+        currentStep: needsContact ? "contact" : "review",
       };
     });
   }, []);
 
   // Set Zelle info
   const setZelleInfo = useCallback((zelleInfo: ZelleInfo) => {
-    setState((prev) => {
-      const needsShipping = prev.wantsShirt && prev.shirts.length > 0;
-
-      return {
-        ...prev,
-        zelleInfo,
-        completedSteps: [...prev.completedSteps.filter((s) => s !== "contact"), "contact"],
-        currentStep: needsShipping ? "shipping" : "review",
-      };
-    });
-  }, []);
-
-  // Set shipping address
-  const setShippingAddress = useCallback((shippingAddress: ShippingAddress) => {
     setState((prev) => ({
       ...prev,
-      shippingAddress,
-      completedSteps: [...prev.completedSteps.filter((s) => s !== "shipping"), "shipping"],
+      zelleInfo,
+      completedSteps: [...prev.completedSteps.filter((s) => s !== "contact"), "contact"],
       currentStep: "review",
     }));
   }, []);
@@ -228,10 +169,7 @@ export function useRefundForm() {
       amountPaid: state.passHolder.amountPaid,
       decision: state.decision,
       refundAmount: calculatedRefund,
-      wantsShirt: state.wantsShirt,
-      shirts: state.shirts,
       zelleInfo: state.zelleInfo || undefined,
-      shippingAddress: state.shippingAddress || undefined,
       finalRefundAmount: finalRefund,
     };
   }, [state, calculatedRefund, finalRefund]);
@@ -245,21 +183,14 @@ export function useRefundForm() {
       return false;
     }
 
-    // Need shipping if ordering shirts
-    if (state.wantsShirt && state.shirts.length > 0 && !state.shippingAddress) {
-      return false;
-    }
-
     return true;
   }, [state]);
 
   return {
     // State
     ...state,
-    shirtTotal,
     calculatedRefund,
     finalRefund,
-    shirtPrice: SHIRT_PRICE,
 
     // Step info
     requiredSteps,
@@ -270,9 +201,7 @@ export function useRefundForm() {
     setEmailValidated,
     confirmPassDetails,
     setDecision,
-    setShirtSelection,
     setZelleInfo,
-    setShippingAddress,
     goToStep,
     goBack,
     reset,

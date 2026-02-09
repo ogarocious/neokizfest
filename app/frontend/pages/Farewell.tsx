@@ -141,7 +141,7 @@ const Farewell: React.FC = () => {
                 >
                   <Stack gap={2} align="flex-start">
                     <Text fw={600} style={{ fontSize: "clamp(0.75rem, 2vw, 0.9rem)" }}>I'm Here to Support</Text>
-                    <Text style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.75rem)" }} opacity={0.7}>Get commemorative items</Text>
+                    <Text style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.75rem)" }} opacity={0.7}>Make a donation</Text>
                   </Stack>
                 </Button>
               </Link>
@@ -181,8 +181,8 @@ const Farewell: React.FC = () => {
               />
 
               <LetterSection
-                title="Commemorative Merchandise"
-                content="As a way to celebrate the memories we've shared, we're offering commemorative t-shirts for those who want to hold onto a piece of Neo Kizomba Festival. These are available to both ticket holders and supporters."
+                title="Ways to Support"
+                content="If you'd like to help us through this transition, you can waive your refund during the request process, or make a donation on our Support page. Every contribution helps us close this chapter responsibly and ensure everyone is taken care of."
               />
 
               <LetterSection

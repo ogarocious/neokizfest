@@ -9,40 +9,13 @@ export type PassType =
 // Refund decision options
 export type RefundDecision = "full" | "partial" | "waive";
 
-// Shirt sizes available
-export type ShirtSize = "S" | "M" | "L" | "XL" | "2XL";
-
-// US States for shipping
-export type USState =
-  | "AL" | "AK" | "AZ" | "AR" | "CA" | "CO" | "CT" | "DE" | "FL" | "GA"
-  | "HI" | "ID" | "IL" | "IN" | "IA" | "KS" | "KY" | "LA" | "ME" | "MD"
-  | "MA" | "MI" | "MN" | "MS" | "MO" | "MT" | "NE" | "NV" | "NH" | "NJ"
-  | "NM" | "NY" | "NC" | "ND" | "OH" | "OK" | "OR" | "PA" | "RI" | "SC"
-  | "SD" | "TN" | "TX" | "UT" | "VT" | "VA" | "WA" | "WV" | "WI" | "WY"
-  | "DC";
-
-// Shirt order item
-export interface ShirtOrder {
-  size: ShirtSize;
-  quantity: number;
-}
-
-// Shipping address
-export interface ShippingAddress {
-  name: string;
-  street: string;
-  city: string;
-  state: USState;
-  zip: string;
-}
-
 // Zelle contact info
 export interface ZelleInfo {
   email: string;
   phone: string;
 }
 
-// Pass holder record from Notion (via n8n)
+// Pass holder record from Notion
 export interface PassHolder {
   email: string;
   name: string;
@@ -53,7 +26,7 @@ export interface PassHolder {
   hasChargeback: boolean;
 }
 
-// Email validation response from n8n
+// Email validation response
 export interface EmailValidationResponse {
   success: boolean;
   error?: "not_found" | "chargeback" | "server_error";
@@ -68,14 +41,11 @@ export interface RefundRequestData {
   amountPaid: number;
   decision: RefundDecision;
   refundAmount: number;
-  wantsShirt: boolean;
-  shirts: ShirtOrder[];
   zelleInfo?: ZelleInfo;
-  shippingAddress?: ShippingAddress;
   finalRefundAmount: number;
 }
 
-// Refund request submission response from n8n
+// Refund request submission response
 export interface RefundSubmissionResponse {
   success: boolean;
   confirmationNumber?: string;
@@ -96,7 +66,7 @@ export type RequestStatus =
   | "on_hold"
   | "cancelled";
 
-// Status lookup response from n8n
+// Status lookup response
 export interface StatusLookupResponse {
   success: boolean;
   error?: "not_found" | "server_error";
@@ -105,8 +75,6 @@ export interface StatusLookupResponse {
     status: RequestStatus;
     decision: RefundDecision;
     refundAmount: number;
-    shirtOrdered: boolean;
-    shirtDetails?: ShirtOrder[];
     submittedAt: string;
     completedAt?: string;
     notes?: string;
@@ -143,9 +111,7 @@ export type RefundFormStep =
   | "email"
   | "passDetails"
   | "decision"
-  | "shirt"
   | "contact"
-  | "shipping"
   | "review";
 
 // Form state for multi-step form
@@ -161,19 +127,11 @@ export interface RefundFormState {
   decision: RefundDecision | null;
   partialAmount: number | null;
 
-  // Step 4: Shirt
-  wantsShirt: boolean;
-  shirts: ShirtOrder[];
-
-  // Step 5: Contact (Zelle)
+  // Step 4: Contact (Zelle) - only if requesting refund
   zelleInfo: ZelleInfo | null;
-
-  // Step 6: Shipping
-  shippingAddress: ShippingAddress | null;
 
   // Computed
   calculatedRefund: number;
-  shirtTotal: number;
   finalRefund: number;
 }
 
