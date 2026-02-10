@@ -4,7 +4,7 @@ module Notion
   # Service for looking up ticket holders from the Master Ticket Holders database
   # Used for email validation in the refund request flow
   class TicketHolderService
-    DATABASE_ID = ENV.fetch("NOTION_MASTER_TICKET_HOLDERS_DB_ID", nil)
+    DATABASE_ID = Rails.application.credentials.dig(:notion, :master_ticket_holders_db_id)
 
     def initialize
       @client = Notion::ApiClient.new
@@ -134,7 +134,7 @@ module Notion
         chargeback_prop["checkbox"] == true
       when "select"
         name = chargeback_prop.dig("select", "name")
-        name.present? && name.downcase != "none" && name.downcase != "no"
+        name.present? && !%w[none no false].include?(name.downcase)
       else
         false
       end

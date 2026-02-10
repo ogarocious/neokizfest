@@ -16,6 +16,7 @@ import {
   IconHeart,
   IconUsers,
   IconClock,
+  IconInbox,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -34,11 +35,13 @@ interface RefundEntryData {
 }
 
 interface ProgressStats {
+  total_ticket_holders: number;
   total_requests: number;
   completed: number;
   processing: number;
   submitted: number;
   waived: number;
+  chargebacks: number;
 }
 
 interface ProgressProps {
@@ -64,10 +67,10 @@ const Progress: React.FC<ProgressProps> = ({
     });
   };
 
-  // Calculate completion percentage
-  const totalResolved = stats.completed + stats.waived;
-  const completionPercentage = stats.total_requests > 0
-    ? Math.round((totalResolved / stats.total_requests) * 100)
+  // Calculate completion percentage against all ticket holders
+  const totalResolved = stats.completed + stats.waived + stats.chargebacks;
+  const completionPercentage = stats.total_ticket_holders > 0
+    ? Math.round((totalResolved / stats.total_ticket_holders) * 100)
     : 0;
 
   // Filter refunds by status
@@ -105,19 +108,32 @@ const Progress: React.FC<ProgressProps> = ({
               }}
             />
             <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-              {totalResolved} of {stats.total_requests} requests resolved
+              {totalResolved} of {stats.total_ticket_holders} pass holders resolved
             </Text>
           </Stack>
         </GlassCard>
 
         {/* Stats Grid */}
-        <SimpleGrid cols={{ base: 2, sm: 4 }} spacing={{ base: "xs", sm: "sm" }}>
-          {/* Total Requests */}
+        <SimpleGrid cols={{ base: 2, sm: 3 }} spacing={{ base: "xs", sm: "sm" }}>
+          {/* Total Pass Holders */}
           <GlassCard p={{ base: "sm", sm: "md" }}>
             <Stack gap={4} align="center">
               <IconUsers size={20} color={colors.textMuted} />
               <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Total Requests
+                Total Pass Holders
+              </Text>
+              <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
+                {stats.total_ticket_holders}
+              </Text>
+            </Stack>
+          </GlassCard>
+
+          {/* Refund Requests */}
+          <GlassCard p={{ base: "sm", sm: "md" }}>
+            <Stack gap={4} align="center">
+              <IconChartBar size={20} color={colors.textMuted} />
+              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                Refund Requests
               </Text>
               <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
                 {stats.total_requests}
@@ -125,7 +141,7 @@ const Progress: React.FC<ProgressProps> = ({
             </Stack>
           </GlassCard>
 
-          {/* Completed */}
+          {/* Resolved (completed + chargebacks) */}
           <GlassCard
             p={{ base: "sm", sm: "md" }}
             style={{
@@ -136,10 +152,10 @@ const Progress: React.FC<ProgressProps> = ({
             <Stack gap={4} align="center">
               <IconCheck size={20} color="#228B22" />
               <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Completed
+                Resolved
               </Text>
               <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
-                {stats.completed}
+                {stats.completed + stats.chargebacks}
               </Text>
             </Stack>
           </GlassCard>
@@ -178,6 +194,19 @@ const Progress: React.FC<ProgressProps> = ({
               </Text>
               <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.large }}>
                 {stats.waived}
+              </Text>
+            </Stack>
+          </GlassCard>
+
+          {/* Not Yet Requested */}
+          <GlassCard p={{ base: "sm", sm: "md" }}>
+            <Stack gap={4} align="center">
+              <IconInbox size={20} color={colors.textMuted} />
+              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                Not Yet Requested
+              </Text>
+              <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
+                {Math.max(0, stats.total_ticket_holders - stats.total_requests - stats.chargebacks)}
               </Text>
             </Stack>
           </GlassCard>
@@ -309,7 +338,7 @@ const Progress: React.FC<ProgressProps> = ({
 
         {/* Last Updated */}
         <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-          Last updated: {formatLastUpdated(last_updated)}
+          Last updated: {formatLastUpdated(last_updated)} · Data refreshes every 5 minutes
         </Text>
 
         <BackToHome />

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # Configure the Notion API client
-# Requires NOTION_API_KEY environment variable
+# Reads from Rails credentials (bin/rails credentials:edit)
 
 Notion.configure do |config|
-  config.token = ENV.fetch("NOTION_API_KEY", nil)
+  config.token = Rails.application.credentials.dig(:notion, :api_key)
 end

@@ -5,7 +5,8 @@ module Notion
   # This service is privacy-focused: it only returns initials and confirmation numbers
   # NEVER returns: full names, emails, dollar amounts, contact info, or any PII
   class ProgressService
-    DATABASE_ID = ENV.fetch("NOTION_REFUND_REQUESTS_DB_ID", nil)
+    DATABASE_ID = Rails.application.credentials.dig(:notion, :refund_requests_db_id)
+    TICKET_HOLDERS_DB_ID = Rails.application.credentials.dig(:notion, :master_ticket_holders_db_id)
     CACHE_KEY = "neo_kiz_refund_progress"
     CACHE_TTL = 5.minutes
 
@@ -73,18 +74,48 @@ module Notion
       status_order = { "completed" => 0, "processing" => 1, "verified" => 2, "submitted" => 3 }
       refunds.sort_by! { |r| [status_order[r[:status]&.downcase] || 99, r[:id]] }
 
+      holder_stats = fetch_ticket_holder_stats
+
       {
         last_updated: Time.current.iso8601,
         stats: {
+          total_ticket_holders: holder_stats[:total],
           total_requests: stats[:total],
           completed: stats[:completed],
           processing: stats[:processing] + stats[:verified],
           submitted: stats[:submitted],
-          waived: stats[:waived]
+          waived: stats[:waived],
+          chargebacks: holder_stats[:chargebacks]
         },
         refunds: refunds.map { |r| sanitize_for_public(r) },
         community_support: waived.map { |w| sanitize_for_public(w) }
       }
+    end
+
+    def fetch_ticket_holder_stats
+      return { total: 0, chargebacks: 0 } unless TICKET_HOLDERS_DB_ID
+
+      results = @client.query_database(database_id: TICKET_HOLDERS_DB_ID)
+      chargebacks = results.count { |page| chargeback?(page) }
+      { total: results.count, chargebacks: chargebacks }
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[ProgressService] Failed to fetch ticket holder stats: #{e.message}")
+      { total: 0, chargebacks: 0 }
+    end
+
+    def chargeback?(page)
+      prop = page.properties["Chargeback"]
+      return false unless prop
+
+      case prop["type"]
+      when "checkbox"
+        prop["checkbox"] == true
+      when "select"
+        name = prop.dig("select", "name")
+        name.present? && !%w[none no false].include?(name.downcase)
+      else
+        false
+      end
     end
 
     def parse_sanitized_entry(page)

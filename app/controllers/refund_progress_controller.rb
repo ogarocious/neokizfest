@@ -42,14 +42,14 @@ class RefundProgressController < ApplicationController
     # Return empty data structure on error
     {
       last_updated: Time.current.iso8601,
-      stats: { total_requests: 0, completed: 0, processing: 0, submitted: 0, waived: 0 },
+      stats: { total_ticket_holders: 0, total_requests: 0, completed: 0, processing: 0, submitted: 0, waived: 0, chargebacks: 0 },
       refunds: [],
       community_support: []
     }
   end
 
   def valid_refresh_token?
-    expected_token = ENV.fetch("REFUND_CACHE_SECRET", nil)
+    expected_token = Rails.application.credentials.refund_cache_secret
     return false if expected_token.blank?
 
     auth_header = request.headers["Authorization"]
@@ -64,11 +64,13 @@ class RefundProgressController < ApplicationController
     {
       last_updated: Time.current.iso8601,
       stats: {
+        total_ticket_holders: 203,
         total_requests: 34,
         completed: 21,
         processing: 5,
         submitted: 6,
-        waived: 8
+        waived: 8,
+        chargebacks: 3
       },
       refunds: [
         { id: "RR-0012", initials: "S.M.", status: "completed" },

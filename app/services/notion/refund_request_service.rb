@@ -3,7 +3,7 @@
 module Notion
   # Service for creating and managing refund requests in Notion
   class RefundRequestService
-    DATABASE_ID = ENV.fetch("NOTION_REFUND_REQUESTS_DB_ID", nil)
+    DATABASE_ID = Rails.application.credentials.dig(:notion, :refund_requests_db_id)
 
     # Shirt price constant
     SHIRT_PRICE = 45

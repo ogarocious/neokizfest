@@ -28,13 +28,12 @@ module Notion
       start_cursor = nil
 
       while has_more
-        response = client.database_query(
-          database_id: database_id,
-          filter: filter,
-          sorts: sorts,
-          start_cursor: start_cursor,
-          page_size: 100
-        )
+        query_params = { database_id: database_id, page_size: 100 }
+        query_params[:filter] = filter if filter
+        query_params[:sorts] = sorts if sorts
+        query_params[:start_cursor] = start_cursor if start_cursor
+
+        response = client.database_query(**query_params)
 
         results.concat(response.results)
         has_more = response.has_more
@@ -42,7 +41,7 @@ module Notion
       end
 
       results
-    rescue Faraday::TooManyRequestsError => e
+    rescue ::Faraday::TooManyRequestsError => e
       raise RateLimitError, "Notion API rate limit exceeded: #{e.message}"
     rescue StandardError => e
       Rails.logger.error("[Notion::Client] Query failed: #{e.message}")
@@ -57,7 +56,7 @@ module Notion
         parent: { database_id: database_id },
         properties: properties
       )
-    rescue Faraday::TooManyRequestsError => e
+    rescue ::Faraday::TooManyRequestsError => e
       raise RateLimitError, "Notion API rate limit exceeded: #{e.message}"
     rescue StandardError => e
       Rails.logger.error("[Notion::Client] Create failed: #{e.message}")
@@ -72,7 +71,7 @@ module Notion
         page_id: page_id,
         properties: properties
       )
-    rescue Faraday::TooManyRequestsError => e
+    rescue ::Faraday::TooManyRequestsError => e
       raise RateLimitError, "Notion API rate limit exceeded: #{e.message}"
     rescue StandardError => e
       Rails.logger.error("[Notion::Client] Update failed: #{e.message}")
@@ -84,7 +83,7 @@ module Notion
       raise ConfigurationError, "Page ID is required" if page_id.blank?
 
       client.page(page_id: page_id)
-    rescue Faraday::ResourceNotFound
+    rescue ::Faraday::ResourceNotFound
       raise RecordNotFoundError, "Page not found: #{page_id}"
     rescue StandardError => e
       Rails.logger.error("[Notion::Client] Get page failed: #{e.message}")
@@ -94,7 +93,7 @@ module Notion
     private
 
     def api_key
-      ENV.fetch("NOTION_API_KEY", nil)
+      Rails.application.credentials.dig(:notion, :api_key)
     end
   end
 end
