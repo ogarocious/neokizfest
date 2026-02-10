@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'faq', to: 'pages#faq'
   get 'status', to: 'pages#status'
   get 'support', to: 'pages#support'
+  get 'behind-the-build', to: 'pages#behind_the_build'
 
   # Progress Dashboard (with Notion integration)
   get 'progress', to: 'refund_progress#index'

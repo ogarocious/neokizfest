@@ -1,6 +1,11 @@
 <p style="font-size: 18px; margin-bottom: 24px;">Hi <%= @name %>,</p>
 
-<p>Thank you for submitting your refund request. We've received your information and will process it as quickly as possible.</p>
+<% if @waived %>
+  <p>Thank you so much for your incredible generosity. By choosing to waive your refund, you're directly supporting our community during this transition.</p>
+  <p>Your kindness means more than words can express. You're helping us ensure that every pass holder who needs a refund can receive one.</p>
+<% else %>
+  <p>Thank you for submitting your refund request. We've received your information and will process it as quickly as possible.</p>
+<% end %>
 
 <div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
   <p style="color: #9A8F85; font-size: 14px; margin: 0 0 8px;">Your Confirmation Number</p>
@@ -25,18 +30,29 @@
       <span style="color: #9A8F85; font-size: 14px;">Status</span>
     </td>
     <td style="padding: 12px 0; text-align: right;">
-      <span style="color: #F45D00; font-weight: 600;">Submitted</span>
+      <% if @waived %>
+        <span style="color: #228B22; font-weight: 600;">Waived</span>
+      <% else %>
+        <span style="color: #F45D00; font-weight: 600;">Submitted</span>
+      <% end %>
     </td>
   </tr>
 </table>
 
-<h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">What Happens Next?</h2>
+<% if @waived %>
+  <div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 20px; margin: 24px 0;">
+    <p style="color: #F45D00; font-weight: 600; margin: 0 0 8px;">You're making a difference</p>
+    <p style="color: #E8E0D8; margin: 0; font-size: 14px;">Your name will appear on our Community Support wall on the progress page as a thank you for your generosity.</p>
+  </div>
+<% else %>
+  <h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">What Happens Next?</h2>
 
-<ol style="padding-left: 20px; margin: 0;">
-  <li style="margin-bottom: 12px; line-height: 1.6;">We'll verify your information against our records.</li>
-  <li style="margin-bottom: 12px; line-height: 1.6;">Once verified, we'll begin processing your refund via Zelle.</li>
-  <li style="margin-bottom: 12px; line-height: 1.6;">You'll receive an email when your refund has been sent.</li>
-</ol>
+  <ol style="padding-left: 20px; margin: 0;">
+    <li style="margin-bottom: 12px; line-height: 1.6;">We'll verify your information against our records.</li>
+    <li style="margin-bottom: 12px; line-height: 1.6;">Once verified, we'll begin processing your refund via Zelle.</li>
+    <li style="margin-bottom: 12px; line-height: 1.6;">You'll receive an email when your refund has been sent.</li>
+  </ol>
+<% end %>
 
 <p style="margin-top: 32px; text-align: center;">
   <a href="<%= @status_url %>" style="display: inline-block; background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px;">Check Your Status</a>

@@ -4,7 +4,17 @@ import "@mantine/core/styles.css";
 import { createInertiaApp } from "@inertiajs/react";
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
+
+const theme = createTheme({
+  components: {
+    Badge: {
+      styles: {
+        root: { textTransform: "capitalize" },
+      },
+    },
+  },
+});
 
 createInertiaApp({
   resolve: (name) => {
@@ -13,7 +23,7 @@ createInertiaApp({
   },
   setup({ el, App, props }) {
     createRoot(el).render(
-      createElement(MantineProvider, {}, createElement(App, props))
+      createElement(MantineProvider, { theme }, createElement(App, props))
     );
   },
 });

@@ -91,8 +91,8 @@ module Notion
         # Decision (Select)
         "Decision" => { select: { name: format_decision(params[:decision]) } },
 
-        # Status (defaults to Submitted)
-        "Status" => { status: { name: "Submitted" } },
+        # Status: auto-complete waive requests, otherwise Submitted
+        "Status" => { status: { name: waive_decision?(params[:decision]) ? "Waived" : "Submitted" } },
 
         # Pass Type (if provided)
         "Pass Type" => params[:pass_type].present? ?
@@ -131,6 +131,10 @@ module Notion
 
       # Remove nil values
       properties.compact
+    end
+
+    def waive_decision?(decision)
+      %w[waive waive_refund].include?(decision.to_s.downcase)
     end
 
     def format_decision(decision)

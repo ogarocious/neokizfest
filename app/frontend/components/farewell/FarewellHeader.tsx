@@ -7,6 +7,7 @@ import {
   IconSearch,
   IconChartBar,
   IconHeart,
+  IconCode,
 } from "@tabler/icons-react";
 
 const navItems = [
@@ -15,6 +16,7 @@ const navItems = [
   { href: "/status", label: "Status", icon: IconSearch },
   { href: "/progress", label: "Progress", icon: IconChartBar },
   { href: "/support", label: "Donate", icon: IconHeart },
+  { href: "/behind-the-build", label: "Built With", icon: IconCode },
 ];
 
 const FarewellHeader: React.FC = () => {

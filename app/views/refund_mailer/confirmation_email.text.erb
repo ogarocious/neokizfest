@@ -1,6 +1,12 @@
 Hi <%= @name %>,
 
+<% if @waived %>
+Thank you so much for your incredible generosity. By choosing to waive your refund, you're directly supporting our community during this transition.
+
+Your kindness means more than words can express. You're helping us ensure that every pass holder who needs a refund can receive one.
+<% else %>
 Thank you for submitting your refund request. We've received your information and will process it as quickly as possible.
+<% end %>
 
 YOUR CONFIRMATION NUMBER
 ========================
@@ -11,13 +17,19 @@ Please save this confirmation number. You'll need it to check your request statu
 REQUEST DETAILS
 ===============
 Decision: <%= @decision_text %>
-Status: Submitted
+Status: <%= @waived ? "Waived" : "Submitted" %>
 
+<% if @waived %>
+YOU'RE MAKING A DIFFERENCE
+==========================
+Your name will appear on our Community Support wall on the progress page as a thank you for your generosity.
+<% else %>
 WHAT HAPPENS NEXT?
 ==================
 1. We'll verify your information against our records.
 2. Once verified, we'll begin processing your refund via Zelle.
 3. You'll receive an email when your refund has been sent.
+<% end %>
 
 Check your status anytime at:
 <%= @status_url %>

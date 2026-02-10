@@ -40,6 +40,11 @@ const FarewellFooter: React.FC = () => {
                   Check Status
                 </Text>
               </Link>
+              <Link href="/behind-the-build" style={{ textDecoration: "none" }}>
+                <Text size="sm" c="#9A8F85" className="hover:text-[#F45D00]">
+                  Built With
+                </Text>
+              </Link>
             </Group>
           </Stack>
 

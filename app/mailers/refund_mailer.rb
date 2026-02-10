@@ -7,12 +7,16 @@ class RefundMailer < ApplicationMailer
     @decision = decision
     @name = name || "Valued Guest"
     @decision_text = format_decision(decision)
+    @waived = %w[waive waive_refund].include?(decision.to_s.downcase)
     @status_url = status_url(confirmation_number)
 
-    mail(
-      to: email,
-      subject: "Your Neo Kizomba Festival Refund Request - #{confirmation_number}"
-    )
+    subject = if @waived
+                "Thank You for Your Generosity - #{confirmation_number}"
+              else
+                "Your Neo Kizomba Festival Refund Request - #{confirmation_number}"
+              end
+
+    mail(to: email, subject: subject)
   end
 
   # Sent when a refund request status changes (e.g., processing -> completed)
