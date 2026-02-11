@@ -43,15 +43,16 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Use memory cache (no database required)
-  config.cache_store = :memory_store
+  # Use file-based cache (persists across restarts, no database required)
+  config.cache_store = :file_store, Rails.root.join("tmp", "cache")
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
-  # Use inline job processing (no database queue)
-  config.active_job.queue_adapter = :inline
+  # Use async job processing (in-process thread pool, no database needed)
+  # deliver_later runs in a background thread so users aren't blocked by SMTP
+  config.active_job.queue_adapter = :async
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
@@ -67,8 +68,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp-relay.brevo.com",
     port: 587,
-    user_name: ENV.fetch("BREVO_SMTP_USER", nil),
-    password: ENV.fetch("BREVO_SMTP_PASSWORD", nil),
+    user_name: Rails.application.credentials.dig(:brevo, :smtp_user),
+    password: Rails.application.credentials.dig(:brevo, :smtp_password),
     authentication: :login,
     enable_starttls_auto: true
   }
@@ -78,10 +79,10 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST", "neokizombafestival.com"),
+    host: Rails.application.credentials.dig(:mailer, :host) || "neokizombafestival.com",
     protocol: "https"
   }
   config.action_mailer.default_options = {
-    from: ENV.fetch("MAILER_FROM", "Neo Kizomba Festival <refunds@neokizombafestival.com>")
+    from: Rails.application.credentials.dig(:mailer, :from) || "Neo Kizomba Festival <refunds@neokizombafestival.com>"
   }
 end

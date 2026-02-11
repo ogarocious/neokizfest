@@ -53,6 +53,24 @@ module Notion
       { success: false, error: :lookup_failed, message: e.message }
     end
 
+    # Look up refund request(s) by email only
+    def find_by_email(email:)
+      results = @client.query_database(
+        database_id: DATABASE_ID,
+        filter: {
+          property: "Email",
+          email: { equals: email.strip.downcase }
+        }
+      )
+
+      return { success: false, error: :not_found, message: "No refund request found for this email" } if results.empty?
+
+      request = parse_refund_request(results.first)
+      { success: true, request: request }
+    rescue Notion::ApiClient::NotionError => e
+      { success: false, error: :lookup_failed, message: e.message }
+    end
+
     # Get a single refund request by confirmation number (for status lookup)
     def find_by_confirmation(confirmation_number)
       # Parse the confirmation number (e.g., "RR-0012" -> 12)
@@ -81,6 +99,25 @@ module Notion
       required = %i[email decision]
       missing = required.select { |key| params[key].blank? }
       raise ArgumentError, "Missing required params: #{missing.join(', ')}" if missing.any?
+
+      validate_refund_amount!(params) if partial_decision?(params[:decision])
+    end
+
+    def partial_decision?(decision)
+      %w[partial partial_refund].include?(decision.to_s.downcase)
+    end
+
+    def validate_refund_amount!(params)
+      amount = params[:refund_amount]
+      raise ArgumentError, "Refund amount is required for partial refunds" if amount.blank?
+
+      amount = amount.to_f
+      raise ArgumentError, "Refund amount must be greater than zero" if amount <= 0
+
+      if params[:amount_paid].present?
+        max = params[:amount_paid].to_f
+        raise ArgumentError, "Refund amount ($#{amount.round(2)}) cannot exceed amount paid ($#{max.round(2)})" if amount > max
+      end
     end
 
     def build_properties(params)
@@ -104,6 +141,10 @@ module Notion
 
         # T-Shirt fields
         "Wants T-Shirt" => { checkbox: params[:wants_shirt] == true },
+
+        # Refund Amount (for partial refunds, or full amount for full refunds)
+        "Refund Amount ..." => params[:refund_amount].present? ?
+          { number: params[:refund_amount].to_f } : nil,
 
         # Zelle Contact (if refund expected)
         "Zelle Contact" => params[:zelle_contact].present? ?

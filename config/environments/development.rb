@@ -53,8 +53,7 @@ Rails.application.configure do
 
   # ==================== Action Mailer Configuration ====================
   # In development, emails are logged to the console and saved to tmp/mails
-  config.action_mailer.delivery_method = :file
-  config.action_mailer.file_settings = { location: Rails.root.join("tmp/mails") }
+  config.action_mailer.delivery_method = :letter_opener
 
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true

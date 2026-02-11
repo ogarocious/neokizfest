@@ -171,6 +171,7 @@ export function useRefundForm() {
       refundAmount: calculatedRefund,
       zelleInfo: state.zelleInfo || undefined,
       finalRefundAmount: finalRefund,
+      ticketHolderPageId: state.passHolder.notionPageId,
     };
   }, [state, calculatedRefund, finalRefund]);
 

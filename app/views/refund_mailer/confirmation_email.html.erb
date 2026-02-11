@@ -25,6 +25,36 @@
       <span style="color: #E8E0D8; font-weight: 600;"><%= @decision_text %></span>
     </td>
   </tr>
+  <% if @amount_paid %>
+  <tr>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <span style="color: #9A8F85; font-size: 14px;">Original Ticket Price</span>
+    </td>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+      <span style="color: #E8E0D8; font-weight: 600;">$<%= sprintf("%.2f", @amount_paid) %></span>
+    </td>
+  </tr>
+  <% end %>
+  <% if @refund_amount && !@waived %>
+  <tr>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <span style="color: #9A8F85; font-size: 14px;">Refund Amount</span>
+    </td>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+      <span style="color: #E8E0D8; font-weight: 600;">$<%= sprintf("%.2f", @refund_amount) %></span>
+    </td>
+  </tr>
+  <% end %>
+  <% if @donated_amount %>
+  <tr>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <span style="color: #9A8F85; font-size: 14px;"><%= @waived ? "Amount Waived" : "Amount Donated" %></span>
+    </td>
+    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+      <span style="color: #228B22; font-weight: 600;">$<%= sprintf("%.2f", @donated_amount) %></span>
+    </td>
+  </tr>
+  <% end %>
   <tr>
     <td style="padding: 12px 0;">
       <span style="color: #9A8F85; font-size: 14px;">Status</span>

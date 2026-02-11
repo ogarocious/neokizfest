@@ -17,7 +17,10 @@ Please save this confirmation number. You'll need it to check your request statu
 REQUEST DETAILS
 ===============
 Decision: <%= @decision_text %>
-Status: <%= @waived ? "Waived" : "Submitted" %>
+<% if @amount_paid %>Original Ticket Price: $<%= sprintf("%.2f", @amount_paid) %>
+<% end %><% if @refund_amount && !@waived %>Refund Amount: $<%= sprintf("%.2f", @refund_amount) %>
+<% end %><% if @donated_amount %><%= @waived ? "Amount Waived" : "Amount Donated" %>: $<%= sprintf("%.2f", @donated_amount) %>
+<% end %>Status: <%= @waived ? "Waived" : "Submitted" %>
 
 <% if @waived %>
 YOU'RE MAKING A DIFFERENCE

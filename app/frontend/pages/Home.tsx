@@ -387,6 +387,8 @@ const Home: React.FC<HomeProps> = ({ latest_videos }) => {
               year. Early bird tickets are now available.
             </Text>
             <Button
+              component="a"
+              href="/"
               size="lg"
               leftSection={<IconMusic size={20} />}
               style={{
@@ -395,7 +397,7 @@ const Home: React.FC<HomeProps> = ({ latest_videos }) => {
                 fontWeight: 700,
                 fontSize: "1.125rem",
                 padding: "1rem 2rem",
-
+                textDecoration: "none",
                 boxShadow: "0 6px 20px rgba(240, 234, 227, 0.4)",
               }}
               styles={{
@@ -408,7 +410,7 @@ const Home: React.FC<HomeProps> = ({ latest_videos }) => {
                 },
               }}
             >
-              Get Your Tickets Now
+              Visit Neo Kizomba Festival
             </Button>
           </Stack>
         </Paper>

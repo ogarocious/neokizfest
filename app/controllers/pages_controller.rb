@@ -29,6 +29,10 @@ class PagesController < ApplicationController
     render inertia: 'BehindTheBuild'
   end
 
+  def donation_thank_you
+    render inertia: 'DonationThankYou'
+  end
+
   # Note: progress action moved to RefundProgressController for Notion integration
 
   # ==================== LEGACY FESTIVAL PAGES ====================

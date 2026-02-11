@@ -525,7 +525,7 @@ const BehindTheBuild: React.FC = () => {
             <Group gap="sm" mt="xs">
               <GradientButton
                 component="a"
-                href="https://github.com"
+                href="https://github.com/ogarocious"
                 target="_blank"
                 size="sm"
                 leftSection={<IconBrandGithub size={16} />}
@@ -534,7 +534,7 @@ const BehindTheBuild: React.FC = () => {
               </GradientButton>
               <GradientButton
                 component="a"
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/ogarocious/"
                 target="_blank"
                 size="sm"
                 buttonVariant="outline"

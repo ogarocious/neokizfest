@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Stack,
   Text,
@@ -6,12 +6,14 @@ import {
   SimpleGrid,
   Box,
   Divider,
+  TextInput,
+  NumberInput,
+  Loader,
 } from "@mantine/core";
 import { Link } from "@inertiajs/react";
 import {
   IconHeart,
   IconGift,
-  IconExternalLink,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -19,12 +21,77 @@ import {
   PageHeader,
   BackToHome,
   GradientButton,
+  AlertMessage,
 } from "../components/shared";
-import { colors, responsiveText } from "../styles/theme";
+import { colors, responsiveText, mobileInputStyles } from "../styles/theme";
+import type { DonationCheckoutResponse } from "../types/donation";
+
+const PRESET_AMOUNTS = [10, 25, 50, 100];
 
 const Support: React.FC = () => {
-  // Placeholder Lemon Squeezy URL (to be replaced with actual donation link)
-  const donationUrl = "#"; // Will be Lemon Squeezy donation URL
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [amount, setAmount] = useState<number | "">("");
+  const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handlePresetClick = (preset: number) => {
+    setSelectedPreset(preset);
+    setAmount(preset);
+    setError(null);
+  };
+
+  const handleCustomAmount = (value: string | number) => {
+    setSelectedPreset(null);
+    setAmount(value === "" ? "" : Number(value));
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !/^[^@\s]+@[^@\s]+$/.test(trimmedEmail)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!amount || amount <= 0) {
+      setError("Please select or enter a donation amount.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/donations/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: trimmedEmail,
+          amount,
+        }),
+      });
+
+      const data: DonationCheckoutResponse = await response.json();
+
+      if (data.success && data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        setError(data.errorMessage || "Unable to start checkout. Please try again.");
+        setLoading(false);
+      }
+    } catch {
+      setError("Unable to connect to the server. Please try again.");
+      setLoading(false);
+    }
+  };
 
   return (
     <FarewellLayout>
@@ -36,54 +103,145 @@ const Support: React.FC = () => {
           iconColor="success"
         />
 
-        {/* Donation Option */}
+        {/* Donation Form */}
         <GlassCard
           style={{
             background: "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(50, 205, 50, 0.12) 100%)",
             border: "2px solid rgba(34, 139, 34, 0.2)",
           }}
         >
-          <Stack gap="md">
-            <Group gap="sm" wrap="nowrap">
-              <Box
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 10,
-                  background: "linear-gradient(135deg, #228B22 0%, #32CD32 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
-                <IconGift size={24} color="white" />
+          <form onSubmit={handleSubmit}>
+            <Stack gap="md">
+              <Group gap="sm" wrap="nowrap">
+                <Box
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 10,
+                    background: "linear-gradient(135deg, #228B22 0%, #32CD32 100%)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <IconGift size={24} color="white" />
+                </Box>
+                <Stack gap={2}>
+                  <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.body }}>
+                    Make a Donation
+                  </Text>
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                    Support the closure process with any amount
+                  </Text>
+                </Stack>
+              </Group>
+
+              <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
+                Donations help us cover final operational costs, process refunds, and close
+                this chapter responsibly.
+              </Text>
+
+              <TextInput
+                label="Name"
+                placeholder="Your name (optional)"
+                value={name}
+                onChange={(e) => setName(e.currentTarget.value)}
+                styles={() => ({
+                  label: mobileInputStyles.label,
+                  input: mobileInputStyles.input,
+                })}
+              />
+
+              <TextInput
+                label="Email"
+                placeholder="you@example.com"
+                required
+                value={email}
+                onChange={(e) => { setEmail(e.currentTarget.value); setError(null); }}
+                styles={() => ({
+                  label: mobileInputStyles.label,
+                  input: mobileInputStyles.input,
+                })}
+              />
+
+              {/* Preset amount buttons */}
+              <Box>
+                <Text
+                  fw={500}
+                  mb={8}
+                  style={{
+                    fontSize: responsiveText.small,
+                    color: colors.textPrimary,
+                  }}
+                >
+                  Amount <Text component="span" c={colors.error}>*</Text>
+                </Text>
+                <Group gap="sm">
+                  {PRESET_AMOUNTS.map((preset) => (
+                    <Box
+                      key={preset}
+                      component="button"
+                      type="button"
+                      onClick={() => handlePresetClick(preset)}
+                      style={{
+                        background: selectedPreset === preset
+                          ? "linear-gradient(135deg, #228B22 0%, #32CD32 100%)"
+                          : "rgba(20, 20, 20, 0.8)",
+                        border: selectedPreset === preset
+                          ? "1px solid #32CD32"
+                          : "1px solid rgba(244, 93, 0, 0.3)",
+                        borderRadius: 8,
+                        padding: "8px 16px",
+                        color: selectedPreset === preset ? "white" : colors.textPrimary,
+                        fontWeight: 600,
+                        fontSize: responsiveText.body,
+                        cursor: "pointer",
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      ${preset}
+                    </Box>
+                  ))}
+                </Group>
               </Box>
-              <Stack gap={2}>
-                <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.body }}>
-                  Make a Donation
-                </Text>
-                <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
-                  Support the closure process with any amount
-                </Text>
-              </Stack>
-            </Group>
 
-            <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
-              Donations help us cover final operational costs, process refunds, and close
-              this chapter responsibly.
-            </Text>
+              <NumberInput
+                label="Custom amount"
+                placeholder="Enter amount"
+                prefix="$"
+                min={1}
+                decimalScale={2}
+                value={selectedPreset ? "" : amount}
+                onChange={handleCustomAmount}
+                styles={() => ({
+                  label: mobileInputStyles.label,
+                  input: mobileInputStyles.input,
+                })}
+              />
 
-            <GradientButton
-              size="sm"
-              fullWidth
-              buttonVariant="success"
-              rightSection={<IconExternalLink size={16} />}
-              disabled
-            >
-              {donationUrl === "#" ? "Coming Soon" : "Make a Donation"}
-            </GradientButton>
-          </Stack>
+              {error && (
+                <AlertMessage message={error} onDismiss={() => setError(null)} />
+              )}
+
+              <GradientButton
+                type="submit"
+                buttonVariant="success"
+                size="md"
+                fullWidth
+                disabled={loading}
+              >
+                {loading ? (
+                  <Group gap="xs" justify="center">
+                    <Loader size="xs" color="white" />
+                    <span>Redirecting to payment...</span>
+                  </Group>
+                ) : (
+                  `Donate${amount ? ` $${typeof amount === "number" ? amount.toFixed(2) : ""}` : ""}`
+                )}
+              </GradientButton>
+            </Stack>
+          </form>
         </GlassCard>
 
         {/* What Your Support Means */}

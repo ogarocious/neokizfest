@@ -10,9 +10,13 @@ import type {
   MockPassHolderData,
 } from "../types/refund";
 
-// Environment variable check for mock mode
-// Now defaults to using Rails API (set VITE_USE_MOCK=true to force mock mode)
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+// Mock mode is only allowed in development builds (never in production)
+// Set VITE_USE_MOCK=true in .env.development to force mock mode
+const USE_MOCK = import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === "true";
+
+if (import.meta.env.PROD && import.meta.env.VITE_USE_MOCK === "true") {
+  console.warn("[useApi] VITE_USE_MOCK is set but ignored in production builds.");
+}
 
 // Rails API endpoints (relative paths)
 const API_VALIDATE_EMAIL_URL = "/api/refunds/validate-email";
@@ -201,26 +205,42 @@ const mockSubmitRequest = async (_data: RefundRequestData): Promise<RefundSubmis
   return {
     success: true,
     confirmationNumber,
+    emailSent: true,
   };
+};
+
+const MOCK_EMAIL_TO_CONFIRMATION: Record<string, string> = {
+  "john@example.com": "RR-0001",
+  "sarah@example.com": "RR-0002",
+  "mike@example.com": "RR-0003",
 };
 
 const mockCheckStatus = async (request: StatusLookupRequest): Promise<StatusLookupResponse> => {
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 600));
 
-  const statusData = MOCK_STATUS_DATA[request.confirmationNumber.toUpperCase()];
-
-  if (!statusData) {
-    return {
-      success: false,
-      error: "not_found",
-    };
+  // If confirmation number provided, look up directly and verify email
+  if (request.confirmationNumber) {
+    const statusData = MOCK_STATUS_DATA[request.confirmationNumber.toUpperCase()];
+    if (!statusData) {
+      return { success: false, error: "not_found" };
+    }
+    return { success: true, request: statusData };
   }
 
-  return {
-    success: true,
-    request: statusData,
-  };
+  // Email-only lookup
+  const normalizedEmail = request.email.toLowerCase().trim();
+  const confirmationNumber = MOCK_EMAIL_TO_CONFIRMATION[normalizedEmail];
+  if (!confirmationNumber) {
+    return { success: false, error: "not_found" };
+  }
+
+  const statusData = MOCK_STATUS_DATA[confirmationNumber];
+  if (!statusData) {
+    return { success: false, error: "not_found" };
+  }
+
+  return { success: true, request: statusData };
 };
 
 const mockFetchProgress = async (): Promise<ProgressData> => {
@@ -392,11 +412,11 @@ export function useStatusLookup() {
     error: null,
   });
 
-  const lookup = useCallback(async (confirmationNumber: string, email: string) => {
+  const lookup = useCallback(async (email: string, confirmationNumber: string) => {
     setState({ data: null, loading: true, error: null });
 
     try {
-      const result = await checkStatus({ confirmationNumber, email });
+      const result = await checkStatus({ email, confirmationNumber });
       setState({ data: result, loading: false, error: null });
       return result;
     } catch (err) {

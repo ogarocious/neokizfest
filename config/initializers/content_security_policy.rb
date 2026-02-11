@@ -4,31 +4,27 @@
 # See the Securing Rails Applications Guide for more information:
 # https://guides.rubyonrails.org/security.html#content-security-policy-header
 
-# Rails.application.configure do
-#   config.content_security_policy do |policy|
-#     policy.default_src :self, :https
-#     policy.font_src    :self, :https, :data
-#     policy.img_src     :self, :https, :data
-#     policy.object_src  :none
-#     policy.script_src  :self, :https
-    # Allow @vite/client to hot reload javascript changes in development
-#    policy.script_src *policy.script_src, :unsafe_eval, "http://#{ ViteRuby.config.host_with_port }" if Rails.env.development?
+Rails.application.configure do
+  config.content_security_policy do |policy|
+    policy.default_src :self
+    policy.font_src    :self, :data, "https://fonts.gstatic.com"
+    policy.img_src     :self, :data, :https
+    policy.object_src  :none
+    policy.script_src  :self, "https://app.lemonsqueezy.com"
+    policy.style_src   :self, :unsafe_inline
+    policy.connect_src :self, "https://api.lemonsqueezy.com"
+    policy.frame_src   :self, "https://app.lemonsqueezy.com"
 
-    # You may need to enable this in production as well depending on your setup.
-#    policy.script_src *policy.script_src, :blob if Rails.env.test?
+    # Allow Vite dev server in development
+    if Rails.env.development?
+      policy.script_src *policy.script_src, :unsafe_eval, "http://#{ViteRuby.config.host_with_port}"
+      policy.connect_src *policy.connect_src, "ws://#{ViteRuby.config.host_with_port}", "http://#{ViteRuby.config.host_with_port}"
+    end
 
-#     policy.style_src   :self, :https
-    # Allow @vite/client to hot reload style changes in development
-#    policy.style_src *policy.style_src, :unsafe_inline if Rails.env.development?
+    # Allow blob: in test for Selenium
+    policy.script_src *policy.script_src, :blob if Rails.env.test?
+  end
 
-#     # Specify URI for violation reports
-#     # policy.report_uri "/csp-violation-report-endpoint"
-#   end
-#
-#   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
-#   config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
-#   config.content_security_policy_nonce_directives = %w(script-src style-src)
-#
-#   # Report violations without enforcing the policy.
-#   # config.content_security_policy_report_only = true
-# end
+  # Report violations without enforcing (safe rollout — switch to enforcing once stable)
+  config.content_security_policy_report_only = true
+end

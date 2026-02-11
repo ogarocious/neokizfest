@@ -49,7 +49,9 @@ class RefundProgressController < ApplicationController
   end
 
   def valid_refresh_token?
-    expected_token = Rails.application.credentials.refund_cache_secret
+    # Prefer dedicated token, fall back to shared secret for backward compatibility
+    expected_token = Rails.application.credentials.progress_refresh_secret ||
+                     Rails.application.credentials.refund_cache_secret
     return false if expected_token.blank?
 
     auth_header = request.headers["Authorization"]

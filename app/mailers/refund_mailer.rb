@@ -2,12 +2,15 @@
 
 class RefundMailer < ApplicationMailer
   # Sent after a refund request is successfully submitted
-  def confirmation_email(email:, confirmation_number:, decision:, name: nil)
+  def confirmation_email(email:, confirmation_number:, decision:, name: nil, refund_amount: nil, amount_paid: nil)
     @confirmation_number = confirmation_number
     @decision = decision
     @name = name || "Valued Guest"
     @decision_text = format_decision(decision)
+    @refund_amount = refund_amount
+    @amount_paid = amount_paid
     @waived = %w[waive waive_refund].include?(decision.to_s.downcase)
+    @donated_amount = compute_donated_amount(decision, refund_amount, amount_paid)
     @status_url = status_url(confirmation_number)
 
     subject = if @waived
@@ -70,6 +73,13 @@ class RefundMailer < ApplicationMailer
     else
       status.to_s.titleize
     end
+  end
+
+  def compute_donated_amount(decision, refund_amount, amount_paid)
+    return amount_paid if %w[waive waive_refund].include?(decision.to_s.downcase) && amount_paid
+    return (amount_paid - refund_amount).round(2) if %w[partial partial_refund].include?(decision.to_s.downcase) && amount_paid && refund_amount
+
+    nil
   end
 
   def status_url(confirmation_number)

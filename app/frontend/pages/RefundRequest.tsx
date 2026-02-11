@@ -61,6 +61,7 @@ const RefundRequest: React.FC = () => {
             email: form.email,
             decision: form.decision,
             refundAmount: form.finalRefund,
+            emailSent: result.emailSent !== false ? "true" : "false",
           },
         });
       } else {

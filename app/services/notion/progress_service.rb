@@ -8,7 +8,7 @@ module Notion
     DATABASE_ID = Rails.application.credentials.dig(:notion, :refund_requests_db_id)
     TICKET_HOLDERS_DB_ID = Rails.application.credentials.dig(:notion, :master_ticket_holders_db_id)
     CACHE_KEY = "neo_kiz_refund_progress"
-    CACHE_TTL = 5.minutes
+    CACHE_TTL = 15.minutes
 
     def initialize
       @client = Notion::ApiClient.new

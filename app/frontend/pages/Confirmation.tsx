@@ -22,6 +22,7 @@ import {
   IconBrandFacebook,
   IconHeart,
   IconConfetti,
+  IconAlertTriangle,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import type { RefundDecision } from "../types/refund";
@@ -36,6 +37,7 @@ const Confirmation: React.FC = () => {
   const email = params.get("email") || "";
   const decision = (params.get("decision") as RefundDecision) || "full";
   const refundAmount = parseFloat(params.get("refundAmount") || "0");
+  const emailSent = params.get("emailSent") !== "false";
 
   const isWaived = decision === "waive";
 
@@ -136,6 +138,27 @@ const Confirmation: React.FC = () => {
             </Text>
           </Stack>
         </Paper>
+
+        {/* Email Warning */}
+        {!emailSent && (
+          <Paper
+            p="md"
+            radius="md"
+            style={{
+              background: "rgba(255, 193, 7, 0.08)",
+              border: "1px solid rgba(255, 193, 7, 0.3)",
+            }}
+          >
+            <Group gap="sm" align="flex-start" wrap="nowrap">
+              <IconAlertTriangle size={20} color="#FFC107" style={{ flexShrink: 0, marginTop: 2 }} />
+              <Text size="sm" c={colors.textMuted}>
+                We couldn't send your confirmation email. Please{" "}
+                <strong style={{ color: colors.textPrimary }}>save your confirmation number above</strong> —
+                you'll need it to check your request status.
+              </Text>
+            </Group>
+          </Paper>
+        )}
 
         {/* Request Summary */}
         <Paper

@@ -24,6 +24,7 @@ export interface PassHolder {
   purchaseDate: string;
   confirmationNumber?: string;
   hasChargeback: boolean;
+  notionPageId?: string;
 }
 
 // Email validation response
@@ -43,22 +44,26 @@ export interface RefundRequestData {
   refundAmount: number;
   zelleInfo?: ZelleInfo;
   finalRefundAmount: number;
+  ticketHolderPageId?: string;
 }
 
 // Refund request submission response
 export interface RefundSubmissionResponse {
   success: boolean;
   confirmationNumber?: string;
+  emailSent?: boolean;
   error?: string;
 }
 
 // Status lookup request
 export interface StatusLookupRequest {
-  confirmationNumber: string;
   email: string;
+  confirmationNumber: string;
 }
 
 // Request status types
+// Backend currently returns: pending, processing, completed
+// on_hold and cancelled are defensive — kept for StatusBadge completeness
 export type RequestStatus =
   | "pending"
   | "processing"

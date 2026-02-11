@@ -36,11 +36,11 @@ import type { StatusLookupResponse } from "../types/refund";
 import { colors, responsiveText, mobileInputStyles } from "../styles/theme";
 
 const lookupSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
   confirmationNumber: z
     .string()
     .min(1, "Please enter your confirmation number")
     .regex(/^(RR-\d{4}|NKF-REF-\d+)$/i, "Invalid format (e.g., RR-0001)"),
-  email: z.string().email("Please enter a valid email address"),
 });
 
 type LookupFormData = z.infer<typeof lookupSchema>;
@@ -67,8 +67,8 @@ const StatusLookup: React.FC = () => {
   } = useForm<LookupFormData>({
     resolver: zodResolver(lookupSchema),
     defaultValues: {
-      confirmationNumber: prefillRef,
       email: "",
+      confirmationNumber: prefillRef || "",
     },
   });
 
@@ -80,7 +80,7 @@ const StatusLookup: React.FC = () => {
 
   const onSubmit = async (data: LookupFormData) => {
     setResult(null);
-    const response = await lookup(data.confirmationNumber.toUpperCase(), data.email);
+    const response = await lookup(data.email, data.confirmationNumber.toUpperCase());
     setResult(response);
   };
 
@@ -100,7 +100,7 @@ const StatusLookup: React.FC = () => {
         <PageHeader
           icon={<IconSearch size={32} color="white" />}
           title="Check Your Status"
-          subtitle="Enter your confirmation number and email to see the status of your refund request."
+          subtitle="Enter your email and confirmation number to check the status of your refund request."
         />
 
         {/* Mock Mode Indicator */}
@@ -115,7 +115,7 @@ const StatusLookup: React.FC = () => {
             <Group gap="xs" wrap="nowrap">
               <IconAlertCircle size={16} color="#0066CC" style={{ flexShrink: 0 }} />
               <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
-                <strong style={{ color: "#0066CC" }}>Demo:</strong> Try RR-0001 or RR-0002 with any email
+                <strong style={{ color: "#0066CC" }}>Demo:</strong> Try john@example.com with RR-0001 or sarah@example.com with RR-0002
               </Text>
             </Group>
           </GlassCard>
@@ -126,8 +126,23 @@ const StatusLookup: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack gap="md">
               <TextInput
+                {...register("email")}
+                label="Email Address"
+                placeholder="your.email@example.com"
+                size="sm"
+                leftSection={<IconMail size={16} />}
+                error={errors.email?.message}
+                styles={{
+                  label: mobileInputStyles.label,
+                  input: mobileInputStyles.input,
+                  error: mobileInputStyles.error,
+                }}
+              />
+
+              <TextInput
                 {...register("confirmationNumber")}
                 label="Confirmation Number"
+                description="Found in your confirmation email"
                 placeholder="RR-0001"
                 size="sm"
                 leftSection={<IconHash size={16} />}
@@ -139,20 +154,7 @@ const StatusLookup: React.FC = () => {
                     fontFamily: "monospace",
                     textTransform: "uppercase",
                   },
-                  error: mobileInputStyles.error,
-                }}
-              />
-
-              <TextInput
-                {...register("email")}
-                label="Email Address"
-                placeholder="your.email@example.com"
-                size="sm"
-                leftSection={<IconMail size={16} />}
-                error={errors.email?.message}
-                styles={{
-                  label: mobileInputStyles.label,
-                  input: mobileInputStyles.input,
+                  description: mobileInputStyles.description,
                   error: mobileInputStyles.error,
                 }}
               />
@@ -187,8 +189,8 @@ const StatusLookup: React.FC = () => {
                 </Text>
               </Group>
               <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
-                We couldn't find a refund request matching that confirmation number
-                and email. Please double-check your information.
+                We couldn't find a refund request matching that email and
+                confirmation number. Please double-check your information.
               </Text>
               <Group gap="xs" mt="xs">
                 <Text style={{ fontSize: responsiveText.small }} c={colors.textMuted}>Need help?</Text>
