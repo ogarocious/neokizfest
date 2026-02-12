@@ -240,7 +240,7 @@ const ArtistPayments: React.FC = () => {
         ) : (
           <SimpleGrid cols={{ base: 1, md: viewMode === "list" ? 2 : 1 }} spacing="md">
             {festivalEditions.map((edition) => (
-              <FestivalYearCard key={edition.year} edition={edition} viewMode={viewMode} />
+              <FestivalYearCard key={edition.name} edition={edition} viewMode={viewMode} />
             ))}
           </SimpleGrid>
         )}
