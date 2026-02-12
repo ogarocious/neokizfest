@@ -107,7 +107,10 @@ export const festivalEditions: FestivalEdition[] = [
       {
         name: "DJ Mojo",
         image: "/images/artist-payments/artists/dj-mojo-2024.png",
-        confirmed: false,
+        confirmed: true,
+        proofImages: [
+          "/images/artist-payments/proof/dj-mojo-payment-2024.png",
+        ],
       },
       {
         name: "DJ Profe",
@@ -115,6 +118,7 @@ export const festivalEditions: FestivalEdition[] = [
         confirmed: true,
         proofImages: [
           "/images/artist-payments/proof/dj-profe-payment-2024.png",
+          "/images/artist-payments/proof/dj-profe-zelle-2024.png",
         ],
       },
       {
@@ -135,7 +139,11 @@ export const festivalEditions: FestivalEdition[] = [
       {
         name: "DJ Babyface",
         image: "/images/artist-payments/artists/dj-babyface-2024.png",
-        confirmed: false,
+        confirmed: true,
+        proofImages: [
+          "/images/artist-payments/proof/dj-babyface-testimonial.png",
+          "/images/artist-payments/proof/dj-babyface-zelle-2024.png",
+        ],
       },
     ],
   },
@@ -173,7 +181,14 @@ export const festivalEditions: FestivalEdition[] = [
         confirmed: true,
         proofImages: ["/images/artist-payments/proof/dj-nhat-payment-2023.png"],
       },
-      { name: "DJ Babyface", confirmed: false },
+      {
+        name: "DJ Babyface",
+        confirmed: true,
+        proofImages: [
+          "/images/artist-payments/proof/dj-babyface-testimonial.png",
+          "/images/artist-payments/proof/dj-babyface-zelle-2023.png",
+        ],
+      },
       { name: "Derrick", confirmed: false },
       { name: "JP & Stephy", confirmed: false },
       { name: "Jurcic (DJ Stripes)", confirmed: false },
@@ -197,6 +212,14 @@ export const festivalEditions: FestivalEdition[] = [
         image: "/images/artist-payments/artists/dj-art-2022.png",
         confirmed: true,
         proofImages: ["/images/artist-payments/proof/dj-art-testimonial.png"],
+      },
+      {
+        name: "DJ Babyface",
+        confirmed: true,
+        proofImages: [
+          "/images/artist-payments/proof/dj-babyface-testimonial.png",
+          "/images/artist-payments/proof/dj-babyface-venmo-2022.png",
+        ],
       },
       { name: "Artist 3", confirmed: false },
       { name: "Artist 4", confirmed: false },
@@ -247,7 +270,10 @@ export const festivalEditions: FestivalEdition[] = [
       {
         name: "Tarah",
         image: "/images/artist-payments/artists/tarah.png",
-        confirmed: false,
+        confirmed: true,
+        proofImages: [
+          "/images/artist-payments/proof/tarah-payment-2019.png",
+        ],
       },
       {
         name: "Willie Ledoux",
@@ -404,6 +430,14 @@ export const artistTestimonials: ArtistTestimonial[] = [
     role: "Kizomba Fusion Artist",
     quote:
       "My name is Ronie Saleh, a Kizomba Fusion Artist who have been working with Charles Ogar at Neo Kizomba Festival at many occasions. I've always been treated well by Charles and paid according to agreements. NeoKiz has always been one of my favorite festivals to attend. The hospitality and vibe is very special at the event. The organizer and his team have always been professional, always welcoming, helpful and positive. An event I always look forward to come back to.",
+  },
+  {
+    name: "DJ Babyface",
+    image: "/images/artist-payments/artists/dj-babyface-2024.png",
+    years: [2022, 2023, 2024],
+    role: "DJ",
+    quote:
+      "I certify that I have been paid in full for all three editions of Neokiz that I have played at. As an artist, even when I was fairly new, I was treated with quality care during my time at the event.",
   },
   {
     name: "Gwany & Liliana",
