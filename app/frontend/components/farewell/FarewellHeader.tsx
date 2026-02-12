@@ -1,25 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Group, Text, Box } from "@mantine/core";
 import { Link, usePage } from "@inertiajs/react";
-import {
-  IconHome,
-  IconQuestionMark,
-  IconSearch,
-  IconChartBar,
-  IconHeart,
-  IconCode,
-  IconMusic,
-} from "@tabler/icons-react";
+import navConfig from "../../data/navConfig";
 
-const navItems = [
-  { href: "/", label: "Home", icon: IconHome },
-  { href: "/faq", label: "FAQ", icon: IconQuestionMark },
-  { href: "/status", label: "Status", icon: IconSearch },
-  { href: "/progress", label: "Progress", icon: IconChartBar },
-  { href: "/support", label: "Donate", icon: IconHeart },
-  { href: "/artist-payments", label: "Artists", icon: IconMusic },
-  { href: "/behind-the-build", label: "Built With", icon: IconCode },
-];
+const navItems = navConfig.filter((item) => item.enabled);
 
 const FarewellHeader: React.FC = () => {
   const { url } = usePage();
