@@ -17,6 +17,7 @@ export { default as StepIndicator } from "./StepIndicator";
 export { default as StatusBadge } from "./StatusBadge";
 export { default as AlertMessage } from "./AlertMessage";
 export { default as ConfirmationMessage } from "./ConfirmationMessage";
+export { default as LoadingOverlay } from "./LoadingOverlay";
 
 // Data Display
 export { default as StatCard } from "./StatCard";

@@ -71,3 +71,6 @@ gem "notion-ruby-client", "~> 1.2"
 
 # Rate limiting for API endpoints
 gem "rack-attack", "~> 6.7"
+
+# Square Payment Links API for donations
+gem "square.rb", "~> 44.0"

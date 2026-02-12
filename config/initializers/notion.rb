@@ -25,11 +25,11 @@ Rails.application.config.after_initialize do
     Rails.logger.warn("[CREDENTIALS] Supporter Orders database ID is missing.")
   end
 
-  if Rails.application.credentials.dig(:lemon_squeezy, :webhook_secret).blank?
-    Rails.logger.warn("[CREDENTIALS] Lemon Squeezy webhook secret is missing.")
+  if Rails.application.credentials.dig(:square, :access_token).blank?
+    Rails.logger.warn("[CREDENTIALS] Square access token is missing. Donations will not work.")
   end
 
-  if Rails.application.credentials.dig(:lemon_squeezy, :api_key).blank?
-    Rails.logger.warn("[CREDENTIALS] Lemon Squeezy API key is missing.")
+  if Rails.application.credentials.dig(:square, :webhook_signature_key).blank?
+    Rails.logger.warn("[CREDENTIALS] Square webhook signature key is missing.")
   end
 end

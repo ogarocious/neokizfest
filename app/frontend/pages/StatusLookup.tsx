@@ -30,6 +30,7 @@ import {
   BackToHome,
   GradientButton,
   StatusBadge,
+  LoadingOverlay,
 } from "../components/shared";
 import { useStatusLookup, isMockMode } from "../hooks/useApi";
 import type { StatusLookupResponse } from "../types/refund";
@@ -96,6 +97,7 @@ const StatusLookup: React.FC = () => {
 
   return (
     <FarewellLayout>
+      <LoadingOverlay visible={loading} message="Looking up your status..." />
       <Stack gap="lg" maw={700} mx="auto" px={{ base: "sm", sm: "md" }}>
         <PageHeader
           icon={<IconSearch size={32} color="white" />}

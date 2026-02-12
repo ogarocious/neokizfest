@@ -3,7 +3,7 @@ import { Stack, Text, Box, Group, CloseButton } from "@mantine/core";
 import { router } from "@inertiajs/react";
 import { IconAlertCircle, IconInfoCircle, IconTicket } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
-import { GlassCard, PageHeader } from "../components/shared";
+import { GlassCard, PageHeader, LoadingOverlay } from "../components/shared";
 import FormProgress from "../components/refund/FormProgress";
 import EmailStep from "../components/refund/EmailStep";
 import PassDetailsStep from "../components/refund/PassDetailsStep";
@@ -19,6 +19,7 @@ const RefundRequest: React.FC = () => {
   const form = useRefundForm();
   const { submit, loading: isSubmitting } = useRefundSubmission();
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [emailValidating, setEmailValidating] = useState(false);
 
   const handleEmailValidated = (email: string, passHolder: PassHolder) => {
     form.setEmailValidated(email, passHolder);
@@ -79,6 +80,7 @@ const RefundRequest: React.FC = () => {
           <EmailStep
             onValidated={handleEmailValidated}
             initialEmail={form.email}
+            onLoadingChange={setEmailValidating}
           />
         );
 
@@ -127,6 +129,10 @@ const RefundRequest: React.FC = () => {
 
   return (
     <FarewellLayout>
+      <LoadingOverlay
+        visible={emailValidating || isSubmitting}
+        message={isSubmitting ? "Submitting your request..." : "Validating your email..."}
+      />
       <Stack gap="lg" maw={700} mx="auto" px="md" style={{ maxWidth: "100%" }}>
         <PageHeader
           icon={<IconTicket size={28} color="white" />}

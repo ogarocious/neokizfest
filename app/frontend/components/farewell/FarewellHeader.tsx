@@ -8,6 +8,7 @@ import {
   IconChartBar,
   IconHeart,
   IconCode,
+  IconMusic,
 } from "@tabler/icons-react";
 
 const navItems = [
@@ -16,6 +17,7 @@ const navItems = [
   { href: "/status", label: "Status", icon: IconSearch },
   { href: "/progress", label: "Progress", icon: IconChartBar },
   { href: "/support", label: "Donate", icon: IconHeart },
+  { href: "/artist-payments", label: "Artists", icon: IconMusic },
   { href: "/behind-the-build", label: "Built With", icon: IconCode },
 ];
 

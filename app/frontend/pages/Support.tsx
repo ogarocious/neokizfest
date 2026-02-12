@@ -22,6 +22,7 @@ import {
   BackToHome,
   GradientButton,
   AlertMessage,
+  LoadingOverlay,
 } from "../components/shared";
 import { colors, responsiveText, mobileInputStyles } from "../styles/theme";
 import type { DonationCheckoutResponse } from "../types/donation";
@@ -95,6 +96,7 @@ const Support: React.FC = () => {
 
   return (
     <FarewellLayout>
+      <LoadingOverlay visible={loading} message="Redirecting to payment..." />
       <Stack gap="lg" maw={800} mx="auto" px="md">
         <PageHeader
           icon={<IconHeart size={32} color="white" fill="white" />}

@@ -54,7 +54,7 @@ module Api
     private
 
     def checkout_service
-      @checkout_service ||= LemonSqueezy::CheckoutService.new
+      @checkout_service ||= Square::CheckoutService.new
     end
   end
 end

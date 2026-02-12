@@ -4,37 +4,36 @@ module Api
   class WebhooksController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    # POST /api/webhooks/lemon-squeezy
-    # Receives Lemon Squeezy order_created webhooks and logs to Notion
-    def lemon_squeezy
+    # POST /api/webhooks/square
+    # Receives Square payment.completed webhooks and logs to Notion
+    def square
       raw_body = request.body.read
 
-      unless verify_lemon_squeezy_signature!(raw_body)
+      unless verify_square_signature!(raw_body)
         return render json: { error: "Invalid signature" }, status: :unauthorized
       end
 
-      event_name = request.headers["X-Event-Name"]
+      payload = JSON.parse(raw_body)
+      event_type = payload["type"]
 
-      # Only process order_created events; acknowledge everything else
-      unless event_name == "order_created"
-        Rails.logger.info("[WebhooksController] Ignoring LS event: #{event_name}")
+      unless event_type == "payment.completed"
+        Rails.logger.info("[WebhooksController] Ignoring Square event: #{event_type}")
         return head :ok
       end
 
-      payload = JSON.parse(raw_body)
-      attrs = payload.dig("data", "attributes") || {}
+      payment = payload.dig("data", "object", "payment") || {}
+      order_id = payment["order_id"]
 
       order_params = {
-        name: attrs["user_name"],
-        email: attrs["user_email"],
-        amount_paid: (attrs["total"].to_i / 100.0).round(2),
-        date_received: attrs["created_at"],
-        identifier: attrs["identifier"],
-        status: map_ls_status(attrs["status"]),
-        notes: build_notes(attrs)
+        name: Rails.cache.read("sq_order:#{order_id}"),
+        email: payment["buyer_email_address"],
+        amount_paid: (payment.dig("amount_money", "amount").to_i / 100.0).round(2),
+        date_received: payment["created_at"],
+        identifier: payment["id"],
+        status: "Received",
+        notes: payment["receipt_url"] ? "Receipt: #{payment['receipt_url']}" : nil
       }
 
-      # Dedup: skip if this order was already recorded
       if supporter_order_service.find_by_identifier(order_params[:identifier])
         Rails.logger.info("[WebhooksController] Duplicate order #{order_params[:identifier]}, skipping")
         return head :ok
@@ -43,44 +42,29 @@ module Api
       supporter_order_service.create(order_params)
       Rails.logger.info("[WebhooksController] Created supporter order #{order_params[:identifier]}")
 
-      send_donation_confirmation(order_params)
+      send_donation_confirmation(order_params) if order_params[:email].present?
 
       head :ok
     rescue JSON::ParserError => e
       Rails.logger.error("[WebhooksController] Invalid JSON: #{e.message}")
-      head :ok # Return 200 to prevent LS retries on malformed payloads
+      head :ok
     rescue StandardError => e
       Rails.logger.error("[WebhooksController] Webhook processing failed: #{e.message}")
-      head :ok # Return 200 to prevent LS retries on our bugs
+      head :ok
     end
 
     private
 
-    def verify_lemon_squeezy_signature!(raw_body)
-      secret = Rails.application.credentials.dig(:lemon_squeezy, :webhook_secret)
-      return false if secret.blank?
+    def verify_square_signature!(raw_body)
+      signature_key = Rails.application.credentials.dig(:square, :webhook_signature_key)
+      return false if signature_key.blank?
 
-      signature = request.headers["X-Signature"]
+      signature = request.headers["x-square-hmacsha256-signature"]
       return false if signature.blank?
 
-      expected = OpenSSL::HMAC.hexdigest("SHA256", secret, raw_body)
+      payload = "#{request.original_url}#{raw_body}"
+      expected = Base64.strict_encode64(OpenSSL::HMAC.digest("SHA256", signature_key, payload))
       ActiveSupport::SecurityUtils.secure_compare(expected, signature)
-    end
-
-    def map_ls_status(status)
-      case status.to_s.downcase
-      when "paid" then "Received"
-      when "refunded" then "Refunded"
-      when "pending" then "Pending"
-      else "Received"
-      end
-    end
-
-    def build_notes(attrs)
-      parts = []
-      parts << "Product: #{attrs['first_order_item']&.dig('product_name')}" if attrs.dig("first_order_item", "product_name")
-      parts << "Order ##{attrs['order_number']}" if attrs["order_number"]
-      parts.join(" | ")
     end
 
     def send_donation_confirmation(params)

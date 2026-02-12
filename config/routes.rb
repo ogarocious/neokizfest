@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'status', to: 'pages#status'
   get 'support', to: 'pages#support'
   get 'behind-the-build', to: 'pages#behind_the_build'
+  get 'artist-payments', to: 'pages#artist_payments'
   get 'donation-thank-you', to: 'pages#donation_thank_you'
 
   # Progress Dashboard (with Notion integration)
@@ -20,11 +21,11 @@ Rails.application.routes.draw do
     post 'refunds/status', to: 'refund_requests#status'
     post 'refunds/notify-completion', to: 'refund_requests#notify_completion'
 
-    # Lemon Squeezy donation checkout
+    # Square donation checkout
     post 'donations/checkout', to: 'donations#checkout'
 
-    # Lemon Squeezy webhook (supporter donations)
-    post 'webhooks/lemon-squeezy', to: 'webhooks#lemon_squeezy'
+    # Square webhook (supporter donations)
+    post 'webhooks/square', to: 'webhooks#square'
   end
 
   # Legacy Festival Routes (kept for reference)

@@ -60,7 +60,7 @@ module Notion
           rich_text: [{ text: { content: params[:identifier].to_s } }]
         },
         "Payment Method" => {
-          select: { name: "Lemon Squeezy" }
+          select: { name: "Square" }
         },
         "Status" => {
           status: { name: params[:status] || "Received" }

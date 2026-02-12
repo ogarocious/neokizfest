@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Stack, Container } from "@mantine/core";
+import { router } from "@inertiajs/react";
 import FarewellHeader from "./FarewellHeader";
 import FarewellFooter from "./FarewellFooter";
+import { LoadingOverlay } from "../shared";
 
 interface FarewellLayoutProps {
   children: React.ReactNode;
@@ -14,6 +16,18 @@ const FarewellLayout: React.FC<FarewellLayoutProps> = ({
   showHeader = true,
   showFooter = true,
 }) => {
+  const [navigating, setNavigating] = useState(false);
+
+  useEffect(() => {
+    const removeStart = router.on("start", () => setNavigating(true));
+    const removeFinish = router.on("finish", () => setNavigating(false));
+
+    return () => {
+      removeStart();
+      removeFinish();
+    };
+  }, []);
+
   return (
     <Stack
       gap={0}
@@ -29,6 +43,7 @@ const FarewellLayout: React.FC<FarewellLayoutProps> = ({
         position: "relative",
       }}
     >
+      <LoadingOverlay visible={navigating} message="Loading..." />
       {showHeader && <FarewellHeader />}
 
       <Container

@@ -23,13 +23,19 @@ type EmailFormData = z.infer<typeof emailSchema>;
 interface EmailStepProps {
   onValidated: (email: string, passHolder: PassHolder) => void;
   initialEmail?: string;
+  onLoadingChange?: (loading: boolean) => void;
 }
 
 const EmailStep: React.FC<EmailStepProps> = ({
   onValidated,
   initialEmail = "",
+  onLoadingChange,
 }) => {
   const { validate, loading, data, reset: resetApi } = useEmailValidation();
+
+  React.useEffect(() => {
+    onLoadingChange?.(loading);
+  }, [loading, onLoadingChange]);
 
   const {
     register,
