@@ -93,7 +93,11 @@ export const festivalEditions: FestivalEdition[] = [
       {
         name: "Ronie & Frida",
         image: "/images/artist-payments/artists/ronie-frida-2024.png",
-        confirmed: false,
+        confirmed: true,
+        proofImages: [
+          "/images/artist-payments/proof/ronie-saleh-testimonial.jpg",
+          "/images/artist-payments/proof/ronie-saleh-payment-2024.png",
+        ],
       },
       {
         name: "Jurcic (DJ Stripes)",
@@ -180,7 +184,7 @@ export const festivalEditions: FestivalEdition[] = [
   {
     year: 2022,
     name: "Neo Kizomba Festival 2022",
-    // flyerImage: "/images/artist-payments/flyers/2022.jpg",
+    flyerImage: "/images/artist-payments/flyers/2022.png",
     artists: [
       {
         name: "DJ Sink",
@@ -256,13 +260,26 @@ export const festivalEditions: FestivalEdition[] = [
         confirmed: true,
         proofImages: ["/images/artist-payments/proof/dj-sink-testimonial.jpg"],
       },
-      { name: "Py & Sarah", confirmed: false },
-      { name: "DJ Mojo", confirmed: false },
+      {
+        name: "Py & Sarah",
+        image: "/images/artist-payments/artists/py-sarah-2019.png",
+        confirmed: false,
+      },
+      {
+        name: "DJ Mojo",
+        image: "/images/artist-payments/artists/dj-mojo-2019.png",
+        confirmed: false,
+      },
       { name: "DJ Morelasoul", confirmed: false },
       { name: "DJ Lenhy", confirmed: false },
       { name: "Laurent Yishu", confirmed: false },
       { name: "Isabelle", confirmed: false },
-      { name: "Gwany", confirmed: false },
+      {
+        name: "Gwany & Liliana",
+        image: "/images/artist-payments/artists/gwany-2019.png",
+        confirmed: true,
+        proofImages: ["/images/artist-payments/proof/gwany-liliana-testimonial.jpg"],
+      },
       {
         name: "DJ Art",
         image: "/images/artist-payments/artists/dj-art-2019.png",
@@ -280,14 +297,21 @@ export const festivalEditions: FestivalEdition[] = [
   {
     year: 2018,
     name: "Neo Kizomba Festival 2018",
-    // flyerImage: "/images/artist-payments/flyers/2018.jpg",
+    flyerImage: "/images/artist-payments/flyers/2018.png",
     artists: [
       {
         name: "DJ Sink",
         confirmed: true,
         proofImages: ["/images/artist-payments/proof/dj-sink-testimonial.jpg"],
       },
-      { name: "Artist 2", confirmed: false },
+      {
+        name: "Ronie Saleh",
+        confirmed: true,
+        proofImages: [
+          "/images/artist-payments/proof/ronie-saleh-testimonial.jpg",
+          "/images/artist-payments/proof/ronie-saleh-payment-2024.png",
+        ],
+      },
       { name: "Artist 3", confirmed: false },
       { name: "Artist 4", confirmed: false },
     ],
@@ -372,5 +396,21 @@ export const artistTestimonials: ArtistTestimonial[] = [
     role: "Instructor & Performer",
     quote:
       "Throughout every edition I participated in, Bruna & Ceijay were always fully taken care of and paid before even leaving Austin Texas. Our flights, accommodations, and meals were consistently handled with professionalism and care. Bruna and I had an amazing experience, and I would like to personally thank Charles for organizing such a wonderful event. As an organizer and Kizomba instructor myself, I truly understand how challenging it can be to put together festivals, especially when the return is often minimal or uncertain. Huge appreciation to Charles and the entire team for their dedication, passion, and hard work in supporting and growing the community.",
+  },
+  {
+    name: "Ronie Saleh",
+    image: "/images/artist-payments/artists/ronie-frida-2024.png",
+    years: [2018, 2024],
+    role: "Kizomba Fusion Artist",
+    quote:
+      "My name is Ronie Saleh, a Kizomba Fusion Artist who have been working with Charles Ogar at Neo Kizomba Festival at many occasions. I've always been treated well by Charles and paid according to agreements. NeoKiz has always been one of my favorite festivals to attend. The hospitality and vibe is very special at the event. The organizer and his team have always been professional, always welcoming, helpful and positive. An event I always look forward to come back to.",
+  },
+  {
+    name: "Gwany & Liliana",
+    image: "/images/artist-payments/artists/gwany-2019.png",
+    years: [2019],
+    role: "Instructor",
+    quote:
+      "Gwany and Liliana confirm payment for Neokiz 2019.",
   },
 ];
