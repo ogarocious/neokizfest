@@ -344,11 +344,6 @@ const Confirmation: React.FC = () => {
             </Button>
           </Group>
 
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <Text size="sm" c={colors.textMuted} ta="center" className="hover:text-[#F45D00]">
-              ← Return to Home
-            </Text>
-          </Link>
         </Stack>
       </Stack>
     </FarewellLayout>

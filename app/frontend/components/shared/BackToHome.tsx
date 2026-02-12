@@ -13,6 +13,9 @@ const BackToHome: React.FC<BackToHomeProps> = ({
   href = "/",
   label = "Back to Home",
 }) => {
+  // Hide links that point to home
+  if (href === "/") return null;
+
   return (
     <Link href={href} style={{ textDecoration: "none" }}>
       <Group gap="xs" justify="center">

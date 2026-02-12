@@ -7,7 +7,6 @@ import {
   IconMusic,
   IconUsers,
   IconCash,
-  IconHome,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import { colors, gradients } from "../styles/theme";
@@ -174,17 +173,6 @@ const DonationThankYou: React.FC = () => {
             </Button>
           </Link>
 
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <Button
-              fullWidth
-              variant="light"
-              color="gray"
-              size="lg"
-              leftSection={<IconHome size={20} />}
-            >
-              Return to Home
-            </Button>
-          </Link>
         </Stack>
       </Stack>
     </FarewellLayout>
