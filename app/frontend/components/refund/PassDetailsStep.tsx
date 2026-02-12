@@ -28,7 +28,10 @@ const PassDetailsStep: React.FC<PassDetailsStepProps> = ({
   passHolder,
   onConfirm,
 }) => {
-  const passConfig = PASS_TYPE_LABELS[passHolder.passType];
+  const passConfig = PASS_TYPE_LABELS[passHolder.passType] ?? {
+    label: "Pass",
+    color: "gray",
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {

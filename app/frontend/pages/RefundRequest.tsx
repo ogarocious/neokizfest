@@ -22,6 +22,7 @@ const RefundRequest: React.FC = () => {
   const [emailValidating, setEmailValidating] = useState(false);
 
   const handleEmailValidated = (email: string, passHolder: PassHolder) => {
+    setEmailValidating(false);
     form.setEmailValidated(email, passHolder);
   };
 
