@@ -229,33 +229,6 @@ const EmailStep: React.FC<EmailStepProps> = ({
         </Stack>
       </form>
 
-      <GlassCard variant="accent" p="sm">
-        <Stack gap="xs">
-          <Text
-            fw={500}
-            c={colors.textPrimary}
-            style={{ fontSize: responsiveText.small }}
-          >
-            Test emails for demo:
-          </Text>
-          <Text
-            c={colors.textMuted}
-            style={{ fontSize: responsiveText.xs, lineHeight: 1.6 }}
-          >
-            <strong style={{ color: colors.primary }}>john@example.com</strong>{" "}
-            - Full Pass |{" "}
-            <strong style={{ color: colors.primary }}>sarah@example.com</strong>{" "}
-            - VIP Pass |{" "}
-            <strong style={{ color: colors.primary }}>mike@example.com</strong>{" "}
-            - Party Pass |{" "}
-            <strong style={{ color: colors.primary }}>emma@example.com</strong>{" "}
-            - Workshop Pass
-          </Text>
-          <Text style={{ fontSize: responsiveText.xs }} c="#ff6b6b">
-            <strong>chargeback@example.com</strong> - Blocked
-          </Text>
-        </Stack>
-      </GlassCard>
     </Stack>
   );
 };
