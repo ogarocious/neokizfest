@@ -63,7 +63,7 @@ module Notion
           select: { name: "Square" }
         },
         "Status" => {
-          status: { name: params[:status] || "Received" }
+          status: { name: params[:status] || "Payment Received" }
         }
       }
 

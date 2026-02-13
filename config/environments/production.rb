@@ -79,10 +79,10 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = {
-    host: Rails.application.credentials.dig(:mailer, :host) || "neokizombafestival.com",
+    host: Rails.application.credentials.dig(:mailer, :host) || "www.neokizfest.com",
     protocol: "https"
   }
   config.action_mailer.default_options = {
-    from: Rails.application.credentials.dig(:mailer, :from) || "Neo Kizomba Festival <refunds@neokizombafestival.com>"
+    from: Rails.application.credentials.dig(:mailer, :from) || "Neo Kizomba Festival <charles@neokizomba.com>"
   }
 end

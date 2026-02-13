@@ -34,7 +34,7 @@ module Square
 
     def client
       @client ||= ::Square::Client.new(
-        base_url: Rails.env.production? ? ::Square::Environment::PRODUCTION : ::Square::Environment::SANDBOX,
+        base_url: ::Square::Environment::PRODUCTION,
         token: access_token
       )
     end

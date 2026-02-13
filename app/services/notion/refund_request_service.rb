@@ -93,6 +93,16 @@ module Notion
       { success: false, error: :lookup_failed, message: e.message }
     end
 
+    # Mark the "Notification Sent" checkbox as true on a refund request page
+    def mark_notification_sent(page_id)
+      @client.update_page(
+        page_id: page_id,
+        properties: { "Notification Sent" => { checkbox: true } }
+      )
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[RefundRequestService] Failed to mark notification sent for #{page_id}: #{e.message}")
+    end
+
     private
 
     def validate_params!(params)

@@ -56,6 +56,7 @@ module Api
     if result[:success]
       # Send confirmation email (async in production)
       email_sent = send_confirmation_email(params[:email], result[:confirmation_number])
+      send_admin_refund_notification(params[:email], result[:confirmation_number])
 
       render json: {
         success: true,
@@ -180,6 +181,9 @@ module Api
       }
     ).deliver_later
 
+    # Mark "Notification Sent" checkbox in Notion so n8n doesn't re-trigger
+    refund_request_service.mark_notification_sent(request[:id])
+
     Rails.logger.info("[RefundRequestsController] Queued completion email to #{email} for #{confirmation_number}")
 
     render json: {
@@ -286,6 +290,30 @@ module Api
     # Don't fail the request if email fails - log and surface to frontend
     Rails.logger.error("[RefundRequestsController] Failed to send confirmation email: #{e.message}")
     false
+  end
+
+  def send_admin_refund_notification(email, confirmation_number)
+    decision = params[:decision].to_s
+    amount_paid = params[:amountPaid].present? ? params[:amountPaid].to_f : nil
+    refund_amount = params[:refundAmount].present? ? params[:refundAmount].to_f : nil
+
+    if %w[waive waive_refund].include?(decision.downcase)
+      AdminMailer.refund_waived(
+        email: email,
+        confirmation_number: confirmation_number,
+        amount_paid: amount_paid
+      ).deliver_later
+    else
+      AdminMailer.new_refund_request(
+        email: email,
+        confirmation_number: confirmation_number,
+        decision: decision,
+        refund_amount: refund_amount,
+        amount_paid: amount_paid
+      ).deliver_later
+    end
+  rescue StandardError => e
+    Rails.logger.error("[RefundRequestsController] Admin notification failed: #{e.message}")
   end
 
   def format_status_response(request)

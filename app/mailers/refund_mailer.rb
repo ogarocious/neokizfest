@@ -19,7 +19,7 @@ class RefundMailer < ApplicationMailer
                 "Your Neo Kizomba Festival Refund Request - #{confirmation_number}"
               end
 
-    mail(to: email, subject: subject)
+    mail(to: email, cc: AdminMailer::ADMIN_EMAIL, subject: subject)
   end
 
   # Sent when a refund request status changes (e.g., processing -> completed)
@@ -40,7 +40,7 @@ class RefundMailer < ApplicationMailer
                 "Update on Your Refund Request - #{confirmation_number}"
               end
 
-    mail(to: email, subject: subject)
+    mail(to: email, cc: AdminMailer::ADMIN_EMAIL, subject: subject)
   end
 
   private

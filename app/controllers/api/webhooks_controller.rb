@@ -5,7 +5,7 @@ module Api
     skip_before_action :verify_authenticity_token
 
     # POST /api/webhooks/square
-    # Receives Square payment.completed webhooks and logs to Notion
+    # Receives Square payment webhooks and logs completed payments to Notion
     def square
       raw_body = request.body.read
 
@@ -16,12 +16,19 @@ module Api
       payload = JSON.parse(raw_body)
       event_type = payload["type"]
 
-      unless event_type == "payment.completed"
+      # Square fires payment.created (status already COMPLETED for card payments)
+      # and payment.updated (status changes). Process both, but only if COMPLETED.
+      unless %w[payment.created payment.updated].include?(event_type)
         Rails.logger.info("[WebhooksController] Ignoring Square event: #{event_type}")
         return head :ok
       end
 
       payment = payload.dig("data", "object", "payment") || {}
+
+      unless payment["status"] == "COMPLETED"
+        Rails.logger.info("[WebhooksController] Ignoring non-completed payment: #{payment['status']}")
+        return head :ok
+      end
       order_id = payment["order_id"]
 
       order_params = {
@@ -30,7 +37,7 @@ module Api
         amount_paid: (payment.dig("amount_money", "amount").to_i / 100.0).round(2),
         date_received: payment["created_at"],
         identifier: payment["id"],
-        status: "Received",
+        status: "Payment Received",
         notes: payment["receipt_url"] ? "Receipt: #{payment['receipt_url']}" : nil
       }
 
@@ -43,6 +50,7 @@ module Api
       Rails.logger.info("[WebhooksController] Created supporter order #{order_params[:identifier]}")
 
       send_donation_confirmation(order_params) if order_params[:email].present?
+      send_admin_donation_notification(order_params)
 
       head :ok
     rescue JSON::ParserError => e
@@ -76,6 +84,17 @@ module Api
       ).deliver_later
     rescue StandardError => e
       Rails.logger.error("[WebhooksController] Donation email failed: #{e.message}")
+    end
+
+    def send_admin_donation_notification(params)
+      AdminMailer.new_donation(
+        name: params[:name],
+        email: params[:email],
+        amount: params[:amount_paid],
+        identifier: params[:identifier]
+      ).deliver_later
+    rescue StandardError => e
+      Rails.logger.error("[WebhooksController] Admin notification failed: #{e.message}")
     end
 
     def supporter_order_service

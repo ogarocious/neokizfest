@@ -6,6 +6,6 @@ class DonationMailer < ApplicationMailer
     @amount = amount
     @identifier = identifier
 
-    mail(to: email, subject: "Thank You for Your Donation to Neo Kizomba Festival")
+    mail(to: email, cc: AdminMailer::ADMIN_EMAIL, subject: "Thank You for Your Donation to Neo Kizomba Festival")
   end
 end
