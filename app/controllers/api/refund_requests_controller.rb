@@ -171,10 +171,14 @@ module Api
       }, status: :unprocessable_entity
     end
 
+    decision = request[:decision].to_s.downcase
+    is_waived = %w[waive waive_refund waive\ refund].include?(decision)
+    email_status = is_waived ? "waived" : "completed"
+
     RefundMailer.status_update_email(
       email: email,
       confirmation_number: request[:confirmation_number],
-      status: "completed",
+      status: email_status,
       details: {
         decision: request[:decision],
         refund_amount: request[:refund_amount]

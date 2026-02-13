@@ -34,6 +34,8 @@ class RefundMailer < ApplicationMailer
     subject = case status.to_s.downcase
               when "completed"
                 "Your Refund Has Been Processed - #{confirmation_number}"
+              when "waived"
+                "Thank You for Your Generosity - #{confirmation_number}"
               when "processing"
                 "Your Refund Request is Being Processed - #{confirmation_number}"
               else
