@@ -218,9 +218,14 @@ module Notion
     def parse_refund_request(page)
       props = page.properties
 
+      # Extract name from title (format: "First Last — Decision")
+      title_text = extract_title(props["Name"])
+      name = title_text&.split(" — ")&.first&.strip
+
       {
         id: page.id,
         confirmation_number: extract_confirmation_number(page),
+        name: name,
         email: props.dig("Email", "email"),
         status: extract_status(props["Status"]),
         decision: extract_select(props["Decision"]),
@@ -260,6 +265,12 @@ module Notion
 
     def extract_created_time(prop)
       prop&.dig("created_time")
+    end
+
+    def extract_title(prop)
+      return nil unless prop
+
+      Array(prop["title"]).map { |t| t.dig("plain_text") }.join.presence
     end
   end
 end

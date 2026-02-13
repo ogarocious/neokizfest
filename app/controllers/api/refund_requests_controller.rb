@@ -179,6 +179,7 @@ module Api
       email: email,
       confirmation_number: request[:confirmation_number],
       status: email_status,
+      name: request[:name],
       details: {
         decision: request[:decision],
         refund_amount: request[:refund_amount]
