@@ -30,6 +30,9 @@ module Notion
     private
 
     def fetch_fresh_data
+      # Fetch ticket holders first so we can build a name lookup for initials fallback
+      holder_data = fetch_ticket_holder_data
+
       all_requests = @client.query_database(
         database_id: DATABASE_ID,
         sorts: [{ property: "Date Submitted", direction: "descending" }]
@@ -40,7 +43,7 @@ module Notion
       stats = { total: 0, completed: 0, processing: 0, submitted: 0, verified: 0, waived: 0 }
 
       all_requests.each do |page|
-        entry = parse_sanitized_entry(page)
+        entry = parse_sanitized_entry(page, holder_data[:name_lookup])
         next unless entry
 
         stats[:total] += 1
@@ -74,33 +77,40 @@ module Notion
       status_order = { "completed" => 0, "processing" => 1, "verified" => 2, "submitted" => 3 }
       refunds.sort_by! { |r| [status_order[r[:status]&.downcase] || 99, r[:id]] }
 
-      holder_stats = fetch_ticket_holder_stats
-
       {
         last_updated: Time.current.iso8601,
         stats: {
-          total_ticket_holders: holder_stats[:total],
+          total_ticket_holders: holder_data[:total],
           total_requests: stats[:total],
           completed: stats[:completed],
           processing: stats[:processing] + stats[:verified],
           submitted: stats[:submitted],
           waived: stats[:waived],
-          chargebacks: holder_stats[:chargebacks]
+          chargebacks: holder_data[:chargebacks]
         },
         refunds: refunds.map { |r| sanitize_for_public(r) },
         community_support: waived.map { |w| sanitize_for_public(w) }
       }
     end
 
-    def fetch_ticket_holder_stats
-      return { total: 0, chargebacks: 0 } unless TICKET_HOLDERS_DB_ID
+    # Fetch ticket holders and build a name lookup map (page_id → name)
+    # Reuses the same query for both stats and initials fallback
+    def fetch_ticket_holder_data
+      return { total: 0, chargebacks: 0, name_lookup: {} } unless TICKET_HOLDERS_DB_ID
 
       results = @client.query_database(database_id: TICKET_HOLDERS_DB_ID)
       chargebacks = results.count { |page| chargeback?(page) }
-      { total: results.count, chargebacks: chargebacks }
+
+      name_lookup = {}
+      results.each do |page|
+        name = extract_title(page.properties["Name"]) || extract_title(page.properties["Ticket Holder"])
+        name_lookup[page.id] = name if name.present?
+      end
+
+      { total: results.count, chargebacks: chargebacks, name_lookup: name_lookup }
     rescue Notion::ApiClient::NotionError => e
-      Rails.logger.error("[ProgressService] Failed to fetch ticket holder stats: #{e.message}")
-      { total: 0, chargebacks: 0 }
+      Rails.logger.error("[ProgressService] Failed to fetch ticket holder data: #{e.message}")
+      { total: 0, chargebacks: 0, name_lookup: {} }
     end
 
     def chargeback?(page)
@@ -118,15 +128,20 @@ module Notion
       end
     end
 
-    def parse_sanitized_entry(page)
+    def parse_sanitized_entry(page, holder_name_lookup = {})
       props = page.properties
 
       confirmation = extract_confirmation_number(props["Confirmation #"])
       return nil unless confirmation
 
+      initials = extract_formula(props["Initials"]).presence ||
+                 derive_initials_from_title(props["Name"]) ||
+                 derive_initials_from_ticket_holder(props["Ticket Holder"], holder_name_lookup) ||
+                 "—"
+
       {
         id: confirmation,
-        initials: extract_formula(props["Initials"]) || "—",
+        initials: initials,
         status: extract_status(props["Status"]),
         decision: extract_select(props["Decision"])
       }
@@ -136,7 +151,7 @@ module Notion
     def sanitize_for_public(entry)
       {
         id: entry[:id],
-        initials: entry[:initials] || "—",
+        initials: entry[:initials].presence || "—",
         status: normalize_status(entry[:status])
       }.compact
     end
@@ -174,6 +189,44 @@ module Notion
 
     def extract_formula(prop)
       prop&.dig("formula", "string")
+    end
+
+    # Fallback: derive initials from the Name title property
+    # Title format is "First Last — Decision" (e.g., "John Smith — Full Refund")
+    def derive_initials_from_title(prop)
+      title_text = extract_title(prop)
+      return nil if title_text.blank?
+
+      # Split on " — " to get just the name portion (before the decision)
+      name_part = title_text.split(" — ").first&.strip
+      return nil if name_part.blank?
+
+      initials_from_name(name_part)
+    end
+
+    # Fallback: follow Ticket Holder relation and look up name from pre-fetched map
+    def derive_initials_from_ticket_holder(relation_prop, name_lookup)
+      return nil unless relation_prop && name_lookup.present?
+
+      related_ids = Array(relation_prop["relation"]).map { |r| r["id"] }
+      return nil if related_ids.empty?
+
+      name = name_lookup[related_ids.first]
+      return nil if name.blank?
+
+      initials_from_name(name)
+    end
+
+    # Convert a full name to formatted initials (e.g., "John Smith" → "J.S.")
+    def initials_from_name(name)
+      letters = name.split(/\s+/).map { |word| word[0]&.upcase }.compact.join(".")
+      letters.present? ? "#{letters}." : nil
+    end
+
+    def extract_title(prop)
+      return nil unless prop
+
+      Array(prop["title"]).map { |t| t.dig("plain_text") }.join.presence
     end
   end
 end

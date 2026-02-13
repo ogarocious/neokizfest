@@ -149,9 +149,8 @@ module Notion
         "Platform" => params[:platform].present? ?
           { select: { name: params[:platform] } } : nil,
 
-        # Amount Paid (original ticket price)
-        "Amount Paid" => params[:amount_paid].present? ?
-          { number: params[:amount_paid].to_f } : nil,
+        # Amount Paid is a rollup from Ticket Holder relation (read-only)
+        # No need to write it — it's derived automatically
 
         # Refund Amount (for partial refunds, or full amount for full refunds)
         "Refund Amount Requested" => params[:refund_amount].present? ?

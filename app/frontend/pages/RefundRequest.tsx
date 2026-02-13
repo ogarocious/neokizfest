@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Stack, Text, Box, Group, CloseButton } from "@mantine/core";
 import { router } from "@inertiajs/react";
-import { IconAlertCircle, IconInfoCircle, IconTicket } from "@tabler/icons-react";
+import { IconAlertCircle, IconTicket } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import { GlassCard, PageHeader, LoadingOverlay } from "../components/shared";
 import FormProgress from "../components/refund/FormProgress";
@@ -11,7 +11,7 @@ import DecisionStep from "../components/refund/DecisionStep";
 import ContactStep from "../components/refund/ContactStep";
 import ReviewStep from "../components/refund/ReviewStep";
 import { useRefundForm } from "../hooks/useRefundForm";
-import { useRefundSubmission, isMockMode } from "../hooks/useApi";
+import { useRefundSubmission } from "../hooks/useApi";
 import { colors, responsiveText } from "../styles/theme";
 import type { PassHolder, RefundDecision, PaymentInfo, RefundFormStep } from "../types/refund";
 
@@ -144,23 +144,18 @@ const RefundRequest: React.FC = () => {
           subtitle="Complete the form below to submit your refund request."
         />
 
-        {/* Mock Mode Indicator */}
-        {isMockMode && (
-          <GlassCard
-            p="sm"
-            style={{
-              background: "rgba(0, 102, 204, 0.1)",
-              border: "1px solid rgba(0, 102, 204, 0.3)",
-            }}
-          >
-            <Group gap="xs" wrap="nowrap">
-              <IconInfoCircle size={16} color="#0066CC" style={{ flexShrink: 0 }} />
-              <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
-                <strong style={{ color: "#0066CC" }}>Demo Mode:</strong> Using mock data for testing.
-              </Text>
-            </Group>
-          </GlassCard>
-        )}
+        <Text
+          ta="center"
+          fs="italic"
+          c={colors.textMuted}
+          style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}
+        >
+          "When life gives you lemons, make lemonade." — Every edition of
+          the festival has been driven by a commitment to improve on the last.
+          Even now, as we close this chapter, that spirit remains — applying my
+          coding, systems thinking, and organizational skills to see it through
+          the right way.
+        </Text>
 
         {/* Progress Indicator */}
         <div

@@ -51,8 +51,9 @@ const ArtistPayments: React.FC = () => {
     <FarewellLayout>
       <Stack
         gap="xl"
+        maw={1200}
         mx="auto"
-        px={{ base: 4, sm: 0 }}
+        px={{ base: "sm", sm: "md" }}
         style={{ maxWidth: "100%" }}
       >
         <PageHeader

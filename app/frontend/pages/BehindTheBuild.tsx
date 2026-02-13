@@ -32,6 +32,13 @@ import {
   IconLayoutDashboard,
   IconHeartHandshake,
   IconExternalLink,
+  IconUserCheck,
+  IconReceipt,
+  IconBellRinging,
+  IconCreditCard,
+  IconCoin,
+  IconVideo,
+  IconSchool,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -135,10 +142,46 @@ const featuresBuilt = [
     icon: IconSearch,
   },
   {
+    title: "Duplicate Request Detection",
+    description:
+      "Automatically detects when a ticket holder has already submitted a refund request and redirects them to check their existing status.",
+    icon: IconUserCheck,
+  },
+  {
+    title: "Zelle & Wise Payment Support",
+    description:
+      "Collects payment details for both domestic (Zelle) and international (Wise) refund transfers, with per-method validation.",
+    icon: IconCreditCard,
+  },
+  {
     title: "Action Mailer Integration",
     description:
-      "Automated confirmation emails on submission with branded HTML templates and plain-text fallbacks.",
+      "Branded HTML and plain-text emails for confirmations, status updates (completed and waived), and admin notifications on every new request.",
     icon: IconMail,
+  },
+  {
+    title: "Completion Notification Webhook",
+    description:
+      "Token-protected endpoint that triggers status update emails when a refund is marked completed or waived in Notion — no manual follow-up needed.",
+    icon: IconApi,
+  },
+  {
+    title: "Artist Payments Transparency",
+    description:
+      "A dedicated page showing year-by-year breakdowns of artist payments with receipts, demonstrating financial accountability to the community.",
+    icon: IconReceipt,
+  },
+  {
+    title: "Community Support via Square",
+    description:
+      "A donation page powered by Square allowing community members to contribute directly — with flexible preset and custom amounts.",
+    icon: IconCoin,
+  },
+  {
+    title: "Admin Notifications",
+    description:
+      "Automatic email alerts to the admin on every new refund request and waived refund, with decision details and amounts included.",
+    icon: IconBellRinging,
   },
   {
     title: "Cache-Busting Endpoint",
@@ -249,7 +292,7 @@ const BehindTheBuild: React.FC = () => {
                       {tech.name}
                     </Text>
                   </Group>
-                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small, lineHeight: 1.5 }}>
+                  <Text c="#b8b0a8" style={{ fontSize: responsiveText.small, lineHeight: 1.5 }}>
                     {tech.description}
                   </Text>
                 </Stack>
@@ -288,7 +331,7 @@ const BehindTheBuild: React.FC = () => {
                         {step.label}
                       </Text>
                       <Text
-                        c={colors.textMuted}
+                        c="#b8b0a8"
                         ta="center"
                         style={{ fontSize: responsiveText.small }}
                       >
@@ -339,7 +382,7 @@ const BehindTheBuild: React.FC = () => {
                       {decision.title}
                     </Text>
                   </Group>
-                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}>
+                  <Text c="#b8b0a8" style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}>
                     {decision.description}
                   </Text>
                 </Stack>
@@ -380,7 +423,7 @@ const BehindTheBuild: React.FC = () => {
                     <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
                       {feature.title}
                     </Text>
-                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}>
+                    <Text c="#b8b0a8" style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}>
                       {feature.description}
                     </Text>
                   </Stack>
@@ -390,116 +433,198 @@ const BehindTheBuild: React.FC = () => {
           </Stack>
         </Stack>
 
-        {/* 7. Where Can We Dance */}
-        <GlassCard variant="accent" p={{ base: "md", sm: "xl" }}>
-          <Stack gap="md">
-            <Group gap="sm">
+        {/* 7. What's Next */}
+        <Stack gap="md">
+          <Title
+            order={2}
+            fw={700}
+            c={colors.textPrimary}
+            ta="center"
+            style={{ fontSize: responsiveText.sectionTitle }}
+          >
+            What's Next
+          </Title>
+
+          <GlassCard variant="accent" p={{ base: "md", sm: "xl" }}>
+            <Stack gap="md">
+              <Text
+                c={colors.textSecondary}
+                style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
+              >
+                Years of organizing events and being deep in the dance scene
+                exposed a lot of inefficiencies — booking private lessons,
+                sharing artist travel schedules, giving organizers real
+                visibility into what's happening across the community. These
+                are problems I saw firsthand, and they're problems that
+                software can solve.
+              </Text>
+
+              <Text
+                c={colors.textSecondary}
+                style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
+              >
+                After my second heart surgery, after the struggle of COVID
+                and its devastating impact on in-person events and the
+                financial reality of social dancing, I rolled up my sleeves
+                and taught myself yet another skill. I started building
+                software — not because it was easy, but because the scene
+                needed it.
+              </Text>
+
+              <GlassCard variant="subtle" p="md">
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
+                >
+                  If we build software that helps organizers make money, they
+                  can keep organizing — and they can pay the artists. If the
+                  artists keep getting paid, they can keep growing in the
+                  scene and keep doing what they do. That means more dance
+                  events. And everybody wins.
+                </Text>
+              </GlassCard>
+
+              <Text
+                c={colors.textSecondary}
+                style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
+              >
+                Even though I'm taking off my hat as the organizer of the
+                Neo Kizomba Festival, I'm pouring more of my attention and
+                experience into building software to solve these problems —
+                from a less risky standpoint than carrying all the weight
+                that came with the festival. This is how I continue to give
+                back to the community I love.
+              </Text>
+            </Stack>
+          </GlassCard>
+
+          {/* Where Can We Dance */}
+          <GlassCard variant="subtle" p={{ base: "md", sm: "lg" }}>
+            <Group gap="md" wrap="nowrap" align="flex-start">
               <ThemeIcon
                 size={40}
-                radius="xl"
+                radius="md"
                 variant="light"
                 color="orange"
                 style={{
                   background: "rgba(244, 93, 0, 0.12)",
                   border: "none",
+                  flexShrink: 0,
                 }}
               >
                 <IconHeartHandshake size={22} color={colors.primary} />
               </ThemeIcon>
-              <Title
-                order={2}
-                fw={700}
-                c={colors.textPrimary}
-                style={{ fontSize: responsiveText.sectionTitle }}
-              >
-                What's Next: Where Can We Dance
-              </Title>
+              <Stack gap="xs">
+                <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                  Where Can We Dance
+                </Text>
+                <Text c="#b8b0a8" style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}>
+                  A platform built by a dancer, by an organizer, by an artist —
+                  for other artists, organizers, and dancers. The mission is simple:
+                  help the scene grow. Because right now, it's not growing.
+                </Text>
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                  Rails 8 / React 19 / TypeScript / Inertia.js / PostgreSQL / Mantine / Tailwind
+                </Text>
+                <Group gap="xs" mt={4}>
+                  <GradientButton
+                    component="a"
+                    href="https://wherecanwedance.com"
+                    target="_blank"
+                    size="xs"
+                    leftSection={<IconExternalLink size={14} />}
+                  >
+                    Visit Site
+                  </GradientButton>
+                </Group>
+              </Stack>
             </Group>
+          </GlassCard>
 
-            <Text
-              c={colors.textSecondary}
-              style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
-            >
-              Years of organizing events and being deep in the dance scene
-              exposed a lot of inefficiencies — booking private lessons,
-              sharing artist travel schedules, giving organizers real
-              visibility into what's happening across the community. These
-              are problems I saw firsthand, and they're problems that
-              software can solve.
-            </Text>
-
-            <Text
-              c={colors.textSecondary}
-              style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
-            >
-              After my second heart surgery, after the struggle of COVID
-              and its devastating impact on in-person events and the
-              financial reality of social dancing, I rolled up my sleeves
-              and taught myself yet another skill. I started building
-              software — not because it was easy, but because the scene
-              needed it.
-            </Text>
-
-            <Text
-              c={colors.textSecondary}
-              style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
-            >
-              The skills demonstrated on this very site are being poured
-              into{" "}
-              <Text
-                component="a"
-                href="https://wherecanwedance.com"
-                target="_blank"
-                c={colors.primary}
-                fw={600}
-                style={{ textDecoration: "none" }}
+          {/* VidHive */}
+          <GlassCard variant="subtle" p={{ base: "md", sm: "lg" }}>
+            <Group gap="md" wrap="nowrap" align="flex-start">
+              <ThemeIcon
+                size={40}
+                radius="md"
+                variant="light"
+                color="orange"
+                style={{
+                  background: "rgba(244, 93, 0, 0.12)",
+                  border: "none",
+                  flexShrink: 0,
+                }}
               >
-                Where Can We Dance
-              </Text>
-              {" "} — a platform built by a dancer, by an organizer, by an
-              artist, for other artists, organizers, and dancers. The
-              mission is simple: help the scene grow. Because right now,
-              it's not growing.
-            </Text>
-
-            <GlassCard variant="subtle" p="md">
-              <Text
-                c={colors.textSecondary}
-                style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
-              >
-                If we build software that helps organizers make money, they
-                can keep organizing — and they can pay the artists. If the
-                artists keep getting paid, they can keep growing in the
-                scene and keep doing what they do. That means more dance
-                events. And everybody wins.
-              </Text>
-            </GlassCard>
-
-            <Text
-              c={colors.textSecondary}
-              style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
-            >
-              Even though I'm taking off my hat as the organizer of the
-              Neo Kizomba Festival, I'm pouring more of my attention and
-              experience into building software to solve these problems —
-              from a less risky standpoint than carrying all the weight
-              that came with the festival. This is how I continue to give
-              back to the community I love.
-            </Text>
-
-            <Group justify="center" mt="xs">
-              <GradientButton
-                component="a"
-                href="https://wherecanwedance.com"
-                target="_blank"
-                size="sm"
-                leftSection={<IconExternalLink size={16} />}
-              >
-                Visit Where Can We Dance
-              </GradientButton>
+                <IconVideo size={22} color={colors.primary} />
+              </ThemeIcon>
+              <Stack gap="xs">
+                <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                  VidHive
+                </Text>
+                <Text c="#b8b0a8" style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}>
+                  A video knowledge management platform built for dancers, coaches,
+                  and movement-based learners. Capture, tag, and resurface key moments
+                  from lesson recaps, private lessons, and practice videos — turning
+                  hours of footage into minutes of organized, actionable insight. Features
+                  Focus Mode for distraction-free review with adjustable speed and looping,
+                  plus a spaced repetition system that resurfaces highlights at optimal
+                  intervals so the moves you drilled last month don't disappear.
+                </Text>
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                  Rails 8 / React 19 / TypeScript / Inertia.js / PostgreSQL / Mantine / Video.js / Cloudinary / AWS S3 / Stripe
+                </Text>
+                <Group gap="xs" mt={4}>
+                  <GradientButton
+                    component="a"
+                    href="https://www.vidhive.io"
+                    target="_blank"
+                    size="xs"
+                    leftSection={<IconExternalLink size={14} />}
+                  >
+                    Visit Site
+                  </GradientButton>
+                </Group>
+              </Stack>
             </Group>
-          </Stack>
-        </GlassCard>
+          </GlassCard>
+
+          {/* Learntokiz 2.0 */}
+          <GlassCard variant="subtle" p={{ base: "md", sm: "lg" }}>
+            <Group gap="md" wrap="nowrap" align="flex-start">
+              <ThemeIcon
+                size={40}
+                radius="md"
+                variant="light"
+                color="orange"
+                style={{
+                  background: "rgba(244, 93, 0, 0.12)",
+                  border: "none",
+                  flexShrink: 0,
+                }}
+              >
+                <IconSchool size={22} color={colors.primary} />
+              </ThemeIcon>
+              <Stack gap="xs">
+                <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                  Learntokiz 2.0
+                </Text>
+                <Text c="#b8b0a8" style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}>
+                  A subscription-based online learning platform for Urbankiz dancers,
+                  rebuilt from the ground up — replacing the original Webflow/Memberstack
+                  site with a full-featured SaaS product. Version 2.0 introduces direct
+                  Stripe billing, multi-step onboarding, a comprehensive admin dashboard,
+                  custom learning tracks, VidHive-powered video highlighting, and a
+                  built-in community forum. Still under construction and launching soon,
+                  it represents yet another evolution of my pedagogical skills and ongoing
+                  journey through Urbankiz.
+                </Text>
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                  Rails 8 / React 19 / TypeScript / Inertia.js / PostgreSQL / Mantine / Tailwind / Stripe / Docker / Kamal
+                </Text>
+              </Stack>
+            </Group>
+          </GlassCard>
+        </Stack>
 
         {/* 8. CTA */}
         <GlassCard variant="accent" p={{ base: "md", sm: "xl" }}>

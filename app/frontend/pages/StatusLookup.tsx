@@ -32,7 +32,7 @@ import {
   StatusBadge,
   LoadingOverlay,
 } from "../components/shared";
-import { useStatusLookup, isMockMode } from "../hooks/useApi";
+import { useStatusLookup } from "../hooks/useApi";
 import type { StatusLookupResponse } from "../types/refund";
 import { colors, responsiveText, mobileInputStyles } from "../styles/theme";
 
@@ -108,24 +108,6 @@ const StatusLookup: React.FC = () => {
           title="Check Your Status"
           subtitle="Enter your email and confirmation number to check the status of your refund request."
         />
-
-        {/* Mock Mode Indicator */}
-        {isMockMode && (
-          <GlassCard
-            p="sm"
-            style={{
-              background: "rgba(0, 102, 204, 0.1)",
-              border: "1px solid rgba(0, 102, 204, 0.3)",
-            }}
-          >
-            <Group gap="xs" wrap="nowrap">
-              <IconAlertCircle size={16} color="#0066CC" style={{ flexShrink: 0 }} />
-              <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
-                <strong style={{ color: "#0066CC" }}>Demo:</strong> Try john@example.com with RR-0001 or sarah@example.com with RR-0002
-              </Text>
-            </Group>
-          </GlassCard>
-        )}
 
         {/* Lookup Form */}
         <GlassCard>

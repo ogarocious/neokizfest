@@ -33,7 +33,7 @@ const Confirmation: React.FC = () => {
   const { url } = usePage();
   const params = new URLSearchParams(url.split("?")[1] || "");
 
-  const confirmationNumber = params.get("confirmationNumber") || "NKF-REF-DEMO123";
+  const confirmationNumber = params.get("confirmationNumber") || "";
   const email = params.get("email") || "";
   const decision = (params.get("decision") as RefundDecision) || "full";
   const refundAmount = parseFloat(params.get("refundAmount") || "0");

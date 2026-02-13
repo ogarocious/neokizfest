@@ -69,13 +69,21 @@ const FarewellFooter: React.FC = () => {
 
         <Divider color="rgba(244, 93, 0, 0.15)" />
 
+        <Text ta="center" fs="italic" size="xs" c="#9A8F85" maw={460} mx="auto" lh={1.6}>
+          "When life gives you lemons, make lemonade." — Every edition of
+          the festival has been driven by a commitment to improve on the last.
+          Even now, as we close this chapter, that spirit remains — applying my
+          coding, systems thinking, and organizational skills to see it through
+          the right way.
+        </Text>
+
         <Group justify="center" gap="xs">
           <Text size="xs" c="#9A8F85">
-            Made by
+            Made with
           </Text>
           <IconHeart size={14} color="#F45D00" fill="#F45D00" />
           <Text size="xs" c="#9A8F85">
-            Ogarocious
+            by Ogarocious
           </Text>
         </Group>
       </Stack>
