@@ -43,7 +43,7 @@ module Notion
       stats = { total: 0, completed: 0, processing: 0, submitted: 0, verified: 0, waived: 0 }
 
       all_requests.each do |page|
-        entry = parse_sanitized_entry(page, holder_data[:name_lookup])
+        entry = parse_sanitized_entry(page, holder_data)
         next unless entry
 
         stats[:total] += 1
@@ -96,21 +96,25 @@ module Notion
     # Fetch ticket holders and build a name lookup map (page_id → name)
     # Reuses the same query for both stats and initials fallback
     def fetch_ticket_holder_data
-      return { total: 0, chargebacks: 0, name_lookup: {} } unless TICKET_HOLDERS_DB_ID
+      return { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {} } unless TICKET_HOLDERS_DB_ID
 
       results = @client.query_database(database_id: TICKET_HOLDERS_DB_ID)
       chargebacks = results.count { |page| chargeback?(page) }
 
       name_lookup = {}
+      initials_lookup = {}
       results.each do |page|
         name = extract_title(page.properties["Name"]) || extract_title(page.properties["Ticket Holder"])
         name_lookup[page.id] = name if name.present?
+
+        holder_initials = extract_formula(page.properties["Initials"]).presence
+        initials_lookup[page.id] = holder_initials if holder_initials
       end
 
-      { total: results.count, chargebacks: chargebacks, name_lookup: name_lookup }
+      { total: results.count, chargebacks: chargebacks, name_lookup: name_lookup, initials_lookup: initials_lookup }
     rescue Notion::ApiClient::NotionError => e
       Rails.logger.error("[ProgressService] Failed to fetch ticket holder data: #{e.message}")
-      { total: 0, chargebacks: 0, name_lookup: {} }
+      { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {} }
     end
 
     def chargeback?(page)
@@ -128,15 +132,18 @@ module Notion
       end
     end
 
-    def parse_sanitized_entry(page, holder_name_lookup = {})
+    def parse_sanitized_entry(page, holder_data = {})
       props = page.properties
 
       confirmation = extract_confirmation_number(props["Confirmation #"])
       return nil unless confirmation
 
-      initials = extract_formula(props["Initials"]).presence ||
+      # Prefer Ticket Holder initials (most reliable), then refund request formula,
+      # then derive from title, then derive from ticket holder name, then fallback
+      initials = lookup_ticket_holder_initials(props["Ticket Holder"], holder_data[:initials_lookup] || {}) ||
+                 extract_formula(props["Initials"]).presence ||
                  derive_initials_from_title(props["Name"]) ||
-                 derive_initials_from_ticket_holder(props["Ticket Holder"], holder_name_lookup) ||
+                 derive_initials_from_ticket_holder(props["Ticket Holder"], holder_data[:name_lookup] || {}) ||
                  "—"
 
       {
@@ -202,6 +209,16 @@ module Notion
       return nil if name_part.blank?
 
       initials_from_name(name_part)
+    end
+
+    # Preferred: use the Ticket Holder's own Initials formula (most reliable source)
+    def lookup_ticket_holder_initials(relation_prop, initials_lookup)
+      return nil unless relation_prop && initials_lookup.present?
+
+      related_ids = Array(relation_prop["relation"]).map { |r| r["id"] }
+      return nil if related_ids.empty?
+
+      initials_lookup[related_ids.first]
     end
 
     # Fallback: follow Ticket Holder relation and look up name from pre-fetched map
