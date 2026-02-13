@@ -62,6 +62,7 @@ const RefundRequest: React.FC = () => {
           data: {
             confirmationNumber: result.confirmationNumber,
             email: form.email,
+            name: form.passHolder?.name || "",
             decision: form.decision,
             refundAmount: form.finalRefund,
             emailSent: result.emailSent !== false ? "true" : "false",

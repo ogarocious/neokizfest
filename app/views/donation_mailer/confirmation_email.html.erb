@@ -1,6 +1,15 @@
 <p style="font-size: 18px; margin-bottom: 24px;">Hi <%= @name %>,</p>
 
+<% if @waived_refund %>
+<div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.10) 100%); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 8px; padding: 20px; margin: 0 0 24px; text-align: center;">
+  <p style="font-size: 24px; margin: 0 0 8px;">&#11088; &#11088;</p>
+  <p style="color: #FFD700; font-weight: 700; font-size: 18px; margin: 0 0 8px;">Above and Beyond</p>
+  <p style="color: #E8E0D8; font-size: 14px; margin: 0;">You waived your refund <em>and</em> made a donation. That's extraordinary generosity and it doesn't go unnoticed.</p>
+</div>
+<p>We're truly blown away. Not only did you choose to waive your refund, but you went a step further and donated to help the community. Thank you from the bottom of our hearts.</p>
+<% else %>
 <p>Thank you so much for your generous donation to Neo Kizomba Festival. Your support means the world to us and our community.</p>
+<% end %>
 
 <div style="background-color: #1B251B; border: 1px solid #1C3C1C; border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
   <p style="color: #9A8F85; font-size: 14px; margin: 0 0 8px;">Your Donation</p>
@@ -32,8 +41,13 @@
 </table>
 
 <div style="background-color: #1B251B; border: 1px solid #1C3C1C; border-radius: 8px; padding: 20px; margin: 24px 0;">
+  <% if @waived_refund %>
+  <p style="color: #FFD700; font-weight: 600; margin: 0 0 8px;">&#11088; Double gold star</p>
+  <p style="color: #E8E0D8; margin: 0; font-size: 14px;">By waiving your refund and donating, you've made twice the impact. You're the kind of person who makes this community special, and we won't forget it.</p>
+  <% else %>
   <p style="color: #228B22; font-weight: 600; margin: 0 0 8px;">You're making a difference</p>
   <p style="color: #E8E0D8; margin: 0; font-size: 14px;">Every donation, no matter the size, brings us closer to closing this chapter the right way. Thank you for being part of this community.</p>
+  <% end %>
 </div>
 
 <p style="margin-top: 32px; text-align: center;">

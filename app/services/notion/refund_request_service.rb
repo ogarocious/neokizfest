@@ -90,6 +90,19 @@ module Notion
       { success: false, error: :lookup_failed, message: e.message }
     end
 
+    # Set "Community Message" on a refund request page
+    def set_community_message(page_id, message)
+      @client.update_page(
+        page_id: page_id,
+        properties: {
+          "Community Message" => { rich_text: [{ text: { content: message.to_s.truncate(1000) } }] }
+        }
+      )
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[RefundRequestService] Failed to set community message for #{page_id}: #{e.message}")
+      nil
+    end
+
     # Mark the "Notification Sent" checkbox as true on a refund request page
     def mark_notification_sent(page_id)
       @client.update_page(

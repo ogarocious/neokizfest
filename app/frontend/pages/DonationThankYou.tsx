@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, Paper, Text, Title, Group, Button, Box } from "@mantine/core";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import {
   IconHeart,
   IconHeartHandshake,
@@ -9,9 +9,27 @@ import {
   IconCash,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
+import { CommunityMessageCard } from "../components/shared";
 import { colors, gradients } from "../styles/theme";
 
-const DonationThankYou: React.FC = () => {
+interface DonationThankYouProps {
+  donor_name?: string;
+  amount?: number;
+  processed?: boolean;
+}
+
+const DonationThankYou: React.FC<DonationThankYouProps> = ({
+  donor_name,
+  amount,
+  processed,
+}) => {
+  const { url } = usePage();
+  const params = new URLSearchParams(url.split("?")[1] || "");
+  const orderId = params.get("orderId") || "";
+
+  const displayName = donor_name || "Generous Supporter";
+  const hasAmount = typeof amount === "number" && amount > 0;
+
   return (
     <FarewellLayout>
       <Stack gap="xl" maw={700} mx="auto" px={{ base: "sm", sm: "md" }}>
@@ -42,12 +60,23 @@ const DonationThankYou: React.FC = () => {
                 fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
               }}
             >
-              Thank You for Your Support!
+              Thank You{hasAmount ? `, ${displayName}` : " for Your Support"}!
             </Title>
-            <Text c={colors.textMuted} ta="center" size="lg" maw={450}>
-              Your generosity means more than words can express. You're helping
-              our community through this transition.
-            </Text>
+            {hasAmount ? (
+              <Text c={colors.textMuted} ta="center" size="lg" maw={450}>
+                Your generous donation of{" "}
+                <Text span fw={700} c={colors.success}>
+                  ${amount.toFixed(2)}
+                </Text>{" "}
+                means more than words can express. You're helping our community
+                through this transition.
+              </Text>
+            ) : (
+              <Text c={colors.textMuted} ta="center" size="lg" maw={450}>
+                Your generosity means more than words can express. You're helping
+                our community through this transition.
+              </Text>
+            )}
           </Stack>
         </Stack>
 
@@ -157,6 +186,9 @@ const DonationThankYou: React.FC = () => {
             </Text>
           </Stack>
         </Paper>
+
+        {/* Community Message */}
+        {orderId && <CommunityMessageCard identifier={orderId} type="donation" />}
 
         {/* Action Buttons */}
         <Stack gap="md">

@@ -1,4 +1,10 @@
-<p style="font-size: 18px; margin-bottom: 24px;">New donation received!</p>
+<% if @waived_refund %>
+<div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.10) 100%); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 8px; padding: 16px; margin: 0 0 24px; text-align: center;">
+  <p style="color: #FFD700; font-weight: 700; font-size: 16px; margin: 0;">&#11088; Waived Refund + Donated &#11088;</p>
+  <p style="color: #E8E0D8; font-size: 13px; margin: 8px 0 0;">This person waived their refund AND made a donation on top of it.</p>
+</div>
+<% end %>
+<p style="font-size: 18px; margin-bottom: 24px;"><%= @waived_refund ? "Waive + donate received!" : "New donation received!" %></p>
 
 <div style="background-color: #1B251B; border: 1px solid #1C3C1C; border-radius: 8px; padding: 24px; margin: 24px 0;">
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">

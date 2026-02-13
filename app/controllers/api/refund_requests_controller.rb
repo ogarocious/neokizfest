@@ -221,7 +221,7 @@ module Api
 
   def valid_auth_token?
     # Prefer dedicated token, fall back to shared secret for backward compatibility
-    expected_token = Rails.application.credentials.notify_completion_secret ||
+    expected_token = Rails.application.credentials.notify_completion_secret.presence ||
                      Rails.application.credentials.refund_cache_secret
     return false if expected_token.blank?
 

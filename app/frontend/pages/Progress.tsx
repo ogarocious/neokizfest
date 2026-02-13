@@ -8,6 +8,7 @@ import {
   Progress as MantineProgress,
   Box,
   Title,
+  ScrollArea,
 } from "@mantine/core";
 import {
   IconChartBar,
@@ -16,7 +17,9 @@ import {
   IconHeart,
   IconUsers,
   IconClock,
-  IconInbox,
+  IconCash,
+  IconStar,
+  IconQuote,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -32,6 +35,8 @@ interface RefundEntryData {
   id: string;
   initials: string;
   status?: "completed" | "processing" | "submitted" | "pending";
+  donated?: boolean;
+  paid?: boolean;
 }
 
 interface ProgressStats {
@@ -44,18 +49,50 @@ interface ProgressStats {
   chargebacks: number;
 }
 
+interface DonationStats {
+  total_donated: number;
+  donor_count: number;
+  waive_and_donate_count: number;
+}
+
+interface CommunityMessage {
+  initials: string;
+  message: string;
+  type: "refund" | "waive" | "donation";
+}
+
 interface ProgressProps {
   last_updated: string;
   stats: ProgressStats;
   refunds: RefundEntryData[];
   community_support: RefundEntryData[];
+  donation_stats: DonationStats;
+  community_messages: CommunityMessage[];
 }
+
+const messageTypeLabel = (type: CommunityMessage["type"]) => {
+  switch (type) {
+    case "waive": return "Waived Refund";
+    case "donation": return "Donor";
+    default: return "Pass Holder";
+  }
+};
+
+const messageTypeColor = (type: CommunityMessage["type"]) => {
+  switch (type) {
+    case "waive": return colors.primary;
+    case "donation": return "#228B22";
+    default: return colors.textMuted;
+  }
+};
 
 const Progress: React.FC<ProgressProps> = ({
   last_updated,
   stats,
   refunds,
   community_support,
+  donation_stats,
+  community_messages,
 }) => {
   const formatLastUpdated = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
@@ -198,104 +235,35 @@ const Progress: React.FC<ProgressProps> = ({
             </Stack>
           </GlassCard>
 
-          {/* Not Yet Requested */}
-          <GlassCard p={{ base: "sm", sm: "md" }}>
+          {/* Donations */}
+          <GlassCard
+            p={{ base: "sm", sm: "md" }}
+            style={{
+              background: "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(50, 205, 50, 0.12) 100%)",
+              border: "1px solid rgba(34, 139, 34, 0.2)",
+            }}
+          >
             <Stack gap={4} align="center">
-              <IconInbox size={20} color={colors.textMuted} />
+              <IconCash size={20} color="#228B22" />
               <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Not Yet Requested
+                Donated
               </Text>
-              <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
-                {Math.max(0, stats.total_ticket_holders - stats.total_requests - stats.chargebacks)}
+              <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
+                ${donation_stats.total_donated.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </Text>
+              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                from {donation_stats.donor_count} {donation_stats.donor_count === 1 ? "supporter" : "supporters"}
+              </Text>
+              {donation_stats.waive_and_donate_count > 0 && (
+                <Text c="#FFD700" ta="center" fw={600} style={{ fontSize: responsiveText.xs }}>
+                  {donation_stats.waive_and_donate_count} waived + donated
+                </Text>
+              )}
             </Stack>
           </GlassCard>
         </SimpleGrid>
 
-        {/* Refund Requests List */}
-        {refunds.length > 0 && (
-          <GlassCard>
-            <Stack gap="md">
-              <Group gap="xs">
-                <IconChartBar size={18} color={colors.textSecondary} />
-                <Title order={4} c={colors.textPrimary} style={{ fontSize: responsiveText.sectionTitle }}>
-                  Refund Requests
-                </Title>
-              </Group>
-
-              {/* Completed Section */}
-              {completedRefunds.length > 0 && (
-                <Box>
-                  <Group gap="xs" mb="xs">
-                    <IconCheck size={14} color={colors.success} />
-                    <Text size="sm" c={colors.textMuted} fw={500}>
-                      Completed ({completedRefunds.length})
-                    </Text>
-                  </Group>
-                  <Stack gap="xs">
-                    {completedRefunds.map((entry) => (
-                      <RefundEntry
-                        key={entry.id}
-                        confirmationId={entry.id}
-                        initials={entry.initials}
-                        status="completed"
-                        compact
-                      />
-                    ))}
-                  </Stack>
-                </Box>
-              )}
-
-              {/* Processing Section */}
-              {processingRefunds.length > 0 && (
-                <Box>
-                  <Group gap="xs" mb="xs">
-                    <IconLoader size={14} color={colors.warning} />
-                    <Text size="sm" c={colors.textMuted} fw={500}>
-                      Processing ({processingRefunds.length})
-                    </Text>
-                  </Group>
-                  <Stack gap="xs">
-                    {processingRefunds.map((entry) => (
-                      <RefundEntry
-                        key={entry.id}
-                        confirmationId={entry.id}
-                        initials={entry.initials}
-                        status="processing"
-                        compact
-                      />
-                    ))}
-                  </Stack>
-                </Box>
-              )}
-
-              {/* Submitted Section */}
-              {submittedRefunds.length > 0 && (
-                <Box>
-                  <Group gap="xs" mb="xs">
-                    <IconClock size={14} color={colors.textMuted} />
-                    <Text size="sm" c={colors.textMuted} fw={500}>
-                      Submitted ({submittedRefunds.length})
-                    </Text>
-                  </Group>
-                  <Stack gap="xs">
-                    {submittedRefunds.map((entry) => (
-                      <RefundEntry
-                        key={entry.id}
-                        confirmationId={entry.id}
-                        initials={entry.initials}
-                        status="submitted"
-                        compact
-                      />
-                    ))}
-                  </Stack>
-                </Box>
-              )}
-            </Stack>
-          </GlassCard>
-        )}
-
-        {/* Community Support (Waived) */}
+        {/* Community Support (Waived) — positioned after stats for visibility */}
         {community_support.length > 0 && (
           <GlassCard
             style={{
@@ -320,12 +288,19 @@ const Progress: React.FC<ProgressProps> = ({
                     key={entry.id}
                     size="lg"
                     variant="light"
-                    color="orange"
-                    leftSection={<IconHeart size={12} fill={colors.primary} color={colors.primary} />}
+                    color={entry.donated ? "yellow" : "orange"}
+                    leftSection={
+                      entry.donated
+                        ? <IconStar size={12} fill="#FFD700" color="#FFD700" />
+                        : <IconHeart size={12} fill={colors.primary} color={colors.primary} />
+                    }
                     style={{
-                      backgroundColor: "rgba(244, 93, 0, 0.15)",
+                      backgroundColor: entry.donated
+                        ? "rgba(255, 215, 0, 0.15)"
+                        : "rgba(244, 93, 0, 0.15)",
                       color: colors.textPrimary,
                       fontWeight: 600,
+                      border: entry.donated ? "1px solid rgba(255, 215, 0, 0.3)" : undefined,
                     }}
                   >
                     {entry.initials}
@@ -336,9 +311,155 @@ const Progress: React.FC<ProgressProps> = ({
           </GlassCard>
         )}
 
+        {/* Community Messages */}
+        {community_messages.length > 0 && (
+          <GlassCard>
+            <Stack gap="md">
+              <Group gap="xs">
+                <IconQuote size={18} color={colors.primary} />
+                <Title order={4} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
+                  Community Messages
+                </Title>
+              </Group>
+
+              <ScrollArea.Autosize mah={500} type="auto">
+                <Stack gap="sm">
+                  {community_messages.map((msg, i) => (
+                    <Box
+                      key={i}
+                      style={{
+                        background: "rgba(255, 255, 255, 0.03)",
+                        border: "1px solid rgba(255, 255, 255, 0.06)",
+                        borderRadius: 8,
+                        padding: "12px 16px",
+                      }}
+                    >
+                      <Text
+                        size="sm"
+                        c={colors.textPrimary}
+                        lh={1.6}
+                        style={{ fontStyle: "italic" }}
+                      >
+                        "{msg.message}"
+                      </Text>
+                      <Group gap="xs" mt="xs">
+                        <Text fw={600} size="xs" c={messageTypeColor(msg.type)}>
+                          — {msg.initials}
+                        </Text>
+                        <Badge
+                          size="xs"
+                          variant="light"
+                          color={msg.type === "donation" ? "green" : msg.type === "waive" ? "orange" : "gray"}
+                        >
+                          {messageTypeLabel(msg.type)}
+                        </Badge>
+                      </Group>
+                    </Box>
+                  ))}
+                </Stack>
+              </ScrollArea.Autosize>
+            </Stack>
+          </GlassCard>
+        )}
+
+        {/* Refund Requests List */}
+        {refunds.length > 0 && (
+          <GlassCard>
+            <Stack gap="md">
+              <Group gap="xs">
+                <IconChartBar size={18} color={colors.textSecondary} />
+                <Title order={4} c={colors.textPrimary} style={{ fontSize: responsiveText.sectionTitle }}>
+                  Refund Requests
+                </Title>
+              </Group>
+
+              {/* Completed Section */}
+              {completedRefunds.length > 0 && (
+                <Box>
+                  <Group gap="xs" mb="xs">
+                    <IconCheck size={14} color={colors.success} />
+                    <Text size="sm" c={colors.textMuted} fw={500}>
+                      Completed
+                    </Text>
+                    <Badge size="sm" variant="light" color="green">{completedRefunds.length}</Badge>
+                  </Group>
+                  <ScrollArea.Autosize mah={400} type="auto">
+                    <Stack gap="xs">
+                      {completedRefunds.map((entry) => (
+                        <RefundEntry
+                          key={entry.id}
+                          confirmationId={entry.id}
+                          initials={entry.initials}
+                          status="completed"
+                          paid={entry.paid}
+                          compact
+                        />
+                      ))}
+                    </Stack>
+                  </ScrollArea.Autosize>
+                </Box>
+              )}
+
+              {/* Processing Section */}
+              {processingRefunds.length > 0 && (
+                <Box>
+                  <Group gap="xs" mb="xs">
+                    <IconLoader size={14} color={colors.warning} />
+                    <Text size="sm" c={colors.textMuted} fw={500}>
+                      Processing
+                    </Text>
+                    <Badge size="sm" variant="light" color="orange">{processingRefunds.length}</Badge>
+                  </Group>
+                  <ScrollArea.Autosize mah={300} type="auto">
+                    <Stack gap="xs">
+                      {processingRefunds.map((entry) => (
+                        <RefundEntry
+                          key={entry.id}
+                          confirmationId={entry.id}
+                          initials={entry.initials}
+                          status="processing"
+                          paid={entry.paid}
+                          compact
+                        />
+                      ))}
+                    </Stack>
+                  </ScrollArea.Autosize>
+                </Box>
+              )}
+
+              {/* Submitted Section */}
+              {submittedRefunds.length > 0 && (
+                <Box>
+                  <Group gap="xs" mb="xs">
+                    <IconClock size={14} color={colors.textMuted} />
+                    <Text size="sm" c={colors.textMuted} fw={500}>
+                      Submitted
+                    </Text>
+                    <Badge size="sm" variant="light" color="gray">{submittedRefunds.length}</Badge>
+                  </Group>
+                  <ScrollArea.Autosize mah={300} type="auto">
+                    <Stack gap="xs">
+                      {submittedRefunds.map((entry) => (
+                        <RefundEntry
+                          key={entry.id}
+                          confirmationId={entry.id}
+                          initials={entry.initials}
+                          status="submitted"
+                          paid={entry.paid}
+                          compact
+                        />
+                      ))}
+                    </Stack>
+                  </ScrollArea.Autosize>
+                </Box>
+              )}
+            </Stack>
+          </GlassCard>
+        )}
+
         {/* Last Updated */}
         <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-          Last updated: {formatLastUpdated(last_updated)} · Data refreshes every 5 minutes
+          Last updated: {formatLastUpdated(last_updated)} · Data refreshes every hour
         </Text>
 
         <BackToHome />

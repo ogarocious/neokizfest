@@ -3,13 +3,15 @@
 class AdminMailer < ApplicationMailer
   ADMIN_EMAIL = "charles@neokizomba.com"
 
-  def new_donation(name:, email:, amount:, identifier:)
+  def new_donation(name:, email:, amount:, identifier:, waived_refund: false)
     @name = name.presence || "Anonymous"
     @email = email
     @amount = amount
     @identifier = identifier
+    @waived_refund = waived_refund
 
-    mail(to: ADMIN_EMAIL, subject: "New Donation: $#{sprintf('%.2f', amount)} from #{@name}")
+    prefix = waived_refund ? "Waived + Donated" : "New Donation"
+    mail(to: ADMIN_EMAIL, subject: "#{prefix}: $#{sprintf('%.2f', amount)} from #{@name}")
   end
 
   def new_refund_request(email:, confirmation_number:, decision:, refund_amount: nil, amount_paid: nil)

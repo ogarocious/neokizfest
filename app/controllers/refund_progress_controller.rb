@@ -13,7 +13,9 @@ class RefundProgressController < ApplicationController
       last_updated: progress_data[:last_updated],
       stats: progress_data[:stats],
       refunds: progress_data[:refunds],
-      community_support: progress_data[:community_support]
+      community_support: progress_data[:community_support],
+      donation_stats: progress_data[:donation_stats] || { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 },
+      community_messages: progress_data[:community_messages] || []
     }
   end
 
@@ -44,13 +46,15 @@ class RefundProgressController < ApplicationController
       last_updated: Time.current.iso8601,
       stats: { total_ticket_holders: 0, total_requests: 0, completed: 0, processing: 0, submitted: 0, waived: 0, chargebacks: 0 },
       refunds: [],
-      community_support: []
+      community_support: [],
+      donation_stats: { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 },
+      community_messages: []
     }
   end
 
   def valid_refresh_token?
     # Prefer dedicated token, fall back to shared secret for backward compatibility
-    expected_token = Rails.application.credentials.progress_refresh_secret ||
+    expected_token = Rails.application.credentials.progress_refresh_secret.presence ||
                      Rails.application.credentials.refund_cache_secret
     return false if expected_token.blank?
 
@@ -75,8 +79,8 @@ class RefundProgressController < ApplicationController
         chargebacks: 3
       },
       refunds: [
-        { id: "RR-0012", initials: "S.M.", status: "completed" },
-        { id: "RR-0008", initials: "J.T.", status: "completed" },
+        { id: "RR-0012", initials: "S.M.", status: "completed", paid: true },
+        { id: "RR-0008", initials: "J.T.", status: "completed", paid: true },
         { id: "RR-0015", initials: "A.K.", status: "completed" },
         { id: "RR-0022", initials: "M.L.", status: "processing" },
         { id: "RR-0019", initials: "D.R.", status: "processing" },
@@ -84,10 +88,19 @@ class RefundProgressController < ApplicationController
         { id: "RR-0027", initials: "L.P.", status: "submitted" }
       ],
       community_support: [
-        { id: "RR-0003", initials: "K.B." },
+        { id: "RR-0003", initials: "K.B.", donated: true },
         { id: "RR-0011", initials: "P.S." },
         { id: "RR-0007", initials: "A.W." },
         { id: "RR-0014", initials: "M.C." }
+      ],
+      donation_stats: {
+        total_donated: 126.00,
+        donor_count: 3,
+        waive_and_donate_count: 1
+      },
+      community_messages: [
+        { initials: "K.B.", message: "This community changed my life. Wishing you all the best.", type: "waive" },
+        { initials: "R.M.", message: "Thank you for doing the right thing. Neo Kiz forever!", type: "donation" }
       ]
     }
   end

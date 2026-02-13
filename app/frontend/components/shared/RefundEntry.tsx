@@ -1,5 +1,5 @@
 import React from "react";
-import { Group, Text, Box } from "@mantine/core";
+import { Group, Text, Box, Badge } from "@mantine/core";
 import {
   IconCheck,
   IconLoader,
@@ -17,6 +17,8 @@ interface RefundEntryProps {
   status: EntryStatus;
   /** Use compact mode for mobile */
   compact?: boolean;
+  /** Whether this refund has been paid via Zelle */
+  paid?: boolean;
 }
 
 const statusConfig: Record<
@@ -65,6 +67,7 @@ const RefundEntry: React.FC<RefundEntryProps> = ({
   initials,
   status,
   compact = false,
+  paid = false,
 }) => {
   const config = statusConfig[status] || statusConfig.pending;
   const Icon = config.icon;
@@ -122,19 +125,32 @@ const RefundEntry: React.FC<RefundEntryProps> = ({
           </Box>
         </Group>
 
-        {/* Status Label */}
-        {!compact && (
-          <Text
-            size="xs"
-            fw={500}
-            style={{
-              color: config.color,
-              textTransform: "lowercase",
-            }}
-          >
-            {config.label}
-          </Text>
-        )}
+        {/* Status Label + Paid Badge */}
+        <Group gap="xs" wrap="nowrap">
+          {paid && (
+            <Badge
+              size="xs"
+              variant="filled"
+              color="green"
+              leftSection={<IconCheck size={10} />}
+              style={{ textTransform: "none" }}
+            >
+              Paid
+            </Badge>
+          )}
+          {!compact && (
+            <Text
+              size="xs"
+              fw={500}
+              style={{
+                color: config.color,
+                textTransform: "lowercase",
+              }}
+            >
+              {config.label}
+            </Text>
+          )}
+        </Group>
       </Group>
     </Box>
   );

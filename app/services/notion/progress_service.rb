@@ -7,8 +7,10 @@ module Notion
   class ProgressService
     DATABASE_ID = Rails.application.credentials.dig(:notion, :refund_requests_db_id)
     TICKET_HOLDERS_DB_ID = Rails.application.credentials.dig(:notion, :master_ticket_holders_db_id)
+    SUPPORTER_ORDERS_DB_ID = Rails.application.credentials.dig(:notion, :supporter_orders_db_id)
+    ZELLE_TRANSFERS_DB_ID = Rails.application.credentials.dig(:notion, :zelle_transfers_db_id)
     CACHE_KEY = "neo_kiz_refund_progress"
-    CACHE_TTL = 15.minutes
+    CACHE_TTL = 1.hour
 
     def initialize
       @client = Notion::ApiClient.new
@@ -32,6 +34,12 @@ module Notion
     def fetch_fresh_data
       # Fetch ticket holders first so we can build a name lookup for initials fallback
       holder_data = fetch_ticket_holder_data
+
+      # Fetch donation data early so we can cross-reference waive+donate supporters
+      donation_data = fetch_donation_stats
+
+      # Fetch Zelle transfers to mark paid refunds
+      paid_request_ids = fetch_paid_request_ids
 
       all_requests = @client.query_database(
         database_id: DATABASE_ID,
@@ -63,14 +71,24 @@ module Notion
           refunds << entry
         when "waived"
           stats[:waived] += 1
-          waived << entry.slice(:id, :initials)
+          email = extract_email_from_ticket_holder(page.properties["Ticket Holder"], holder_data[:email_lookup] || {})
+          also_donated = email.present? && donation_data[:waive_donate_emails].include?(email.downcase)
+          waived << entry.slice(:id, :initials).merge(donated: also_donated)
         end
 
         # Also check decision for waived (in case status isn't "Waived")
         if entry[:decision]&.downcase&.include?("waive") && entry[:status]&.downcase != "waived"
-          # Move to waived list if decision is waive but status tracking differs
-          waived << entry.slice(:id, :initials) unless waived.any? { |w| w[:id] == entry[:id] }
+          unless waived.any? { |w| w[:id] == entry[:id] }
+            email = extract_email_from_ticket_holder(page.properties["Ticket Holder"], holder_data[:email_lookup] || {})
+            also_donated = email.present? && donation_data[:waive_donate_emails].include?(email.downcase)
+            waived << entry.slice(:id, :initials).merge(donated: also_donated)
+          end
         end
+      end
+
+      # Mark completed refunds that have a Zelle payment
+      refunds.each do |r|
+        r[:paid] = true if r[:page_id] && paid_request_ids.include?(r[:page_id])
       end
 
       # Sort refunds: completed first, then processing, then verified, then submitted
@@ -89,32 +107,149 @@ module Notion
           chargebacks: holder_data[:chargebacks]
         },
         refunds: refunds.map { |r| sanitize_for_public(r) },
-        community_support: waived.map { |w| sanitize_for_public(w) }
+        community_support: waived.map { |w| sanitize_community_support(w) },
+        donation_stats: donation_data[:stats],
+        community_messages: fetch_community_messages(all_requests, holder_data, donation_data)
       }
     end
 
     # Fetch ticket holders and build a name lookup map (page_id → name)
     # Reuses the same query for both stats and initials fallback
     def fetch_ticket_holder_data
-      return { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {} } unless TICKET_HOLDERS_DB_ID
+      return { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {}, email_lookup: {} } unless TICKET_HOLDERS_DB_ID
 
       results = @client.query_database(database_id: TICKET_HOLDERS_DB_ID)
       chargebacks = results.count { |page| chargeback?(page) }
 
       name_lookup = {}
       initials_lookup = {}
+      email_lookup = {}
       results.each do |page|
         name = extract_title(page.properties["Name"]) || extract_title(page.properties["Ticket Holder"])
         name_lookup[page.id] = name if name.present?
 
         holder_initials = extract_formula(page.properties["Initials"]).presence
         initials_lookup[page.id] = holder_initials if holder_initials
+
+        email = page.properties.dig("Email", "email")
+        email_lookup[page.id] = email.downcase if email.present?
       end
 
-      { total: results.count, chargebacks: chargebacks, name_lookup: name_lookup, initials_lookup: initials_lookup }
+      { total: results.count, chargebacks: chargebacks, name_lookup: name_lookup, initials_lookup: initials_lookup, email_lookup: email_lookup }
     rescue Notion::ApiClient::NotionError => e
       Rails.logger.error("[ProgressService] Failed to fetch ticket holder data: #{e.message}")
-      { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {} }
+      { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {}, email_lookup: {} }
+    end
+
+    # Returns { stats: { total_donated:, donor_count:, waive_and_donate_count: }, waive_donate_emails: Set }
+    def fetch_donation_stats
+      empty = { stats: { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 }, waive_donate_emails: Set.new }
+      return empty unless SUPPORTER_ORDERS_DB_ID
+
+      results = @client.query_database(
+        database_id: SUPPORTER_ORDERS_DB_ID,
+        filter: {
+          property: "Order Type",
+          select: { equals: "Donation" }
+        }
+      )
+
+      total = 0.0
+      waive_and_donate_count = 0
+      waive_donate_emails = Set.new
+      results.each do |page|
+        amount = page.properties.dig("Amount Paid", "number")
+        total += amount.to_f if amount
+
+        notes = Array(page.properties.dig("Notes", "rich_text")).map { |t| t.dig("plain_text") }.join
+        if notes.include?("Waived refund")
+          waive_and_donate_count += 1
+          email = page.properties.dig("Email", "email")
+          waive_donate_emails << email.downcase if email.present?
+        end
+      end
+
+      {
+        stats: { total_donated: total.round(2), donor_count: results.size, waive_and_donate_count: waive_and_donate_count },
+        waive_donate_emails: waive_donate_emails
+      }
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[ProgressService] Failed to fetch donation stats: #{e.message}")
+      { stats: { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 }, waive_donate_emails: Set.new }
+    end
+
+    # Fetch Zelle Transfers and return a Set of refund request page IDs that have been paid
+    def fetch_paid_request_ids
+      return Set.new unless ZELLE_TRANSFERS_DB_ID
+
+      results = @client.query_database(database_id: ZELLE_TRANSFERS_DB_ID)
+
+      paid_ids = Set.new
+      results.each do |page|
+        related = Array(page.properties.dig("Linked Request", "relation"))
+        related.each { |r| paid_ids << r["id"] }
+      end
+
+      paid_ids
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[ProgressService] Failed to fetch Zelle transfers: #{e.message}")
+      Set.new
+    end
+
+    # Collect approved community messages from both refund requests and donations
+    # Reuses already-fetched refund request pages to avoid extra API calls
+    def fetch_community_messages(refund_pages, holder_data, donation_data)
+      messages = []
+
+      # From refund requests (already fetched)
+      refund_pages.each do |page|
+        next unless page.properties.dig("Message Approved", "checkbox") == true
+
+        text = extract_rich_text(page.properties["Community Message"])
+        next if text.blank?
+
+        initials = lookup_ticket_holder_initials(page.properties["Ticket Holder"], holder_data[:initials_lookup] || {}) ||
+                   extract_formula(page.properties["Initials"]).presence ||
+                   derive_initials_from_title(page.properties["Name"]) ||
+                   "—"
+
+        decision = extract_select(page.properties["Decision"])
+        msg_type = decision&.downcase&.include?("waive") ? "waive" : "refund"
+
+        messages << { initials: initials, message: text, type: msg_type }
+      end
+
+      # From supporter orders (need a separate query for approved messages)
+      if SUPPORTER_ORDERS_DB_ID
+        begin
+          donation_pages = @client.query_database(
+            database_id: SUPPORTER_ORDERS_DB_ID,
+            filter: {
+              property: "Message Approved",
+              checkbox: { equals: true }
+            }
+          )
+
+          donation_pages.each do |page|
+            text = extract_rich_text(page.properties["Community Message"])
+            next if text.blank?
+
+            name = extract_title(page.properties["Name"])
+            initials = name.present? ? initials_from_name(name) : "—"
+
+            messages << { initials: initials || "—", message: text, type: "donation" }
+          end
+        rescue Notion::ApiClient::NotionError => e
+          Rails.logger.error("[ProgressService] Failed to fetch donation messages: #{e.message}")
+        end
+      end
+
+      messages
+    end
+
+    def extract_rich_text(prop)
+      return nil unless prop
+      Array(prop["rich_text"]).map { |t| t.dig("plain_text") }.join.presence
     end
 
     def chargeback?(page)
@@ -150,17 +285,40 @@ module Notion
         id: confirmation,
         initials: initials,
         status: extract_status(props["Status"]),
-        decision: extract_select(props["Decision"])
+        decision: extract_select(props["Decision"]),
+        page_id: page.id
       }
     end
 
     # Final sanitization - ensures only safe fields are included
     def sanitize_for_public(entry)
-      {
+      result = {
         id: entry[:id],
         initials: entry[:initials].presence || "—",
         status: normalize_status(entry[:status])
       }.compact
+      result[:paid] = true if entry[:paid]
+      result
+    end
+
+    # Sanitize community support entries (waived), including donated flag
+    def sanitize_community_support(entry)
+      result = {
+        id: entry[:id],
+        initials: entry[:initials].presence || "—"
+      }
+      result[:donated] = true if entry[:donated]
+      result
+    end
+
+    # Look up ticket holder email via relation (for cross-referencing with donations)
+    def extract_email_from_ticket_holder(relation_prop, email_lookup)
+      return nil unless relation_prop && email_lookup.present?
+
+      related_ids = Array(relation_prop["relation"]).map { |r| r["id"] }
+      return nil if related_ids.empty?
+
+      email_lookup[related_ids.first]
     end
 
     def normalize_status(status)

@@ -30,7 +30,19 @@ class PagesController < ApplicationController
   end
 
   def donation_thank_you
-    render inertia: 'DonationThankYou'
+    order_id = params[:orderId]
+
+    if order_id.present?
+      result = DonationProcessor.new.process(order_id)
+
+      render inertia: 'DonationThankYou', props: {
+        donor_name: result[:name],
+        amount: result[:amount],
+        processed: result[:success]
+      }
+    else
+      render inertia: 'DonationThankYou'
+    end
   end
 
   def artist_payments

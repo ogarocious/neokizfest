@@ -77,8 +77,13 @@ const techStack = [
   },
   {
     name: "Notion API",
-    description: "Database backend for refund requests, ticket holders, and chargebacks",
+    description: "Database backend for refund requests, ticket holders, chargebacks, donations, and Zelle transfers",
     icon: IconDatabase,
+  },
+  {
+    name: "Square API",
+    description: "Payment processing for community donations with checkout links and order verification",
+    icon: IconCreditCard,
   },
 ];
 
@@ -86,7 +91,7 @@ const architectureSteps = [
   { label: "React Frontend", detail: "Mantine UI + TypeScript + Form Validation" },
   { label: "Inertia.js Bridge", detail: "Server-side routing, client-side rendering" },
   { label: "Rails Services", detail: "Email validation, refund creation, status lookup" },
-  { label: "Notion Databases", detail: "Ticket holders, refund requests, chargebacks" },
+  { label: "Notion Databases", detail: "Ticket holders, refund requests, donations, Zelle transfers" },
 ];
 
 const keyDecisions = [
@@ -132,7 +137,7 @@ const featuresBuilt = [
   {
     title: "Progress Dashboard",
     description:
-      "Real-time aggregate stats pulled from Notion — total requests, approved, pending, denied — with privacy-safe rendering.",
+      "Aggregate stats pulled from Notion — total requests, completed, processing, waived, donated — with Zelle payment tracking, community support badges, community messages wall, and scrollable sections. All privacy-safe with no PII exposed.",
     icon: IconChartBar,
   },
   {
@@ -156,7 +161,7 @@ const featuresBuilt = [
   {
     title: "Action Mailer Integration",
     description:
-      "Branded HTML and plain-text emails for confirmations, status updates (completed and waived), and admin notifications on every new request.",
+      "Branded HTML and plain-text dark-mode emails for confirmations, status updates, donation receipts, and admin notifications — with special \"waived + donated\" language for double-generosity supporters.",
     icon: IconMail,
   },
   {
@@ -174,8 +179,26 @@ const featuresBuilt = [
   {
     title: "Community Support via Square",
     description:
-      "A donation page powered by Square allowing community members to contribute directly — with flexible preset and custom amounts.",
+      "A donation page powered by Square allowing community members to contribute directly — with flexible preset and custom amounts. Donations are verified server-side via the Square Orders API and recorded in Notion automatically.",
     icon: IconCoin,
+  },
+  {
+    title: "Waive + Donate Flow",
+    description:
+      "Ticket holders who waive their refund are offered an optional monetary donation on the confirmation page. Gold star badges and special email language recognize their extraordinary generosity.",
+    icon: IconHeartHandshake,
+  },
+  {
+    title: "Community Messages Wall",
+    description:
+      "Refund requesters and donors can leave optional messages of support. Messages require admin approval via a Notion checkbox before appearing on the public progress dashboard.",
+    icon: IconBulb,
+  },
+  {
+    title: "Zelle Payment Tracking",
+    description:
+      "Outbound Zelle refund payments are tracked in a dedicated Notion database linked to refund requests. The progress dashboard shows a \"Paid\" badge on completed entries with associated payments.",
+    icon: IconCreditCard,
   },
   {
     title: "Admin Notifications",

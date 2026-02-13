@@ -19,6 +19,19 @@ module Notion
       { success: false, error: :creation_failed, message: e.message }
     end
 
+    # Set "Community Message" on a supporter order page
+    def set_community_message(page_id, message)
+      @client.update_page(
+        page_id: page_id,
+        properties: {
+          "Community Message" => { rich_text: [{ text: { content: message.to_s.truncate(1000) } }] }
+        }
+      )
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[SupporterOrderService] Failed to set community message for #{page_id}: #{e.message}")
+      nil
+    end
+
     # Check if an order with this identifier already exists (dedup)
     def find_by_identifier(identifier)
       return nil if identifier.blank?

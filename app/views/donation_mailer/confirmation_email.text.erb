@@ -1,6 +1,13 @@
 Hi <%= @name %>,
 
+<% if @waived_refund %>
+** ABOVE AND BEYOND **
+You waived your refund AND made a donation. That's extraordinary generosity and it doesn't go unnoticed.
+
+We're truly blown away. Not only did you choose to waive your refund, but you went a step further and donated to help the community. Thank you from the bottom of our hearts.
+<% else %>
 Thank you so much for your generous donation to Neo Kizomba Festival. Your support means the world to us and our community.
+<% end %>
 
 YOUR DONATION
 =============
@@ -13,9 +20,15 @@ WHAT YOUR DONATION HELPS WITH
 - Fulfilling commitments to our incredible artists and DJs
 - Covering operational costs of closing with integrity
 
+<% if @waived_refund %>
+DOUBLE GOLD STAR
+================
+By waiving your refund and donating, you've made twice the impact. You're the kind of person who makes this community special, and we won't forget it.
+<% else %>
 YOU'RE MAKING A DIFFERENCE
 ==========================
 Every donation, no matter the size, brings us closer to closing this chapter the right way. Thank you for being part of this community.
+<% end %>
 
 Visit us at: <%= root_url %>
 

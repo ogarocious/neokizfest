@@ -12,6 +12,8 @@ import {
   CopyButton,
   ActionIcon,
   Tooltip,
+  TextInput,
+  Loader,
 } from "@mantine/core";
 import { Link, usePage } from "@inertiajs/react";
 import {
@@ -23,10 +25,14 @@ import {
   IconHeart,
   IconConfetti,
   IconAlertTriangle,
+  IconCash,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
+import { CommunityMessageCard } from "../components/shared";
 import type { RefundDecision } from "../types/refund";
 import { colors, gradients } from "../styles/theme";
+
+const DONATION_AMOUNTS = [10, 25, 50];
 
 const Confirmation: React.FC = () => {
   // Get data from URL params (passed via Inertia)
@@ -35,11 +41,41 @@ const Confirmation: React.FC = () => {
 
   const confirmationNumber = params.get("confirmationNumber") || "";
   const email = params.get("email") || "";
+  const name = params.get("name") || "";
   const decision = (params.get("decision") as RefundDecision) || "full";
   const refundAmount = parseFloat(params.get("refundAmount") || "0");
   const emailSent = params.get("emailSent") !== "false";
 
   const isWaived = decision === "waive";
+
+  const [customAmount, setCustomAmount] = React.useState("");
+  const [donationLoading, setDonationLoading] = React.useState(false);
+  const [donationError, setDonationError] = React.useState<string | null>(null);
+
+  const handleDonate = async (amount: number) => {
+    if (amount <= 0 || donationLoading) return;
+    setDonationLoading(true);
+    setDonationError(null);
+
+    try {
+      const res = await fetch("/api/donations/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name, amount, waived: true }),
+      });
+      const data = await res.json();
+
+      if (data.success && data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        setDonationError(data.errorMessage || "Unable to start checkout. Please try again.");
+        setDonationLoading(false);
+      }
+    } catch {
+      setDonationError("Something went wrong. Please try again.");
+      setDonationLoading(false);
+    }
+  };
 
   return (
     <FarewellLayout>
@@ -301,6 +337,83 @@ const Confirmation: React.FC = () => {
             </Stack>
           </Stack>
         </Paper>
+
+        {/* Community Message */}
+        <CommunityMessageCard identifier={confirmationNumber} type="refund" />
+
+        {/* Donation Prompt (Waived Only) */}
+        {isWaived && (
+          <Paper
+            p={{ base: "md", sm: "lg" }}
+            radius="md"
+            style={{
+              background: gradients.successCard,
+              border: "1px solid rgba(34, 139, 34, 0.2)",
+            }}
+          >
+            <Stack gap="md">
+              <Group gap="xs">
+                <IconCash size={20} color={colors.success} />
+                <Text fw={600} c={colors.textPrimary}>
+                  Would You Also Like to Make a Donation?
+                </Text>
+              </Group>
+              <Text size="sm" c={colors.textMuted} lh={1.6}>
+                Your waiver already means the world. If you'd like to go even further,
+                a monetary donation helps us cover refunds, artist payments, and closure costs.
+              </Text>
+
+              <Group gap="sm" wrap="wrap">
+                {DONATION_AMOUNTS.map((amt) => (
+                  <Button
+                    key={amt}
+                    variant="light"
+                    color="green"
+                    size="md"
+                    onClick={() => handleDonate(amt)}
+                    disabled={donationLoading}
+                    style={{ minWidth: 80 }}
+                  >
+                    ${amt}
+                  </Button>
+                ))}
+              </Group>
+
+              <Group gap="xs" align="flex-end" wrap="nowrap">
+                <TextInput
+                  placeholder="Custom amount"
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(e.currentTarget.value.replace(/[^0-9.]/g, ""))}
+                  leftSection={<Text size="sm" c={colors.textMuted}>$</Text>}
+                  styles={{
+                    input: {
+                      backgroundColor: "rgba(20, 20, 20, 0.8)",
+                      borderColor: "rgba(34, 139, 34, 0.3)",
+                      color: colors.textPrimary,
+                      fontSize: "1rem",
+                    },
+                  }}
+                  style={{ flex: 1 }}
+                  autoComplete="off"
+                />
+                <Button
+                  color="green"
+                  size="md"
+                  onClick={() => handleDonate(parseFloat(customAmount) || 0)}
+                  disabled={donationLoading || !customAmount || parseFloat(customAmount) <= 0}
+                >
+                  {donationLoading ? <Loader size="xs" color="white" /> : "Donate"}
+                </Button>
+              </Group>
+
+              {donationError && (
+                <Text size="sm" c={colors.error}>
+                  {donationError}
+                </Text>
+              )}
+            </Stack>
+          </Paper>
+        )}
 
         {/* Action Buttons */}
         <Stack gap="md">

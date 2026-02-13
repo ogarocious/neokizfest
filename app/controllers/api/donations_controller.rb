@@ -34,7 +34,8 @@ module Api
         name: name,
         email: email,
         amount_cents: amount_cents,
-        success_url: success_url
+        success_url: success_url,
+        waived_refund: params[:waived].present?
       )
 
       if result[:success]

@@ -23,3 +23,6 @@ export { default as LoadingOverlay } from "./LoadingOverlay";
 export { default as StatCard } from "./StatCard";
 export { default as RefundEntry } from "./RefundEntry";
 export { default as ResponsiveText } from "./ResponsiveText";
+
+// Community
+export { default as CommunityMessageCard } from "./CommunityMessageCard";

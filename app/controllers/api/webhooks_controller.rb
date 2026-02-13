@@ -30,9 +30,11 @@ module Api
         return head :ok
       end
       order_id = payment["order_id"]
+      cached = Rails.cache.read("sq_order:#{order_id}")
+      cached_name = cached.is_a?(Hash) ? cached[:name] : cached
 
       order_params = {
-        name: Rails.cache.read("sq_order:#{order_id}"),
+        name: cached_name,
         email: payment["buyer_email_address"],
         amount_paid: (payment.dig("amount_money", "amount").to_i / 100.0).round(2),
         date_received: payment["created_at"],

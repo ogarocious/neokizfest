@@ -2,7 +2,7 @@
 
 module Square
   class CheckoutService
-    def create_checkout(name:, email:, amount_cents:, success_url: nil)
+    def create_checkout(name:, email:, amount_cents:, success_url: nil, waived_refund: false)
       params = {
         idempotency_key: SecureRandom.uuid,
         quick_pay: {
@@ -19,7 +19,15 @@ module Square
 
       checkout_url = result.payment_link.long_url
       order_id = result.payment_link.order_id
-      Rails.cache.write("sq_order:#{order_id}", name, expires_in: 24.hours) if order_id
+      if order_id
+        cache_data = {
+          name: name.presence || "Supporter",
+          email: email,
+          amount: amount_cents / 100.0
+        }
+        cache_data[:waived_refund] = true if waived_refund
+        Rails.cache.write("sq_order:#{order_id}", cache_data, expires_in: 24.hours)
+      end
 
       { success: true, checkout_url: checkout_url }
     rescue ::Square::Errors::ResponseError => e

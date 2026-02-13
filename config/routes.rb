@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     # Square donation checkout
     post 'donations/checkout', to: 'donations#checkout'
 
+    # Community messages
+    post 'community-messages', to: 'community_messages#create'
+
     # Square webhook (supporter donations)
     post 'webhooks/square', to: 'webhooks#square'
   end
