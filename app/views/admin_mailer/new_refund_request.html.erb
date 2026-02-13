@@ -1,29 +1,29 @@
 <p style="font-size: 18px; margin-bottom: 24px;">New refund request submitted.</p>
 
-<div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 24px; margin: 24px 0;">
+<div style="background-color: #302117; border: 1px solid #5B2E12; border-radius: 8px; padding: 24px; margin: 24px 0;">
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
     <tr>
       <td style="padding: 8px 0; color: #9A8F85; font-size: 14px;">Confirmation #</td>
       <td style="padding: 8px 0; color: #F45D00; font-weight: 700; font-size: 20px; font-family: monospace; letter-spacing: 2px; text-align: right;"><%= @confirmation_number %></td>
     </tr>
     <tr>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #9A8F85; font-size: 14px;">Email</td>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #E8E0D8; text-align: right;"><%= @email %></td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Email</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #E8E0D8; text-align: right;"><%= @email %></td>
     </tr>
     <tr>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #9A8F85; font-size: 14px;">Decision</td>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #E8E0D8; font-weight: 600; text-align: right;"><%= @decision.to_s.titleize %></td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Decision</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #E8E0D8; font-weight: 600; text-align: right;"><%= @decision.to_s.titleize %></td>
     </tr>
     <% if @amount_paid %>
     <tr>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #9A8F85; font-size: 14px;">Amount Paid</td>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #E8E0D8; text-align: right;">$<%= sprintf("%.2f", @amount_paid) %></td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Amount Paid</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #E8E0D8; text-align: right;">$<%= sprintf("%.2f", @amount_paid) %></td>
     </tr>
     <% end %>
     <% if @refund_amount %>
     <tr>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #9A8F85; font-size: 14px;">Refund Amount</td>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #F45D00; font-weight: 600; text-align: right;">$<%= sprintf("%.2f", @refund_amount) %></td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Refund Amount</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #F45D00; font-weight: 600; text-align: right;">$<%= sprintf("%.2f", @refund_amount) %></td>
     </tr>
     <% end %>
   </table>

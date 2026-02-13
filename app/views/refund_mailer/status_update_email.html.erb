@@ -13,36 +13,37 @@
   <p>We have an update on your refund request.</p>
 <% end %>
 
-<div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
+<div style="background-color: #302117; border: 1px solid #5B2E12; border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
   <p style="color: #9A8F85; font-size: 14px; margin: 0 0 8px;">Confirmation Number</p>
   <p style="font-size: 24px; font-weight: 700; color: #F45D00; font-family: monospace; letter-spacing: 2px; margin: 0 0 16px;"><%= @confirmation_number %></p>
 
   <% status_color = %w[completed waived].include?(@status.to_s.downcase) ? "#228B22" : "#F45D00" %>
-  <span style="display: inline-block; background-color: <%= status_color %>20; color: <%= status_color %>; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 14px;">
+  <% badge_bg = %w[completed waived].include?(@status.to_s.downcase) ? "#1B251B" : "#302117" %>
+  <span style="display: inline-block; background-color: <%= badge_bg %>; color: <%= status_color %>; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 14px;">
     <%= @status_text %>
   </span>
 </div>
 
 <% if @details.present? && @status.to_s.downcase != "waived" %>
-  <h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">Details</h2>
+  <h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid #313131; padding-bottom: 8px;">Details</h2>
 
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
     <% if @details[:refund_amount].present? %>
       <tr>
-        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+        <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
           <span style="color: #9A8F85; font-size: 14px;">Refund Amount</span>
         </td>
-        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+        <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
           <span style="color: #228B22; font-weight: 700; font-size: 18px;">$<%= sprintf('%.2f', @details[:refund_amount]) %></span>
         </td>
       </tr>
     <% end %>
     <% if @details[:method].present? %>
       <tr>
-        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+        <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
           <span style="color: #9A8F85; font-size: 14px;">Payment Method</span>
         </td>
-        <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+        <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
           <span style="color: #E8E0D8; font-weight: 600;"><%= @details[:method] %></span>
         </td>
       </tr>
@@ -61,12 +62,12 @@
 <% end %>
 
 <% if @status.to_s.downcase == "waived" %>
-  <div style="background-color: rgba(34, 139, 34, 0.1); border: 1px solid rgba(34, 139, 34, 0.3); border-radius: 8px; padding: 20px; margin: 24px 0;">
+  <div style="background-color: #1B251B; border: 1px solid #1C3C1C; border-radius: 8px; padding: 20px; margin: 24px 0;">
     <p style="color: #228B22; font-weight: 600; margin: 0 0 8px;">You're making a difference</p>
     <p style="color: #E8E0D8; margin: 0; font-size: 14px;">Your generosity directly supports the Neo Kizomba community. We are deeply grateful for your kindness.</p>
   </div>
 <% elsif @status.to_s.downcase == "completed" %>
-  <div style="background-color: rgba(34, 139, 34, 0.1); border: 1px solid rgba(34, 139, 34, 0.3); border-radius: 8px; padding: 20px; margin: 24px 0;">
+  <div style="background-color: #1B251B; border: 1px solid #1C3C1C; border-radius: 8px; padding: 20px; margin: 24px 0;">
     <p style="color: #228B22; font-weight: 600; margin: 0 0 8px;">Thank you for your patience</p>
     <p style="color: #E8E0D8; margin: 0; font-size: 14px;">We appreciate your understanding during this transition. The Neo Kizomba community meant everything to us.</p>
   </div>

@@ -7,50 +7,50 @@
   <p>Thank you for submitting your refund request. We've received your information and will process it as quickly as possible.</p>
 <% end %>
 
-<div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
+<div style="background-color: #302117; border: 1px solid #5B2E12; border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
   <p style="color: #9A8F85; font-size: 14px; margin: 0 0 8px;">Your Confirmation Number</p>
   <p style="font-size: 32px; font-weight: 700; color: #F45D00; font-family: monospace; letter-spacing: 2px; margin: 0;"><%= @confirmation_number %></p>
 </div>
 
 <p style="color: #9A8F85; font-size: 14px;">Please save this confirmation number. You'll need it to check your request status.</p>
 
-<h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">Request Details</h2>
+<h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid #313131; padding-bottom: 8px;">Request Details</h2>
 
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
       <span style="color: #9A8F85; font-size: 14px;">Decision</span>
     </td>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
       <span style="color: #E8E0D8; font-weight: 600;"><%= @decision_text %></span>
     </td>
   </tr>
   <% if @amount_paid %>
   <tr>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
       <span style="color: #9A8F85; font-size: 14px;">Original Ticket Price</span>
     </td>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
       <span style="color: #E8E0D8; font-weight: 600;">$<%= sprintf("%.2f", @amount_paid) %></span>
     </td>
   </tr>
   <% end %>
   <% if @refund_amount && !@waived %>
   <tr>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
       <span style="color: #9A8F85; font-size: 14px;">Refund Amount</span>
     </td>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
       <span style="color: #E8E0D8; font-weight: 600;">$<%= sprintf("%.2f", @refund_amount) %></span>
     </td>
   </tr>
   <% end %>
   <% if @donated_amount %>
   <tr>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
       <span style="color: #9A8F85; font-size: 14px;"><%= @waived ? "Amount Waived" : "Amount Donated" %></span>
     </td>
-    <td style="padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: right;">
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
       <span style="color: #228B22; font-weight: 600;">$<%= sprintf("%.2f", @donated_amount) %></span>
     </td>
   </tr>
@@ -70,12 +70,12 @@
 </table>
 
 <% if @waived %>
-  <div style="background-color: rgba(244, 93, 0, 0.1); border: 1px solid rgba(244, 93, 0, 0.3); border-radius: 8px; padding: 20px; margin: 24px 0;">
+  <div style="background-color: #302117; border: 1px solid #5B2E12; border-radius: 8px; padding: 20px; margin: 24px 0;">
     <p style="color: #F45D00; font-weight: 600; margin: 0 0 8px;">You're making a difference</p>
     <p style="color: #E8E0D8; margin: 0; font-size: 14px;">Your name will appear on our Community Support wall on the progress page as a thank you for your generosity.</p>
   </div>
 <% else %>
-  <h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px;">What Happens Next?</h2>
+  <h2 style="color: #F45D00; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid #313131; padding-bottom: 8px;">What Happens Next?</h2>
 
   <ol style="padding-left: 20px; margin: 0;">
     <li style="margin-bottom: 12px; line-height: 1.6;">We'll verify your information against our records.</li>

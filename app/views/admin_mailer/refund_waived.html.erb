@@ -1,19 +1,19 @@
 <p style="font-size: 18px; margin-bottom: 24px;">Someone waived their refund!</p>
 
-<div style="background-color: rgba(34, 139, 34, 0.1); border: 1px solid rgba(34, 139, 34, 0.3); border-radius: 8px; padding: 24px; margin: 24px 0;">
+<div style="background-color: #1B251B; border: 1px solid #1C3C1C; border-radius: 8px; padding: 24px; margin: 24px 0;">
   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
     <tr>
       <td style="padding: 8px 0; color: #9A8F85; font-size: 14px;">Confirmation #</td>
       <td style="padding: 8px 0; color: #228B22; font-weight: 700; font-size: 20px; font-family: monospace; letter-spacing: 2px; text-align: right;"><%= @confirmation_number %></td>
     </tr>
     <tr>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #9A8F85; font-size: 14px;">Email</td>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #E8E0D8; text-align: right;"><%= @email %></td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Email</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #E8E0D8; text-align: right;"><%= @email %></td>
     </tr>
     <% if @amount_paid %>
     <tr>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #9A8F85; font-size: 14px;">Amount Waived</td>
-      <td style="padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #228B22; font-weight: 700; font-size: 24px; text-align: right;">$<%= sprintf("%.2f", @amount_paid) %></td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Amount Waived</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #228B22; font-weight: 700; font-size: 24px; text-align: right;">$<%= sprintf("%.2f", @amount_paid) %></td>
     </tr>
     <% end %>
   </table>
