@@ -149,11 +149,8 @@ module Notion
         "Platform" => params[:platform].present? ?
           { select: { name: params[:platform] } } : nil,
 
-        # T-Shirt fields
-        "Wants T-Shirt" => { checkbox: params[:wants_shirt] == true },
-
         # Refund Amount (for partial refunds, or full amount for full refunds)
-        "Refund Amount ..." => params[:refund_amount].present? ?
+        "Refund Amount Requested" => params[:refund_amount].present? ?
           { number: params[:refund_amount].to_f } : nil,
 
         # Zelle Contact (if refund expected)
@@ -243,11 +240,10 @@ module Notion
         initials: extract_formula(props["Initials"]),
         pass_type: extract_select(props["Pass Type"]),
         platform: extract_select(props["Platform"]),
-        wants_shirt: props.dig("Wants T-Shirt", "checkbox") || false,
         shirt_size: extract_select(props["T-Shirt Size"]),
         date_submitted: extract_created_time(props["Date Submitted"]) || page.created_time,
         date_processed: extract_date(props["Date Processed"]),
-        refund_amount: extract_number(props["Refund Amount ..."]) || extract_formula_number(props["Amount Owed"])
+        refund_amount: extract_number(props["Refund Amount Requested"]) || extract_formula_number(props["Amount Owed"])
       }
     end
 

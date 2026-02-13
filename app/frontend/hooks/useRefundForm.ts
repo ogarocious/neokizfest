@@ -4,7 +4,10 @@ import type {
   RefundFormStep,
   PassHolder,
   RefundDecision,
+  RefundPaymentMethod,
   ZelleInfo,
+  WiseInfo,
+  PaymentInfo,
   RefundRequestData,
 } from "../types/refund";
 
@@ -15,7 +18,9 @@ const initialState: RefundFormState = {
   passHolder: null,
   decision: null,
   partialAmount: null,
+  paymentMethod: null,
   zelleInfo: null,
+  wiseInfo: null,
   calculatedRefund: 0,
   finalRefund: 0,
 };
@@ -120,11 +125,13 @@ export function useRefundForm() {
     });
   }, []);
 
-  // Set Zelle info
-  const setZelleInfo = useCallback((zelleInfo: ZelleInfo) => {
+  // Set payment info (Zelle or Wise)
+  const setPaymentInfo = useCallback((paymentInfo: PaymentInfo) => {
     setState((prev) => ({
       ...prev,
-      zelleInfo,
+      paymentMethod: paymentInfo.method,
+      zelleInfo: paymentInfo.zelle || null,
+      wiseInfo: paymentInfo.wise || null,
       completedSteps: [...prev.completedSteps.filter((s) => s !== "contact"), "contact"],
       currentStep: "review",
     }));
@@ -169,7 +176,9 @@ export function useRefundForm() {
       amountPaid: state.passHolder.amountPaid,
       decision: state.decision,
       refundAmount: calculatedRefund,
+      paymentMethod: state.paymentMethod || "zelle",
       zelleInfo: state.zelleInfo || undefined,
+      wiseInfo: state.wiseInfo || undefined,
       finalRefundAmount: finalRefund,
       ticketHolderPageId: state.passHolder.notionPageId,
     };
@@ -180,8 +189,8 @@ export function useRefundForm() {
     if (!state.passHolder || !state.decision) return false;
 
     // Need contact info if getting refund
-    if ((state.decision === "full" || state.decision === "partial") && !state.zelleInfo) {
-      return false;
+    if (state.decision === "full" || state.decision === "partial") {
+      if (!state.zelleInfo && !state.wiseInfo) return false;
     }
 
     return true;
@@ -202,7 +211,7 @@ export function useRefundForm() {
     setEmailValidated,
     confirmPassDetails,
     setDecision,
-    setZelleInfo,
+    setPaymentInfo,
     goToStep,
     goBack,
     reset,

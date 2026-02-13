@@ -240,17 +240,18 @@ module Api
   end
 
   def refund_params
+    payment_method = params[:paymentMethod] || "zelle"
+
     {
       email: params[:email],
       decision: params[:decision],
       pass_type: params[:passType],
-      platform: params[:platform],
+      platform: payment_method,
       refund_amount: params[:refundAmount],
       amount_paid: params[:amountPaid],
-      wants_shirt: params[:wantsShirt],
       shirt_size: params.dig(:shirts, 0, :size),
       shipping_address: params[:shippingAddress],
-      zelle_contact: format_zelle_contact(params[:zelleInfo]),
+      zelle_contact: format_payment_contact(payment_method, params[:zelleInfo], params[:wiseInfo]),
       ticket_holder_page_id: params[:ticketHolderPageId]
     }
   end
@@ -268,11 +269,17 @@ module Api
     }
   end
 
-  def format_zelle_contact(zelle_info)
-    return nil unless zelle_info.present?
-
-    # Prefer email, fall back to phone
-    zelle_info[:email].presence || zelle_info[:phone].presence
+  def format_payment_contact(method, zelle_info, wise_info)
+    if method == "wise"
+      return nil unless wise_info.present?
+      wise_info[:email].presence
+    else
+      return nil unless zelle_info.present?
+      parts = []
+      parts << zelle_info[:email] if zelle_info[:email].present?
+      parts << zelle_info[:phone] if zelle_info[:phone].present?
+      parts.join(" | ").presence
+    end
   end
 
   def send_confirmation_email(email, confirmation_number)

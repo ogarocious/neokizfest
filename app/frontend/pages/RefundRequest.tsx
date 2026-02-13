@@ -13,7 +13,7 @@ import ReviewStep from "../components/refund/ReviewStep";
 import { useRefundForm } from "../hooks/useRefundForm";
 import { useRefundSubmission, isMockMode } from "../hooks/useApi";
 import { colors, responsiveText } from "../styles/theme";
-import type { PassHolder, RefundDecision, ZelleInfo, RefundFormStep } from "../types/refund";
+import type { PassHolder, RefundDecision, PaymentInfo, RefundFormStep } from "../types/refund";
 
 const RefundRequest: React.FC = () => {
   const form = useRefundForm();
@@ -34,8 +34,8 @@ const RefundRequest: React.FC = () => {
     form.setDecision(decision, partialAmount);
   };
 
-  const handleZelleInfo = (zelleInfo: ZelleInfo) => {
-    form.setZelleInfo(zelleInfo);
+  const handlePaymentInfo = (paymentInfo: PaymentInfo) => {
+    form.setPaymentInfo(paymentInfo);
   };
 
   const handleEdit = (step: RefundFormStep) => {
@@ -104,8 +104,8 @@ const RefundRequest: React.FC = () => {
       case "contact":
         return (
           <ContactStep
-            onSubmit={handleZelleInfo}
-            initialData={form.zelleInfo}
+            onSubmit={handlePaymentInfo}
+            initialMethod={form.paymentMethod}
           />
         );
 
@@ -115,7 +115,9 @@ const RefundRequest: React.FC = () => {
             passHolder={form.passHolder}
             decision={form.decision}
             refundAmount={form.calculatedRefund}
+            paymentMethod={form.paymentMethod}
             zelleInfo={form.zelleInfo}
+            wiseInfo={form.wiseInfo}
             finalRefund={form.finalRefund}
             onEdit={handleEdit}
             onSubmit={handleSubmit}

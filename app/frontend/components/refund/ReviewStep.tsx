@@ -12,7 +12,8 @@ import {
   IconCheck,
   IconTicket,
   IconCash,
-  IconPhone,
+  IconCurrencyDollar,
+  IconWorld,
   IconHeart,
 } from "@tabler/icons-react";
 import { colors, responsiveText } from "../../styles/theme";
@@ -20,7 +21,9 @@ import { GlassCard, GradientButton } from "../shared";
 import type {
   PassHolder,
   RefundDecision,
+  RefundPaymentMethod,
   ZelleInfo,
+  WiseInfo,
   RefundFormStep,
 } from "../../types/refund";
 
@@ -28,7 +31,9 @@ interface ReviewStepProps {
   passHolder: PassHolder;
   decision: RefundDecision;
   refundAmount: number;
+  paymentMethod: RefundPaymentMethod | null;
   zelleInfo: ZelleInfo | null;
+  wiseInfo: WiseInfo | null;
   finalRefund: number;
   onEdit: (step: RefundFormStep) => void;
   onSubmit: () => void;
@@ -45,7 +50,9 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
   passHolder,
   decision,
   refundAmount,
+  paymentMethod,
   zelleInfo,
+  wiseInfo,
   finalRefund,
   onEdit,
   onSubmit,
@@ -147,14 +154,18 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
         </Stack>
       </GlassCard>
 
-      {/* Contact Info (if refund) */}
-      {zelleInfo && (
+      {/* Payment Info (if refund) */}
+      {paymentMethod && (zelleInfo || wiseInfo) && (
         <GlassCard variant="subtle">
           <Group justify="space-between" mb="md" wrap="wrap" gap="xs">
             <Group gap="xs">
-              <IconPhone size={18} color={colors.primary} />
+              {paymentMethod === "wise" ? (
+                <IconWorld size={18} color="#9FE870" />
+              ) : (
+                <IconCurrencyDollar size={18} color={colors.primary} />
+              )}
               <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
-                Zelle Information
+                {paymentMethod === "wise" ? "Wise Transfer" : "Zelle Payment"}
               </Text>
             </Group>
             <ActionIcon
@@ -167,13 +178,36 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
           </Group>
           <Stack gap="xs">
             <Group justify="space-between" wrap="wrap" gap="xs">
-              <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Email</Text>
-              <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{zelleInfo.email}</Text>
+              <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Method</Text>
+              <Badge
+                color={paymentMethod === "wise" ? "green" : "orange"}
+                variant="light"
+              >
+                {paymentMethod === "wise" ? "Wise" : "Zelle"}
+              </Badge>
             </Group>
-            <Group justify="space-between" wrap="wrap" gap="xs">
-              <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Phone</Text>
-              <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{zelleInfo.phone}</Text>
-            </Group>
+            {paymentMethod === "zelle" && zelleInfo && (
+              <>
+                {zelleInfo.email && (
+                  <Group justify="space-between" wrap="wrap" gap="xs">
+                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Email</Text>
+                    <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{zelleInfo.email}</Text>
+                  </Group>
+                )}
+                {zelleInfo.phone && (
+                  <Group justify="space-between" wrap="wrap" gap="xs">
+                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Phone</Text>
+                    <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{zelleInfo.phone}</Text>
+                  </Group>
+                )}
+              </>
+            )}
+            {paymentMethod === "wise" && wiseInfo && (
+              <Group justify="space-between" wrap="wrap" gap="xs">
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Email</Text>
+                <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{wiseInfo.email}</Text>
+              </Group>
+            )}
           </Stack>
         </GlassCard>
       )}
@@ -194,14 +228,35 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
               </Text>
             </Group>
           ) : (
-            <Group justify="space-between" wrap="wrap" gap="xs">
-              <Text fw={600} c={colors.primary} style={{ fontSize: responsiveText.body }}>
-                Amount to be Refunded
-              </Text>
-              <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
-                ${finalRefund.toFixed(2)}
-              </Text>
-            </Group>
+            <Stack gap="xs">
+              <Group justify="space-between" wrap="wrap" gap="xs">
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                  Amount Paid
+                </Text>
+                <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
+                  ${passHolder.amountPaid.toFixed(2)}
+                </Text>
+              </Group>
+              {decision === "partial" && (
+                <Group justify="space-between" wrap="wrap" gap="xs">
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                    Amount Waived
+                  </Text>
+                  <Text fw={500} c={colors.success} style={{ fontSize: responsiveText.small }}>
+                    ${(passHolder.amountPaid - finalRefund).toFixed(2)}
+                  </Text>
+                </Group>
+              )}
+              <Divider color="rgba(244, 93, 0, 0.15)" />
+              <Group justify="space-between" wrap="wrap" gap="xs">
+                <Text fw={600} c={colors.primary} style={{ fontSize: responsiveText.body }}>
+                  Amount to be Refunded
+                </Text>
+                <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
+                  ${finalRefund.toFixed(2)}
+                </Text>
+              </Group>
+            </Stack>
           )}
         </Stack>
       </GlassCard>
