@@ -334,7 +334,7 @@ const Confirmation: React.FC = () => {
 
             <Button
               component="a"
-              href="https://www.facebook.com/NeoKizombaFest"
+              href="https://www.facebook.com/neokizfestival"
               target="_blank"
               variant="light"
               color="blue"

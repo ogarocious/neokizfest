@@ -244,13 +244,12 @@ module Api
 
     {
       email: params[:email],
+      name: params[:name],
       decision: params[:decision],
       pass_type: params[:passType],
       platform: payment_method,
       refund_amount: params[:refundAmount],
       amount_paid: params[:amountPaid],
-      shirt_size: params.dig(:shirts, 0, :size),
-      shipping_address: params[:shippingAddress],
       zelle_contact: format_payment_contact(payment_method, params[:zelleInfo], params[:wiseInfo]),
       ticket_holder_page_id: params[:ticketHolderPageId]
     }
@@ -284,6 +283,7 @@ module Api
 
   def send_confirmation_email(email, confirmation_number)
     decision = params[:decision]
+    name = params[:name]
     refund_amount = params[:refundAmount].present? ? params[:refundAmount].to_f : nil
     amount_paid = params[:amountPaid].present? ? params[:amountPaid].to_f : nil
 
@@ -291,6 +291,7 @@ module Api
       email: email,
       confirmation_number: confirmation_number,
       decision: decision,
+      name: name,
       refund_amount: refund_amount,
       amount_paid: amount_paid
     ).deliver_later
@@ -332,9 +333,8 @@ module Api
       confirmationNumber: request[:confirmation_number],
       status: map_status(request[:status]),
       decision: map_decision(request[:decision]),
+      amountPaid: request[:amount_paid],
       refundAmount: request[:refund_amount],
-      shirtOrdered: request[:wants_shirt],
-      shirtDetails: request[:shirt_size] ? [{ size: request[:shirt_size], quantity: 1 }] : nil,
       submittedAt: request[:date_submitted],
       completedAt: request[:date_processed]
     }.compact
@@ -421,8 +421,8 @@ module Api
         confirmationNumber: "RR-0001",
         status: "completed",
         decision: "full",
+        amountPaid: 250,
         refundAmount: 250,
-        shirtOrdered: false,
         submittedAt: "2024-12-01T10:30:00Z",
         completedAt: "2024-12-05T14:20:00Z"
       },
@@ -430,9 +430,8 @@ module Api
         confirmationNumber: "RR-0002",
         status: "processing",
         decision: "partial",
+        amountPaid: 450,
         refundAmount: 150,
-        shirtOrdered: true,
-        shirtDetails: [{ size: "M", quantity: 1 }],
         submittedAt: "2024-12-03T09:15:00Z"
       }
     }

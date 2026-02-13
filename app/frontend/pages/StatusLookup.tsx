@@ -41,7 +41,7 @@ const lookupSchema = z.object({
   confirmationNumber: z
     .string()
     .min(1, "Please enter your confirmation number")
-    .regex(/^(RR-\d{4}|NKF-REF-\d+)$/i, "Invalid format (e.g., RR-0001)"),
+    .regex(/^(RR-\d{4,}|NKF-REF-\d+)$/i, "Invalid format (e.g., RR-0001)"),
 });
 
 type LookupFormData = z.infer<typeof lookupSchema>;
@@ -56,6 +56,7 @@ const StatusLookup: React.FC = () => {
   const { url } = usePage();
   const params = new URLSearchParams(url.split("?")[1] || "");
   const prefillRef = params.get("ref") || "";
+  const prefillEmail = params.get("email") || "";
 
   const [result, setResult] = useState<StatusLookupResponse | null>(null);
   const { lookup, loading } = useStatusLookup();
@@ -68,7 +69,7 @@ const StatusLookup: React.FC = () => {
   } = useForm<LookupFormData>({
     resolver: zodResolver(lookupSchema),
     defaultValues: {
-      email: "",
+      email: prefillEmail,
       confirmationNumber: prefillRef || "",
     },
   });
@@ -77,7 +78,10 @@ const StatusLookup: React.FC = () => {
     if (prefillRef) {
       setValue("confirmationNumber", prefillRef.toUpperCase());
     }
-  }, [prefillRef, setValue]);
+    if (prefillEmail) {
+      setValue("email", prefillEmail);
+    }
+  }, [prefillRef, prefillEmail, setValue]);
 
   const onSubmit = async (data: LookupFormData) => {
     setResult(null);
@@ -132,6 +136,7 @@ const StatusLookup: React.FC = () => {
                 label="Email Address"
                 placeholder="your.email@example.com"
                 size="sm"
+                autoComplete="off"
                 leftSection={<IconMail size={16} />}
                 error={errors.email?.message}
                 styles={{
@@ -147,6 +152,7 @@ const StatusLookup: React.FC = () => {
                 description="Found in your confirmation email"
                 placeholder="RR-0001"
                 size="sm"
+                autoComplete="off"
                 leftSection={<IconHash size={16} />}
                 error={errors.confirmationNumber?.message}
                 styles={{
@@ -198,7 +204,7 @@ const StatusLookup: React.FC = () => {
                 <Text style={{ fontSize: responsiveText.small }} c={colors.textMuted}>Need help?</Text>
                 <GradientButton
                   component="a"
-                  href="https://www.facebook.com/NeoKizombaFest"
+                  href="https://www.facebook.com/neokizfestival"
                   target="_blank"
                   buttonVariant="outline"
                   size="xs"
@@ -242,27 +248,40 @@ const StatusLookup: React.FC = () => {
 
               {/* Decision Info */}
               <Stack gap="sm">
-                <Group justify="space-between" wrap="wrap" gap="xs">
-                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
-                    Decision
-                  </Text>
-                  {(() => {
-                    const config = DECISION_LABELS[result.request.decision];
-                    const Icon = config.icon;
-                    return (
-                      <Badge
-                        color={config.color}
-                        variant="light"
-                        size="md"
-                        leftSection={<Icon size={12} />}
-                      >
-                        {config.label}
-                      </Badge>
-                    );
-                  })()}
-                </Group>
+                {result.request.decision && DECISION_LABELS[result.request.decision] && (
+                  <Group justify="space-between" wrap="wrap" gap="xs">
+                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                      Decision
+                    </Text>
+                    {(() => {
+                      const config = DECISION_LABELS[result.request.decision];
+                      const Icon = config.icon;
+                      return (
+                        <Badge
+                          color={config.color}
+                          variant="light"
+                          size="md"
+                          leftSection={<Icon size={12} />}
+                        >
+                          {config.label}
+                        </Badge>
+                      );
+                    })()}
+                  </Group>
+                )}
 
-                {result.request.decision !== "waive" && (
+                {result.request.amountPaid != null && (
+                  <Group justify="space-between" wrap="wrap" gap="xs">
+                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                      Original Ticket Amount
+                    </Text>
+                    <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                      ${result.request.amountPaid.toFixed(2)}
+                    </Text>
+                  </Group>
+                )}
+
+                {result.request.decision !== "waive" && result.request.refundAmount != null && (
                   <Group justify="space-between" wrap="wrap" gap="xs">
                     <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
                       Refund Amount
@@ -272,6 +291,23 @@ const StatusLookup: React.FC = () => {
                     </Text>
                   </Group>
                 )}
+
+                {result.request.amountPaid != null && result.request.decision !== "full" && (() => {
+                  const refund = result.request.refundAmount ?? 0;
+                  const waived = result.request.decision === "waive"
+                    ? result.request.amountPaid
+                    : result.request.amountPaid - refund;
+                  return waived > 0 ? (
+                    <Group justify="space-between" wrap="wrap" gap="xs">
+                      <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                        Amount Waived
+                      </Text>
+                      <Text fw={600} c={colors.success} style={{ fontSize: responsiveText.body }}>
+                        ${waived.toFixed(2)}
+                      </Text>
+                    </Group>
+                  ) : null;
+                })()}
               </Stack>
 
               <Divider color="rgba(255, 255, 255, 0.08)" />
@@ -366,7 +402,7 @@ const StatusLookup: React.FC = () => {
             </Stack>
             <GradientButton
               component="a"
-              href="https://www.facebook.com/NeoKizombaFest"
+              href="https://www.facebook.com/neokizfestival"
               target="_blank"
               size="xs"
               leftSection={<IconBrandFacebook size={14} />}

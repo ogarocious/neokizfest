@@ -142,7 +142,7 @@ export const mobileInputStyles = {
   },
   input: {
     ...componentStyles.input,
-    fontSize: responsiveText.body,
+    fontSize: "1rem",
     paddingTop: 10,
     paddingBottom: 10,
   },

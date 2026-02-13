@@ -53,7 +53,7 @@ const FarewellFooter: React.FC = () => {
               Contact Us
             </Text>
             <Anchor
-              href="https://www.facebook.com/NeoKizombaFest"
+              href="https://www.facebook.com/neokizfestival"
               target="_blank"
               style={{ textDecoration: "none" }}
             >

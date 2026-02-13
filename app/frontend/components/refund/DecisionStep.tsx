@@ -177,6 +177,7 @@ const DecisionStep: React.FC<DecisionStepProps> = ({
                 max={passHolder.amountPaid}
                 prefix="$"
                 size="md"
+                autoComplete="off"
                 styles={{
                   ...mobileInputStyles,
                   input: {

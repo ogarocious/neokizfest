@@ -43,6 +43,7 @@ const RefundRequest: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (isSubmitting) return;
     setSubmissionError(null);
 
     const data = form.getSubmissionData();

@@ -149,6 +149,7 @@ const Support: React.FC = () => {
                 placeholder="Your name (optional)"
                 value={name}
                 onChange={(e) => setName(e.currentTarget.value)}
+                autoComplete="off"
                 styles={() => ({
                   label: mobileInputStyles.label,
                   input: mobileInputStyles.input,
@@ -161,6 +162,7 @@ const Support: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => { setEmail(e.currentTarget.value); setError(null); }}
+                autoComplete="off"
                 styles={() => ({
                   label: mobileInputStyles.label,
                   input: mobileInputStyles.input,
@@ -216,6 +218,7 @@ const Support: React.FC = () => {
                 decimalScale={2}
                 value={selectedPreset ? "" : amount}
                 onChange={handleCustomAmount}
+                autoComplete="off"
                 styles={() => ({
                   label: mobileInputStyles.label,
                   input: mobileInputStyles.input,

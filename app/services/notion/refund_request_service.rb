@@ -5,9 +5,6 @@ module Notion
   class RefundRequestService
     DATABASE_ID = Rails.application.credentials.dig(:notion, :refund_requests_db_id)
 
-    # Shirt price constant
-    SHIRT_PRICE = 45
-
     def initialize
       @client = Notion::ApiClient.new
     end
@@ -132,6 +129,9 @@ module Notion
 
     def build_properties(params)
       properties = {
+        # Page title: "Name — Decision"
+        "Name" => { title: [{ text: { content: build_page_title(params) } }] },
+
         # Email field
         "Email" => { email: params[:email].strip.downcase },
 
@@ -149,6 +149,10 @@ module Notion
         "Platform" => params[:platform].present? ?
           { select: { name: params[:platform] } } : nil,
 
+        # Amount Paid (original ticket price)
+        "Amount Paid" => params[:amount_paid].present? ?
+          { number: params[:amount_paid].to_f } : nil,
+
         # Refund Amount (for partial refunds, or full amount for full refunds)
         "Refund Amount Requested" => params[:refund_amount].present? ?
           { number: params[:refund_amount].to_f } : nil,
@@ -157,18 +161,6 @@ module Notion
         "Zelle Contact" => params[:zelle_contact].present? ?
           { rich_text: [{ text: { content: params[:zelle_contact] } }] } : nil
       }
-
-      # Add shirt size if ordering a shirt
-      if params[:wants_shirt] && params[:shirt_size].present?
-        properties["T-Shirt Size"] = { select: { name: params[:shirt_size] } }
-      end
-
-      # Add shipping address if provided
-      if params[:shipping_address].present?
-        properties["Shipping Address"] = {
-          rich_text: [{ text: { content: format_shipping_address(params[:shipping_address]) } }]
-        }
-      end
 
       # Link to ticket holder if page ID provided
       if params[:ticket_holder_page_id].present?
@@ -179,6 +171,12 @@ module Notion
 
       # Remove nil values
       properties.compact
+    end
+
+    def build_page_title(params)
+      name = params[:name].presence || params[:email]
+      decision = format_decision(params[:decision])
+      "#{name} — #{decision}"
     end
 
     def waive_decision?(decision)
@@ -196,16 +194,6 @@ module Notion
       else
         decision.to_s.titleize
       end
-    end
-
-    def format_shipping_address(address)
-      return address if address.is_a?(String)
-
-      [
-        address[:name],
-        address[:street],
-        "#{address[:city]}, #{address[:state]} #{address[:zip]}"
-      ].compact.join("\n")
     end
 
     def extract_confirmation_number(page)
@@ -240,7 +228,7 @@ module Notion
         initials: extract_formula(props["Initials"]),
         pass_type: extract_select(props["Pass Type"]),
         platform: extract_select(props["Platform"]),
-        shirt_size: extract_select(props["T-Shirt Size"]),
+        amount_paid: extract_number(props["Amount Paid"]),
         date_submitted: extract_created_time(props["Date Submitted"]) || page.created_time,
         date_processed: extract_date(props["Date Processed"]),
         refund_amount: extract_number(props["Refund Amount Requested"]) || extract_formula_number(props["Amount Owed"])

@@ -191,6 +191,7 @@ const ZelleForm: React.FC<{ onSubmit: (info: PaymentInfo) => void }> = ({ onSubm
               placeholder="your.zelle@email.com"
               description="The email address registered with your Zelle account"
               size="md"
+              autoComplete="off"
               leftSection={<IconMail size={18} />}
               error={errors.email?.message}
               styles={mobileInputStyles}
@@ -206,6 +207,7 @@ const ZelleForm: React.FC<{ onSubmit: (info: PaymentInfo) => void }> = ({ onSubm
               placeholder="(555) 123-4567"
               description="The phone number registered with your Zelle account"
               size="md"
+              autoComplete="off"
               leftSection={<IconPhone size={18} />}
               error={errors.phone?.message}
               styles={mobileInputStyles}
@@ -274,6 +276,7 @@ const WiseForm: React.FC<{ onSubmit: (info: PaymentInfo) => void }> = ({ onSubmi
             placeholder="your@email.com"
             description="We'll send the Wise transfer to this email"
             size="md"
+            autoComplete="off"
             leftSection={<IconMail size={18} />}
             error={errors.email?.message}
             required

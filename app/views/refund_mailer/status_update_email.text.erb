@@ -4,6 +4,10 @@ Hi <%= @name %>,
 GREAT NEWS! Your refund has been processed.
 
 We've sent your refund via Zelle. Please check your Zelle account for the incoming payment.
+<% elsif @status.to_s.downcase == "waived" %>
+Thank you for your incredible generosity!
+
+Your decision to waive your refund means the world to us. Your support helps keep the spirit of Neo Kizomba alive.
 <% elsif @status.to_s.downcase == "processing" %>
 Good news! Your refund request has been verified and is now being processed.
 
@@ -15,7 +19,7 @@ We have an update on your refund request.
 CONFIRMATION NUMBER: <%= @confirmation_number %>
 STATUS: <%= @status_text %>
 
-<% if @details.present? %>
+<% if @details.present? && @status.to_s.downcase != "waived" %>
 DETAILS
 =======
 <% if @details[:refund_amount].present? %>
@@ -29,7 +33,11 @@ Date Processed: <%= @details[:date_processed] %>
 <% end %>
 <% end %>
 
-<% if @status.to_s.downcase == "completed" %>
+<% if @status.to_s.downcase == "waived" %>
+YOU'RE MAKING A DIFFERENCE
+==========================
+Your generosity directly supports the Neo Kizomba community. We are deeply grateful for your kindness.
+<% elsif @status.to_s.downcase == "completed" %>
 Thank you for your patience. We appreciate your understanding during this transition. The Neo Kizomba community meant everything to us.
 <% end %>
 

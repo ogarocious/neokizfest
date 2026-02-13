@@ -45,14 +45,17 @@ export interface PassHolder {
 // Email validation response
 export interface EmailValidationResponse {
   success: boolean;
-  error?: "not_found" | "chargeback" | "server_error";
+  error?: "not_found" | "chargeback" | "already_submitted" | "server_error";
   errorMessage?: string;
   passHolder?: PassHolder;
+  existingConfirmation?: string;
+  existingStatus?: string;
 }
 
 // Refund request submission data
 export interface RefundRequestData {
   email: string;
+  name: string;
   passType: PassType;
   amountPaid: number;
   decision: RefundDecision;
@@ -60,7 +63,6 @@ export interface RefundRequestData {
   paymentMethod: RefundPaymentMethod;
   zelleInfo?: ZelleInfo;
   wiseInfo?: WiseInfo;
-  finalRefundAmount: number;
   ticketHolderPageId?: string;
 }
 
@@ -96,7 +98,8 @@ export interface StatusLookupResponse {
     confirmationNumber: string;
     status: RequestStatus;
     decision: RefundDecision;
-    refundAmount: number;
+    amountPaid?: number;
+    refundAmount?: number;
     submittedAt: string;
     completedAt?: string;
     notes?: string;

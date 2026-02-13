@@ -1,10 +1,12 @@
 import React from "react";
-import { Stack, TextInput, Text, Anchor, Group, Box } from "@mantine/core";
+import { Stack, TextInput, Text, Anchor, Group, Box, Button } from "@mantine/core";
+import { router } from "@inertiajs/react";
 import {
   IconMail,
   IconAlertCircle,
   IconBrandFacebook,
   IconArrowRight,
+  IconSearch,
 } from "@tabler/icons-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,6 +42,7 @@ const EmailStep: React.FC<EmailStepProps> = ({
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<EmailFormData>({
     resolver: zodResolver(emailSchema),
@@ -79,6 +82,7 @@ const EmailStep: React.FC<EmailStepProps> = ({
             label="Email Address"
             placeholder="your.email@example.com"
             size="sm"
+            autoComplete="off"
             leftSection={<IconMail size={16} />}
             error={errors.email?.message}
             styles={{
@@ -88,7 +92,64 @@ const EmailStep: React.FC<EmailStepProps> = ({
             }}
           />
 
-          {showError && (
+          {showError && data.error === "already_submitted" && (
+            <Box
+              p="sm"
+              style={{
+                background: "rgba(0, 102, 204, 0.1)",
+                border: "1px solid rgba(0, 102, 204, 0.3)",
+                borderRadius: 12,
+              }}
+            >
+              <Stack gap="sm">
+                <Group gap="xs" wrap="nowrap">
+                  <IconAlertCircle
+                    size={16}
+                    color={colors.info}
+                    style={{ flexShrink: 0 }}
+                  />
+                  <Text
+                    fw={600}
+                    style={{ fontSize: responsiveText.small }}
+                    c={colors.info}
+                  >
+                    Request Already Submitted
+                  </Text>
+                </Group>
+                <Text
+                  style={{ fontSize: responsiveText.small }}
+                  c={colors.textSecondary}
+                >
+                  A refund request has already been submitted for this email.
+                  {data.existingConfirmation && (
+                    <>
+                      {" "}Your confirmation number is{" "}
+                      <Text component="span" fw={700} c={colors.textPrimary}>
+                        {data.existingConfirmation}
+                      </Text>.
+                    </>
+                  )}
+                </Text>
+                <Button
+                  variant="light"
+                  color="blue"
+                  leftSection={<IconSearch size={16} />}
+                  onClick={() => {
+                    const email = getValues("email");
+                    const params = new URLSearchParams();
+                    if (email) params.set("email", email);
+                    if (data.existingConfirmation) params.set("ref", data.existingConfirmation);
+                    router.visit(`/status?${params.toString()}`);
+                  }}
+                  fullWidth
+                >
+                  Check Your Refund Status
+                </Button>
+              </Stack>
+            </Box>
+          )}
+
+          {showError && data.error !== "already_submitted" && (
             <Box
               p="sm"
               style={{
@@ -137,7 +198,7 @@ const EmailStep: React.FC<EmailStepProps> = ({
                       Need help?
                     </Text>
                     <Anchor
-                      href="https://www.facebook.com/NeoKizombaFest"
+                      href="https://www.facebook.com/neokizfestival"
                       target="_blank"
                       style={{ display: "flex", alignItems: "center", gap: 4 }}
                     >

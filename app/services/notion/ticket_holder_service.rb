@@ -70,7 +70,7 @@ module Notion
         amount_paid: extract_number(props["Amount Paid"]),
         purchase_date: extract_date(props["Purchase Date"]),
         has_chargeback: extract_chargeback_status(props),
-        has_refund_request: extract_formula_boolean(props["Has Refund Req..."]) ||
+        has_refund_request: extract_formula_boolean(props["Has Refund Request"]) ||
                            extract_relation_exists(props["Refund Request"]),
         existing_confirmation: extract_rollup_text(props["Confirmation #"]),
         existing_status: extract_rollup_text(props["Refund Status"])

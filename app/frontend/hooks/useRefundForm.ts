@@ -172,6 +172,7 @@ export function useRefundForm() {
 
     return {
       email: state.email,
+      name: state.passHolder.name,
       passType: state.passHolder.passType,
       amountPaid: state.passHolder.amountPaid,
       decision: state.decision,
@@ -179,7 +180,6 @@ export function useRefundForm() {
       paymentMethod: state.paymentMethod || "zelle",
       zelleInfo: state.zelleInfo || undefined,
       wiseInfo: state.wiseInfo || undefined,
-      finalRefundAmount: finalRefund,
       ticketHolderPageId: state.passHolder.notionPageId,
     };
   }, [state, calculatedRefund, finalRefund]);

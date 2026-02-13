@@ -252,7 +252,7 @@ const FAQ: React.FC = () => {
             </Text>
             <GradientButton
               component="a"
-              href="https://www.facebook.com/NeoKizombaFest"
+              href="https://www.facebook.com/neokizfestival"
               target="_blank"
               size="sm"
               leftSection={<IconBrandFacebook size={16} />}
