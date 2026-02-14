@@ -8,6 +8,7 @@ import {
   Group,
   SimpleGrid,
   Box,
+  Image,
 } from "@mantine/core";
 import { Link } from "@inertiajs/react";
 import {
@@ -16,12 +17,56 @@ import {
   IconArrowRight,
   IconQuestionMark,
   IconChartBar,
+  IconCash,
+  IconHeartHandshake,
+  IconGift,
+  IconSearch,
 } from "@tabler/icons-react";
 import { colors, gradients, responsiveText } from "../styles/theme";
 import FarewellLayout from "../components/farewell/FarewellLayout";
-import SectionHeader from "../components/farewell/SectionHeader";
-import LetterSection from "../components/farewell/LetterSection";
 import { GlassCard } from "../components/shared";
+
+interface OptionRowProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+const OptionRow: React.FC<OptionRowProps> = ({ icon, title, description }) => (
+  <Group
+    gap="sm"
+    wrap="nowrap"
+    p="sm"
+    style={{
+      background: "rgba(255, 255, 255, 0.02)",
+      border: "1px solid rgba(255, 255, 255, 0.06)",
+      borderRadius: 10,
+    }}
+  >
+    <Box
+      style={{
+        width: 32,
+        height: 32,
+        minWidth: 32,
+        borderRadius: 8,
+        background: "rgba(244, 93, 0, 0.12)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {icon}
+    </Box>
+    <Stack gap={2}>
+      <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
+        {title}
+      </Text>
+      <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs, lineHeight: 1.4 }}>
+        {description}
+      </Text>
+    </Stack>
+  </Group>
+);
 
 const Farewell: React.FC = () => {
   return (
@@ -33,30 +78,14 @@ const Farewell: React.FC = () => {
       </Head>
       <FarewellLayout>
       <Stack gap="xl" maw={800} mx="auto" px={{ base: "sm", sm: "md" }}>
-        {/* Hero Section - Subdued */}
+        {/* Hero Section */}
         <Stack align="center" gap={{ base: "sm", sm: "lg" }} py={{ base: "md", sm: "xl" }}>
-          <Box
-            style={{
-              width: "clamp(70px, 15vw, 120px)",
-              height: "clamp(70px, 15vw, 120px)",
-              borderRadius: "50%",
-              background: gradients.primaryButton,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 8px 32px rgba(244, 93, 0, 0.4)",
-            }}
-          >
-            <Text
-              fw={700}
-              c="white"
-              style={{
-                letterSpacing: "-0.02em",
-                fontSize: "clamp(0.9rem, 3vw, 1.25rem)",
-              }}
-            >
-              NKF
-            </Text>
+          <Box style={{ borderRadius: 12, overflow: "hidden", width: "100%" }}>
+            <Image
+              src="/images/og-default.png"
+              alt="Neo Kizomba Festival — 8 editions of flyers from 2015 to 2024"
+              radius="md"
+            />
           </Box>
 
           <Stack align="center" gap={4}>
@@ -79,7 +108,7 @@ const Farewell: React.FC = () => {
               fw={500}
               style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.25rem)" }}
             >
-              2019 - 2024
+              8 Editions. 10 Years. One Legacy.
             </Text>
             <Text
               c={colors.textMuted}
@@ -91,130 +120,129 @@ const Farewell: React.FC = () => {
                 fontSize: "clamp(0.75rem, 2vw, 0.875rem)",
               }}
             >
-              After five incredible years of dancing, connection, and community,
-              we're closing this chapter with gratitude.
+              Thank you for being part of the journey.
             </Text>
           </Stack>
         </Stack>
 
-        {/* CTA Buttons */}
-        <GlassCard variant="accent" p={{ base: "md", sm: "xl" }}>
-          <Stack align="center" gap={{ base: "sm", sm: "lg" }}>
-            <Text
-              fw={600}
-              c={colors.textPrimary}
-              ta="center"
-              style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.125rem)" }}
-            >
-              How can we help you today?
-            </Text>
+        {/* Decision Tree */}
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: "md", sm: "lg" }}>
+          {/* Card A: I Had a Ticket */}
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Stack gap="md" h="100%">
+              <Group gap="sm" wrap="nowrap">
+                <IconTicket size={22} color={colors.primary} />
+                <Stack gap={2}>
+                  <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                    I Had a Ticket
+                  </Text>
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                    Choose your path below
+                  </Text>
+                </Stack>
+              </Group>
 
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: "xs", sm: "md" }} style={{ width: "100%", maxWidth: 500 }}>
+              <Stack gap="xs" style={{ flex: 1 }}>
+                <OptionRow
+                  icon={<IconCash size={16} color={colors.primary} />}
+                  title="Request a Full Refund"
+                  description="Get your money back via Zelle or Wise"
+                />
+                <OptionRow
+                  icon={<IconHeartHandshake size={16} color={colors.primary} />}
+                  title="Waive My Refund"
+                  description="Release your refund to support the closure"
+                />
+                <OptionRow
+                  icon={<IconGift size={16} color={colors.primary} />}
+                  title="Waive & Donate"
+                  description="Waive your refund and add a donation on top"
+                />
+              </Stack>
+
               <Link href="/request" style={{ textDecoration: "none" }}>
                 <Button
                   fullWidth
                   size="md"
-                  leftSection={<IconTicket size={18} />}
                   rightSection={<IconArrowRight size={16} />}
                   style={{
                     background: gradients.primaryButton,
                     color: "white",
                     fontWeight: 600,
-                    height: "auto",
-                    padding: "clamp(10px, 2vw, 16px) clamp(16px, 3vw, 24px)",
                   }}
                 >
-                  <Stack gap={2} align="flex-start">
-                    <Text fw={600} style={{ fontSize: "clamp(0.75rem, 2vw, 0.9rem)" }}>I Had a Ticket</Text>
-                    <Text style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.75rem)" }} opacity={0.8}>Request your refund</Text>
-                  </Stack>
+                  Start My Request
                 </Button>
               </Link>
+            </Stack>
+          </GlassCard>
+
+          {/* Card B: I'm Here to Support */}
+          <GlassCard variant="default" p={{ base: "md", sm: "lg" }}>
+            <Stack gap="md" h="100%" justify="center">
+              <Group gap="sm" wrap="nowrap">
+                <IconHeart size={22} color={colors.primary} />
+                <Stack gap={2}>
+                  <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                    I'm Here to Support
+                  </Text>
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                    No ticket needed
+                  </Text>
+                </Stack>
+              </Group>
+
+              <OptionRow
+                icon={<IconHeart size={16} color={colors.primary} />}
+                title="Make a Donation"
+                description="Help cover refund processing and closure costs"
+              />
 
               <Link href="/support" style={{ textDecoration: "none" }}>
                 <Button
                   fullWidth
                   size="md"
-                  variant="outline"
-                  leftSection={<IconHeart size={18} />}
                   rightSection={<IconArrowRight size={16} />}
                   style={{
-                    borderColor: colors.primary,
-                    color: colors.primary,
+                    background: gradients.primaryButton,
+                    color: "white",
                     fontWeight: 600,
-                    height: "auto",
-                    padding: "clamp(10px, 2vw, 16px) clamp(16px, 3vw, 24px)",
                   }}
                 >
-                  <Stack gap={2} align="flex-start">
-                    <Text fw={600} style={{ fontSize: "clamp(0.75rem, 2vw, 0.9rem)" }}>I'm Here to Support</Text>
-                    <Text style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.75rem)" }} opacity={0.7}>Make a donation</Text>
-                  </Stack>
+                  Go to Donations
                 </Button>
               </Link>
-            </SimpleGrid>
-          </Stack>
-        </GlassCard>
-
-        {/* Farewell Letter */}
-        <Stack gap="lg">
-          <SectionHeader
-            title="A Letter to Our Community"
-            subtitle="From everyone at Neo Kizomba Festival"
-            align="center"
-          />
-
-          <GlassCard p={{ base: "md", sm: "xl" }}>
-            <Stack gap="xl">
-              <LetterSection
-                title="Dear Neo Kizomba Family,"
-                content={[
-                  "It's with mixed emotions that we share this news with you. After five unforgettable years of bringing our community together through the joy of Kizomba, we've made the difficult decision to close the doors of Neo Kizomba Festival.",
-                  "What started as a dream in 2019 grew into something far more beautiful than we ever imagined—a family of dancers, artists, and friends from around the world who shared our passion for connection through dance.",
-                ]}
-              />
-
-              <LetterSection
-                title="What Happened"
-                content="[This section will contain an explanation of the circumstances leading to this decision. The organizers will provide this content.]"
-              />
-
-              <LetterSection
-                title="Our Commitment to You"
-                content={[
-                  "We understand that many of you had already purchased tickets for our upcoming event. We want to make this right. We're committed to processing refunds for all ticket holders.",
-                  "If you would like a full or partial refund, please use our refund request form. We're also offering the option to waive your refund as a gesture of support—we're deeply grateful for any kindness shown during this time.",
-                ]}
-              />
-
-              <LetterSection
-                title="Ways to Support"
-                content="If you'd like to help us through this transition, you can waive your refund during the request process, or make a donation on our Support page. Every contribution helps us close this chapter responsibly and ensure everyone is taken care of."
-              />
-
-              <LetterSection
-                title="The Memories We Made"
-                content={[
-                  "Over five years, we've welcomed thousands of dancers to our floor. We've watched friendships form, partnerships blossom, and a community grow stronger with every beat.",
-                  "From the electrifying performances to the late-night social dancing, from the workshops that pushed us to grow to the quiet moments of connection—these memories will stay with us forever.",
-                ]}
-              />
-
-              <LetterSection
-                title="Thank You"
-                content="To every artist who shared their talent, every volunteer who gave their time, every attendee who brought their energy—thank you. You made Neo Kizomba Festival what it was. The end of the festival doesn't mean the end of our community. Keep dancing, keep connecting, keep spreading the joy of Kizomba wherever you go."
-              />
-
-              <LetterSection
-                content="With all our love and gratitude,"
-                signature={{
-                  name: "The Neo Kizomba Festival Team",
-                  title: "Organizers",
-                }}
-              />
             </Stack>
           </GlassCard>
-        </Stack>
+        </SimpleGrid>
+
+        {/* Story Teaser */}
+        <Link href="/choosing-myself" style={{ textDecoration: "none" }}>
+          <GlassCard
+            variant="subtle"
+            p={{ base: "md", sm: "lg" }}
+            style={{ cursor: "pointer", transition: "border-color 0.2s ease" }}
+          >
+            <Group justify="space-between" wrap="nowrap" gap="md">
+              <Box style={{ width: 80, minWidth: 80, aspectRatio: "16 / 9", borderRadius: 6, overflow: "hidden" }}>
+                <Image
+                  src="/images/choosing-myself/hero.jpg"
+                  alt="Choosing Myself"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </Box>
+              <Stack gap={2} style={{ flex: 1 }}>
+                <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+                  Read or Listen to My Story
+                </Text>
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                  Choosing Myself — the story behind this decision
+                </Text>
+              </Stack>
+              <IconArrowRight size={20} color={colors.primary} style={{ flexShrink: 0 }} />
+            </Group>
+          </GlassCard>
+        </Link>
 
         {/* Quick Links */}
         <GlassCard p={{ base: "md", sm: "lg" }}>
@@ -233,6 +261,15 @@ const Farewell: React.FC = () => {
                 <IconChartBar size={18} color={colors.primary} />
                 <Text fw={500} c={colors.primary} style={{ fontSize: responsiveText.small }}>
                   View Refund Progress
+                </Text>
+              </Group>
+            </Link>
+
+            <Link href="/status" style={{ textDecoration: "none" }}>
+              <Group gap="xs">
+                <IconSearch size={18} color={colors.primary} />
+                <Text fw={500} c={colors.primary} style={{ fontSize: responsiveText.small }}>
+                  Check My Status
                 </Text>
               </Group>
             </Link>

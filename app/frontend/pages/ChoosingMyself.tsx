@@ -486,8 +486,10 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             "Hey, want to join me on this project? It's a ton of work. High
-            stress. Very little appreciation. You probably won't get credit for
-            what you do. And there's no payment."
+            stress. I'll appreciate you, but the scene won't. You probably won't
+            get any recognition for it. Little to no payment — and if you're the
+            main organizer, you're taking on expenses, so you might even be
+            paying to work."
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -507,12 +509,18 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             The earlier editions had coordinators who stepped up and carried
-            real weight. The later editions had Sarah, who was embedded in every
-            part of the operation. And there were always volunteers who gave
-            their time. But the core of the planning, the financial risk, the
-            year-round work between editions, that fell on me. Not because I
-            wanted to carry it all. Because there weren't enough hands at the
-            scale needed.
+            real weight. The later editions had Sarah, who was involved in a
+            large majority of the operation. There were volunteers too — but you
+            can only ask so much of people who also came to enjoy the event.
+            They deserve to take classes, compete in the Jack & Jills, and
+            actually dance. And there's still a level of compensation involved
+            — comped passes, hotel rooms, travel. Balancing that cost against
+            how much work to ask of them, without overworking them, was always
+            a tricky exchange. So the core of the planning, the financial risk,
+            the year-round work between editions — that still fell on me. Not
+            because I wanted to carry it all. Because there's a limit to what
+            you can put on someone else's shoulders, and even that limited help
+            still comes at a cost.
           </Text>
         </Stack>
 
@@ -930,7 +938,7 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             The word "community" gets used a lot in the dance scene. I want to
-            share what it means to me, in my opinion, based on my experience
+            share what it means to me, based on my experience
             building something for this community for over a decade.
           </Text>
 
@@ -1200,10 +1208,6 @@ const ChoosingMyself: React.FC = () => {
           </Title>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Let me be clear about something.
-          </Text>
-
-          <Text c={colors.textSecondary} style={bodyStyle}>
             Some organizers can afford to take a financial hit because they have
             a full-time job, a partner with stable income, family money,
             something that cushions the blow.
@@ -1404,7 +1408,7 @@ const ChoosingMyself: React.FC = () => {
           <Stack gap="sm">
             {[
               "A situation where an artist didn't provide their payment information for a year and a half.",
-              "A situation where an artist's criminal record created issues with US entry, which affected flights we had already purchased and forced us to absorb additional expenses to fulfill the lineup we had promised.",
+              "A situation where an artist had legal issues that prevented them from obtaining an ESTA to enter the US. Flights were already purchased. We spent hours on the phone with airlines and absorbed roughly $1,500 in additional expenses scrambling to get them here — and they completely ignored the extra cost it took us to get them to the event.",
               "A situation where an artist was upset about losing a booking due to the festival's cancellation and still expected to be paid for work that never happened — while I was struggling to keep a roof over my head. Meanwhile, the majority of other artists were far more empathetic to the situation.",
             ].map((text, i) => (
               <Box key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
