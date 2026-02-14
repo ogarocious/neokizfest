@@ -345,7 +345,7 @@ export const festivalEditions: FestivalEdition[] = [
   {
     year: 2017,
     name: "Neo Kizomba Festival 2017",
-    // flyerImage: "/images/artist-payments/flyers/2017.jpg",
+    flyerImage: "/images/artist-payments/flyers/2017.png",
     artists: [
       { name: "Artist 1", confirmed: false },
       { name: "Artist 2", confirmed: false },
@@ -356,7 +356,7 @@ export const festivalEditions: FestivalEdition[] = [
   {
     year: 2016,
     name: "Neo Kizomba Festival 2016",
-    // flyerImage: "/images/artist-payments/flyers/2016.jpg",
+    flyerImage: "/images/artist-payments/flyers/2016.png",
     artists: [
       { name: "Artist 1", confirmed: false },
       { name: "Artist 2", confirmed: false },
@@ -366,7 +366,7 @@ export const festivalEditions: FestivalEdition[] = [
   {
     year: 2015,
     name: "Neo Kizomba Festival 2015",
-    // flyerImage: "/images/artist-payments/flyers/2015.jpg",
+    flyerImage: "/images/artist-payments/flyers/2015.png",
     artists: [
       { name: "Artist 1", confirmed: false },
       { name: "Artist 2", confirmed: false },
