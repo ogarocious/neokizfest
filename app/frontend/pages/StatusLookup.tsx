@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Text,
@@ -100,7 +101,13 @@ const StatusLookup: React.FC = () => {
   };
 
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Check Status">
+        <meta name="description" content="Check the status of your Neo Kizomba Festival refund request." />
+        <meta property="og:title" content="Check Status — Neo Kizomba Festival" />
+        <meta property="og:description" content="Check the status of your Neo Kizomba Festival refund request." />
+      </Head>
+      <FarewellLayout>
       <LoadingOverlay visible={loading} message="Looking up your status..." />
       <Stack gap="lg" maw={700} mx="auto" px={{ base: "sm", sm: "md" }}>
         <PageHeader
@@ -397,6 +404,7 @@ const StatusLookup: React.FC = () => {
         <BackToHome />
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

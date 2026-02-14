@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Text,
@@ -42,7 +43,13 @@ const FAQ: React.FC = () => {
       : faqData.filter((faq) => faq.category === category);
 
   return (
-    <FarewellLayout>
+    <>
+      <Head title="FAQ">
+        <meta name="description" content="Frequently asked questions about the Neo Kizomba Festival refund process." />
+        <meta property="og:title" content="FAQ — Neo Kizomba Festival" />
+        <meta property="og:description" content="Frequently asked questions about the Neo Kizomba Festival refund process." />
+      </Head>
+      <FarewellLayout>
       <Stack
         gap="xl"
         maw={800}
@@ -265,6 +272,7 @@ const FAQ: React.FC = () => {
         <BackToHome />
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

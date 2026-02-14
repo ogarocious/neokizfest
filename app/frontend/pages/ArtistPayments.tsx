@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { Head } from "@inertiajs/react";
 import { Stack, Text, Title, Group, TextInput, Progress, SimpleGrid, SegmentedControl, Box } from "@mantine/core";
 import { IconMusic, IconSearch, IconUsers, IconQuote, IconList, IconGridDots } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
@@ -48,7 +49,13 @@ const ArtistPayments: React.FC = () => {
   );
 
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Artist Payments">
+        <meta name="description" content="Full transparency on Neo Kizomba Festival artist payment history." />
+        <meta property="og:title" content="Artist Payments — Neo Kizomba Festival" />
+        <meta property="og:description" content="Full transparency on Neo Kizomba Festival artist payment history." />
+      </Head>
+      <FarewellLayout>
       <Stack
         gap="xl"
         maw={1200}
@@ -249,6 +256,7 @@ const ArtistPayments: React.FC = () => {
         <BackToHome />
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

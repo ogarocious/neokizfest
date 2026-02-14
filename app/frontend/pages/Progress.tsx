@@ -1,4 +1,5 @@
 import React from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Text,
@@ -116,7 +117,13 @@ const Progress: React.FC<ProgressProps> = ({
   const submittedRefunds = refunds.filter((r) => r.status === "submitted" || r.status === "pending");
 
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Progress">
+        <meta name="description" content="Track refund progress transparently. Every step shown publicly." />
+        <meta property="og:title" content="Refund Progress — Neo Kizomba Festival" />
+        <meta property="og:description" content="Track refund progress transparently. Every step shown publicly." />
+      </Head>
+      <FarewellLayout>
       <Stack gap="lg" maw={900} mx="auto" px={{ base: "sm", sm: "md" }}>
         <PageHeader
           icon={<IconChartBar size={32} color="white" />}
@@ -465,6 +472,7 @@ const Progress: React.FC<ProgressProps> = ({
         <BackToHome />
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Title,
@@ -7,12 +8,9 @@ import {
   List,
   Box,
   Divider,
-  Center,
 } from "@mantine/core";
-import { IconPhoto } from "@tabler/icons-react";
 import { colors, responsiveText } from "../styles/theme";
 import FarewellLayout from "../components/farewell/FarewellLayout";
-import LetterSection from "../components/farewell/LetterSection";
 import { GlassCard } from "../components/shared";
 
 const bodyStyle: React.CSSProperties = {
@@ -28,76 +26,116 @@ const listBullet = (
       borderRadius: "50%",
       backgroundColor: colors.primary,
       flexShrink: 0,
-      marginTop: 10,
+      marginTop: 11,
     }}
   />
 );
 
-const PhotoPlaceholder: React.FC<{ caption: string }> = ({ caption }) => (
-  <Box
-    my="sm"
-    style={{
-      background: "rgba(255, 255, 255, 0.02)",
-      border: `1px dashed rgba(244, 93, 0, 0.25)`,
-      borderRadius: 12,
-      padding: "clamp(24px, 5vw, 40px) 16px",
-    }}
-  >
-    <Center>
-      <Stack gap={8} align="center">
-        <IconPhoto size={32} color={colors.primary} style={{ opacity: 0.5 }} />
-        <Text
-          c={colors.textMuted}
-          ta="center"
-          style={{ fontSize: responsiveText.small }}
-        >
-          {caption}
-        </Text>
-      </Stack>
-    </Center>
+const ArticlePhoto: React.FC<{ src: string; caption: string }> = ({ src, caption }) => (
+  <Box my="sm">
+    <Box
+      style={{
+        borderRadius: 12,
+        overflow: "hidden",
+        border: `1px solid ${colors.borderMuted}`,
+      }}
+    >
+      <img
+        src={src}
+        alt={caption}
+        style={{
+          width: "100%",
+          height: "auto",
+          display: "block",
+        }}
+      />
+    </Box>
+    <Text
+      c={colors.textMuted}
+      ta="center"
+      mt="xs"
+      style={{ fontSize: responsiveText.small, fontStyle: "italic" }}
+    >
+      {caption}
+    </Text>
   </Box>
 );
 
 const sectionTitleStyle: React.CSSProperties = {
   color: colors.primary,
-  fontSize: "clamp(1rem, 3vw, 1.25rem)",
+  fontSize: "clamp(1.125rem, 3.5vw, 1.5rem)",
+};
+
+const underlineAccent: React.CSSProperties = {
+  textDecoration: "underline",
+  textDecorationColor: colors.primary,
+  textUnderlineOffset: "4px",
+  textDecorationThickness: "2px",
 };
 
 const ChoosingMyself: React.FC = () => {
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Choosing Myself">
+        <meta name="description" content="The full story behind the end of Neo Kizomba Festival. 10 years of building, what it cost, and why I'm choosing myself." />
+        <meta property="og:title" content="Choosing Myself — Neo Kizomba Festival" />
+        <meta property="og:description" content="The full story behind the end of Neo Kizomba Festival. 10 years of building, what it cost, and why I'm choosing myself." />
+      </Head>
+      <FarewellLayout>
       <Stack gap="xl" maw={800} mx="auto" px={{ base: "sm", sm: "md" }}>
-        {/* Page Title */}
-        <Title
-          order={1}
-          fw={700}
-          ta="center"
-          py={{ base: "md", sm: "xl" }}
+        {/* Hero Banner */}
+        <Box
           style={{
-            color: colors.primary,
-            fontSize: responsiveText.pageTitle,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.2,
+            borderRadius: 12,
+            overflow: "hidden",
+            marginTop: "clamp(8px, 2vw, 16px)",
           }}
         >
-          Neo Kizomba Festival vs. Choosing Myself
-        </Title>
+          <img
+            src="/images/choosing-myself/hero.jpg"
+            alt="The Neokiz Festival vs. Choosing Myself"
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+            }}
+          />
+        </Box>
 
         {/* The End */}
-        <LetterSection
-          title="The End"
-          content={[
-            "Neo Kizomba Festival is ending. Not postponed. Over.",
-            "This wasn't the plan. After 8 editions over 10 years, with a COVID gap that tested all of us, I never imagined writing these words under these circumstances, but here we are.",
-            "And I'm writing them because I'm choosing myself.",
-            "For the first time in a over a decade, I'm choosing my health, my peace, and my future over a scene that took more than it gave back. This letter is my farewell, my truth, and my line in the sand.",
-            "This chapter is closed.",
-          ]}
-        />
-
-        {/* TL;DR */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
+            The End
+          </Title>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            Neo Kizomba Festival is ending. Not postponed. Over.
+          </Text>
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            This wasn't the plan. After 8 editions over 10 years, with a COVID
+            gap that tested all of us, I never imagined writing these words
+            under these circumstances, but here we are.
+          </Text>
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            And I'm writing them because{" "}
+            <Text span style={underlineAccent} fw={700}>
+              I'm choosing myself.
+            </Text>
+          </Text>
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            For the first time in over a decade, I'm choosing my health, my
+            peace, and my future over a scene that, on balance, took more than
+            it gave back. This letter is my farewell to the festival, my truth,
+            and my line in the sand.
+          </Text>
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            This chapter of the festival is closed.
+          </Text>
+        </Stack>
+
+        {/* TL;DR — commented out for now
+        <Stack gap="sm">
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             TL;DR
           </Title>
 
@@ -107,7 +145,7 @@ const ChoosingMyself: React.FC = () => {
             size="sm"
             styles={{
               root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
+              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
             <List.Item>
@@ -130,7 +168,7 @@ const ChoosingMyself: React.FC = () => {
             <List.Item>
               I have two open-heart surgeries and a mechanical heart valve. I
               was putting off basic healthcare because all my money was tied up
-              in the festival. I'm choosing my health.
+              in the festival. Now I must choose my health.
             </List.Item>
             <List.Item>
               The model is broken. Organizers carry 250 to 400 times the
@@ -144,10 +182,11 @@ const ChoosingMyself: React.FC = () => {
             </List.Item>
           </List>
         </Stack>
+        */}
 
         {/* What We Built */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             What We Built
           </Title>
 
@@ -166,9 +205,10 @@ const ChoosingMyself: React.FC = () => {
             size="sm"
             styles={{
               root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
+              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
+            {/* Education & Training */}
             <List.Item>
               Community & History Panels, real conversations about where this
               dance came from and where it's going
@@ -179,13 +219,24 @@ const ChoosingMyself: React.FC = () => {
             <List.Item>
               2 Advanced training sessions with JP and Steffy
             </List.Item>
-            <List.Item>The first-ever Urbankiz Jack & Jill (2019)</List.Item>
-            <List.Item>The first Switch J&J</List.Item>
             <List.Item>
               Three levels of classes throughout the festival, fundamentals
               through advanced, making Neokiz an entry point for everyone, not
               just the already-experienced
             </List.Item>
+            <List.Item>
+              Hour-and-a-half classes with 30-minute breaks in between, because
+              we cared about the learning experience and giving attendees time
+              to rest, decompress, and connect between sessions
+            </List.Item>
+            {/* Competitions */}
+            <List.Item>The first-ever Urbankiz Jack & Jill (2019)</List.Item>
+            <List.Item>The first Switch J&J</List.Item>
+            <List.Item>
+              J&J divisions, Novice, Intermediate, Advanced, giving competitors
+              a real pathway
+            </List.Item>
+            {/* Dance Floor & Attendee Experience */}
             <List.Item>
               Active taxi dancers to help with lead/follow ratio
             </List.Item>
@@ -200,17 +251,15 @@ const ChoosingMyself: React.FC = () => {
               Feedback surveys after every edition, because I genuinely wanted
               to get better
             </List.Item>
-            <List.Item>
-              J&J divisions, Novice, Intermediate, Advanced, giving competitors
-              a real pathway
-            </List.Item>
           </List>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             People met partners at this festival. Made lifelong friends. Found a
             dance that changed them. Some people walked in not knowing what
-            Urbankiz was and walked out with a new passion. That part was real,
-            and I carry those memories with gratitude.
+            Urbankiz was and walked out with a new passion.{" "}
+            <Text span fs="italic">
+              That part was real, and I carry those memories with gratitude.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -221,13 +270,16 @@ const ChoosingMyself: React.FC = () => {
             Working alongside Laurent was something special. He was a brother
             from another mother. We were shoulder to shoulder, trying to
             influence the scene in a positive direction. His intellectual
-            approach to dance content, the way he used words to inspire and not
-            tear people down, that resonated with me deeply. I miss that
+            approach to dance content,{" "}
+            <Text span style={underlineAccent}>
+              the way he used words to inspire and not tear people down, that
+              resonated with me deeply.
+            </Text> I miss that
             partnership. And that epic dance he had with Steffy at the
             first-ever Jack & Jill? I still watch that video and smile.
           </Text>
 
-          <PhotoPlaceholder caption="Laurent & Steffy — First-ever Jack & Jill" />
+          <ArticlePhoto src="/images/choosing-myself/IMG_1555.jpg" caption="Show Your Style — Neo Kizomba Festival 2018" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I genuinely loved the Jack & Jills. Watching dancers progress over
@@ -236,7 +288,7 @@ const ChoosingMyself: React.FC = () => {
             growth was one of the most rewarding things to witness.
           </Text>
 
-          <PhotoPlaceholder caption="Jack & Jill Competitions" />
+          <ArticlePhoto src="/images/choosing-myself/NKF_SA_75.jpg" caption="Running the Jack & Jill — Neo Kizomba Festival 2019" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             The fundamentals track was a personal joy. I knew a lot of people
@@ -249,32 +301,39 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             That closing DJ set in 2024. Ninja handed me a drink, I was buzzed
             and in the zone, and the songs just came to me. Completely off the
-            cuff. No plan. Just flow. I listen to that mix alot still. That one
-            stays with me.
+            cuff. No plan. Just flow. I listen to that mix a lot still.{" "}
+            <Text span fs="italic">
+              That one stays with me.
+            </Text>
           </Text>
 
-          <PhotoPlaceholder caption="2024 Closing DJ Set" />
+          <ArticlePhoto src="/images/choosing-myself/L7407746-Enhanced-NR.jpg" caption="Social Floor — Neo Kizomba Festival 2024" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             The pool parties were a blast. And I'll never forget scheming to get
             Sarah into one of the rooms so the crowd could give her the applause
-            she deserved for everything she was doing behind the scenes. That
-            moment definitely mattered.
+            she deserved for everything she was doing behind the scenes.{" "}
+            <Text span fs="italic">
+              That moment definitely mattered.
+            </Text>
           </Text>
 
-          <PhotoPlaceholder caption="Pool Parties & Community Moments" />
+          <ArticlePhoto src="/images/choosing-myself/NKF_SA_28.jpg" caption="The Community — Neo Kizomba Festival 2018" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            From my experience, I treated artists better than I was ever treated
-            at other festivals. Warm meals, not just pizza. Drinks and snacks
-            throughout the day. Proper breakfasts. I made that a priority
-            because I knew what it felt like to be on the other side.
+            I made it a point to treat artists better than I'd been treated at
+            other festivals. Warm meals, not just pizza. Drinks and snacks
+            throughout the day. Proper breakfasts.{" "}
+            <Text span style={underlineAccent}>
+              I made that a priority because I knew what it felt like to be on
+              the other side and not feel seen or cared for.
+            </Text>
           </Text>
         </Stack>
 
         {/* A Decade of Swimming Upstream */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             A Decade of Swimming Upstream
           </Title>
 
@@ -318,10 +377,12 @@ const ChoosingMyself: React.FC = () => {
             came from the people who also benefited from what I was building.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            At some point, you have to ask yourself: how many times can you swim
-            upstream before you drown?
-          </Text>
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              At some point, you have to ask yourself: how many times can you swim
+              upstream before you drown?
+            </Text>
+          </GlassCard>
 
           <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
             I hit my limit.
@@ -330,7 +391,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* What I Carried */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             What I Carried
           </Title>
 
@@ -348,13 +409,13 @@ const ChoosingMyself: React.FC = () => {
             size="sm"
             styles={{
               root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
+              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
             <List.Item>
               Running the festival (laying flooring, setting up sound, hotel
               negotiations, wristbands, coordinating flight and workshop
-              schedules, budgeting; Sarah was a huge help the last 4 editions)
+              schedules, budgeting; Sarah was instrumental the last 4 editions)
             </List.Item>
             <List.Item>DJing</List.Item>
             <List.Item>Taxi dancing</List.Item>
@@ -372,9 +433,11 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I wasn't hoarding roles. I was filling gaps that nobody else would
-            step up to fill, at least not to the standard needed to keep the
-            event alive.
+            I wasn't hoarding roles. Outside of Sarah, a few coordinators, and
+            the volunteers who stepped up over the years,{" "}
+            <Text span style={underlineAccent}>
+              I was filling gaps that very few people would step up to fill.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -388,12 +451,14 @@ const ChoosingMyself: React.FC = () => {
             right there, watching her, not lifting a finger to help.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            That image says more about the entitlement culture around these
-            events than any paragraph I could write.
-          </Text>
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              That image says more about the entitlement culture around these
+              events than any paragraph I could write.
+            </Text>
+          </GlassCard>
 
-          <PhotoPlaceholder caption="Behind the Scenes — Setting Up" />
+          <ArticlePhoto src="/images/choosing-myself/IMG_2318.jpg" caption="Saturday Night Shows — Neo Kizomba Festival 2018" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Equipment needs to be moved. Floors need to be laid down. People
@@ -432,20 +497,27 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Building a team requires either money or a culture of genuine
-            support. I didn't have the money, and the culture wasn't there. Not
-            enough people were willing to roll up their sleeves and share the
-            weight.
+            support. I didn't have the money, and the culture wasn't there.{" "}
+            <Text span style={underlineAccent}>
+              Not enough people were willing to roll up their sleeves and share
+              the weight.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            So I did a lot of it myself. Not because I wanted to. Because there
-            was no other option.
+            The earlier editions had coordinators who stepped up and carried
+            real weight. The later editions had Sarah, who was embedded in every
+            part of the operation. And there were always volunteers who gave
+            their time. But the core of the planning, the financial risk, the
+            year-round work between editions, that fell on me. Not because I
+            wanted to carry it all. Because there weren't enough hands at the
+            scale needed.
           </Text>
         </Stack>
 
         {/* What an Artist Sees, What an Organizer Carries */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             What an Artist Sees, What an Organizer Carries
           </Title>
 
@@ -485,7 +557,7 @@ const ChoosingMyself: React.FC = () => {
             size="sm"
             styles={{
               root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
+              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
             <List.Item>Flight: covered</List.Item>
@@ -503,13 +575,15 @@ const ChoosingMyself: React.FC = () => {
             <List.Item>They leave with net positive income</List.Item>
           </List>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            To put that in perspective: the average hourly wage in the United
-            States is roughly $35 to $37. Even earning $50/hour puts you well
-            above the national average. Some of these artists are charging{" "}
-            {"\u20AC"}500/hour, which is roughly $540. That's more than most
-            corporate executives make per hour.
-          </Text>
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              To put that in perspective: the average hourly wage in the United
+              States is roughly $35 to $37. Even earning $50/hour puts you well
+              above the national average. Some of these artists are charging{" "}
+              {"\u20AC"}500/hour, which is roughly $540. That's more than most
+              corporate executives make per hour.
+            </Text>
+          </GlassCard>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Anyone can charge what they want. That's their right. But when those
@@ -545,7 +619,7 @@ const ChoosingMyself: React.FC = () => {
             size="sm"
             styles={{
               root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
+              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
             <List.Item>Pass, flight, hotel</List.Item>
@@ -562,7 +636,7 @@ const ChoosingMyself: React.FC = () => {
             size="sm"
             styles={{
               root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
+              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
             <List.Item>Total exposure: $36,500 to $87,000+</List.Item>
@@ -576,7 +650,7 @@ const ChoosingMyself: React.FC = () => {
           </List>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Let me break that organizer number down for a international level
+            Let me break that organizer number down for an international level
             festival at a hotel venue:
           </Text>
 
@@ -697,7 +771,7 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             And yet, the organizer is the one expected to smile and deliver
             flawlessly. While artists complain it's hard. While some attendees
-            post about their "anxiety" over a $100 to $200 pass.
+            post about their anxiety over a $100 to $200 pass.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -726,7 +800,8 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            That's not professionalism at all. It's bullying. And it's a dynamic
+            That's not professionalism at all.{" "}
+            <Text span style={underlineAccent}>It's bullying.</Text> And it's a dynamic
             that organizers often have to navigate while still trying to deliver
             a great experience for attendees and uphold their commitments to
             artists and attendees.
@@ -746,11 +821,20 @@ const ChoosingMyself: React.FC = () => {
             top of the financial stress, the logistics, and the pressure to
             deliver a flawless experience.
           </Text>
+
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              There is either a profound naivete or a deep sense of entitlement
+              when it comes to what it actually takes to pull off a well-run
+              event. I'm not sure which one it is. But the gap between what
+              people expect and what it costs to deliver is staggering.
+            </Text>
+          </GlassCard>
         </Stack>
 
         {/* The Golden Goose */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             The Golden Goose
           </Title>
 
@@ -765,7 +849,7 @@ const ChoosingMyself: React.FC = () => {
             nothing. And now there are no more golden eggs. Ever.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             That's what this feels like in some ways.
           </Text>
 
@@ -779,7 +863,7 @@ const ChoosingMyself: React.FC = () => {
             size="sm"
             styles={{
               root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
+              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
             <List.Item>Hotels made money from 400+ room nights</List.Item>
@@ -795,12 +879,28 @@ const ChoosingMyself: React.FC = () => {
             </List.Item>
           </List>
 
-          <PhotoPlaceholder caption="The Festival in Full Swing — Social Floor" />
+          <ArticlePhoto src="/images/choosing-myself/NKF_Fr-71.jpg" caption="Social Dancing — Neo Kizomba Festival 2019" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             All of that was built on the work the team and I were doing. We
             created the ecosystem. The platform. The thing that made everything
             else possible.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            Think about it: the Jack & Jill divisions at the festival gave
+            competitors a pathway from novice to advanced. Where Can We Dance
+            became a resource for the broader community. Beyond the festival,
+            I also hosted Olympiads of Kizomba competitions that gave dancers
+            national and international titles — both of which lost money, and
+            still came with the expectation of following through on the rules
+            of flying the winners to Europe to compete. All of these
+            accomplishments
+            ended up on people's artist bios, dance resumes, and social media
+            profiles. If you were to look at the credentials many dancers and
+            artists are carrying today, you'd find that a significant number
+            of them were a direct result of the platforms and opportunities I
+            helped build over the past decade.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -823,14 +923,14 @@ const ChoosingMyself: React.FC = () => {
 
         {/* What "Community" Actually Means */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             What "Community" Actually Means
           </Title>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             The word "community" gets used a lot in the dance scene. I want to
-            what it means to me, in my opinion, based on my experience building
-            something for this community for over a decade.
+            share what it means to me, in my opinion, based on my experience
+            building something for this community for over a decade.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -842,7 +942,7 @@ const ChoosingMyself: React.FC = () => {
             Community is holding weight.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             Not just presence, but collaboration. Not just listening, but
             lifting.
           </Text>
@@ -853,8 +953,10 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            You don't pull up a chair. You jump in. You throw them a life ring.
-            You PULL them to safety.
+            You don't pull up a chair.{" "}
+            <Text span style={underlineAccent}>
+              You jump in. You throw them a life ring. You PULL them to safety.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
@@ -902,7 +1004,10 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Every year I asked for feedback. Sent surveys. Tried to improve.
+            <Text span style={underlineAccent}>
+              Every year I asked for feedback and sent surveys in order to
+              continually improve.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -922,21 +1027,21 @@ const ChoosingMyself: React.FC = () => {
             to donate. Nonprofits coming together to help with funding. People
             showing up to set up and tear down. Multiple organizers wearing
             multiple hats, everyone pitching in. Multiple members of the
-            community fiscally sponsoring different parts of the event.
+            community financially sponsoring different parts of the event.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             That's sustained support. That's shared weight.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             That's not what I experienced at the scale I needed.
           </Text>
         </Stack>
 
         {/* Building from Nothing */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             Building from Nothing
           </Title>
 
@@ -953,7 +1058,7 @@ const ChoosingMyself: React.FC = () => {
             growing dance. I was building at the grassroots level.
           </Text>
 
-          <PhotoPlaceholder caption="Grassroots Weekenders Across the U.S. & Beyond" />
+          <ArticlePhoto src="/images/choosing-myself/NKF_SA_42.jpg" caption="Urban Kiz Class by Py & Sarah — Neo Kizomba Festival 2019" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             There aren't enough festivals to hire everyone. There are barely any
@@ -975,25 +1080,33 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Beyond the infrastructure, the scene's fixation on hype was
-            fundamentally unsustainable. What was truly needed was a focus on
-            pedagogy and established systems to provide a proper base for new
-            dancers. The desire to be seen and to be cool ultimately clouded the
+            fundamentally unsustainable.{" "}
+            <Text span style={underlineAccent}>
+              What was truly needed was a focus on pedagogy and established
+              systems to provide a proper base for new dancers and growth to
+              stronger dancers and teachers.
+            </Text>{" "}
+            The desire to be seen and to be cool ultimately clouded the
             foundational work required for sustainability.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            This created a culture of entertainers and consumers rather than
-            students and teachers. And that made long-term growth nearly
-            impossible.
+            <Text span fw={700}>
+              This created a culture of entertainers and consumers rather than
+              students and teachers.
+            </Text>{" "}
+            <Text span style={underlineAccent}>
+              And that made long-term growth nearly impossible.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            As one of the people who has invested the most time into this scene
-            over the past decade, through the intellectual dance content, the
-            festivals, the weekenders, the pedagogy, leading the Facebook group,
-            it is deeply disappointing to see that investment yield so little
-            fruitful growth. Not disappointing in a passing sense. Disappointing
-            in the way that grief is disappointing.{" "}
+            Having invested as much time as I have into this scene over the past
+            decade, through the intellectual dance content, the festivals, the
+            weekenders, the pedagogy, leading the Facebook group, it is deeply
+            disappointing to see that investment yield so little fruitful
+            growth. Not disappointing in a passing sense. Disappointing in the
+            way that grief is disappointing.{" "}
             <Text span fs="italic">
               You keep pouring into something hoping it'll grow, and eventually
               you run out of water.
@@ -1003,7 +1116,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* Grace in the Underground */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             Grace in the Underground
           </Title>
 
@@ -1027,7 +1140,7 @@ const ChoosingMyself: React.FC = () => {
             Most of us are learning as we go. That's the reality.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
             And yet, there's very little grace extended to the people doing the
             learning in real time, in public, with real money and real
             consequences.
@@ -1040,7 +1153,7 @@ const ChoosingMyself: React.FC = () => {
             scrutiny. It should be curiosity. It should be dialogue.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             "What happened?" "How can we work through this?" "What would make
             this right for both of us?"
           </Text>
@@ -1072,14 +1185,16 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            That's what I tried to build. That's what I hoped for. And too
-            often, that's not what showed up.
+            <Text span style={underlineAccent}>
+              That's what I tried to contribute towards building. That's what I hoped for. And too
+              often, that's not what showed up.
+            </Text>
           </Text>
         </Stack>
 
         {/* No Safety Net */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             No Safety Net
           </Title>
 
@@ -1119,8 +1234,11 @@ const ChoosingMyself: React.FC = () => {
             negotiate contracts where the assumptions weren't in my favor.
             Having to be twice as sharp just to not get taken advantage of.
             Fighting against predatory contracts with no leverage and no legal
-            team. Going over every clause with a microscope because one
-            misunderstood term could mean an unexpected $10,000 bill.
+            team.{" "}
+            <Text span style={underlineAccent}>
+              Going over every clause with a microscope because one
+              misunderstood term could mean an unexpected $10,000 bill.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1129,10 +1247,11 @@ const ChoosingMyself: React.FC = () => {
             just to get to a starting point where the event might be viable.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            When refunds were delayed, the assumption wasn't "he's struggling."
-            It was anger, judgment, and suspicion. There was no benefit of the
-            doubt.
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+            When refunds were delayed, the majority assumption wasn't "he's
+            struggling." It was anger, judgment, and suspicion. There was no
+            benefit of the doubt, and as a Black man in America, that's a
+            pattern I know all too well.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1145,10 +1264,12 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Black men have long faced the harshest scrutiny. We are glorified
-            for our contributions to sports, music, and physical excellence, but
-            simultaneously devalued when we are not providing access to that
-            excellence.
+            <Text span style={underlineAccent}>
+              Black men have long faced the harshest scrutiny. We are glorified
+              for our contributions to sports, music, and physical excellence,
+              but simultaneously devalued when we are not providing access to
+              that excellence.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1157,7 +1278,7 @@ const ChoosingMyself: React.FC = () => {
             exploitation, just in different forms.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             I wasn't organizing Neo Kizomba as a passion project funded by some
             other career. I was trying to build something sustainable that could
             support my life. When it didn't work, I didn't have a safety net to
@@ -1178,7 +1299,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* My Roots in Austin */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             My Roots in Austin
           </Title>
 
@@ -1228,7 +1349,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* The Accusations */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             The Accusations
           </Title>
 
@@ -1251,7 +1372,7 @@ const ChoosingMyself: React.FC = () => {
             the festival made didn't carry over. I needed time.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
             If I were pocketing money, I would have used it to take care of my
             health. I would have seen my cardiologist more often. I would have
             seen a dentist. I would have taken care of my body, which was my
@@ -1275,30 +1396,53 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Two particular issues come to mind when it comes to these
+            Three particular issues come to mind when it comes to these
             accusations of not paying artists:
           </Text>
 
-          <List
-            type="ordered"
-            spacing="xs"
-            size="sm"
-            styles={{
-              root: { color: colors.textSecondary },
-              itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8 },
-            }}
-          >
-            <List.Item>
-              A situation where an artist didn't provide their payment
-              information for a year and a half.
-            </List.Item>
-            <List.Item>
-              A situation where an artist's criminal record created issues with
-              US entry, which affected flights we had already purchased and
-              forced us to absorb additional expenses to fulfill the lineup we
-              had promised.
-            </List.Item>
-          </List>
+          <Stack gap="sm">
+            {[
+              "A situation where an artist didn't provide their payment information for a year and a half.",
+              "A situation where an artist's criminal record created issues with US entry, which affected flights we had already purchased and forced us to absorb additional expenses to fulfill the lineup we had promised.",
+              "A situation where an artist was upset about losing a booking due to the festival's cancellation and still expected to be paid for work that never happened — while I was struggling to keep a roof over my head. Meanwhile, the majority of other artists were far more empathetic to the situation.",
+            ].map((text, i) => (
+              <Box key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <Box
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: "50%",
+                    background: "rgba(244, 93, 0, 0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    marginTop: 4,
+                  }}
+                >
+                  <Text size="sm" fw={600} c={colors.primary}>
+                    {i + 1}
+                  </Text>
+                </Box>
+                <Text c={colors.textSecondary} style={bodyStyle}>
+                  {text}
+                </Text>
+              </Box>
+            ))}
+          </Stack>
+
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              That last one is worth sitting with. When an organizer is drowning
+              financially and has to cancel for mental health or financial
+              reasons, and your response is to still have your hand out — zoom
+              out. Who is the person hurting the most in that situation? This
+              goes back to what I said earlier: artists carry the least risk and
+              receive the highest reward. And even in a moment of genuine
+              struggle, some still prioritized their lost income over the
+              person who was falling apart trying to make it all work.
+            </Text>
+          </GlassCard>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I will post about these in more detail later in a separate post. But
@@ -1336,8 +1480,11 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I would ask this: any time you see someone pointing a finger, ask
-            yourself; before they pointed the finger, did they extend a helping
-            hand? Did they show proof? Did they attempt to resolve it privately?
+            yourself;{" "}
+            <Text span style={underlineAccent}>
+              before they pointed the finger, did they extend a helping hand?
+            </Text>{" "}
+            Did they show proof? Did they attempt to resolve it privately?
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1354,7 +1501,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* Why I'm Choosing Myself */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             Why I'm Choosing Myself
           </Title>
 
@@ -1364,8 +1511,8 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Yes. I do. If I don't take my own well-being into consideration, who
-            else is going to?
+            Yes. I finally do. If I don't take my own well-being into
+            consideration, who else is going to?
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1376,12 +1523,14 @@ const ChoosingMyself: React.FC = () => {
             God will allow me.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            For those who may not be aware, I've had two open-heart surgeries. I
-            have a mechanical aortic heart valve. The maintenance of that valve
-            through cardiologist visits and blood-thinning medicine is vital to
-            extending my quality of life.
-          </Text>
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              For those who may not be aware, I've had two open-heart surgeries.
+              I have a mechanical aortic heart valve. The maintenance of that
+              valve through cardiologist visits and blood-thinning medicine is
+              vital to extending my quality of life.
+            </Text>
+          </GlassCard>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             My father passed in 2022, which compounded the financial strain on
@@ -1392,7 +1541,10 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             Those are things I had been putting off for years because all my
             money and risk was tied up in the festival. I wasn't able to take
-            care of myself properly. Basic healthcare. Basic human maintenance.
+            care of myself properly.{" "}
+            <Text span style={underlineAccent}>
+              Basic healthcare. Basic human maintenance.
+            </Text>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1415,14 +1567,11 @@ const ChoosingMyself: React.FC = () => {
             prosperity; it's about survival in its most fundamental form.
           </Text>
 
-          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
-            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
-              We cannot fight for the culture when we're fighting to keep our
-              lights on. We cannot build community while dodging bill
-              collectors. We cannot sustain this work when our bank accounts are
-              empty.
-            </Text>
-          </GlassCard>
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+            We cannot fight for the culture when we're fighting to keep our
+            lights on. We cannot build community while dodging bill collectors.
+            We cannot sustain this work when our bank accounts are empty.
+          </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I put the festival and the scene first for too long, and I'm paying
@@ -1433,7 +1582,7 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             I refuse to keep over-functioning for other people's entertainment
             while I can't afford to see a doctor. That's not "community." That's
-            exploitation with a smile.
+            unsustainable.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
@@ -1443,7 +1592,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* What Happens Now */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             What Happens Now
           </Title>
 
@@ -1454,17 +1603,18 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             After the cancellation, I was dealing with anxiety and panic
             attacks. Every time I posted anything, it was met with questioning
-            that I just didn't have the answers to that made it harder to show
-            up publicly. I tried reaching out to people I thought could help me
+            I didn't have answers for, which made it harder to show up
+            publicly. I tried reaching out to people I thought could help me
             see this through, and that didn't happen, which is part of how I got
             to this point.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I was also dealing with a grant situation that didn't operate with
-            the transparency or integrity it should have. I'll leave it at that
-            for now, but it added a significant layer of stress to an already
-            overwhelming situation.
+            the transparency or integrity it should have. It put me in a legal
+            chokehold that I am still fighting my way out of. I'll leave it at
+            that for now, but it added a significant layer of stress to an
+            already overwhelming situation.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1483,10 +1633,10 @@ const ChoosingMyself: React.FC = () => {
             If I had the mental capacity to respond sooner, I would have.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            I'm sorry it took this long. Responding before I was ready with the
-            support I did not have would have put me in a mental place I wasn't
-            sure I could come back from.
+          <Text c={colors.textSecondary} style={{ ...bodyStyle, ...underlineAccent }} fs="italic">
+            I'm sorry it took this long. Responding before I was ready, with
+            the support I did not have, would have put me in a mental place I'm
+            not sure I would have been able to come back from.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1508,6 +1658,18 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
+            Even now, the same skills and drive that built this festival are
+            showing up in how I'm closing it. A custom-built refund and
+            donation system with public accountability. An artist payment
+            tracker I built in part because, as a Black man in this scene, my
+            word alone was never going to be enough.{" "}
+            <Text span style={underlineAccent}>
+              These aren't the actions of someone cutting corners. This is what
+              excellence under pressure looks like, even on the way out.
+            </Text>
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
             For my own sanity and well-being, I won't be sharing a payment
             schedule or promising a completion date. Refund timing will depend
             on my monthly income, my well-being, and Zelle's daily transfer
@@ -1517,7 +1679,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* What's Next */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             What's Next
           </Title>
 
@@ -1526,11 +1688,11 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            This chapter is closed. I need to clear this from my life,
+            The festival chapter is closed. I need to clear this from my life,
             financially, mentally, emotionally.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             I need to heal. There's grief in this. I'm grieving something I
             invested in for over a decade.
           </Text>
@@ -1540,17 +1702,17 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I'm proud of the way I showed up. The level of excellence myself and
-            the team maintained with limited funds and against all of these
-            odds. The standard I set and innovative ideas I brought to the
-            scene. The way I built a platform for artists to share their work
-            and get paid. The way I created a space for people to learn and
-            grow. The way we built a place that was more than just an event, but
-            a place where people could connect, share, and feel seen.
+            I'm proud of what we built and the level of excellence the team and
+            I maintained with limited funds and against all of these odds. The
+            standard we set and the innovative ideas we brought to the scene.
+            The way we built a platform for artists to share their work and get
+            paid. The way we created a space for people to learn and grow. A
+            place that was more than just an event, but a place where people
+            could connect, share, and feel seen.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
-            That's mine. No one can take that.
+            That's ours. No one can take that.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1565,12 +1727,12 @@ const ChoosingMyself: React.FC = () => {
             more time with my two cats.
           </Text>
 
-          <PhotoPlaceholder caption="What's Next — New Chapters" />
+          <ArticlePhoto src="/images/choosing-myself/L7404266.jpg" caption="Jack & Jill Invitational: JP & Bruna — Neo Kizomba Festival 2023" />
         </Stack>
 
         {/* Thank You, Sarah */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             Thank You, Sarah
           </Title>
 
@@ -1583,7 +1745,7 @@ const ChoosingMyself: React.FC = () => {
             She wasn't just helping. She was embedded in the operation.
           </Text>
 
-          <PhotoPlaceholder caption="Sarah — The Heart Behind the Scenes" />
+          <ArticlePhoto src="/images/choosing-myself/sarah3.png" caption="Sarah — The Heart Behind the Scenes" />
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             She was in the hotel email threads, the artist chats, and the Notion
@@ -1602,7 +1764,7 @@ const ChoosingMyself: React.FC = () => {
             that weren't fair.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={{ ...bodyStyle, ...underlineAccent }} fs="italic">
             She didn't have to do any of it. She chose to. And she pushed
             herself to the edge for something she believed in.
           </Text>
@@ -1632,7 +1794,7 @@ const ChoosingMyself: React.FC = () => {
             </Text>
           </GlassCard>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             Sarah, thank you. I see you. I see what you carried. You deserve
             every flower and every bit of peace that comes your way. I hope you
             know how much I appreciate you, and if you ever need anything, I'm
@@ -1642,7 +1804,7 @@ const ChoosingMyself: React.FC = () => {
 
         {/* Final Words */}
         <Stack gap="sm">
-          <Title order={3} fw={600} style={sectionTitleStyle}>
+          <Title order={3} fw={700} style={sectionTitleStyle}>
             Final Words
           </Title>
 
@@ -1659,29 +1821,31 @@ const ChoosingMyself: React.FC = () => {
             doors and organizers keep burning out, it's not because they failed.
             It's because the model is broken, and I realize there are some
             organizers that are really the furthest thing from organized, and
-            also there just not enough people are willing to roll up their
+            also there are just not enough people willing to roll up their
             sleeves to help build and sustain.
           </Text>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            If the community doesn't change how it supports the people who build
-            these spaces, there simply won't be spaces to dance in. We're
-            already seeing that unfold. If you want to dance, you have to care
-            about the people who build the spaces you dance in. You have to care
-            about their well-being, their mental health, their financial
-            stability. You have to care about them as human beings, not just as
-            entertainers or service providers.
-          </Text>
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              If the community doesn't change how it supports the people who build
+              these spaces, there simply won't be spaces to dance in. We're
+              already seeing that unfold. If you want to dance, you have to care
+              about the people who build the spaces you dance in. You have to care
+              about their well-being, their mental health, their financial
+              stability. You have to care about them as human beings, not just as
+              entertainers or service providers.
+            </Text>
+          </GlassCard>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
             I gave what I had. For over a decade, I gave what I had.
           </Text>
 
-          <PhotoPlaceholder caption="Neo Kizomba Festival — The Community We Built" />
-
-          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+          <Text c={colors.textSecondary} style={{ ...bodyStyle, ...underlineAccent }} fw={700} fs="italic">
             And now I'm choosing what's left of me.
           </Text>
+
+          <ArticlePhoto src="/images/choosing-myself/intermediate competitors.jpeg" caption="Jack & Jill Intermediate Division Competitors — Neo Kizomba Festival 2023" />
         </Stack>
 
         {/* Footer Divider and Closing */}
@@ -1717,8 +1881,9 @@ const ChoosingMyself: React.FC = () => {
             style={{ ...bodyStyle, fontStyle: "italic" }}
           >
             From the inspired dancer who became an artist and organizer, and
-            gave what he could for over a decade who hoped his investment in the
-            scene would yield growth, to the person who is now choosing himself,
+            gave what he could for over a decade, who hoped his investments in
+            the scene would yield growth that never came, to the person who is
+            now choosing himself,
           </Text>
 
           <Text
@@ -1731,6 +1896,7 @@ const ChoosingMyself: React.FC = () => {
         </Stack>
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

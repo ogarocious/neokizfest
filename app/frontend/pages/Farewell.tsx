@@ -1,4 +1,5 @@
 import React from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Title,
@@ -24,7 +25,13 @@ import { GlassCard } from "../components/shared";
 
 const Farewell: React.FC = () => {
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Home">
+        <meta name="description" content="Neo Kizomba Festival is ending. 8 Editions. 10 Years. One legacy." />
+        <meta property="og:title" content="Neo Kizomba Festival" />
+        <meta property="og:description" content="Neo Kizomba Festival is ending. 8 Editions. 10 Years. One legacy." />
+      </Head>
+      <FarewellLayout>
       <Stack gap="xl" maw={800} mx="auto" px={{ base: "sm", sm: "md" }}>
         {/* Hero Section - Subdued */}
         <Stack align="center" gap={{ base: "sm", sm: "lg" }} py={{ base: "md", sm: "xl" }}>
@@ -232,7 +239,8 @@ const Farewell: React.FC = () => {
           </Group>
         </GlassCard>
       </Stack>
-    </FarewellLayout>
+      </FarewellLayout>
+    </>
   );
 };
 

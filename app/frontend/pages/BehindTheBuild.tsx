@@ -1,4 +1,5 @@
 import React from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Text,
@@ -216,7 +217,13 @@ const featuresBuilt = [
 
 const BehindTheBuild: React.FC = () => {
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Behind the Build">
+        <meta name="description" content="The technical story behind the Neo Kizomba Festival refund system." />
+        <meta property="og:title" content="Behind the Build — Neo Kizomba Festival" />
+        <meta property="og:description" content="The technical story behind the Neo Kizomba Festival refund system." />
+      </Head>
+      <FarewellLayout>
       <Stack
         gap="xl"
         maw={900}
@@ -697,6 +704,7 @@ const BehindTheBuild: React.FC = () => {
         <BackToHome />
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

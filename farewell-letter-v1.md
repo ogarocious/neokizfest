@@ -2,23 +2,23 @@
 
 ## The End
 
-Neo Kizomba Festival is over. Not postponed. Over.
+Neo Kizomba Festival is ending. Not postponed. Over.
 
 This wasn't the plan. After 8 editions over 10 years, with a COVID gap that tested all of us, I never imagined writing these words.
 
 But here I am. And I'm writing them because I'm choosing myself.
 
-For the first time in a decade, I'm choosing my health, my peace, and my future over a scene that took more than it gave back. This letter is my farewell, my truth, and my line in the sand.
+For the first time in over a decade, I'm choosing my health, my peace, and my future over a scene that, on balance, took more than it gave back. This letter is my farewell to the festival, my truth, and my line in the sand.
 
-This chapter is closed.
+This chapter of the festival is closed.
 
 ## TL;DR
 
-- Neo Kizomba Festival is over. Not postponed. Over.
+- Neo Kizomba Festival is ending. Not postponed. Over.
 - The 6-month silence wasn't me running. I was dealing with anxiety, panic attacks, and needed time to resettle mentally and financially before I could address this properly.
 - Everyone will be offered a refund, with public tracking so you can watch the progress. I could have ghosted. I'm not doing that.
 - I paid 100% of my artists. Some payments were late because the festival didn't generate enough to cover everything immediately, not because I was pocketing money.
-- I have two open-heart surgeries and a mechanical heart valve. I was putting off basic healthcare because all my money was tied up in the festival. I'm choosing my health.
+- I have two open-heart surgeries and a mechanical heart valve. I was putting off basic healthcare because all my money was tied up in the festival. Now I must choose my health.
 - The model is broken. Organizers carry 250 to 400 times the financial risk of attendees, often with no reward. If the scene doesn't change how it supports the people who build these spaces, there won't be spaces to dance in.
 - To those who genuinely showed up, volunteered, promoted without being asked, and checked in: thank you. You know who you are.
 
@@ -31,14 +31,14 @@ We did things very few others were doing:
 - Community & History Panels, real conversations about where this dance came from and where it's going
 - 4 Show Your Styles with Laurent, the first and only in the scene
 - 2 Advanced training sessions with JP and Steffy
+- Three levels of classes throughout the festival, fundamentals through advanced, making Neokiz an entry point for everyone, not just the already-experienced
 - The first-ever Urbankiz Jack & Jill (2019)
 - The first Switch J&J
-- Three levels of classes throughout the festival, fundamentals through advanced, making Neokiz an entry point for everyone, not just the already-experienced
+- J&J divisions, Novice, Intermediate, Advanced, giving competitors a real pathway
 - Active taxi dancers to help with lead/follow ratio
 - Women's care packages, tampons, chapstick, patches, ibuprofen, because details matter
 - Airport pickup videos so you knew exactly where to go
 - Feedback surveys after every edition, because I genuinely wanted to get better
-- J&J divisions, Novice, Intermediate, Advanced, giving competitors a real pathway
 
 People met partners at this festival. Made lifelong friends. Found a dance that changed them. Some people walked in not knowing what Urbankiz was and walked out with a new passion. That part was real, and I carry those memories with gratitude.
 
@@ -54,7 +54,7 @@ That closing DJ set in 2024. Ninja handed me a drink, I was buzzed and in the zo
 
 The pool parties were a blast. And I'll never forget scheming to get Sarah into one of the rooms so the crowd could give her the applause she deserved for everything she was doing behind the scenes. That moment mattered.
 
-From my experience, I treated artists better than I was ever treated at other festivals. Warm meals, not just pizza. Drinks and snacks throughout the day. Proper breakfasts. I made that a priority because I knew what it felt like to be on the other side.
+I made it a point to treat artists better than I'd been treated at other festivals. Warm meals, not just pizza. Drinks and snacks throughout the day. Proper breakfasts. I made that a priority because I knew what it felt like to be on the other side.
 
 ## A Decade of Swimming Upstream
 
@@ -81,7 +81,7 @@ Let me tell you what it actually took to keep this festival alive.
 
 At any given edition, I was:
 
-- Running the festival (laying flooring, setting up sound, hotel negotiations, wristbands, coordinating flight and workshop schedules, budgeting; Sarah was a huge help the last 4 editions)
+- Running the festival (laying flooring, setting up sound, hotel negotiations, wristbands, coordinating flight and workshop schedules, budgeting; Sarah was instrumental the last 4 editions)
 - DJing
 - Taxi dancing
 - Taking professional photos
@@ -93,7 +93,7 @@ At any given edition, I was:
 
 And that's just during the event. It doesn't include the months of planning before or the work after.
 
-I wasn't hoarding roles. I was filling gaps that nobody else would fill, at least not to the standard needed to keep the event alive.
+I wasn't hoarding roles. Outside of Sarah, a few coordinators, and the volunteers who stepped up over the years, I was filling gaps that very few people would step up to fill.
 
 And it wasn't just me.
 
@@ -115,7 +115,7 @@ Who's signing up for that? They can just buy a pass and enjoy the event on their
 
 Building a team requires either money or a culture of genuine support. I didn't have the money, and the culture wasn't there. Not enough people were willing to share the weight.
 
-So I did it myself. Not because I wanted to. Because there was no other option.
+The earlier editions had coordinators who stepped up and carried real weight. The later editions had Sarah, who was embedded in every part of the operation. And there were always volunteers who gave their time. But the core of the planning, the financial risk, the year-round work between editions, that fell on me. Not because I wanted to carry it all. Because there weren't enough hands at the scale needed.
 
 ## What an Artist Sees, What an Organizer Carries
 
@@ -160,7 +160,7 @@ I don't know where this narrative came from that organizers are rolling in money
 - Paid last, or not at all
 - Best case: minimum wage if you count all the hours
 
-Let me break that organizer number down:
+Let me break that organizer number down for an international level festival at a hotel venue:
 
 | Expense                        | Range                 |
 | ------------------------------ | --------------------- |
@@ -181,9 +181,9 @@ Let me break that organizer number down:
 
 The organizer carries 250 to 400 times the financial risk of the attendee. And that's just money. It doesn't include the mental health toll, the strained relationships, or the lost sleep.
 
-And yet, the organizer is the one expected to smile and deliver flawlessly. While artists complain it's hard. While attendees post about their "anxiety" over a $100 to $200 pass.
+And yet, the organizer is the one expected to smile and deliver flawlessly. While artists complain it's hard. While attendees post about their anxiety over a $100 to $200 pass.
 
-I'm not minimizing anyone's experience. But I need the full picture to be visible. Because it rarely has been.
+My intention is not to minimize anyone's experience. But I need the full picture to be visible. Because it feels like it rarely has been.
 
 And since we're making the full picture visible, let me share another part of it.
 
@@ -224,7 +224,7 @@ You can't keep expecting golden eggs while starving the goose. Eventually it die
 
 ## What "Community" Actually Means
 
-The word "community" gets used a lot in the dance scene. I want to talk about what it meant in practice.
+The word "community" gets used a lot in the dance scene. I want to share what it means to me, in my opinion, based on my experience building something for this community for over a decade.
 
 "Community" isn't just showing up to dance and have a good time. It isn't just holding space. It isn't just offering an ear.
 
@@ -278,7 +278,7 @@ Beyond the infrastructure, the scene's fixation on hype was fundamentally unsust
 
 This created a culture of entertainers and consumers rather than students and teachers. And that made long-term growth nearly impossible.
 
-As one of the people who has invested the most time into this scene over the past decade, through the podcast, the festivals, the weekenders, the pedagogy, leading the Facebook group, it is deeply disappointing to see that investment yield so little fruitful growth. Not disappointing in a passing sense. Disappointing in the way that grief is disappointing. You keep pouring into something hoping it'll grow, and eventually you run out of water.
+Having invested as much time as I have into this scene over the past decade, through the intellectual dance content, the festivals, the weekenders, the pedagogy, leading the Facebook group, it is deeply disappointing to see that investment yield so little fruitful growth. Not disappointing in a passing sense. Disappointing in the way that grief is disappointing. You keep pouring into something hoping it'll grow, and eventually you run out of water.
 
 ## Grace in the Underground
 
@@ -397,7 +397,7 @@ Some of the loudest call-outs came from competing organizers. Ask yourself what 
 
 I saw a comment: "The organizer only cares about himself and his finances."
 
-Yes. I do.
+Yes. I finally do.
 
 With those finances, I went to the dentist and got an overdue checkup. I went to my cardiologist and scheduled an overdue appointment to ensure my heart is functioning properly with my mechanical aortic heart valve to live as long of a life that God will allow me.
 
@@ -419,7 +419,7 @@ We cannot fight for the culture when we're fighting to keep our lights on. We ca
 
 I put the festival and the scene first for too long, and I'm paying the price for it. For my own sanity, for my own health, for my own life, I have to make a change.
 
-I refuse to keep over-functioning for other people's entertainment while I can't afford to see a doctor. That's not "community." That's exploitation with a smile.
+I refuse to keep over-functioning for other people's entertainment while I can't afford to see a doctor. That's not "community." That's unsustainable.
 
 So I'm choosing myself.
 
@@ -427,17 +427,17 @@ So I'm choosing myself.
 
 I know it's been months. I owe you an explanation for the silence.
 
-After the cancellation, I was dealing with anxiety and panic attacks. Every time I posted anything, it was met with questioning that made it harder to show up publicly. I tried reaching out to people I thought could help me see this through, and that didn't happen, which is part of how I got to this point.
+After the cancellation, I was dealing with anxiety and panic attacks. Every time I posted anything, it was met with questioning I didn't have answers for, which made it harder to show up publicly. I tried reaching out to people I thought could help me see this through, and that didn't happen, which is part of how I got to this point.
 
 I was also dealing with a grant situation that didn't operate with the transparency or integrity it should have. I'll leave it at that for now, but it added a significant layer of stress to an already overwhelming situation.
 
-I needed time to resettle. Mentally and financially. To get to a place where I could address this clearly, not reactively.
+I needed time to resettle. Emotionally, mentally and financially. To get to a place where I could address this clearly, not reactively.
 
 The silence wasn't me running. It was me choosing myself to get through the darker days.
 
 If I had the mental capacity to respond sooner, I would have.
 
-I'm sorry it took this long. Responding before I was ready would have put me in a mental place I wasn't sure I could come back from.
+I'm sorry it took this long. Responding before I was ready with the support I did not have would have put me in a mental place I wasn't sure I could come back from.
 
 People paid for something they didn't get. I'm not disappearing.
 
@@ -447,25 +447,25 @@ There will be public tracking so you can watch the progress. This level of trans
 
 I could have ghosted. Others in this scene have. I'm not doing that.
 
-For my own sanity and well-being, I won't be sharing a payment schedule or promising a completion date. Refund timing will depend on my monthly income and Zelle's daily transfer limits. The progress tracker will show every step transparently.
+For my own sanity and well-being, I won't be sharing a payment schedule or promising a completion date. Refund timing will depend on my monthly income, my well-being, and Zelle's daily transfer limits. The progress tracker will show every step transparently.
 
 ## What's Next
 
 I don't know.
 
-This chapter is closed. I need to clear this from my life, financially, mentally, emotionally, before I can think about what comes after.
+The festival chapter is closed. I need to clear this from my life, financially, mentally, emotionally.
 
 I need to heal. There's grief in this. I'm grieving something I built for nearly a decade.
 
 But I'm also proud.
 
-I'm proud of the way I showed up. The level of excellence I maintained with limited funds and against all of these odds. The standard I set. I showed what's possible when someone gives everything they have, and I showed what happens when a scene doesn't give enough back.
+I'm proud of what we built and the level of excellence the team and I maintained with limited funds and against all of these odds. The standard we set and the innovative ideas we brought to the scene. The way we built a platform for artists to share their work and get paid. The way we created a space for people to learn and grow. A place that was more than just an event, but a place where people could connect, share, and feel seen.
 
-That's mine. No one can take that.
+That's ours. No one can take that.
 
 I've been getting into event photography, a skill I brought to many events outside of my own to help grow the dance's online presence. I'm making improvements to WCWD, Learntokiz, and a new project called VidHive. I'm still very much loving coding and building.
 
-I've been playing more tennis.
+I've been playing more tennis, investing in my health, and spending more time with my two cats.
 
 ## Thank You, Sarah
 
@@ -479,21 +479,21 @@ She worked too hard. To a fault. She gave more of herself than was sustainable, 
 
 She didn't have to do any of it. She chose to. And she pushed herself to the edge for something she believed in.
 
-I owe her. Not just gratitude, but financially. Any donations or extra contributions that come through this process will go toward making that right. She sacrificed too much to walk away empty-handed.
+I owe her. Not just gratitude, but financially. That is also on my list of matters to address. She sacrificed too much to walk away empty-handed.
 
 Whatever Sarah needs to do for her own peace moving forward, she has every right to do it. She's earned that and then some.
 
 **I want to be clear about something: Neo Kizomba Festival was my project, my name, and my responsibility. The refunds are mine to handle. If you have questions or concerns about the refund process, bring them to me. Please do not tag, message, or direct refund inquiries to Sarah. She gave more than enough. Let her be.**
 
-Sarah, thank you. I see you. I see what you carried. You deserve every flower.
+Sarah, thank you. I see you. I see what you carried. You deserve every flower and every bit of peace that comes your way. I hope you know how much I appreciate you, and if you ever need anything, I'm only one call away.
 
 ## Final Words
 
 To those who genuinely showed up over the years, who volunteered, who promoted without being asked, who checked in, who understood what this took: thank you. You know who you are, and I hope you know it mattered.
 
-To the scene: I hope this letter gives you a window into what it actually takes to build something. If events keep closing their doors and organizers keep burning out, it's not because they failed. It's because the model is broken, and not enough people are willing to fix it.
+To the scene: I hope this letter gives you a window into what it actually takes to build something. If events keep closing their doors and organizers keep burning out, it's not because they failed. It's because the model is broken, and I realize there are some organizers that are really the furthest thing from organized, and also there are just not enough people willing to roll up their sleeves to help build and sustain.
 
-If the community doesn't change how it supports the people who build these spaces, there simply won't be spaces to dance in. We're already seeing that.
+If the community doesn't change how it supports the people who build these spaces, there simply won't be spaces to dance in. We're already seeing that unfold. If you want to dance, you have to care about the people who build the spaces you dance in. You have to care about their well-being, their mental health, their financial stability. You have to care about them as human beings, not just as entertainers or service providers.
 
 I gave what I had. For over a decade, I gave what I had.
 
@@ -501,12 +501,12 @@ And now I'm choosing what's left of me.
 
 ---
 
-**Neo Kizomba Festival.** 8 Editions. 10 Years. Done.
+**Neo Kizomba Festival.** 8 Editions. 10 Years. One legacy.
 
 _When life gives you lemons, make lemonade._
 
 _The same organizational skills, professionalism, coding ability, and thoughtfulness that I poured into building this festival over 10 years, I'm now pouring into closing this chapter with as much integrity as I humanly can._
 
-_From the inspired dancer who became an artist and organizer, and gave what he could for over a decade,_
+_From the inspired dancer who became an artist and organizer, and gave what he could for over a decade who hoped his investment in the scene would yield growth, to the person who is now choosing himself,_
 
 **Charles Ogar, "Mr. Neokiz"**

@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, Paper, Text, Title, Group, Button, Box } from "@mantine/core";
-import { Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import {
   IconHeart,
   IconHeartHandshake,
@@ -31,7 +31,13 @@ const DonationThankYou: React.FC<DonationThankYouProps> = ({
   const hasAmount = typeof amount === "number" && amount > 0;
 
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Thank You">
+        <meta name="description" content="Thank you for your generous donation to Neo Kizomba Festival." />
+        <meta property="og:title" content="Thank You — Neo Kizomba Festival" />
+        <meta property="og:description" content="Thank you for your generous donation to Neo Kizomba Festival." />
+      </Head>
+      <FarewellLayout>
       <Stack gap="xl" maw={700} mx="auto" px={{ base: "sm", sm: "md" }}>
         {/* Success Header */}
         <Stack align="center" gap="md" py="xl">
@@ -208,6 +214,7 @@ const DonationThankYou: React.FC<DonationThankYouProps> = ({
         </Stack>
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

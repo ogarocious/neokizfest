@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Stack, Text, Box, Group, CloseButton } from "@mantine/core";
-import { router } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { IconAlertCircle, IconTicket } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import { GlassCard, PageHeader, LoadingOverlay } from "../components/shared";
@@ -133,8 +133,14 @@ const RefundRequest: React.FC = () => {
   };
 
   return (
-    <FarewellLayout>
-      <LoadingOverlay
+    <>
+      <Head title="Request a Refund">
+        <meta name="description" content="Submit your refund request for Neo Kizomba Festival." />
+        <meta property="og:title" content="Request a Refund — Neo Kizomba Festival" />
+        <meta property="og:description" content="Submit your refund request for Neo Kizomba Festival." />
+      </Head>
+      <FarewellLayout>
+        <LoadingOverlay
         visible={emailValidating || isSubmitting}
         message={isSubmitting ? "Submitting your request..." : "Validating your email..."}
       />
@@ -233,6 +239,7 @@ const RefundRequest: React.FC = () => {
         )}
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

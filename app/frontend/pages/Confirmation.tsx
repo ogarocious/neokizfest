@@ -1,4 +1,5 @@
 import React from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Paper,
@@ -78,7 +79,13 @@ const Confirmation: React.FC = () => {
   };
 
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Confirmation">
+        <meta name="description" content="Your Neo Kizomba Festival refund request has been submitted." />
+        <meta property="og:title" content="Confirmation — Neo Kizomba Festival" />
+        <meta property="og:description" content="Your Neo Kizomba Festival refund request has been submitted." />
+      </Head>
+      <FarewellLayout>
       <Stack gap="xl" maw={700} mx="auto" px={{ base: "sm", sm: "md" }}>
         {/* Success Header */}
         <Stack align="center" gap="md" py="xl">
@@ -460,6 +467,7 @@ const Confirmation: React.FC = () => {
         </Stack>
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Head } from "@inertiajs/react";
 import {
   Stack,
   Text,
@@ -95,7 +96,13 @@ const Support: React.FC = () => {
   };
 
   return (
-    <FarewellLayout>
+    <>
+      <Head title="Support">
+        <meta name="description" content="Support Neo Kizomba Festival with a donation to help close this chapter responsibly." />
+        <meta property="og:title" content="Support — Neo Kizomba Festival" />
+        <meta property="og:description" content="Support Neo Kizomba Festival with a donation to help close this chapter responsibly." />
+      </Head>
+      <FarewellLayout>
       <LoadingOverlay visible={loading} message="Redirecting to payment..." />
       <Stack gap="lg" maw={800} mx="auto" px="md">
         <PageHeader
@@ -319,6 +326,7 @@ const Support: React.FC = () => {
         <BackToHome />
       </Stack>
     </FarewellLayout>
+    </>
   );
 };
 
