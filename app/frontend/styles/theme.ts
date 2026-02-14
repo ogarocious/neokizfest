@@ -102,7 +102,7 @@ export const responsiveText = {
   // Section titles
   sectionTitle: "clamp(1rem, 3vw, 1.25rem)",
   // Body text
-  body: "clamp(0.8rem, 2.5vw, 1rem)",
+  body: "clamp(1rem, 2.5vw, 1.125rem)",
   // Small text
   small: "clamp(0.75rem, 2vw, 0.875rem)",
   // Extra small / labels
