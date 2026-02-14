@@ -49,6 +49,10 @@ class PagesController < ApplicationController
     render inertia: 'ArtistPayments'
   end
 
+  def choosing_myself
+    render inertia: 'ChoosingMyself'
+  end
+
   # Note: progress action moved to RefundProgressController for Notion integration
 
   # ==================== LEGACY FESTIVAL PAGES ====================
