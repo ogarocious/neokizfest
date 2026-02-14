@@ -89,8 +89,8 @@ const ChoosingMyself: React.FC = () => {
           content={[
             "Neo Kizomba Festival is ending. Not postponed. Over.",
             "This wasn't the plan. After 8 editions over 10 years, with a COVID gap that tested all of us, I never imagined writing these words under these circumstances, but here we are.",
-            "But here I am. And I'm writing them because I'm choosing myself.",
-            "For the first time in a decade, I'm choosing my health, my peace, and my future over a scene that took more than it gave back. This letter is my farewell, my truth, and my line in the sand.",
+            "And I'm writing them because I'm choosing myself.",
+            "For the first time in a over a decade, I'm choosing my health, my peace, and my future over a scene that took more than it gave back. This letter is my farewell, my truth, and my line in the sand.",
             "This chapter is closed.",
           ]}
         />
@@ -249,7 +249,7 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             That closing DJ set in 2024. Ninja handed me a drink, I was buzzed
             and in the zone, and the songs just came to me. Completely off the
-            cuff. No plan. Just flow. I listen to that mix and I dance. That one
+            cuff. No plan. Just flow. I listen to that mix alot still. That one
             stays with me.
           </Text>
 
@@ -259,7 +259,7 @@ const ChoosingMyself: React.FC = () => {
             The pool parties were a blast. And I'll never forget scheming to get
             Sarah into one of the rooms so the crowd could give her the applause
             she deserved for everything she was doing behind the scenes. That
-            moment mattered.
+            moment definitely mattered.
           </Text>
 
           <PhotoPlaceholder caption="Pool Parties & Community Moments" />
@@ -283,38 +283,39 @@ const ChoosingMyself: React.FC = () => {
             overnight.
           </Text>
 
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+            Phase 1: The Early Years.
+          </Text>
           <Text c={colors.textSecondary} style={bodyStyle}>
-            <Text span fw={700}>
-              Phase 1: The Early Years.
-            </Text>{" "}
             When I first started investing in growing Urbankiz in the U.S., the
             resistance came from the traditionalists. I was bullied at events.
             Called out in posts. Dismissed for pushing a dance that didn't fit
             the mold. I kept building anyway.
           </Text>
 
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+            Phase 2: The Growth Years.
+          </Text>
           <Text c={colors.textSecondary} style={bodyStyle}>
-            <Text span fw={700}>
-              Phase 2: The Growth Years.
-            </Text>{" "}
             As Urbankiz started gaining some traction and legitimacy, the
-            resistance shifted. North American artists boycotted the festival
+            resistance shifted. North American artists boycotting the festival
             and my brand. No communication. No conversation. Just cut off. Lots
-            of hype publicly with very little substance. I kept building anyway.
+            of what felt like entitlement & hype publicly with very little
+            substance. I kept building anyway.
           </Text>
 
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+            Phase 3: Now.
+          </Text>
           <Text c={colors.textSecondary} style={bodyStyle}>
-            <Text span fw={700}>
-              Phase 3: Now.
-            </Text>{" "}
-            Public accusations. Gossip. Silence from people I invested in for
-            years. The same pattern, just a different source.
+            Public accusations. Gossip. The same pattern, just a different
+            source.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Every single phase, I was doing the work of building something for
-            the scene. And every single phase, the resistance came from the
-            people who benefited from what I was building.
+            the scene offline & online. And every single phase, the resistance
+            came from the people who also benefited from what I was building.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -367,12 +368,13 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             And that's just during the event. It doesn't include the months of
-            planning before or the work after.
+            stress & planning before or the work after.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I wasn't hoarding roles. I was filling gaps that nobody else would
-            fill, at least not to the standard needed to keep the event alive.
+            step up to fill, at least not to the standard needed to keep the
+            event alive.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -380,15 +382,15 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I have a vivid memory of Sarah carrying a speaker between venues.
-            The speaker was taller than half her body. She was moving it by
-            herself. And at least four or five DJs were sitting right there,
-            watching her, not lifting a finger to help.
+            I have a vivid memory of Sarah carrying a speaker to load in a car
+            between venues. The speaker was taller than half her body. She was
+            moving it by herself. And at least four or five DJs were sitting
+            right there, watching her, not lifting a finger to help.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            That image says more about the culture around these events than any
-            paragraph I could write.
+            That image says more about the entitlement culture around these
+            events than any paragraph I could write.
           </Text>
 
           <PhotoPlaceholder caption="Behind the Scenes — Setting Up" />
@@ -397,14 +399,14 @@ const ChoosingMyself: React.FC = () => {
             Equipment needs to be moved. Floors need to be laid down. People
             need to be checked in. Cleanup needs to happen afterward. These are
             basic operational needs that come with putting on an event. And yet,
-            organizers and the people closest to them are often left doing all
-            of it while others sit back and wait for the red carpet to roll out.
+            organizers and the people closest to them are often left doing most
+            to all of it while others sit back and turn a blind eye.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             If each person just picked up after themselves, it would lighten the
-            load significantly. But that level of consideration rarely showed up
-            without being asked for.
+            load during clean up and tear down. But that simple level of
+            consideration rarely happens in my experience.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
@@ -431,12 +433,13 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             Building a team requires either money or a culture of genuine
             support. I didn't have the money, and the culture wasn't there. Not
-            enough people were willing to share the weight.
+            enough people were willing to roll up their sleeves and share the
+            weight.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            So I did it myself. Not because I wanted to. Because there was no
-            other option.
+            So I did a lot of it myself. Not because I wanted to. Because there
+            was no other option.
           </Text>
         </Stack>
 
@@ -448,10 +451,10 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I've been on both sides of this equation. I'm an artist who's been
-            hired and traveled to festivals. I understand firsthand how
-            strenuous it is to work the social floor and maintain boundaries
-            with attendees. I've always viewed my role on the social floor as an
-            investment in the scene's growth.
+            hired and traveled to festivals and weekenders. I understand
+            firsthand how strenuous it is to work the social floor and maintain
+            boundaries with attendees. I've always viewed my role on the social
+            floor as an investment in the scene's growth.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -522,13 +525,14 @@ const ChoosingMyself: React.FC = () => {
             And if you were to count every hour an organizer puts into planning,
             promoting, negotiating, building, executing, and cleaning up, many
             of them are effectively working for free. Or worse, paying out of
-            pocket for the privilege of doing it.
+            pocket for the "privilege" of doing it.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I don't know where this narrative came from that organizers are
             rolling in money. That has not been my experience, and from
-            conversations with other organizers, it's not theirs either.
+            conversations with the majority of other organizers, it's not theirs
+            either.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
@@ -572,7 +576,8 @@ const ChoosingMyself: React.FC = () => {
           </List>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Let me break that organizer number down:
+            Let me break that organizer number down for a international level
+            festival at a hotel venue:
           </Text>
 
           <Box style={{ overflowX: "auto" }}>
@@ -681,21 +686,24 @@ const ChoosingMyself: React.FC = () => {
             </Table>
           </Box>
 
-          <Text c={colors.textSecondary} style={bodyStyle}>
-            The organizer carries 250 to 400 times the financial risk of the
-            attendee. And that's just money. It doesn't include the mental
-            health toll, the strained relationships, or the lost sleep.
-          </Text>
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              The organizer carries 250 to 400 times the financial risk of the
+              attendee. And that's just the money. It doesn't include the mental
+              health toll, the strained relationships, or the lost sleep.
+            </Text>
+          </GlassCard>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             And yet, the organizer is the one expected to smile and deliver
-            flawlessly. While artists complain it's hard. While attendees post
-            about their "anxiety" over a $100 to $200 pass.
+            flawlessly. While artists complain it's hard. While some attendees
+            post about their "anxiety" over a $100 to $200 pass.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I'm not minimizing anyone's experience. But I need the full picture
-            to be visible. Because it rarely has been.
+            My intention is not to minimize anyone's experience. But I need the
+            full picture to be visible. Because it feels like it rarely has
+            been.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -713,11 +721,15 @@ const ChoosingMyself: React.FC = () => {
             blackmail, and false claims to try to damage my reputation when
             things didn't go exactly their way. Artists who benefited from being
             flown in, housed, fed, and paid, and then turned around and
-            threatened to trash the event publicly if their demands weren't met.
+            threatened to trash the event privately/publicly if their demands
+            weren't met.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            That's not professionalism. That's leverage disguised as grievance.
+            That's not professionalism at all. It's bullying. And it's a dynamic
+            that organizers often have to navigate while still trying to deliver
+            a great experience for attendees and uphold their commitments to
+            artists and attendees.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -817,7 +829,8 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             The word "community" gets used a lot in the dance scene. I want to
-            talk about what it meant in practice.
+            what it means to me, in my opinion, based on my experience building
+            something for this community for over a decade.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -893,14 +906,14 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Not once did enough people check in on me or the team. Very few
-            people asked: "How are you all doing? Did you make money? Did you
-            break even?"
+            What about people checking in on me or the team? Very few people
+            asked: "How are you all doing? Did you make money? Did you break
+            even?"
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Some did. And to those people: I see you, and I'm grateful. But it
-            wasn't enough for the size of what we were carrying.
+            unfortunately wasn't enough for the size of what we were carrying.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -944,10 +957,10 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             There aren't enough festivals to hire everyone. There are barely any
-            festivals at all. And there are very few experienced organizers.
-            Most people running events are figuring it out as they go, bringing
-            whatever skills they have from other industries or learning in real
-            time.
+            festivals at all. And there are very few experienced true
+            organizers. Most people running events are figuring it out as they
+            go, bringing whatever skills they have from other industries or
+            learning in real time.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -976,14 +989,14 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             As one of the people who has invested the most time into this scene
-            over the past decade, through the podcast, the festivals, the
-            weekenders, the pedagogy, leading the Facebook group, it is deeply
-            disappointing to see that investment yield so little fruitful
-            growth. Not disappointing in a passing sense. Disappointing in the
-            way that grief is disappointing.{" "}
+            over the past decade, through the intellectual dance content, the
+            festivals, the weekenders, the pedagogy, leading the Facebook group,
+            it is deeply disappointing to see that investment yield so little
+            fruitful growth. Not disappointing in a passing sense. Disappointing
+            in the way that grief is disappointing.{" "}
             <Text span fs="italic">
-              You pour into a vision for over ten years and watch the soil not
-              take.
+              You keep pouring into something hoping it'll grow, and eventually
+              you run out of water.
             </Text>
           </Text>
         </Stack>
@@ -1005,14 +1018,13 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            There is no curriculum for how to throw a social. No training on how
-            to negotiate with a hotel. No certification for becoming an
-            instructor. No degree program for performing, organizing, or running
-            a festival.
+            There is no class for how to throw a social. No training on how to
+            negotiate with a hotel. No certification for becoming an instructor.
+            No degree program for performing, organizing, or running a festival.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Every single one of us is learning as we go. That's the reality.
+            Most of us are learning as we go. That's the reality.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1092,9 +1104,9 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            When the festival lost money, that wasn't "disappointing." That was
-            me not eating properly for months. Delaying doctor's appointments.
-            Lying awake calculating whether I could make rent.
+            When the festival lost money, that wasn't just "disappointing." That
+            was me not eating properly for months. Delaying doctor's
+            appointments. Lying awake calculating whether I could make rent.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1241,9 +1253,9 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             If I were pocketing money, I would have used it to take care of my
-            health. I would have seen my cardiologist. I would have seen a
-            dentist. I would have taken care of my body, which was my mechanism
-            for my primary source of income.
+            health. I would have seen my cardiologist more often. I would have
+            seen a dentist. I would have taken care of my body, which was my
+            mechanism for my primary source of income.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1289,7 +1301,11 @@ const ChoosingMyself: React.FC = () => {
           </List>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I will post about these in more detail later.
+            I will post about these in more detail later in a separate post. But
+            the point is, there were documented issues that caused delays in
+            payment. There was a history of attempts to resolve those issues.
+            And there was context for why those issues existed in the first
+            place.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1348,15 +1364,16 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Yes. I do.
+            Yes. I do. If I don't take my own well-being into consideration, who
+            else is going to?
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             With those finances, I went to the dentist and got an overdue
-            checkup. I went to my cardiologist and scheduled an overdue
-            appointment to ensure my heart is functioning properly with my
-            mechanical aortic heart valve to live as long of a life that God
-            will allow me.
+            checkup and cleaning. I went to my cardiologist and scheduled an
+            overdue echocardiogram to ensure my heart is functioning properly
+            with my mechanical aortic heart valve to live as long of a life that
+            God will allow me.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1380,7 +1397,8 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             So yes, I care about my finances. Because with those finances, I'm
-            able to take care of myself as a human being.
+            able to take care of myself as a human being. I feel we are all
+            entitled to that level of basic health care.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
@@ -1492,8 +1510,8 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             For my own sanity and well-being, I won't be sharing a payment
             schedule or promising a completion date. Refund timing will depend
-            on my monthly income and Zelle's daily transfer limits. The progress
-            tracker will show every step transparently.
+            on my monthly income, my well-being, and Zelle's daily transfer
+            limits. The progress tracker will show every step transparently.
           </Text>
         </Stack>
 
@@ -1590,9 +1608,8 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I owe her. Not just gratitude, but financially. Any donations or
-            extra contributions that come through this process will go toward
-            making that right. She sacrificed too much to walk away
+            I owe her. Not just gratitude, but financially. That is also on my
+            list of matters to address. She sacrificed too much to walk away
             empty-handed.
           </Text>
 
@@ -1617,7 +1634,9 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Sarah, thank you. I see you. I see what you carried. You deserve
-            every flower.
+            every flower and every bit of peace that comes your way. I hope you
+            know how much I appreciate you, and if you ever need anything, I'm
+            only one call away.
           </Text>
         </Stack>
 
@@ -1647,7 +1666,11 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             If the community doesn't change how it supports the people who build
             these spaces, there simply won't be spaces to dance in. We're
-            already seeing that.
+            already seeing that unfold. If you want to dance, you have to care
+            about the people who build the spaces you dance in. You have to care
+            about their well-being, their mental health, their financial
+            stability. You have to care about them as human beings, not just as
+            entertainers or service providers.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>

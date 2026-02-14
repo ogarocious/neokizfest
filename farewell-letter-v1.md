@@ -278,7 +278,7 @@ Beyond the infrastructure, the scene's fixation on hype was fundamentally unsust
 
 This created a culture of entertainers and consumers rather than students and teachers. And that made long-term growth nearly impossible.
 
-As one of the people who has invested the most time into this scene over the past decade, through the podcast, the festivals, the weekenders, the pedagogy, leading the Facebook group, it is deeply disappointing to see that investment yield so little fruitful growth. Not disappointing in a passing sense. Disappointing in the way that grief is disappointing. You pour into a vision for over ten years and watch the soil not take.
+As one of the people who has invested the most time into this scene over the past decade, through the podcast, the festivals, the weekenders, the pedagogy, leading the Facebook group, it is deeply disappointing to see that investment yield so little fruitful growth. Not disappointing in a passing sense. Disappointing in the way that grief is disappointing. You keep pouring into something hoping it'll grow, and eventually you run out of water.
 
 ## Grace in the Underground
 
