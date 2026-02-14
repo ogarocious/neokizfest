@@ -50,6 +50,9 @@ class PagesController < ApplicationController
   end
 
   def choosing_myself
+    @og_title = "Choosing Myself — Neo Kizomba Festival"
+    @meta_description = "The full story behind the end of Neo Kizomba Festival. 10 years of building, what it cost, and why I'm choosing myself."
+    @og_image = "/images/choosing-myself/hero.jpg"
     render inertia: 'ChoosingMyself'
   end
 
