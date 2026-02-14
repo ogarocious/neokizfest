@@ -80,6 +80,7 @@ const ChoosingMyself: React.FC = () => {
         <meta name="description" content="The full story behind the end of Neo Kizomba Festival. 10 years of building, what it cost, and why I'm choosing myself." />
         <meta property="og:title" content="Choosing Myself — Neo Kizomba Festival" />
         <meta property="og:description" content="The full story behind the end of Neo Kizomba Festival. 10 years of building, what it cost, and why I'm choosing myself." />
+        <meta property="og:image" content="/images/choosing-myself/hero.jpg" />
       </Head>
       <FarewellLayout>
       <Stack gap="xl" maw={800} mx="auto" px={{ base: "sm", sm: "md" }}>
