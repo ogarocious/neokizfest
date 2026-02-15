@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f0f0f">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="canonical" href="<%= request.original_url.split('?').first %>">
+    <link rel="manifest" href="/site.webmanifest">
     <meta name="description" content="<%= @meta_description || "8 Editions. 10 Years. One legacy. Neo Kizomba Festival — the official farewell and refund process." %>">
     <meta property="og:site_name" content="Neo Kizomba Festival">
     <meta property="og:type" content="website">
@@ -22,7 +26,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= vite_client_tag %>

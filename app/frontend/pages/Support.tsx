@@ -28,7 +28,7 @@ import {
 import { colors, responsiveText, mobileInputStyles } from "../styles/theme";
 import type { DonationCheckoutResponse } from "../types/donation";
 
-const PRESET_AMOUNTS = [10, 25, 50, 100];
+const PRESET_AMOUNTS = [10, 25, 50, 100, 500, 1000, 5000];
 
 const Support: React.FC = () => {
   const [name, setName] = useState("");
@@ -159,7 +159,10 @@ const Support: React.FC = () => {
                 autoComplete="off"
                 styles={() => ({
                   label: mobileInputStyles.label,
-                  input: mobileInputStyles.input,
+                  input: {
+                    ...mobileInputStyles.input,
+                    borderColor: "rgba(34, 139, 34, 0.3)",
+                  },
                 })}
               />
 
@@ -172,7 +175,10 @@ const Support: React.FC = () => {
                 autoComplete="off"
                 styles={() => ({
                   label: mobileInputStyles.label,
-                  input: mobileInputStyles.input,
+                  input: {
+                    ...mobileInputStyles.input,
+                    borderColor: "rgba(34, 139, 34, 0.3)",
+                  },
                 })}
               />
 
@@ -201,7 +207,7 @@ const Support: React.FC = () => {
                           : "rgba(20, 20, 20, 0.8)",
                         border: selectedPreset === preset
                           ? "1px solid #32CD32"
-                          : "1px solid rgba(244, 93, 0, 0.3)",
+                          : "1px solid rgba(34, 139, 34, 0.3)",
                         borderRadius: 8,
                         padding: "8px 16px",
                         color: selectedPreset === preset ? "white" : colors.textPrimary,
@@ -228,7 +234,10 @@ const Support: React.FC = () => {
                 autoComplete="off"
                 styles={() => ({
                   label: mobileInputStyles.label,
-                  input: mobileInputStyles.input,
+                  input: {
+                    ...mobileInputStyles.input,
+                    borderColor: "rgba(34, 139, 34, 0.3)",
+                  },
                 })}
               />
 

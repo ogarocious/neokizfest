@@ -33,7 +33,7 @@ import { CommunityMessageCard } from "../components/shared";
 import type { RefundDecision } from "../types/refund";
 import { colors, gradients } from "../styles/theme";
 
-const DONATION_AMOUNTS = [10, 25, 50];
+const DONATION_AMOUNTS = [10, 25, 50, 100, 500, 1000, 5000];
 
 const Confirmation: React.FC = () => {
   // Get data from URL params (passed via Inertia)
