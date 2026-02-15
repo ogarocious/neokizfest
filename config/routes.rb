@@ -28,17 +28,12 @@ Rails.application.routes.draw do
     # Community messages
     post 'community-messages', to: 'community_messages#create'
 
+    # Page view stats (Plausible proxy)
+    get 'stats/page-views', to: 'stats#page_views'
+
     # Square webhook (supporter donations)
     post 'webhooks/square', to: 'webhooks#square'
   end
-
-  # Legacy Festival Routes (kept for reference)
-  get 'home', to: 'pages#home'
-  get 'lineup', to: 'pages#lineup'
-  get 'videos', to: 'pages#videos'
-  get 'testimonials', to: 'pages#testimonials'
-  get 'inertia-example', to: 'pages#inertia_example'
-  get 'test', to: 'pages#test'
 
   # Health check endpoint
   get "up" => "rails/health#show", as: :rails_health_check

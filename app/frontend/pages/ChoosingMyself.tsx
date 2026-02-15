@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { colors, responsiveText } from "../styles/theme";
 import FarewellLayout from "../components/farewell/FarewellLayout";
-import { GlassCard, AudioPlayer } from "../components/shared";
+import { GlassCard, AudioPlayer, ArticleMeta } from "../components/shared";
 
 const bodyStyle: React.CSSProperties = {
   lineHeight: 1.8,
@@ -84,24 +84,33 @@ const ChoosingMyself: React.FC = () => {
       </Head>
       <FarewellLayout>
       <Stack gap="xl" maw={800} mx="auto" px={{ base: "sm", sm: "md" }}>
-        {/* Hero Banner */}
-        <Box
-          style={{
-            borderRadius: 12,
-            overflow: "hidden",
-            marginTop: "clamp(8px, 2vw, 16px)",
-          }}
-        >
-          <img
-            src="/images/choosing-myself/hero.jpg"
-            alt="The Neokiz Festival vs. Choosing Myself"
+        {/* Hero Banner + Meta */}
+        <Stack gap="sm">
+          <Box
             style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
+              borderRadius: 12,
+              overflow: "hidden",
+              marginTop: "clamp(8px, 2vw, 16px)",
             }}
+          >
+            <img
+              src="/images/choosing-myself/hero.jpg"
+              alt="The Neokiz Festival vs. Choosing Myself"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
+          </Box>
+
+          <ArticleMeta
+            author="Charles Ogar"
+            date="February 14, 2026"
+            page="/choosing-myself"
+            readTime="25 min read"
           />
-        </Box>
+        </Stack>
 
         <AudioPlayer
           src="/audio/choosing-myself.mp3"
