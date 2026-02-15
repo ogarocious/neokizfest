@@ -55,6 +55,11 @@
   dependencies:
     "@babel/types" "^7.27.3"
 
+"@babel/runtime@^7.10.2":
+  version "7.28.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.28.6.tgz#d267a43cb1836dc4d182cce93ae75ba954ef6d2b"
+  integrity sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==
+
 "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.13":
   version "7.27.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.6.tgz#ec4070a04d76bae8ddbb10770ba55714a417b7c6"
@@ -376,6 +381,18 @@
   integrity sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA==
   dependencies:
     "@standard-schema/utils" "^0.3.0"
+
+"@iconify/react@^5":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@iconify/react/-/react-5.2.1.tgz#62688343aa619c1ec3378730f41d57af53d664e6"
+  integrity sha512-37GDR3fYDZmnmUn9RagyaX+zca24jfVOMY8E1IXTqJuE8pxNtN51KWPQe3VODOWvuUurq7q9uUu3CFrpqj5Iqg==
+  dependencies:
+    "@iconify/types" "^2.0.0"
+
+"@iconify/types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@iconify/types/-/types-2.0.0.tgz#ab0e9ea681d6c8a1214f30cd741fe3a20cc57f57"
+  integrity sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==
 
 "@inertiajs/core@2.0.12":
   version "2.0.12"
@@ -1629,6 +1646,14 @@ react-dom@^19.1.0:
   integrity sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==
   dependencies:
     scheduler "^0.26.0"
+
+react-h5-audio-player@^3.10.1:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/react-h5-audio-player/-/react-h5-audio-player-3.10.1.tgz#a4d4e39633b2df1567a576faef69a4f949b43350"
+  integrity sha512-r6fSj9WXR6af1kxH5qQ/tawwDK4KrMfayiVCUettLYGX/KZ3BH8OGuaZP4O5KD0AxwsKAXtBv4kVQCWFzaIrUA==
+  dependencies:
+    "@babel/runtime" "^7.10.2"
+    "@iconify/react" "^5"
 
 react-hook-form@^7.71.1:
   version "7.71.1"

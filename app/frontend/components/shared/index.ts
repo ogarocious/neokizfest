@@ -26,3 +26,6 @@ export { default as ResponsiveText } from "./ResponsiveText";
 
 // Community
 export { default as CommunityMessageCard } from "./CommunityMessageCard";
+
+// Media
+export { default as AudioPlayer } from "./AudioPlayer";

@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { colors, responsiveText } from "../styles/theme";
 import FarewellLayout from "../components/farewell/FarewellLayout";
-import { GlassCard } from "../components/shared";
+import { GlassCard, AudioPlayer } from "../components/shared";
 
 const bodyStyle: React.CSSProperties = {
   lineHeight: 1.8,
@@ -103,6 +103,11 @@ const ChoosingMyself: React.FC = () => {
           />
         </Box>
 
+        <AudioPlayer
+          src="/audio/choosing-myself.mp3"
+          title="Listen to the Narration"
+        />
+
         {/* The End */}
         <Stack gap="sm">
           <Title order={3} fw={700} style={sectionTitleStyle}>
@@ -110,7 +115,7 @@ const ChoosingMyself: React.FC = () => {
           </Title>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Neo Kizomba Festival is ending. Not postponed. Over.
+            The Neo Kizomba Festival is ending. Not postponed. Over.
           </Text>
           <Text c={colors.textSecondary} style={bodyStyle}>
             This wasn't the plan. After 8 editions over 10 years, with a COVID
@@ -126,8 +131,9 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             For the first time in over a decade, I'm choosing my health, my
             peace, and my future over a scene that, on balance, took more than
-            it gave back. This letter is my farewell to the festival, my truth,
-            and my line in the sand.
+            it gave back. This letter is my farewell to the festival. This is
+            my truth, and my experience of things I endured over the past
+            decade.
           </Text>
           <Text c={colors.textSecondary} style={bodyStyle}>
             This chapter of the festival is closed.
@@ -150,7 +156,7 @@ const ChoosingMyself: React.FC = () => {
             }}
           >
             <List.Item>
-              Neo Kizomba Festival is ending. Not postponed. Over.
+              The Neo Kizomba Festival is ending. Not postponed. Over.
             </List.Item>
             <List.Item>
               The 6-month silence wasn't me running. I was dealing with anxiety,
@@ -192,7 +198,7 @@ const ChoosingMyself: React.FC = () => {
           </Title>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Before I get into the harder parts, I want to honor what Neo Kizomba
+            Before I get into the harder parts, I want to honor what the Neo Kizomba
             Festival was. Because it was something.
           </Text>
 
@@ -242,7 +248,7 @@ const ChoosingMyself: React.FC = () => {
               Active taxi dancers to help with lead/follow ratio
             </List.Item>
             <List.Item>
-              Women's care packages, tampons, chapstick, patches, ibuprofen,
+              Women's care packages, tampons, chapstick, patches, and ibuprofen,
               because details matter
             </List.Item>
             <List.Item>
@@ -416,7 +422,7 @@ const ChoosingMyself: React.FC = () => {
             <List.Item>
               Running the festival (laying flooring, setting up sound, hotel
               negotiations, wristbands, coordinating flight and workshop
-              schedules, budgeting; Sarah was instrumental the last 4 editions)
+              schedules, and budgeting; Sarah was instrumental the last 4 editions)
             </List.Item>
             <List.Item>DJing</List.Item>
             <List.Item>Taxi dancing</List.Item>
@@ -487,15 +493,19 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             "Hey, want to join me on this project? It's a ton of work. High
             stress. I'll appreciate you, but the scene won't. You probably won't
-            get any recognition for it. Little to no payment — and if you're the
-            main organizer, you're taking on expenses, so you might even be
-            paying to work."
+            get any recognition for it. And little to no payment."
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Who's signing up for that? They can just buy a pass and enjoy the
             event on their own terms instead of sacrificing their time behind
             the scenes.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            And if you're the main organizer, you're footing the bill for
+            whatever's left over. Everyone else gets to enjoy the event. You
+            get the invoice.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -548,8 +558,8 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             There is no rulebook for these events. It's all underground, and
-            every festival is different. That experience is why I made artist
-            care a priority at Neo Kizomba Festival.
+            every festival is different. Those experiences are why I made artist
+            care a priority at the Neo Kizomba Festival.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -600,8 +610,8 @@ const ChoosingMyself: React.FC = () => {
             loss, funded by personal credit, and working hundreds of unpaid
             hours, the math doesn't work. It's not sustainable unless you have
             deep pockets, a philanthropic mindset, or the ability to absorb
-            financial hits indefinitely. Most organizers trying to build
-            something sustainable and keep it alive don't have that luxury.
+            financial losses. Most organizers trying to build
+            something sustainable and keep it alive don't have those luxuries.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -631,7 +641,7 @@ const ChoosingMyself: React.FC = () => {
               itemWrapper: { fontSize: responsiveText.body, lineHeight: 1.8, alignItems: "flex-start" },
             }}
           >
-            <List.Item>Pass, flight, hotel</List.Item>
+            <List.Item>Pass, flight, and hotel</List.Item>
             <List.Item>Total exposure: $750 to $1,400</List.Item>
           </List>
 
@@ -878,13 +888,13 @@ const ChoosingMyself: React.FC = () => {
             <List.Item>Hotels made money from 400+ room nights</List.Item>
             <List.Item>Airlines made money from travelers flying in</List.Item>
             <List.Item>Restaurants made money from group dinners</List.Item>
-            <List.Item>Floor vendors, sound vendors got paid</List.Item>
+            <List.Item>Floor vendors and sound vendors got paid</List.Item>
             <List.Item>
-              Artists got flown in, housed, fed, paid, plus private lesson
+              Artists got flown in, housed, fed, and paid, plus private lesson
               income
             </List.Item>
             <List.Item>
-              Attendees got the experience, the memories, the connections
+              Attendees got the experience, the memories, and the connections
             </List.Item>
           </List>
 
@@ -897,23 +907,55 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Think about it: the Jack & Jill divisions at the festival gave
-            competitors a pathway from novice to advanced. Where Can We Dance
-            became a resource for the broader community. Beyond the festival,
-            I also hosted Olympiads of Kizomba competitions that gave dancers
-            national and international titles — both of which lost money, and
-            still came with the expectation of following through on the rules
-            of flying the winners to Europe to compete. All of these
-            accomplishments
-            ended up on people's artist bios, dance resumes, and social media
-            profiles. If you were to look at the credentials many dancers and
-            artists are carrying today, you'd find that a significant number
-            of them were a direct result of the platforms and opportunities I
-            helped build over the past decade.
+            The Jack & Jill divisions gave competitors a real pathway — novice,
+            intermediate, advanced. Placing in those divisions gave dancers
+            credibility they could carry with them. Results that ended up in
+            bios, on social media, at other events. That came from this
+            platform.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            And not enough people asked: how do we sustain the person/team
+            DJs and teachers looked to the Neo Kizomba Festival as a stamp of
+            approval. I can't tell you how many people messaged me about
+            wanting to teach or DJ at the festival. Being on the lineup carried
+            weight. It was something people wanted on their resume.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+            When things were good, everybody wanted to ride in the limo. Now,
+            in this time of need — the equivalent of standing at the bus stop
+            in the rain — ask me where those artists are.
+          </Text>
+
+          <GlassCard variant="accent" p={{ base: "md", sm: "lg" }}>
+            <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+              Everyone wanted to pick the fruit. But nobody was watering the
+              roots. The festival was bearing fruit for the whole scene —
+              credibility, platforms, opportunities, income. But very few people
+              thought about what it takes to keep the tree alive. You can't keep
+              picking and never pour water back in. Eventually the tree stops
+              growing. Eventually there's nothing left to pick.
+            </Text>
+          </GlassCard>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            Beyond the festival, I also built Where Can We Dance, a resource
+            for the broader community to find events and connect. I hosted the
+            Olympiads of Kizomba competitions, which gave dancers national and
+            international titles. Both lost money. And the Olympiads still came
+            with the expectation of flying winners to Europe to compete.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            All of these accomplishments ended up on people's bios, dance
+            resumes, and social media profiles. If you looked at the
+            credentials many dancers and artists carry today, you'd find that
+            a significant number of them came directly from the platforms and
+            opportunities I helped build over the past decade.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            And not enough people asked: how do we sustain the person
             making all of this happen?
           </Text>
 
@@ -1046,6 +1088,28 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
             That's not what I experienced at the scale I needed.
           </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            Here's what I hope the scene starts to understand: most events are
+            not a business move. Unless the organizer has deep pockets and is
+            throwing money at it for the sake of it, a festival is a labor of
+            love. It exists for the benefit of the community.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            But if the community doesn't step up to support the thing that was
+            built for them, eventually there won't be anything left to enjoy.
+            The organizer isn't the one benefiting the most. The people
+            dancing, making memories, and having the time of their lives —
+            they're the ones benefiting the most. The artists, like I said
+            before, carry the least risk and walk away with the highest reward.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
+            If those people don't see the event as something worth investing
+            in — worth keeping alive — then the roots dry up, the engine
+            stops, and there's nothing left for anybody.
+          </Text>
         </Stack>
 
         {/* Building from Nothing */}
@@ -1062,7 +1126,7 @@ const ChoosingMyself: React.FC = () => {
           <Text c={colors.textSecondary} style={bodyStyle}>
             Probably at least 50% of my bookings were self-hosted weekenders. I
             organized them myself, in cities across the United States, Canada,
-            South America. I wasn't waiting for someone to roll out the red
+            and South America. I wasn't waiting for someone to roll out the red
             carpet. I understood what I was trying to contribute to was a
             growing dance. I was building at the grassroots level.
           </Text>
@@ -1088,10 +1152,10 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Beyond the infrastructure, the scene's fixation on hype was
+            Beyond the infrastructure, the scene's fixation on hype is/was
             fundamentally unsustainable.{" "}
             <Text span style={underlineAccent}>
-              What was truly needed was a focus on pedagogy and established
+              What is/was truly needed was a focus on pedagogy and established
               systems to provide a proper base for new dancers and growth to
               stronger dancers and teachers.
             </Text>{" "}
@@ -1134,9 +1198,9 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            This is an underground dance world. There are no standards. No
-            universities. No certificates. No degrees. Not when it comes to
-            social dancing.
+            This is an underground dance world, meaning it's not mainstream.
+            There are no standards. No universities. No certificates. No
+            degrees. Not when it comes to social dancing.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1163,8 +1227,8 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
-            "What happened?" "How can we work through this?" "What would make
-            this right for both of us?"
+            "How can we work through this?" "What would make this right for
+            both sides?" "What can we do differently going forward?"
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1181,8 +1245,9 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             And within that complexity, what I see too often are people who act
-            like they have all the answers. People who are loud, but not
-            curious. People who make audacious claims to garner attention, but
+            like they have all the answers. People who are loud and quick to
+            throw shade, but lack curiosity and empathy. People who make
+            audacious claims to garner attention, but
             aren't prepared to listen, empathize, or work toward a solution.
           </Text>
 
@@ -1195,7 +1260,7 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             <Text span style={underlineAccent}>
-              That's what I tried to contribute towards building. That's what I hoped for. And too
+              That's what I tried to contribute to building. That's what I hoped for. And too
               often, that's not what showed up.
             </Text>
           </Text>
@@ -1209,8 +1274,8 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Some organizers can afford to take a financial hit because they have
-            a full-time job, a partner with stable income, family money,
-            something that cushions the blow.
+            a full-time job, a secondary business, family money, something that
+            cushions the blow.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fw={700}>
@@ -1218,9 +1283,10 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I was a dancepreneur. Dance was my income. Teaching, DJing,
-            organizing; that was how I paid rent. That was how I kept my lights
-            on and food on my table.
+            I was a dancepreneur and a freelancer. Dance and freelancing were
+            my income. Teaching, DJing, organizing, and picking up freelance
+            work; that was how I paid rent. That was how I kept my lights on
+            and food on my table.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1235,9 +1301,9 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Walking into rooms of white hotel owners and sales staff to
-            negotiate contracts where the assumptions weren't in my favor.
-            Having to be twice as sharp just to not get taken advantage of.
+            Walking into whole rooms of white hotel executives and sales staff
+            who definitely did not have my best interests in mind. Having to be
+            twice as sharp just to not get taken advantage of.
             Fighting against predatory contracts with no leverage and no legal
             team.{" "}
             <Text span style={underlineAccent}>
@@ -1284,8 +1350,8 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
-            I wasn't organizing Neo Kizomba as a passion project funded by some
-            other career. I was trying to build something sustainable that could
+            I wasn't organizing the Neo Kizomba Festival as a passion project
+            funded by some other career. I was trying to build something sustainable that could
             support my life. When it didn't work, I didn't have a safety net to
             fall back on.
           </Text>
@@ -1390,9 +1456,9 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Which is interesting, because I'm still getting contacted by artists
-            who want to work with Neokiz. If I didn't pay people, why would they
-            keep reaching out?
+            Take a look at the artist page and the repeat artists who came back
+            over the years. If they weren't getting paid, they wouldn't have
+            come back for multiple editions.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1485,7 +1551,7 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             I would ask this: any time you see someone pointing a finger, ask
-            yourself;{" "}
+            yourself:{" "}
             <Text span style={underlineAccent}>
               before they pointed the finger, did they extend a helping hand?
             </Text>{" "}
@@ -1563,7 +1629,7 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            Not a yacht, not a new car, no new jewelry, clothes, or shoes.
+            Not a yacht, not a new car, and no new jewelry, clothes, or shoes.
             Doctor visits, clothes, food, and rent.
           </Text>
 
@@ -1609,9 +1675,33 @@ const ChoosingMyself: React.FC = () => {
             After the cancellation, I was dealing with anxiety and panic
             attacks. Every time I posted anything, it was met with questioning
             I didn't have answers for, which made it harder to show up
-            publicly. I tried reaching out to people I thought could help me
-            see this through, and that didn't happen, which is part of how I got
-            to this point.
+            publicly.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            I tried reaching out to people I thought could help me see this
+            through. Multiple times. Multiple people. And every single one
+            fell through.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            I don't know if it was the complexity of everything, or the weight
+            of it, but when people saw what was actually involved, they stepped
+            back. Some said they'd help and didn't follow through. Some went
+            quiet. The result was the same — I was back where I started, alone
+            with all of it.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            A lot of people offered to listen. I appreciated that. But
+            listening didn't handle the refunds. Listening didn't move anything
+            forward. What I needed was someone willing to help me either run
+            the event one more time or close it responsibly. That help never
+            came. Not at the level I needed, despite how many times I asked.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            That's part of how I got to this point.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1623,7 +1713,7 @@ const ChoosingMyself: React.FC = () => {
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
-            I needed time to resettle. Emotionally, mentally and financially. To
+            I needed time to resettle. Emotionally, mentally, and financially. To
             get to a place where I could address this clearly, not reactively.
           </Text>
 
@@ -1650,7 +1740,7 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             Everyone will be offered a refund, the choice to waive it, and/or
-            making a donation.
+            the option to make a donation.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>
@@ -1694,7 +1784,7 @@ const ChoosingMyself: React.FC = () => {
 
           <Text c={colors.textSecondary} style={bodyStyle}>
             The festival chapter is closed. I need to clear this from my life,
-            financially, mentally, emotionally.
+            financially, mentally, and emotionally.
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle} fs="italic">
@@ -1791,7 +1881,7 @@ const ChoosingMyself: React.FC = () => {
               fw={700}
               style={{ ...bodyStyle, lineHeight: 1.8 }}
             >
-              I want to be clear about something: Neo Kizomba Festival was my
+              I want to be clear about something: the Neo Kizomba Festival was my
               project, my name, and my responsibility. The refunds are mine to
               handle. If you have questions or concerns about the refund
               process, bring them to me. Please do not tag, message, or direct
