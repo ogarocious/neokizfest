@@ -23,13 +23,22 @@ class RefundMailer < ApplicationMailer
   end
 
   # Sent when a refund request status changes (e.g., processing -> completed)
-  def status_update_email(email:, confirmation_number:, status:, name: nil, details: {})
+  def status_update_email(email:, confirmation_number:, status:, name: nil, payment_proof: nil, details: {})
     @confirmation_number = confirmation_number
     @status = status
     @name = name || "Valued Guest"
     @status_text = format_status(status)
     @details = details
     @status_url = status_url(confirmation_number)
+    @has_payment_proof = false
+
+    if payment_proof.present?
+      attachments[payment_proof[:filename]] = {
+        mime_type: payment_proof[:content_type],
+        content: payment_proof[:data]
+      }
+      @has_payment_proof = true
+    end
 
     subject = case status.to_s.downcase
               when "completed"

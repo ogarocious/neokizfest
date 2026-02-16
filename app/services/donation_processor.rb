@@ -18,10 +18,23 @@ class DonationProcessor
       }
     end
 
-    # 2. Read cached donation details from checkout
+    # 2. Acquire processing lock to prevent race conditions (page refresh, webhook overlap)
+    lock_key = "donation_lock:#{order_id}"
+    unless Rails.cache.write(lock_key, true, unless_exist: true, expires_in: 5.minutes)
+      Rails.logger.info("[DonationProcessor] Lock already held for #{order_id}, skipping")
+      cached = read_cached_details(order_id)
+      return {
+        success: true,
+        already_processed: true,
+        name: cached&.dig(:name),
+        amount: cached&.dig(:amount)
+      }
+    end
+
+    # 3. Read cached donation details from checkout
     cached = read_cached_details(order_id)
 
-    # 3. Verify payment completed via Square API
+    # 4. Verify payment completed via Square API
     verification = Square::OrderVerificationService.new.verify(order_id)
     unless verification[:success] && verification[:completed]
       Rails.logger.warn("[DonationProcessor] Order #{order_id} not completed: #{verification.inspect}")
@@ -34,7 +47,7 @@ class DonationProcessor
     email = cached&.dig(:email)
     waived_refund = cached&.dig(:waived_refund) == true
 
-    # 4. Create Notion supporter order
+    # 5. Create Notion supporter order
     notes = waived_refund ? "Waived refund + donated" : "Processed via thank-you page landing"
     supporter_order_service.create(
       name: name,
@@ -46,7 +59,7 @@ class DonationProcessor
       notes: notes
     )
 
-    # 5. Send emails (with waived context for special language)
+    # 6. Send emails (with waived context for special language)
     if email.present?
       send_donation_confirmation(name: name, email: email, amount: amount, identifier: order_id, waived_refund: waived_refund)
     end

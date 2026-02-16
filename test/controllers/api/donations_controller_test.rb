@@ -17,7 +17,11 @@ class Api::DonationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def with_mock_service(&block)
-    LemonSqueezy::CheckoutService.stub(:new, mock_checkout_service, &block)
+    Square::CheckoutService.stub(:new, mock_checkout_service, &block)
+  end
+
+  setup do
+    Rails.cache.clear
   end
 
   # ==================== VALIDATION ====================
@@ -77,8 +81,12 @@ class Api::DonationsControllerTest < ActionDispatch::IntegrationTest
   test "creates checkout with valid params" do
     mock_checkout_service.expect(:create_checkout, {
       success: true,
-      checkout_url: "https://neokizfest.lemonsqueezy.com/checkout/abc123"
-    }, [], name: "Jane Donor", email: "jane@example.com", amount_cents: 2500)
+      checkout_url: "https://square.link/u/abc123"
+    }) do |**kwargs|
+      kwargs[:name] == "Jane Donor" &&
+        kwargs[:email] == "jane@example.com" &&
+        kwargs[:amount_cents] == 2500
+    end
 
     with_mock_service do
       post_checkout(name: "Jane Donor", email: "jane@example.com", amount: 25)
@@ -87,7 +95,7 @@ class Api::DonationsControllerTest < ActionDispatch::IntegrationTest
 
     body = JSON.parse(response.body)
     assert_equal true, body["success"]
-    assert_equal "https://neokizfest.lemonsqueezy.com/checkout/abc123", body["checkoutUrl"]
+    assert_equal "https://square.link/u/abc123", body["checkoutUrl"]
 
     mock_checkout_service.verify
   end
@@ -95,8 +103,12 @@ class Api::DonationsControllerTest < ActionDispatch::IntegrationTest
   test "creates checkout without name" do
     mock_checkout_service.expect(:create_checkout, {
       success: true,
-      checkout_url: "https://neokizfest.lemonsqueezy.com/checkout/xyz789"
-    }, [], name: "", email: "anon@example.com", amount_cents: 1000)
+      checkout_url: "https://square.link/u/xyz789"
+    }) do |**kwargs|
+      kwargs[:name] == "" &&
+        kwargs[:email] == "anon@example.com" &&
+        kwargs[:amount_cents] == 1000
+    end
 
     with_mock_service do
       post_checkout(email: "anon@example.com", amount: 10)
@@ -110,6 +122,29 @@ class Api::DonationsControllerTest < ActionDispatch::IntegrationTest
     mock_checkout_service.verify
   end
 
+  test "passes waived flag when present" do
+    mock_checkout_service.expect(:create_checkout, {
+      success: true,
+      checkout_url: "https://square.link/u/waived123"
+    }) do |**kwargs|
+      kwargs[:email] == "waiver@example.com" &&
+        kwargs[:amount_cents] == 2500 &&
+        kwargs[:waived_refund] == true
+    end
+
+    with_mock_service do
+      post "/api/donations/checkout",
+        params: { name: "Waiver", email: "waiver@example.com", amount: 25, waived: true }.to_json,
+        headers: { "Content-Type" => "application/json", "Accept" => "application/json" }
+      assert_response :ok
+    end
+
+    body = JSON.parse(response.body)
+    assert_equal true, body["success"]
+
+    mock_checkout_service.verify
+  end
+
   # ==================== SERVICE ERRORS ====================
 
   test "returns error when checkout service fails" do
@@ -117,7 +152,9 @@ class Api::DonationsControllerTest < ActionDispatch::IntegrationTest
       success: false,
       error: "api_error",
       message: "Payment service returned an error. Please try again."
-    }, [], name: "Jane Donor", email: "jane@example.com", amount_cents: 5000)
+    }) do |**kwargs|
+      kwargs[:email] == "jane@example.com" && kwargs[:amount_cents] == 5000
+    end
 
     with_mock_service do
       post_checkout(name: "Jane Donor", email: "jane@example.com", amount: 50)

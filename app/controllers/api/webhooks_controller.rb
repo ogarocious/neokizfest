@@ -30,6 +30,13 @@ module Api
         return head :ok
       end
       order_id = payment["order_id"]
+
+      # Use order_id as identifier (same as DonationProcessor) so dedup works across both paths
+      if order_id.blank?
+        Rails.logger.warn("[WebhooksController] No order_id in payment, skipping")
+        return head :ok
+      end
+
       cached = Rails.cache.read("sq_order:#{order_id}")
       cached_name = cached.is_a?(Hash) ? cached[:name] : cached
 
@@ -38,13 +45,20 @@ module Api
         email: payment["buyer_email_address"],
         amount_paid: (payment.dig("amount_money", "amount").to_i / 100.0).round(2),
         date_received: payment["created_at"],
-        identifier: payment["id"],
+        identifier: order_id,
         status: "Payment Received",
         notes: payment["receipt_url"] ? "Receipt: #{payment['receipt_url']}" : nil
       }
 
-      if supporter_order_service.find_by_identifier(order_params[:identifier])
-        Rails.logger.info("[WebhooksController] Duplicate order #{order_params[:identifier]}, skipping")
+      if supporter_order_service.find_by_identifier(order_id)
+        Rails.logger.info("[WebhooksController] Order #{order_id} already processed, skipping")
+        return head :ok
+      end
+
+      # Acquire processing lock to prevent race conditions with thank-you page
+      lock_key = "donation_lock:#{order_id}"
+      unless Rails.cache.write(lock_key, true, unless_exist: true, expires_in: 5.minutes)
+        Rails.logger.info("[WebhooksController] Lock already held for #{order_id}, skipping")
         return head :ok
       end
 

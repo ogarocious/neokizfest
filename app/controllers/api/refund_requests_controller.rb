@@ -175,11 +175,19 @@ module Api
     is_waived = %w[waive waive_refund waive\ refund].include?(decision)
     email_status = is_waived ? "waived" : "completed"
 
+    # For completed (non-waived) refunds, try to attach Zelle payment proof
+    payment_proof = nil
+    if email_status == "completed"
+      payment_proof = zelle_transfer_service.fetch_payment_proof(request[:id])
+      Rails.logger.info("[RefundRequestsController] Payment proof #{payment_proof ? 'found' : 'not found'} for #{confirmation_number}")
+    end
+
     RefundMailer.status_update_email(
       email: email,
       confirmation_number: request[:confirmation_number],
       status: email_status,
       name: request[:name],
+      payment_proof: payment_proof,
       details: {
         decision: request[:decision],
         refund_amount: request[:refund_amount]
@@ -238,6 +246,10 @@ module Api
 
   def refund_request_service
     @refund_request_service ||= Notion::RefundRequestService.new
+  end
+
+  def zelle_transfer_service
+    @zelle_transfer_service ||= Notion::ZelleTransferService.new
   end
 
   def refund_params

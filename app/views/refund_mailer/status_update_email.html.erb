@@ -73,6 +73,13 @@
   </div>
 <% end %>
 
+<% if @status.to_s.downcase == "completed" && @has_payment_proof %>
+  <div style="background-color: #302117; border: 1px solid #5B2E12; border-radius: 8px; padding: 20px; margin: 24px 0;">
+    <p style="color: #F45D00; font-weight: 600; margin: 0 0 8px;">Payment Proof Attached</p>
+    <p style="color: #E8E0D8; margin: 0; font-size: 14px;">A screenshot of your Zelle payment confirmation is attached to this email for your records.</p>
+  </div>
+<% end %>
+
 <p style="margin-top: 32px; text-align: center;">
   <a href="<%= @status_url %>" style="display: inline-block; background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px;">View Full Status</a>
 </p>

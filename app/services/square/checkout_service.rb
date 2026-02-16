@@ -3,6 +3,14 @@
 module Square
   class CheckoutService
     def create_checkout(name:, email:, amount_cents:, success_url: nil, waived_refund: false)
+      # Check for existing active checkout with same email + amount to prevent duplicate sessions
+      checkout_cache_key = "active_checkout:#{email.to_s.downcase.strip}:#{amount_cents}"
+      existing_url = Rails.cache.read(checkout_cache_key)
+      if existing_url.present?
+        Rails.logger.info("[Square::CheckoutService] Returning existing checkout for #{email}, amount: #{amount_cents}")
+        return { success: true, checkout_url: existing_url }
+      end
+
       params = {
         idempotency_key: SecureRandom.uuid,
         quick_pay: {
@@ -28,6 +36,9 @@ module Square
         cache_data[:waived_refund] = true if waived_refund
         Rails.cache.write("sq_order:#{order_id}", cache_data, expires_in: 24.hours)
       end
+
+      # Cache this checkout URL so repeat clicks return the same session
+      Rails.cache.write(checkout_cache_key, checkout_url, expires_in: 30.minutes)
 
       { success: true, checkout_url: checkout_url }
     rescue ::Square::Errors::ResponseError => e

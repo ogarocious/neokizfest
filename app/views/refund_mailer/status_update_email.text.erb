@@ -41,6 +41,12 @@ Your generosity directly supports the Neo Kizomba community. We are deeply grate
 Thank you for your patience. We appreciate your understanding during this transition. The Neo Kizomba community meant everything to us.
 <% end %>
 
+<% if @status.to_s.downcase == "completed" && @has_payment_proof %>
+PAYMENT PROOF ATTACHED
+======================
+A screenshot of your Zelle payment confirmation is attached to this email for your records.
+<% end %>
+
 Check your full status at:
 <%= @status_url %>
 
