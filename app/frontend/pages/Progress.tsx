@@ -185,7 +185,7 @@ const Progress: React.FC<ProgressProps> = ({
             </Stack>
           </GlassCard>
 
-          {/* Resolved (completed + chargebacks) */}
+          {/* Resolved (completed + chargebacks + waived) */}
           <GlassCard
             p={{ base: "sm", sm: "md" }}
             style={{
@@ -199,7 +199,7 @@ const Progress: React.FC<ProgressProps> = ({
                 Resolved
               </Text>
               <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
-                {stats.completed + stats.chargebacks}
+                {stats.completed + stats.chargebacks + stats.waived}
               </Text>
             </Stack>
           </GlassCard>
