@@ -38,6 +38,13 @@ class Rack::Attack
     req.ip if req.path == "/api/donations/checkout" && req.post?
   end
 
+  # === Throttle: Flower submissions ===
+  # 5 requests per hour per IP
+  # Prevents spam flower submissions
+  throttle("api/flowers-submit", limit: 5, period: 1.hour) do |req|
+    req.ip if req.path == "/api/flowers" && req.post?
+  end
+
   # === Response for throttled requests ===
   self.throttled_responder = lambda do |req|
     retry_after = (req.env["rack.attack.match_data"] || {})[:period]

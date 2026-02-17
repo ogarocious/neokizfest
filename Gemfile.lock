@@ -115,6 +115,11 @@ GEM
     certifi (2018.01.18)
     childprocess (5.1.0)
       logger (~> 1.5)
+    cloudinary (2.4.4)
+      faraday (>= 2.0.1, < 3.0.0)
+      faraday-follow_redirects (~> 0.5)
+      faraday-multipart (~> 1.0, >= 1.0.4)
+      ostruct
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
     crass (1.0.6)
@@ -425,6 +430,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
+  cloudinary (~> 2.0)
   debug
   inertia_rails (~> 3.9)
   jbuilder

@@ -74,3 +74,6 @@ gem "rack-attack", "~> 6.7"
 
 # Square Payment Links API for donations
 gem "square.rb", "~> 44.0"
+
+# Cloudinary for media uploads (Flowers gallery)
+gem "cloudinary", "~> 2.0"

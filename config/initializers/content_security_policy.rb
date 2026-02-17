@@ -12,7 +12,8 @@ Rails.application.configure do
     policy.object_src  :none
     policy.script_src  :self, "https://plausible.io"
     policy.style_src   :self, :unsafe_inline
-    policy.connect_src :self, "https://plausible.io"
+    policy.connect_src :self, "https://plausible.io", "https://api.cloudinary.com"
+    policy.media_src   :self, "https://res.cloudinary.com"
     policy.frame_src   :self
 
     # Allow Vite dev server in development

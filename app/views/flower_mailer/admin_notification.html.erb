@@ -1,0 +1,34 @@
+<p style="font-size: 18px; margin-bottom: 24px;">New flower submission!</p>
+
+<div style="background-color: #252525; border: 1px solid rgba(244, 93, 0, 0.2); border-radius: 8px; padding: 24px; margin: 24px 0;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+      <td style="padding: 8px 0; color: #9A8F85; font-size: 14px;">Name</td>
+      <td style="padding: 8px 0; color: #E8E0D8; font-weight: 600; text-align: right;"><%= @name %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Email</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #E8E0D8; text-align: right;"><%= @email %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Type</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #F45D00; font-weight: 600; text-align: right;"><%= @content_type.capitalize %></td>
+    </tr>
+    <% if @message.present? %>
+    <tr>
+      <td colspan="2" style="padding: 12px 0; border-top: 1px solid #313131;">
+        <p style="color: #9A8F85; font-size: 14px; margin: 0 0 8px;">Message</p>
+        <p style="color: #E8E0D8; font-style: italic; margin: 0; line-height: 1.6;">&ldquo;<%= @message.truncate(500) %>&rdquo;</p>
+      </td>
+    </tr>
+    <% end %>
+    <% if @media_url.present? %>
+    <tr>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; color: #9A8F85; font-size: 14px;">Media</td>
+      <td style="padding: 8px 0; border-top: 1px solid #313131; text-align: right;"><a href="<%= @media_url %>" style="color: #F45D00; text-decoration: none;">View file</a></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+
+<p class="muted" style="color: #9A8F85; font-size: 14px;">Review and approve this submission in <a href="https://www.notion.so" style="color: #F45D00; text-decoration: none;">Notion</a> to make it visible on the Flowers page.</p>

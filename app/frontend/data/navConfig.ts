@@ -8,6 +8,7 @@ import {
   IconMusic,
   IconFileText,
   IconBook,
+  IconFlower,
 } from "@tabler/icons-react";
 import type { Icon } from "@tabler/icons-react";
 
@@ -26,6 +27,7 @@ const navConfig: NavItem[] = [
   { href: "/status", label: "Status", icon: IconSearch, enabled: true },
   { href: "/progress", label: "Progress", icon: IconChartBar, enabled: true },
   { href: "/support", label: "Donate", icon: IconHeart, enabled: true },
+  { href: "/flowers", label: "Flowers", icon: IconFlower, enabled: true },
   { href: "/artist-payments", label: "Artists", icon: IconMusic, enabled: true },
   { href: "/behind-the-build", label: "Built With", icon: IconCode, enabled: true },
 ];

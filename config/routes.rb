@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   get 'progress', to: 'refund_progress#index'
   post 'progress/refresh', to: 'refund_progress#refresh'
 
+  # Flowers Gallery (community testimonials)
+  get 'flowers', to: 'flowers#index'
+  post 'flowers/refresh', to: 'flowers#refresh'
+
   # Refund Request API (with Notion integration)
   namespace :api do
     post 'refunds/validate-email', to: 'refund_requests#validate_email'
@@ -27,6 +31,9 @@ Rails.application.routes.draw do
 
     # Community messages
     post 'community-messages', to: 'community_messages#create'
+
+    # Flowers submissions
+    post 'flowers', to: 'flowers#create'
 
     # Page view stats (Plausible proxy)
     get 'stats/page-views', to: 'stats#page_views'
