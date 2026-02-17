@@ -62,8 +62,7 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower }) => {
             src={flower.mediaUrl}
             alt={`Shared by ${flower.displayName}`}
             radius="md"
-            mah={300}
-            fit="cover"
+            fit="contain"
             style={{
               border: "1px solid rgba(255, 255, 255, 0.06)",
               borderRadius: 8,
@@ -105,8 +104,7 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower }) => {
             c={colors.textPrimary}
             lh={1.7}
             style={{
-              fontStyle: "italic",
-              fontSize: responsiveText.body,
+              fontSize: responsiveText.small,
             }}
           >
             &ldquo;{flower.message}&rdquo;

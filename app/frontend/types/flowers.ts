@@ -33,9 +33,20 @@ export interface CommunityMessageEntry {
   date_submitted?: string;
 }
 
+// Raw flower data from Rails (snake_case)
+export interface RawFlowerEntry {
+  id: string;
+  display_name: string;
+  content_type: string;
+  message?: string;
+  media_url?: string;
+  source: string;
+  date_submitted?: string;
+}
+
 // Props passed from Rails via Inertia
 export interface FlowersPageProps {
-  flowers: FlowerEntry[];
+  flowers: RawFlowerEntry[];
   communityMessages: CommunityMessageEntry[];
   lastUpdated: string;
   cloudinaryCloudName: string;

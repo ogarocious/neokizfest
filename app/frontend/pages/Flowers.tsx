@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Head } from "@inertiajs/react";
-import { Stack, Text, Button, Drawer } from "@mantine/core";
+import { Stack, Text, Button, Drawer, Group } from "@mantine/core";
 import { IconFlower } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import { PageHeader, BackToHome } from "../components/shared";
@@ -8,11 +8,7 @@ import FlowerGallery from "../components/flowers/FlowerGallery";
 import FlowerSubmissionForm from "../components/flowers/FlowerSubmissionForm";
 import { artistTestimonials } from "../data/artistPaymentsData";
 import { colors, responsiveText } from "../styles/theme";
-import type {
-  FlowersPageProps,
-  FlowerEntry,
-  CommunityMessageEntry,
-} from "../types/flowers";
+import type { FlowersPageProps, FlowerEntry } from "../types/flowers";
 
 const Flowers: React.FC<FlowersPageProps> = ({
   flowers,
@@ -30,17 +26,13 @@ const Flowers: React.FC<FlowersPageProps> = ({
     // 1. Flowers from Notion (direct submissions + curated)
     for (const f of flowers) {
       entries.push({
-        id: (f as Record<string, unknown>).id as string,
-        displayName: ((f as Record<string, unknown>).display_name ??
-          (f as Record<string, unknown>).displayName) as string,
-        contentType: ((f as Record<string, unknown>).content_type ??
-          (f as Record<string, unknown>).contentType) as FlowerEntry["contentType"],
-        message: (f as Record<string, unknown>).message as string | undefined,
-        mediaUrl: ((f as Record<string, unknown>).media_url ??
-          (f as Record<string, unknown>).mediaUrl) as string | undefined,
-        source: (f as Record<string, unknown>).source as FlowerEntry["source"],
-        dateSubmitted: ((f as Record<string, unknown>).date_submitted ??
-          (f as Record<string, unknown>).dateSubmitted) as string,
+        id: f.id,
+        displayName: f.display_name,
+        contentType: f.content_type as FlowerEntry["contentType"],
+        message: f.message,
+        mediaUrl: f.media_url,
+        source: f.source as FlowerEntry["source"],
+        dateSubmitted: f.date_submitted,
       });
     }
 
@@ -58,8 +50,7 @@ const Flowers: React.FC<FlowersPageProps> = ({
     }
 
     // 3. Community messages from refund requests + donations (Notion)
-    for (const cm of communityMessages) {
-      const m = cm as unknown as CommunityMessageEntry;
+    for (const m of communityMessages) {
       entries.push({
         id: m.id,
         displayName: m.display_name,
@@ -101,18 +92,23 @@ const Flowers: React.FC<FlowersPageProps> = ({
           <PageHeader
             icon={<IconFlower size={32} color="white" />}
             title="Flowers"
-            subtitle="Memories, kind words, and love from the Neokiz attendees over the years."
+            subtitle="Memories, kind words, and love from the Neokiz attendees, and urbankiz scene at large over the years."
           />
 
-          {/* Share button */}
-          <Button
-            color="orange"
-            leftSection={<IconFlower size={18} />}
-            onClick={() => setDrawerOpen(true)}
-            style={{ alignSelf: "flex-end" }}
-          >
-            Share a Flower
-          </Button>
+          {/* Share button + hint */}
+          <Group justify="space-between" align="center">
+            <Text c={colors.textDim} style={{ fontSize: responsiveText.xs }}>
+              Text, photos, audio, or video welcome
+            </Text>
+            <Button
+              color="orange"
+              size="sm"
+              leftSection={<IconFlower size={16} />}
+              onClick={() => setDrawerOpen(true)}
+            >
+              Share a Flower
+            </Button>
+          </Group>
 
           {/* Gallery */}
           <FlowerGallery flowers={allFlowers} />

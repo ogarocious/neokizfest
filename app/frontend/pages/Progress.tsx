@@ -20,7 +20,6 @@ import {
   IconClock,
   IconCash,
   IconStar,
-  IconQuote,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -56,36 +55,13 @@ interface DonationStats {
   waive_and_donate_count: number;
 }
 
-interface CommunityMessage {
-  initials: string;
-  message: string;
-  type: "refund" | "waive" | "donation";
-}
-
 interface ProgressProps {
   last_updated: string;
   stats: ProgressStats;
   refunds: RefundEntryData[];
   community_support: RefundEntryData[];
   donation_stats: DonationStats;
-  community_messages: CommunityMessage[];
 }
-
-const messageTypeLabel = (type: CommunityMessage["type"]) => {
-  switch (type) {
-    case "waive": return "Waived Refund";
-    case "donation": return "Donor";
-    default: return "Pass Holder";
-  }
-};
-
-const messageTypeColor = (type: CommunityMessage["type"]) => {
-  switch (type) {
-    case "waive": return colors.primary;
-    case "donation": return "#228B22";
-    default: return colors.textMuted;
-  }
-};
 
 const Progress: React.FC<ProgressProps> = ({
   last_updated,
@@ -93,7 +69,6 @@ const Progress: React.FC<ProgressProps> = ({
   refunds,
   community_support,
   donation_stats,
-  community_messages,
 }) => {
   const formatLastUpdated = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
@@ -314,57 +289,6 @@ const Progress: React.FC<ProgressProps> = ({
                   </Badge>
                 ))}
               </Group>
-            </Stack>
-          </GlassCard>
-        )}
-
-        {/* Community Messages */}
-        {community_messages.length > 0 && (
-          <GlassCard>
-            <Stack gap="md">
-              <Group gap="xs">
-                <IconQuote size={18} color={colors.primary} />
-                <Title order={4} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
-                  Community Messages
-                </Title>
-              </Group>
-
-              <ScrollArea.Autosize mah={500} type="auto">
-                <Stack gap="sm">
-                  {community_messages.map((msg, i) => (
-                    <Box
-                      key={i}
-                      style={{
-                        background: "rgba(255, 255, 255, 0.03)",
-                        border: "1px solid rgba(255, 255, 255, 0.06)",
-                        borderRadius: 8,
-                        padding: "12px 16px",
-                      }}
-                    >
-                      <Text
-                        size="sm"
-                        c={colors.textPrimary}
-                        lh={1.6}
-                        style={{ fontStyle: "italic" }}
-                      >
-                        "{msg.message}"
-                      </Text>
-                      <Group gap="xs" mt="xs">
-                        <Text fw={600} size="xs" c={messageTypeColor(msg.type)}>
-                          — {msg.initials}
-                        </Text>
-                        <Badge
-                          size="xs"
-                          variant="light"
-                          color={msg.type === "donation" ? "green" : msg.type === "waive" ? "orange" : "gray"}
-                        >
-                          {messageTypeLabel(msg.type)}
-                        </Badge>
-                      </Group>
-                    </Box>
-                  ))}
-                </Stack>
-              </ScrollArea.Autosize>
             </Stack>
           </GlassCard>
         )}
