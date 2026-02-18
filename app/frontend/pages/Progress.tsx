@@ -9,6 +9,8 @@ import {
   Progress as MantineProgress,
   Title,
   ScrollArea,
+  Popover,
+  ActionIcon,
 } from "@mantine/core";
 import {
   IconChartBar,
@@ -19,6 +21,7 @@ import {
   IconClock,
   IconCash,
   IconStar,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -131,9 +134,16 @@ const Progress: React.FC<ProgressProps> = ({
               value={completionPercentage}
               size="lg"
               radius="md"
-              color="orange"
               styles={{
-                root: { backgroundColor: "rgba(255, 255, 255, 0.1)" },
+                root: {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05)",
+                },
+                section: {
+                  background: "linear-gradient(90deg, #F45D00 0%, #FF8C00 40%, #FFB347 70%, #FFD700 100%)",
+                  backgroundSize: "100vw 100%",
+                  boxShadow: "0 0 12px rgba(244, 93, 0, 0.5)",
+                },
               }}
             />
             <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
@@ -144,33 +154,57 @@ const Progress: React.FC<ProgressProps> = ({
 
         {/* Stats Grid */}
         <SimpleGrid cols={{ base: 2, sm: 3 }} spacing={{ base: "xs", sm: "sm" }}>
-          {/* Total Pass Holders */}
+          {/* 1. Total Pass Holders (independent context) */}
           <GlassCard p={{ base: "sm", sm: "md" }}>
             <Stack gap={4} align="center">
               <IconUsers size={20} color={colors.textMuted} />
-              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Total Pass Holders
-              </Text>
+              <Group gap={4} align="center" justify="center">
+                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                  Total Pass Holders
+                </Text>
+                <Popover width={220} position="bottom" withArrow shadow="md">
+                  <Popover.Target>
+                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Total Pass Holders">
+                      <IconInfoCircle size={14} color={colors.textMuted} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                    <Text size="xs" c={colors.textSecondary}>Everyone who purchased a pass for the festival</Text>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
               <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
                 {stats.total_ticket_holders}
               </Text>
             </Stack>
           </GlassCard>
 
-          {/* Refund Requests */}
+          {/* 2. Total Requests (pipeline total = Resolved + Processing) */}
           <GlassCard p={{ base: "sm", sm: "md" }}>
             <Stack gap={4} align="center">
               <IconChartBar size={20} color={colors.textMuted} />
-              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Refund Requests
-              </Text>
+              <Group gap={4} align="center" justify="center">
+                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                  Total Requests
+                </Text>
+                <Popover width={220} position="bottom" withArrow shadow="md">
+                  <Popover.Target>
+                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Total Requests">
+                      <IconInfoCircle size={14} color={colors.textMuted} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                    <Text size="xs" c={colors.textSecondary}>All refund obligations — includes form submissions and chargebacks. Equals Resolved + Processing.</Text>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
               <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
-                {stats.total_requests}
+                {stats.total_requests + stats.chargebacks}
               </Text>
             </Stack>
           </GlassCard>
 
-          {/* Resolved (completed + chargebacks + waived) */}
+          {/* 3. Resolved (completed + waived + chargebacks — books are clean) */}
           <GlassCard
             p={{ base: "sm", sm: "md" }}
             style={{
@@ -180,16 +214,28 @@ const Progress: React.FC<ProgressProps> = ({
           >
             <Stack gap={4} align="center">
               <IconCheck size={20} color="#228B22" />
-              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Resolved
-              </Text>
+              <Group gap={4} align="center" justify="center">
+                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                  Resolved
+                </Text>
+                <Popover width={220} position="bottom" withArrow shadow="md">
+                  <Popover.Target>
+                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Resolved">
+                      <IconInfoCircle size={14} color={colors.textMuted} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                    <Text size="xs" c={colors.textSecondary}>All cases where the books are clean — includes refunds paid out, waived passes, and chargebacks</Text>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
               <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
-                {stats.completed + stats.chargebacks + stats.waived}
+                {totalResolved}
               </Text>
             </Stack>
           </GlassCard>
 
-          {/* Processing */}
+          {/* 4. Processing (submitted + processing + verified — still in pipeline) */}
           <GlassCard
             p={{ base: "sm", sm: "md" }}
             style={{
@@ -199,16 +245,28 @@ const Progress: React.FC<ProgressProps> = ({
           >
             <Stack gap={4} align="center">
               <IconLoader size={20} color="#FF8C00" />
-              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Processing
-              </Text>
+              <Group gap={4} align="center" justify="center">
+                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                  Processing
+                </Text>
+                <Popover width={220} position="bottom" withArrow shadow="md">
+                  <Popover.Target>
+                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Processing">
+                      <IconInfoCircle size={14} color={colors.textMuted} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                    <Text size="xs" c={colors.textSecondary}>Requests currently being reviewed, verified, or awaiting payment</Text>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
               <Text fw={700} c="#FF8C00" style={{ fontSize: responsiveText.large }}>
                 {stats.processing + stats.submitted}
               </Text>
             </Stack>
           </GlassCard>
 
-          {/* Waived */}
+          {/* 5. Waived (social proof — subset of Resolved) */}
           <GlassCard
             p={{ base: "sm", sm: "md" }}
             style={{
@@ -218,16 +276,28 @@ const Progress: React.FC<ProgressProps> = ({
           >
             <Stack gap={4} align="center">
               <IconHeart size={20} color={colors.primary} fill={colors.primary} />
-              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Waived
-              </Text>
+              <Group gap={4} align="center" justify="center">
+                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                  Waived
+                </Text>
+                <Popover width={220} position="bottom" withArrow shadow="md">
+                  <Popover.Target>
+                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Waived">
+                      <IconInfoCircle size={14} color={colors.textMuted} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                    <Text size="xs" c={colors.textSecondary}>Pass holders who generously chose to forgo their refund — included in the Resolved count</Text>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
               <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.large }}>
                 {stats.waived}
               </Text>
             </Stack>
           </GlassCard>
 
-          {/* Donations */}
+          {/* 6. Donated (independent — dollars from supporters, bottom-right anchor) */}
           <GlassCard
             p={{ base: "sm", sm: "md" }}
             style={{
@@ -237,9 +307,21 @@ const Progress: React.FC<ProgressProps> = ({
           >
             <Stack gap={4} align="center">
               <IconCash size={20} color="#228B22" />
-              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                Donated
-              </Text>
+              <Group gap={4} align="center" justify="center">
+                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                  Donated
+                </Text>
+                <Popover width={220} position="bottom" withArrow shadow="md">
+                  <Popover.Target>
+                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Donated">
+                      <IconInfoCircle size={14} color={colors.textMuted} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                    <Text size="xs" c={colors.textSecondary}>Total community donations from supporters</Text>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
               <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
                 ${donation_stats.total_donated.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </Text>
