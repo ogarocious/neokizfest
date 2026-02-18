@@ -105,6 +105,7 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower }) => {
             lh={1.7}
             style={{
               fontSize: responsiveText.small,
+              whiteSpace: "pre-wrap",
             }}
           >
             &ldquo;{flower.message}&rdquo;
