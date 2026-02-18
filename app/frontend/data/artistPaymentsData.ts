@@ -124,7 +124,7 @@ export const festivalEditions: FestivalEdition[] = [
       {
         name: "Eri Kardos",
         image: "/images/artist-payments/artists/eri-kardos-2024.png",
-        confirmed: false,
+        confirmed: true,
       },
       {
         name: "Ninja",
@@ -446,5 +446,13 @@ export const artistTestimonials: ArtistTestimonial[] = [
     role: "Instructor",
     quote:
       "Gwany and Liliana confirm payment for Neokiz 2019.",
+  },
+  {
+    name: "Eri Kardos",
+    image: "/images/artist-payments/artists/eri-kardos-2024.png",
+    years: [2024],
+    role: "Teacher & TEDx Speaker",
+    quote:
+      "I'm happy to confirm that I have no outstanding balances from my time teaching at Neo Kizomba Festival 2024. All of our agreed terms and arrangements were honored. My experience working with you was genuinely one of the best I've had at a large kizomba festival. I felt seen, supported, and well cared for, and your communication and professionalism were excellent throughout. The level of intention and heart you put into the experience for artists and participants really stands out.",
   },
 ];
