@@ -125,6 +125,7 @@ export const festivalEditions: FestivalEdition[] = [
         name: "Eri Kardos",
         image: "/images/artist-payments/artists/eri-kardos-2024.png",
         confirmed: true,
+        proofImages: ["/images/artist-payments/proof/eri-kardos-2024.jpg"],
       },
       {
         name: "Ninja",

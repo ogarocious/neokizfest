@@ -69,6 +69,54 @@ We're not done until everyone is made whole, and then we address other pending i
 
 ---
 
+---
+
+## Flowers Shoutouts
+
+Community appreciation posts tied to the Flowers gallery at neokizfest.com/flowers.
+
+---
+
+### Flowers Shoutout #1 — Feb 18, 2026 — Tarah-Stephanie
+
+**Platform:** Facebook
+**Type:** Community appreciation / Flowers gallery
+
+**Caption:**
+
+*(to be filled in — posted earlier today)*
+
+---
+
+### Flowers Shoutout #2 — Feb 18, 2026 — Frances
+
+**Platform:** Facebook
+**Type:** Community appreciation / Flowers gallery + donation shoutout
+
+**Notes:** Frances is a pioneer of the Seattle kizomba scene — one of the oldest in the country. She submitted a Flowers entry with a group photo from Charles's Seattle workshop visit, donated to the refund fund, and left a heartfelt message of support.
+
+**Caption:**
+
+🌸 Flowers for Frances.
+
+This photo is from when NeoKiz came to Seattle — and it's one of my favorites.
+
+Frances is one of the quiet architects of the Seattle kizomba scene — a community that holds the distinction of being one of the oldest kizomba scenes in the country. Long before kizomba had the visibility it has today, she was there, building something real, patient, and lasting in the Pacific Northwest.
+
+She sent flowers to the gallery, she showed up with her heart open, and she gave generously to help us close this chapter with dignity.
+
+Her words meant everything:
+
+"I'm cheering you on for choosing yourself first... you'll get through it and reconnect with your passion once more."
+
+Frances — you deserve every flower right back. Thank you for being a pioneer, a supporter, and a friend to this community. Seattle represents. 🌹
+
+The Flowers gallery is open to everyone. If you have a memory, a photo, a voice note, a video, or just a few words — we want to hear it. Head to neokizfest.com → Flowers and leave your piece of this story. Every single one matters.
+
+#NeoKizFest #Flowers #Seattle #Kizomba #Community #Pioneer
+
+---
+
 ## Post #3 — Feb 19, 2026
 
 *(template for tomorrow)*

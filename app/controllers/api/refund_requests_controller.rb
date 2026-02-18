@@ -58,6 +58,12 @@ module Api
       email_sent = send_confirmation_email(params[:email], result[:confirmation_number])
       send_admin_refund_notification(params[:email], result[:confirmation_number])
 
+      # Waive submissions are immediately set to "Waived" status in Notion.
+      # Mark notification sent so the batch notification job doesn't send a duplicate.
+      if waive_decision?(params[:decision]) && result[:page_id].present?
+        refund_request_service.mark_notification_sent(result[:page_id])
+      end
+
       render json: {
         success: true,
         confirmationNumber: result[:confirmation_number],
@@ -258,6 +264,10 @@ module Api
   end
 
   private
+
+  def waive_decision?(decision)
+    %w[waive waive_refund].include?(decision.to_s.downcase)
+  end
 
   def valid_auth_token?
     # Prefer dedicated token, fall back to shared secret for backward compatibility
