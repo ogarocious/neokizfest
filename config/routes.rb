@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     post 'refunds', to: 'refund_requests#create'
     post 'refunds/status', to: 'refund_requests#status'
     post 'refunds/notify-completion', to: 'refund_requests#notify_completion'
+    post 'refunds/send-pending-notifications', to: 'refund_requests#send_pending_notifications'
 
     # Square donation checkout
     post 'donations/checkout', to: 'donations#checkout'

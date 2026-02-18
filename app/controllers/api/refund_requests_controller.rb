@@ -131,6 +131,38 @@ module Api
     }, status: :internal_server_error
   end
 
+  # POST /api/refunds/send-pending-notifications
+  # Sends completion emails for all Completed/Waived requests with Notification Sent = false
+  # Protected by bearer token
+  def send_pending_notifications
+    unless valid_auth_token?
+      return render json: { error: "Unauthorized" }, status: :unauthorized
+    end
+
+    service = Notion::NotificationService.new
+    results = service.send_pending_completions!
+
+    render json: {
+      success: true,
+      sent: results[:sent].size,
+      errors: results[:errors].size,
+      details: {
+        sent: results[:sent].map { |r| { confirmation: r[:confirmation_number], email: r[:email], name: r[:name] } },
+        errors: results[:errors].map { |r| { confirmation: r[:confirmation_number], message: r[:message] } }
+      }
+    }
+  rescue Notion::ApiClient::ConfigurationError => e
+    Rails.logger.info("[RefundRequestsController] Notion not configured: #{e.message}")
+    render json: { success: true, message: "Mock: no Notion connection", sent: 0, errors: 0 }
+  rescue StandardError => e
+    Rails.logger.error("[RefundRequestsController] Send pending notifications failed: #{e.message}")
+    render json: {
+      success: false,
+      error: "server_error",
+      errorMessage: "Failed to send pending notifications: #{e.message}"
+    }, status: :internal_server_error
+  end
+
   # POST /api/refunds/notify-completion
   # Called by n8n when a refund status is changed to "Completed" in Notion
   # Sends a status update email to the user
