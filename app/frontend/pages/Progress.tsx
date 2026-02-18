@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Head } from "@inertiajs/react";
 import {
   Stack,
@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Badge,
   Progress as MantineProgress,
-  Box,
   Title,
   ScrollArea,
 } from "@mantine/core";
@@ -24,6 +23,7 @@ import {
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
   GlassCard,
+  GlassTabs,
   PageHeader,
   BackToHome,
   RefundEntry,
@@ -90,6 +90,16 @@ const Progress: React.FC<ProgressProps> = ({
   const completedRefunds = refunds.filter((r) => r.status === "completed");
   const processingRefunds = refunds.filter((r) => r.status === "processing");
   const submittedRefunds = refunds.filter((r) => r.status === "submitted" || r.status === "pending");
+
+  // Default to first non-empty tab in priority order: Completed → Processing → Submitted
+  const defaultTab =
+    completedRefunds.length > 0
+      ? "completed"
+      : processingRefunds.length > 0
+        ? "processing"
+        : "submitted";
+
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
   return (
     <>
@@ -304,16 +314,53 @@ const Progress: React.FC<ProgressProps> = ({
                 </Title>
               </Group>
 
-              {/* Completed Section */}
-              {completedRefunds.length > 0 && (
-                <Box>
-                  <Group gap="xs" mb="xs">
-                    <IconCheck size={14} color={colors.success} />
-                    <Text size="sm" c={colors.textMuted} fw={500}>
+              <GlassTabs defaultValue={defaultTab} onChange={(val) => setActiveTab(val ?? defaultTab)}>
+                <GlassTabs.List mb="sm">
+                  {completedRefunds.length > 0 && (
+                    <GlassTabs.Tab
+                      value="completed"
+                      color="green"
+                      leftSection={<IconCheck size={14} />}
+                      rightSection={
+                        <Badge size="xs" variant={activeTab === "completed" ? "white" : "light"} color="green" ml={4}>
+                          {completedRefunds.length}
+                        </Badge>
+                      }
+                    >
                       Completed
-                    </Text>
-                    <Badge size="sm" variant="light" color="green">{completedRefunds.length}</Badge>
-                  </Group>
+                    </GlassTabs.Tab>
+                  )}
+                  {processingRefunds.length > 0 && (
+                    <GlassTabs.Tab
+                      value="processing"
+                      color="orange"
+                      leftSection={<IconLoader size={14} />}
+                      rightSection={
+                        <Badge size="xs" variant={activeTab === "processing" ? "white" : "light"} color="orange" ml={4}>
+                          {processingRefunds.length}
+                        </Badge>
+                      }
+                    >
+                      Processing
+                    </GlassTabs.Tab>
+                  )}
+                  {submittedRefunds.length > 0 && (
+                    <GlassTabs.Tab
+                      value="submitted"
+                      color="gray"
+                      leftSection={<IconClock size={14} />}
+                      rightSection={
+                        <Badge size="xs" variant={activeTab === "submitted" ? "white" : "light"} color="gray" ml={4}>
+                          {submittedRefunds.length}
+                        </Badge>
+                      }
+                    >
+                      Submitted
+                    </GlassTabs.Tab>
+                  )}
+                </GlassTabs.List>
+
+                <GlassTabs.Panel value="completed">
                   <ScrollArea.Autosize mah={400} type="auto">
                     <Stack gap="xs">
                       {completedRefunds.map((entry) => (
@@ -328,20 +375,10 @@ const Progress: React.FC<ProgressProps> = ({
                       ))}
                     </Stack>
                   </ScrollArea.Autosize>
-                </Box>
-              )}
+                </GlassTabs.Panel>
 
-              {/* Processing Section */}
-              {processingRefunds.length > 0 && (
-                <Box>
-                  <Group gap="xs" mb="xs">
-                    <IconLoader size={14} color={colors.warning} />
-                    <Text size="sm" c={colors.textMuted} fw={500}>
-                      Processing
-                    </Text>
-                    <Badge size="sm" variant="light" color="orange">{processingRefunds.length}</Badge>
-                  </Group>
-                  <ScrollArea.Autosize mah={300} type="auto">
+                <GlassTabs.Panel value="processing">
+                  <ScrollArea.Autosize mah={400} type="auto">
                     <Stack gap="xs">
                       {processingRefunds.map((entry) => (
                         <RefundEntry
@@ -355,20 +392,10 @@ const Progress: React.FC<ProgressProps> = ({
                       ))}
                     </Stack>
                   </ScrollArea.Autosize>
-                </Box>
-              )}
+                </GlassTabs.Panel>
 
-              {/* Submitted Section */}
-              {submittedRefunds.length > 0 && (
-                <Box>
-                  <Group gap="xs" mb="xs">
-                    <IconClock size={14} color={colors.textMuted} />
-                    <Text size="sm" c={colors.textMuted} fw={500}>
-                      Submitted
-                    </Text>
-                    <Badge size="sm" variant="light" color="gray">{submittedRefunds.length}</Badge>
-                  </Group>
-                  <ScrollArea.Autosize mah={300} type="auto">
+                <GlassTabs.Panel value="submitted">
+                  <ScrollArea.Autosize mah={400} type="auto">
                     <Stack gap="xs">
                       {submittedRefunds.map((entry) => (
                         <RefundEntry
@@ -382,8 +409,8 @@ const Progress: React.FC<ProgressProps> = ({
                       ))}
                     </Stack>
                   </ScrollArea.Autosize>
-                </Box>
-              )}
+                </GlassTabs.Panel>
+              </GlassTabs>
             </Stack>
           </GlassCard>
         )}

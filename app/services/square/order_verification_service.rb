@@ -3,13 +3,13 @@
 module Square
   class OrderVerificationService
     def verify(order_id)
-      result = client.orders.retrieve(order_id: order_id)
+      result = client.orders.get(order_id: order_id)
       order = result.order
 
       {
         success: true,
         status: order.state,
-        completed: order.state == "COMPLETED",
+        completed: order.tenders&.any? && order.net_amount_due_money&.amount.to_i == 0,
         amount_cents: order.total_money&.amount.to_i,
         currency: order.total_money&.currency || "USD"
       }
