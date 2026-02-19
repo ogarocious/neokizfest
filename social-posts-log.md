@@ -2,6 +2,20 @@
 
 Daily progress updates posted to Facebook. Screenshot of progress dashboard included with each post.
 
+## Snapshot Format (standard fields)
+
+```
+- Overall Progress: X% (up from Y%)
+- Resolved: X of 204 (+X)
+- Total Requests: X (up from X)
+- Full Refunds Completed: X
+- Partial Refunds: X (X completed, X pending) — left the difference as a contribution
+- Processing: X
+- Waived: X (+X)
+- Waived + Donated: X
+- Donated: $X from X supporters
+```
+
 ---
 
 ## Post #1 — Feb 17, 2026
@@ -119,19 +133,38 @@ The Flowers gallery is open to everyone. If you have a memory, a photo, a voice 
 
 ## Post #3 — Feb 19, 2026
 
-*(template for tomorrow)*
-
 **Platform:** Facebook
 **Posted by:** Charles Neokiz Ogarocious
 
 **Snapshot:**
-- Overall Progress: __% (up from 28%)
-- Resolved: __ of 204 (+__)
-- Total Requests: __
-- Processing: __
-- Waived: __ (+__)
-- Donated: $__ from __ supporters (+$__)
+- Overall Progress: 38% (up from 28%)
+- Resolved: 77 of 205 (+19)
+- Total Requests: 99 (up from 79)
+- Full Refunds Completed: 29
+- Partial Refunds: 10 (5 completed, 5 pending) — left the difference as a contribution
+- Processing: 22
+- Waived: 38 (+14)
+- Waived + Donated: 8
+- Donated: $2,815 from 34 supporters (no change)
 
 **Caption:**
 
-(draft here)
+Daily update, February 19th. Here's where we stand.
+
+Yesterday we were at 28%. This morning: 77 of 205 pass holders fully resolved — that's +19 in roughly 24 hours.
+
+Here's what moved:
+
+- 99 Total Requests (up from 79)
+- 77 Resolved — done, closed, nothing owed
+- 22 Processing — in the queue, actively being worked
+- 38 Waived (+14 since yesterday) — 38 people chose to let it go and support the community
+- $2,815 Donated from 34 supporters, including 8 who waived AND gave back
+
+That waived number — 38 — is the one that keeps hitting me. These are people who had money on the table and decided to just… give it. No ask, no pressure. Just generosity.
+
+We're not slowing down.
+
+If you haven't submitted yet: neokizfest.com → Request Refund. Takes 2 minutes.
+Already submitted? Check your status at neokizfest.com → Status.
+Full picture: neokizfest.com/progress

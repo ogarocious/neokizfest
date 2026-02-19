@@ -20,6 +20,7 @@ export interface FlowerEntry {
   imageUrl?: string; // Artist photo
   role?: string; // Artist role
   source: FlowerSource;
+  donated?: boolean; // true if community_waive person also donated (triple recognition)
   dateSubmitted?: string;
 }
 
@@ -30,6 +31,7 @@ export interface CommunityMessageEntry {
   content_type: string;
   message: string;
   source: string;
+  donated?: boolean;
   date_submitted?: string;
 }
 

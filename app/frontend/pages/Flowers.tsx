@@ -57,6 +57,7 @@ const Flowers: React.FC<FlowersPageProps> = ({
         contentType: "text",
         message: m.message,
         source: m.source as FlowerEntry["source"],
+        donated: m.donated,
         dateSubmitted: m.date_submitted,
       });
     }

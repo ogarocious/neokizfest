@@ -67,7 +67,9 @@ module Notion
       flowers = results.filter_map { |page| parse_flower(page) }
 
       # Pull in approved community messages from other databases
-      community_messages = fetch_community_messages
+      # Pre-fetch waive+donate emails for cross-referencing
+      waive_donate_emails = fetch_waive_donate_emails
+      community_messages = fetch_community_messages(waive_donate_emails)
 
       {
         flowers: flowers,
@@ -76,41 +78,37 @@ module Notion
       }
     end
 
-    # Fetch approved community messages from refund requests and supporter orders
-    # Uses first names (not initials) for a warmer display on the Flowers page
-    def fetch_community_messages
-      messages = []
+    # Fetch emails of people who both waived their refund AND donated
+    def fetch_waive_donate_emails
+      return Set.new unless SUPPORTER_ORDERS_DB_ID.present?
 
-      # From refund requests
-      if REFUND_REQUESTS_DB_ID.present?
-        name_lookup = fetch_ticket_holder_name_lookup
-
-        refund_pages = @client.query_database(database_id: REFUND_REQUESTS_DB_ID)
-        refund_pages.each do |page|
-          next unless page.properties.dig("Message Approved", "checkbox") == true
-
-          text = extract_rich_text(page.properties["Community Message"])
-          next if text.blank?
-
-          display_name = first_name_from_ticket_holder(page.properties["Ticket Holder"], name_lookup) ||
-                         first_name_from_title(page.properties["Name"]) ||
-                         "Anonymous"
-
-          decision = extract_select(page.properties["Decision"])
-          msg_type = decision&.downcase&.include?("waive") ? "community_waive" : "community_refund"
-
-          messages << {
-            id: "cm-#{page.id}",
-            display_name: display_name,
-            content_type: "text",
-            message: text,
-            source: msg_type,
-            date_submitted: page.dig("created_time")
-          }
+      results = @client.query_database(database_id: SUPPORTER_ORDERS_DB_ID)
+      emails = Set.new
+      results.each do |page|
+        notes = Array(page.properties.dig("Notes", "rich_text")).map { |t| t.dig("plain_text") }.join
+        if notes.include?("Waived refund")
+          email = page.properties.dig("Email", "email")
+          emails << email.downcase if email.present?
         end
       end
+      emails
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[FlowersService] Failed to fetch waive+donate emails: #{e.message}")
+      Set.new
+    end
 
-      # From supporter orders (donations)
+    # Fetch approved community messages from refund requests and supporter orders
+    # Uses first names (not initials) for a warmer display on the Flowers page
+    # waive_donate_emails: Set of emails for people who waived AND donated (for triple recognition)
+    # Deduplication: waive+donate people who have an approved donation message are shown only once
+    # via their donation entry (Above & Beyond), so their community_waive entry is suppressed.
+    def fetch_community_messages(waive_donate_emails = Set.new)
+      donation_messages = []
+      # Track waive+donate emails that already have an approved donation message,
+      # so we can suppress the duplicate community_waive entry for the same person.
+      covered_by_donation = Set.new
+
+      # From supporter orders (donations) — processed first to build covered_by_donation
       if SUPPORTER_ORDERS_DB_ID.present?
         donation_pages = @client.query_database(
           database_id: SUPPORTER_ORDERS_DB_ID,
@@ -127,37 +125,85 @@ module Notion
           name = extract_title(page.properties["Name"])
           display_name = name.present? ? first_name(name) : "Anonymous"
 
-          messages << {
+          # Check if this donor also waived their refund (triple recognition)
+          email = page.properties.dig("Email", "email")
+          also_waived = email.present? && waive_donate_emails.include?(email.downcase)
+          covered_by_donation << email.downcase if also_waived && email.present?
+
+          donation_messages << {
             id: "cm-#{page.id}",
             display_name: display_name,
             content_type: "text",
             message: text,
             source: "community_donation",
+            donated: also_waived,
             date_submitted: page.dig("created_time")
           }
         end
       end
 
-      messages
+      refund_messages = []
+
+      # From refund requests — skip community_waive entries already covered by donation message
+      if REFUND_REQUESTS_DB_ID.present?
+        holder_data = fetch_ticket_holder_lookup
+
+        refund_pages = @client.query_database(database_id: REFUND_REQUESTS_DB_ID)
+        refund_pages.each do |page|
+          next unless page.properties.dig("Message Approved", "checkbox") == true
+
+          text = extract_rich_text(page.properties["Community Message"])
+          next if text.blank?
+
+          display_name = first_name_from_ticket_holder(page.properties["Ticket Holder"], holder_data[:name_lookup]) ||
+                         first_name_from_title(page.properties["Name"]) ||
+                         "Anonymous"
+
+          decision = extract_select(page.properties["Decision"])
+          msg_type = decision&.downcase&.include?("waive") ? "community_waive" : "community_refund"
+
+          # Check if this waived person also donated (triple recognition)
+          email = extract_email_from_relation(page.properties["Ticket Holder"], holder_data[:email_lookup])
+          donated = email.present? && waive_donate_emails.include?(email.downcase)
+
+          # Skip if this person already appears via their donation message (avoid duplicate)
+          next if msg_type == "community_waive" && email.present? && covered_by_donation.include?(email.downcase)
+
+          refund_messages << {
+            id: "cm-#{page.id}",
+            display_name: display_name,
+            content_type: "text",
+            message: text,
+            source: msg_type,
+            donated: donated,
+            date_submitted: page.dig("created_time")
+          }
+        end
+      end
+
+      refund_messages + donation_messages
     rescue Notion::ApiClient::NotionError => e
       Rails.logger.error("[FlowersService] Failed to fetch community messages: #{e.message}")
       []
     end
 
-    # Build a lookup of ticket holder page_id → full name
-    def fetch_ticket_holder_name_lookup
-      return {} unless TICKET_HOLDERS_DB_ID.present?
+    # Build a lookup of ticket holder page_id → name and email
+    def fetch_ticket_holder_lookup
+      return { name_lookup: {}, email_lookup: {} } unless TICKET_HOLDERS_DB_ID.present?
 
       results = @client.query_database(database_id: TICKET_HOLDERS_DB_ID)
-      lookup = {}
+      name_lookup = {}
+      email_lookup = {}
       results.each do |page|
         name = extract_title(page.properties["Name"]) || extract_title(page.properties["Ticket Holder"])
-        lookup[page.id] = name if name.present?
+        name_lookup[page.id] = name if name.present?
+        email = page.properties.dig("Email", "email")
+        email_lookup[page.id] = email.downcase if email.present?
       end
-      lookup
+      { name_lookup: name_lookup, email_lookup: email_lookup }
     rescue Notion::ApiClient::NotionError => e
-      Rails.logger.error("[FlowersService] Failed to fetch ticket holder names: #{e.message}")
-      {}
+      Rails.logger.error("[FlowersService] Failed to fetch ticket holder data: #{e.message}")
+      { name_lookup: {}, email_lookup: {} }
     end
 
     # Follow the Ticket Holder relation and return their first name
@@ -167,6 +213,14 @@ module Notion
       return nil if related_ids.empty?
       full_name = name_lookup[related_ids.first]
       full_name.present? ? first_name(full_name) : nil
+    end
+
+    # Follow the Ticket Holder relation and return their email for cross-referencing
+    def extract_email_from_relation(relation_prop, email_lookup)
+      return nil unless relation_prop && email_lookup.present?
+      related_ids = Array(relation_prop["relation"]).map { |r| r["id"] }
+      return nil if related_ids.empty?
+      email_lookup[related_ids.first]
     end
 
     # Extract first name from the refund request title (e.g., "John Smith — Full Refund" → "John")

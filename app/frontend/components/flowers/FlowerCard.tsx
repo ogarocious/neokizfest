@@ -7,6 +7,7 @@ import {
   IconVideo,
   IconHeart,
   IconCash,
+  IconStar,
 } from "@tabler/icons-react";
 import GlassCard from "../shared/GlassCard";
 import { colors, responsiveText } from "../../styles/theme";
@@ -16,7 +17,11 @@ interface FlowerCardProps {
   flower: FlowerEntry;
 }
 
-const sourceBadge = (source: string) => {
+const sourceBadge = (source: string, donated?: boolean) => {
+  // Triple recognition: waived refund + donated + left community feedback
+  if ((source === "community_waive" || source === "community_donation") && donated) {
+    return { label: "Above & Beyond", color: "yellow", icon: <IconStar size={12} fill="#FFD700" color="#FFD700" /> };
+  }
   switch (source) {
     case "artist":
       return { label: "Artist", color: "violet", icon: <IconMusic size={12} /> };
@@ -34,7 +39,7 @@ const sourceBadge = (source: string) => {
 };
 
 const FlowerCard: React.FC<FlowerCardProps> = ({ flower }) => {
-  const badge = sourceBadge(flower.source);
+  const badge = sourceBadge(flower.source, flower.donated);
 
   return (
     <GlassCard p="md">
@@ -125,6 +130,12 @@ const FlowerCard: React.FC<FlowerCardProps> = ({ flower }) => {
             variant="light"
             color={badge.color}
             leftSection={badge.icon}
+            style={(flower.source === "community_waive" || flower.source === "community_donation") && flower.donated ? {
+              backgroundColor: "rgba(255, 215, 0, 0.15)",
+              color: "#FFD700",
+              border: "1px solid rgba(255, 215, 0, 0.35)",
+              fontWeight: 700,
+            } : undefined}
           >
             {badge.label}
           </Badge>
