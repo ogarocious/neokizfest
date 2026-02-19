@@ -24,9 +24,8 @@ const ArtistTestimonialCard: React.FC<ArtistTestimonialCardProps> = ({
         <Text
           c={colors.textSecondary}
           style={{
-            fontSize: responsiveText.body,
+            fontSize: responsiveText.small,
             lineHeight: 1.7,
-            fontStyle: "italic",
           }}
         >
           "{testimonial.quote}"

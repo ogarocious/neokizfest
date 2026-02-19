@@ -356,11 +356,11 @@ const Progress: React.FC<ProgressProps> = ({
                 These generous individuals chose to waive their refunds, supporting the community during this transition.
               </Text>
 
-              <Group gap="xs" wrap="wrap">
+              <Group gap="xs" wrap="wrap" justify={{ base: "center", sm: "flex-start" }}>
                 {community_support.map((entry) => (
                   <Badge
                     key={entry.id}
-                    size="lg"
+                    size="md"
                     variant="light"
                     color={entry.donated ? "yellow" : "orange"}
                     leftSection={
