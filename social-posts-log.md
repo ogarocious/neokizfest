@@ -6,15 +6,33 @@ Daily progress updates posted to Facebook. Screenshot of progress dashboard incl
 
 ```
 - Overall Progress: X% (up from Y%)
-- Resolved: X of 204 (+X)
+- Resolved: X of 205 (+X)
 - Total Requests: X (up from X)
-- Full Refunds Completed: X
-- Partial Refunds: X (X completed, X pending) — left the difference as a contribution
-- Processing: X
+- Completed: X
+- Processing: X (X in review, X submitted)
 - Waived: X (+X)
 - Waived + Donated: X
 - Donated: $X from X supporters
 ```
+
+**Notes on format:**
+- Never include chargeback counts — not in resolved, not in total requests, not anywhere
+- Progress % = (completed + waived) / total_ticket_holders only
+- Always provide caption as plain text (no markdown syntax) — paste-ready for Facebook
+
+## Voice Guidelines (I vs. We)
+
+**Use "I" for Charles's individual labor:**
+- Sending DMs, reviewing requests, processing payments, doing admin work
+- Personal commitments and promises ("I'm not done until everyone is taken care of")
+- "I've been reaching out directly" — own the work
+
+**Use "we" for the community collectively:**
+- The festival's story, the shared chapter being closed
+- What the community has done together (waiving, donating, showing up)
+- "We built something real here" — the collective journey
+
+**Never use "we" as a vague authority.** If it's Charles doing it, say "I."
 
 ---
 
@@ -168,3 +186,51 @@ We're not slowing down.
 If you haven't submitted yet: neokizfest.com → Request Refund. Takes 2 minutes.
 Already submitted? Check your status at neokizfest.com → Status.
 Full picture: neokizfest.com/progress
+
+---
+
+## Post #4 — Feb 20, 2026
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+
+**Snapshot:**
+- Overall Progress: 39% (up from 38%)
+- Resolved: 79 of 205 (+2)
+- Total Requests: 101 (up from 99)
+- Completed: 33
+- Processing: 22 (6 in review, 16 submitted)
+- Waived: 46 (+8)
+- Waived + Donated: 9 (+1)
+- Donated: $2,815 from 34 supporters (no change)
+
+**Caption:**
+
+Daily update, February 20th.
+
+Yesterday we were at 38%. Today: 79 of 205 pass holders fully resolved — that's 39%.
+
+Here's what moved:
+
+101 Total Requests (up from 99)
+79 Resolved — done, closed, nothing owed
+22 In queue — 6 being actively reviewed, 16 submitted and waiting
+46 Waived (+8 since yesterday) — 46 people chose to release their refund entirely
+$2,815 donated from 34 supporters, including 9 who waived AND gave back
+
+That waived number — 46. These are people who had real money on the line and decided to just let it go. No pressure, no ask. That's the community showing up for itself.
+
+One thing I've noticed: email and social posts alone aren't cutting through. I've been sending direct messages every single day to reach people individually — and it's working, but slowly.
+
+The easiest thing you can do — for both of us — is go straight to the website and handle it yourself. It takes 2 minutes.
+
+Process your refund: neokizfest.com — click "Request Refund"
+Check your status: neokizfest.com — click "Status"
+Full picture: neokizfest.com/progress
+
+If you run into any issues, message the festival Facebook page directly and I'll get it sorted.
+
+I'm not done until everyone is taken care of.
+
+---

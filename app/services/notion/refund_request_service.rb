@@ -103,6 +103,21 @@ module Notion
       nil
     end
 
+    # Mark a refund request as Completed and set the Date Processed.
+    # date_processed defaults to today if not provided.
+    def mark_completed(page_id, date_processed: nil)
+      @client.update_page(
+        page_id: page_id,
+        properties: {
+          "Status"         => { status: { name: "Completed" } },
+          "Date Processed" => { date: { start: (date_processed || Date.today).to_s } }
+        }
+      )
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[RefundRequestService] Failed to mark completed for #{page_id}: #{e.message}")
+      nil
+    end
+
     # Mark the "Notification Sent" checkbox as true on a refund request page
     def mark_notification_sent(page_id)
       @client.update_page(
