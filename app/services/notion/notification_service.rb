@@ -37,7 +37,7 @@ module Notion
       result = @refund_request_service.find_by_confirmation(confirmation_number)
 
       unless result[:success]
-        return { status: :error, confirmation_number: confirmation_number,
+        return { status: :errors, confirmation_number: confirmation_number,
                  message: "Not found" }
       end
 
@@ -69,7 +69,7 @@ module Notion
       email = request[:email]
 
       if email.blank?
-        return { status: :error, confirmation_number: confirmation,
+        return { status: :errors, confirmation_number: confirmation,
                  message: "No email on record" }
       end
 
@@ -103,7 +103,7 @@ module Notion
         name: request[:name], email_status: email_status }
     rescue StandardError => e
       Rails.logger.error("[NotificationService] Failed for #{confirmation}: #{e.message}")
-      { status: :error, confirmation_number: confirmation, message: e.message }
+      { status: :errors, confirmation_number: confirmation, message: e.message }
     end
 
     def parse_page(page)
