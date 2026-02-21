@@ -296,6 +296,21 @@ const StatusLookup: React.FC<StatusLookupProps> = ({ zelle_paused = false }) => 
                   </Group>
                 )}
 
+                {result.request.paymentMethod && (
+                  <Group justify="space-between" wrap="wrap" gap="xs">
+                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                      Payment Method
+                    </Text>
+                    <Badge
+                      size="sm"
+                      variant="light"
+                      color={result.request.paymentMethod === "wise" ? "teal" : "violet"}
+                    >
+                      {result.request.paymentMethod === "wise" ? "Wise" : "Zelle"}
+                    </Badge>
+                  </Group>
+                )}
+
                 {result.request.amountPaid != null && (
                   <Group justify="space-between" wrap="wrap" gap="xs">
                     <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
