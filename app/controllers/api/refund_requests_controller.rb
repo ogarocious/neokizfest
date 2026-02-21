@@ -391,7 +391,8 @@ module Api
       amountPaid: request[:amount_paid],
       refundAmount: request[:refund_amount],
       submittedAt: request[:date_submitted],
-      completedAt: request[:date_processed]
+      completedAt: request[:date_processed],
+      paymentMethod: request[:platform]
     }.compact
   end
 

@@ -103,6 +103,7 @@ export interface StatusLookupResponse {
     submittedAt: string;
     completedAt?: string;
     notes?: string;
+    paymentMethod?: RefundPaymentMethod;
   };
 }
 

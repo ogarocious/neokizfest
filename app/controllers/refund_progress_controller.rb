@@ -14,7 +14,8 @@ class RefundProgressController < ApplicationController
       stats: progress_data[:stats],
       refunds: progress_data[:refunds],
       community_support: progress_data[:community_support],
-      donation_stats: progress_data[:donation_stats] || { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 }
+      donation_stats: progress_data[:donation_stats] || { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 },
+      zelle_paused: true
     }
   end
 

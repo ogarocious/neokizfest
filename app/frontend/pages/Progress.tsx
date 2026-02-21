@@ -22,6 +22,7 @@ import {
   IconCash,
   IconStar,
   IconInfoCircle,
+  IconAlertCircle,
 } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import {
@@ -64,6 +65,7 @@ interface ProgressProps {
   refunds: RefundEntryData[];
   community_support: RefundEntryData[];
   donation_stats: DonationStats;
+  zelle_paused?: boolean;
 }
 
 const Progress: React.FC<ProgressProps> = ({
@@ -72,6 +74,7 @@ const Progress: React.FC<ProgressProps> = ({
   refunds,
   community_support,
   donation_stats,
+  zelle_paused = false,
 }) => {
   const formatLastUpdated = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
@@ -118,6 +121,58 @@ const Progress: React.FC<ProgressProps> = ({
           title="Refund Progress"
           subtitle="Track our refund process transparently. We're committed to making everyone whole."
         />
+
+        {/* Zelle Paused Notice */}
+        {zelle_paused && (
+          <>
+            <style>{`
+              @keyframes zellePulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.35; transform: scale(0.88); }
+              }
+              @keyframes zelleGlow {
+                0%, 100% { box-shadow: 0 0 18px rgba(255, 165, 0, 0.06), 0 0 40px rgba(255, 165, 0, 0.03); }
+                50% { box-shadow: 0 0 32px rgba(255, 165, 0, 0.14), 0 0 70px rgba(255, 165, 0, 0.07); }
+              }
+            `}</style>
+          <GlassCard
+            p={{ base: "sm", sm: "md" }}
+            style={{
+              background: "linear-gradient(135deg, rgba(255, 165, 0, 0.08) 0%, rgba(255, 165, 0, 0.14) 100%)",
+              border: "1px solid rgba(255, 165, 0, 0.45)",
+              animation: "zelleGlow 2.2s ease-in-out infinite",
+            }}
+          >
+            <Stack gap="xs">
+              <Group gap="xs" align="center">
+                <IconAlertCircle
+                  size={18}
+                  color="#FFA500"
+                  style={{ animation: "zellePulse 2.2s ease-in-out infinite" }}
+                />
+                <Text fw={700} c="#FFA500" style={{ fontSize: responsiveText.small }}>
+                  Zelle Payments Temporarily Paused
+                </Text>
+              </Group>
+              <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
+                I've reached Zelle's 30-day sending limit. We can process your refund earlier — just message us your Wise information, Wise QR code, or Wise tag.
+              </Text>
+              <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                If Zelle is your only option, payments will resume next month. Your refund is confirmed and queued — nothing is lost.
+                {" "}Want to process sooner via Wise? Send your Wise username to the festival{" "}
+                <a
+                  href="https://www.facebook.com/neokizfestival"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#FFA500", textDecoration: "underline" }}
+                >
+                  Facebook page.
+                </a>
+              </Text>
+            </Stack>
+          </GlassCard>
+          </>
+        )}
 
         {/* Overall Progress Bar */}
         <GlassCard variant="accent" p={{ base: "sm", sm: "md" }}>

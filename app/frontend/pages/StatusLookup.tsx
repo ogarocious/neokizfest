@@ -53,7 +53,11 @@ const DECISION_LABELS: Record<string, { label: string; icon: React.FC<any>; colo
   waive: { label: "Waived (Donated)", icon: IconHeart, color: "green" },
 };
 
-const StatusLookup: React.FC = () => {
+interface StatusLookupProps {
+  zelle_paused?: boolean;
+}
+
+const StatusLookup: React.FC<StatusLookupProps> = ({ zelle_paused = false }) => {
   const { url } = usePage();
   const params = new URLSearchParams(url.split("?")[1] || "");
   const prefillRef = params.get("ref") || "";
@@ -232,6 +236,39 @@ const StatusLookup: React.FC = () => {
 
                 <StatusBadge status={result.request.status} size="md" />
               </Group>
+
+              {/* Zelle Paused Notice — shown only for Zelle requests not yet completed */}
+              {zelle_paused &&
+                result.request.paymentMethod === "zelle" &&
+                result.request.status !== "completed" && (
+                <GlassCard
+                  p="sm"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255, 165, 0, 0.08) 0%, rgba(255, 165, 0, 0.14) 100%)",
+                    border: "1px solid rgba(255, 165, 0, 0.35)",
+                  }}
+                >
+                  <Group gap="xs" align="flex-start" wrap="nowrap">
+                    <IconAlertCircle size={16} color="#FFA500" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <Stack gap={4}>
+                      <Text fw={600} c="#FFA500" style={{ fontSize: responsiveText.small }}>
+                        Zelle Payments Temporarily Paused
+                      </Text>
+                      <Text c={colors.textSecondary} style={{ fontSize: responsiveText.xs }}>
+                        Your refund is confirmed and queued — nothing is lost. Zelle payments resume next month. If you'd like to try processing earlier, send your Wise username, QR code, or Wise tag to the festival{" "}
+                        <a
+                          href="https://www.facebook.com/neokizfestival"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: "#FFA500", textDecoration: "underline" }}
+                        >
+                          Facebook page.
+                        </a>
+                      </Text>
+                    </Stack>
+                  </Group>
+                </GlassCard>
+              )}
 
               <Divider color="rgba(255, 255, 255, 0.08)" />
 
