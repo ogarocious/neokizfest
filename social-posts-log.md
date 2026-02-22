@@ -20,6 +20,25 @@ Daily progress updates posted to Facebook. Screenshot of progress dashboard incl
 - Progress % = (completed + waived) / total_ticket_holders only
 - Always provide caption as plain text (no markdown syntax) — paste-ready for Facebook
 
+## Payment Status
+
+Check this before drafting each post. Affects tone and any mention of payment timelines.
+
+**Current status (as of Feb 22, 2026): PAUSED**
+Zelle monthly transfer limit hit. Payments resume ~March 1, 2026 (when limit resets).
+Wise (international) unaffected — those can still go out.
+
+**When Zelle is PAUSED:**
+- Do not reference payments going out or specific payment timelines
+- Do not imply completed refunds are being actively paid
+- If someone asks publicly, acknowledge it directly — no hiding it
+- Focus post messaging on getting remaining people to file
+
+**When Zelle is ACTIVE:**
+- Can reference that payments are going out
+- Can cite amounts paid when it's a notable milestone
+- "Completed" count reflects paid + logged in Notion
+
 ## Voice Guidelines (I vs. We)
 
 **Use "I" for Charles's individual labor:**
@@ -186,6 +205,89 @@ We're not slowing down.
 If you haven't submitted yet: neokizfest.com → Request Refund. Takes 2 minutes.
 Already submitted? Check your status at neokizfest.com → Status.
 Full picture: neokizfest.com/progress
+
+---
+
+## Post #5 — Feb 21, 2026 (Day 8)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Payment status at time of post:** ACTIVE (payments still going out)
+
+**Snapshot:**
+- Overall Progress: ~50% (progress page crossed 50%)
+- Total Requests: 107
+- Completed: 42
+- Active: 16
+- Waived: 49
+- Donated: $2,815 from 34 supporters
+
+**Caption:**
+
+Day 8 update — NeoKizFest Refund Process
+
+The progress page crossed 50% today.
+
+Half of the festival community is fully resolved — refunds paid, passes waived, books clean. Eight days in.
+
+Here's where things stand right now:
+
+→ 107 people have submitted a refund request
+→ 42 refunds have been paid in full
+→ 49 people have waived their refund
+→ 16 requests are actively in process — I'm working through them
+→ 34 people have donated to help carry this — $2,815 total
+
+The 49 waivers are the part that stays with me. That's 49 people who looked at their situation and said keep it — not because anyone asked them to, but because they chose to. I don't take that lightly.
+
+If you know someone who was at NeoKizFest and hasn't seen what's happening, please pass this along. I'm sending direct messages every day, but word of mouth goes further than I can reach alone.
+
+The process is at neokizfest.com — takes a few minutes, confirmation number right away. Any issues, message the festival Facebook page and I'll sort it out personally.
+
+Halfway there. Thank you.
+
+neokizfest.com
+
+---
+
+## Post #6 — Feb 22, 2026 (Day 9)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+**Payment status at time of post:** PAUSED (Zelle limit — payments resume ~March 1)
+
+**Snapshot:**
+- Overall Progress: 46.3%
+- Resolved: 95 of 205 (+16 since Post #4)
+- Total Requests: 109 (up from 101)
+- Completed: 44
+- Processing: 6
+- Waived: 51 (+5 since Post #4)
+
+**Caption:**
+
+Day 9 update — NeoKizFest Refund Process
+
+Payments are on hold temporarily — but the process isn't.
+
+Here's where things stand right now:
+
+→ 109 people have submitted a refund request (+2)
+→ 44 refunds have been paid in full (+2)
+→ 51 people have waived their refund (+2)
+→ 6 requests are actively in process (down from 16)
+→ 34 people have donated to help carry this — $2,815 total
+
+On payments: I pushed through the remaining queue before hitting Zelle's monthly transfer limit. Those are done and logged. The 6 requests still in process are next — payments resume in March when the limit resets.
+
+51 waivers. That number keeps growing. More than half of everyone who filed chose to let it go. I don't take that lightly.
+
+If you haven't filed yet — neokizfest.com, takes a few minutes, confirmation number right away. Any issues, message the festival Facebook page and I'll sort it out personally.
+
+Still going.
+
+neokizfest.com
 
 ---
 

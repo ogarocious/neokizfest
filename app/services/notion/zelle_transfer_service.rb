@@ -98,8 +98,9 @@ module Notion
     def build_transfer_properties(params)
       date = params[:date] || Date.today
       date_str = date.to_s
-      # Title format: "Zelle — John Smith — 2026-02-20"
-      title = "Zelle — #{params[:recipient_name]} — #{date_str}"
+      method_label = params[:payment_method].presence || "Zelle"
+      # Title format: "Zelle — John Smith — 2026-02-20" (or "Wise — ...")
+      title = "#{method_label} — #{params[:recipient_name]} — #{date_str}"
 
       props = {
         "Recipient" => { title: [{ text: { content: title } }] },

@@ -1,5 +1,15 @@
 # NeoKizFest — Financial Snapshot & Forecast
-> Generated: Feb 19, 2026 · Day 5 since launch (site went live Feb 14, 2026) · update when refunds reach ~80–100%
+> Updated: Feb 22, 2026 · Day 9 since launch (site went live Feb 14, 2026)
+> Previous snapshot: Feb 19, 2026 (Day 5)
+
+---
+
+## ⚠️ Payment Status Note
+**Zelle payments paused as of Feb 22, 2026** — monthly transfer limit reached.
+Payments resume ~March 1, 2026 when the limit resets.
+The 44 "Completed" refunds reflect all Zelle transfers that went out before the pause.
+The 6 active requests are approved/in-queue and will be paid first when payments resume.
+Wise (international) is unaffected.
 
 ---
 
@@ -9,54 +19,44 @@
 | Source | Amount |
 |---|---|
 | Ticket sales (205 holders) | $34,041.33 |
-| Community donations (35 donors) | $2,815.00 |
+| Community donations (34 donors) | $2,815.00 |
 | **Total ever received** | **$36,856.33** |
 
 ### What Has Happened to That Money
 | Category | # | Amount |
 |---|---|---|
-| Refunds paid out (Completed) | 33 | $6,079.14 |
-| Community forgave (Waived) | 44 | $5,067.96 |
-| **Confirmed still owed** (active) | **22** | **$4,417.28** |
-| Never filed a request | 106 | $18,476.95 pool |
+| Refunds paid out (Completed) | 44 | $7,261.08 |
+| Community forgave (Waived) | 51 | $5,798.90 |
+| **Confirmed still owed** (active) | **6** | **$2,351.68** |
+| Never filed a request | ~96 | $16,010.60 pool |
 
-**32.7%** of all ticket revenue is fully resolved (paid out + waived).
+**46.3%** of all ticket holders fully resolved (paid out + waived). Up from 32.7% on Day 5.
 
 ### Active Liability Breakdown
 | Status | Requests | Amount |
 |---|---|---|
-| Submitted (awaiting review) | 16 | $3,382.46 |
-| Verified (approved, awaiting payment) | 4 | $755.40 |
-| Processing (payment underway) | 2 | $279.42 |
-| **Total confirmed owed** | **22** | **$4,417.28** |
+| Submitted (awaiting review) | ~4 | ~$1,700 |
+| In Review (approved, awaiting payment) | ~2 | ~$650 |
+| **Total confirmed owed** | **6** | **$2,351.68** |
 
-> Largest single pending item: Vamika Bajaj (RR-0073) — $1,153.84 (Full Refund, Submitted)
-
-### Pass Type Breakdown (Total Collected)
-| Pass Type | Holders | Collected |
-|---|---|---|
-| Believers Pass | 120 | $12,530.40 |
-| 4 Night Group Package | 8 | $9,373.88 |
-| Full Pass | 54 | $7,176.96 |
-| Couple Pass (2 Full Passes) | 5 | $1,866.56 |
-| Volunteer Pass | 14 | $1,450.00 |
-| 3 Night Group Package | 1 | $943.53 |
-| Vendor | 2 | $700.00 |
+> These 6 requests are first in line when Zelle payments resume (~March 1).
 
 ---
 
-## Observed Rates (Among 99 Filers)
+## Observed Rates (Among 109 Filers)
 
-| Metric | Rate |
-|---|---|
-| Waive rate among people who filed | **44.4%** |
-| Completed refund rate among filers | **33.3%** |
-| Still active / in-process rate | **22.2%** |
-| Avg ticket value waived per person | $115.18 |
-| Avg refund paid out per person | $184.22 |
-| Avg ticket value in no-filer pool | $174.31 |
+| Metric | Day 5 (99 filers) | Day 9 (109 filers) |
+|---|---|---|
+| Waive rate among people who filed | 44.4% | **46.8%** |
+| Completed refund rate among filers | 33.3% | **40.4%** |
+| Still active / in-process rate | 22.2% | **5.5%** |
+| Avg ticket value waived per person | $115.18 | **$113.70** |
+| Avg refund paid out per person | $184.22 | **$165.02** |
+| Avg ticket value in no-filer pool | $174.31 | **$166.78** |
 
-> **Critical context**: The site launched February 14, 2026. All 99 filers submitted within the first 5 days. These are the most engaged, most community-connected members of the NeoKizFest audience — the early adopters who were watching closely and moved immediately. The 44.4% waive rate reflects this self-selected group. As the broader audience discovers the site over the coming weeks, the waive rate will likely come down and the refund rate will rise. The 106 no-filers are not gone dark — they simply haven't heard yet or are still deciding.
+> The waive rate has ticked up slightly (44.4% → 46.8%) as more people file. The active backlog has collapsed from 22 requests to 6 — the bulk of the queue has been processed. The remaining 6 are held only by the Zelle pause, not by any review delay.
+
+> **Critical context**: These 109 filers are still largely the early-mover, community-connected segment. The waive rate will likely come down as awareness reaches the broader audience. The ~96 no-filers are not disengaged — they're the second and third wave.
 
 ---
 
@@ -64,102 +64,98 @@
 
 | Metric | Value |
 |---|---|
-| Total donors | 35 |
+| Total donors | 34 |
 | Total donated | $2,815.00 |
-| Waived *and* donated (overlap) | 9 people / $905.00 |
-| Pure donors (no pass held) | 26 people |
-| Avg donation per donor | $80.43 |
+| Waived *and* donated (overlap) | 9 people |
+| Avg donation per donor | $82.79 |
 
-> Donations are treated as a community offset — not revenue expected to cover refund liability, but a meaningful signal of support that reduces net burden.
+> Unchanged from Day 5. Donations continue to serve as a community offset — not expected revenue, but a meaningful signal that reduces net burden.
 
 ---
 
-## Forecast: The 106 No-Filers
+## Forecast: The ~96 No-Filers
 
-106 ticket holders (52% of all) have not yet submitted a request.
-Their collective ticket value is **$18,476.95**.
+~96 ticket holders (~47% of all) have not yet submitted a request.
+Their collective ticket value is approximately **$16,010.60**.
+Average ticket value in this pool: **~$166.78**.
 
-**Important framing**: The site launched February 14th. The 106 no-filers are not disengaged — they're the second and third wave. As awareness spreads, filing rates will climb significantly. The early-filer waive rate of 44.4% is almost certainly a ceiling, not a baseline — later filers tend to be less community-connected and more focused on getting their money back. Scenarios reflect this expected shift.
+**Important framing**: Day 9 of a process most people don't check daily. This pool is not gone — they're the second and third wave. Waive rate among later filers will likely come in lower than 46.8% as the community-connected early movers are already counted. Scenarios reflect this.
 
 ### Conservative — 40% of no-filers file, 20% of those waive
 *Most of the remaining audience wants refunds; limited awareness of waive option.*
 | | Value |
 |---|---|
-| New filers from no-filer pool | 42 |
-| New waivers | 8 (+$921.45) |
-| New refunds to pay | 34 (~$5,926.56) |
-| **Total waived all time** | **52 — $5,989.41** |
-| **Total liability remaining** | **$10,343.84** |
-| Pool never files | 64 holders / $11,154.84 |
+| New filers from no-filer pool | 38 |
+| New waivers | 8 (+$1,334) |
+| New refunds to pay | 30 (~$5,003) |
+| **Total waived all time** | **59 — $7,133** |
+| **Active liability remaining** | ~$7,355 (current + new refunds) |
+| Pool never files | ~58 holders / ~$9,673 |
 
 ### Moderate — 55% of no-filers file, 25% of those waive
-*Solid reach via word of mouth; a quarter still choose to give it back.*
+*Solid reach via outreach; a quarter still choose to give it back.*
 | | Value |
 |---|---|
-| New filers from no-filer pool | 58 |
-| New waivers | 15 (+$1,727.73) |
-| New refunds to pay | 43 (~$7,495.56) |
-| **Total waived all time** | **59 — $6,795.69** |
-| **Total liability remaining** | **$11,912.84** |
-| Pool never files | 48 holders / $8,367.29 |
+| New filers from no-filer pool | 53 |
+| New waivers | 13 (+$2,168) |
+| New refunds to pay | 40 (~$6,671) |
+| **Total waived all time** | **64 — $7,967** |
+| **Active liability remaining** | ~$9,023 |
+| Pool never files | ~43 holders / ~$7,172 |
 
 ### Optimistic — 70% of no-filers file, 30% of those waive
-*High awareness, strong community response — waive rate holds closer to early pattern.*
+*High awareness, strong community response.*
 | | Value |
 |---|---|
-| New filers from no-filer pool | 74 |
-| New waivers | 22 (+$2,533.96) |
-| New refunds to pay | 52 (~$9,064.12) |
-| **Total waived all time** | **66 — $7,601.92** |
-| **Total liability remaining** | **$13,481.40** |
-| Pool never files | 32 holders / $5,574.72 |
+| New filers from no-filer pool | 67 |
+| New waivers | 20 (+$3,336) |
+| New refunds to pay | 47 (~$7,839) |
+| **Total waived all time** | **71 — $9,135** |
+| **Active liability remaining** | ~$10,191 |
+| Pool never files | ~29 holders / ~$4,837 |
 
 ---
 
-## Scenario B — Trend Continuation (Social Proof Effect)
+## Scenario B — Trend Continuation (46.8% Waive Rate Holds)
 
-**Assumption: the 44.4% waive rate holds** — sustained by the public badge wall, community messages, artist testimonials, and the emotional weight of the farewell story. Seeing 44 people's initials displayed and reading *"I believed in you then, and I still do"* creates real pull to join that group. The site was designed, intentionally, to make that choice visible and honored.
+If the current 46.8% waive rate holds across all future filers — sustained by the public badge wall, community messages, and the farewell story:
 
-This is not wishful thinking — it's how social proof works. The waive option isn't buried. It's celebrated.
-
-| Filing rate among 106 no-filers | New filers | New waivers | New refunds | Total waivers (all time) | % of all 205 holders | Remaining liability |
+| Filing rate among ~96 no-filers | New filers | New waivers | New refunds | Total waivers (all time) | % of all 205 | Remaining liability |
 |---|---|---|---|---|---|---|
-| 40% (42 people) | 42 | 19 | 23 | **63** | 30.7% | $8,426.41 |
-| 55% (58 people) | 58 | 26 | 32 | **70** | 34.1% | $9,995.20 |
-| 70% (74 people) | 74 | 33 | 41 | **77** | 37.6% | $11,564.00 |
-| 85% (90 people) | 90 | 40 | 50 | **84** | 41.0% | $13,132.78 |
-| 100% (all 106) | 106 | 47 | 59 | **91** | **44.4%** | $14,700.00 |
+| 40% (~38 people) | 38 | 18 | 20 | **69** | 33.7% | ~$5,687 |
+| 55% (~53 people) | 53 | 25 | 28 | **76** | 37.1% | ~$7,019 |
+| 70% (~67 people) | 67 | 31 | 36 | **82** | 40.0% | ~$8,352 |
+| 85% (~82 people) | 82 | 38 | 44 | **89** | 43.4% | ~$9,685 |
+| 100% (all 96) | 96 | 45 | 51 | **96** | **46.8%** | ~$10,851 |
 
-**The headline number**: if the 44.4% waive rate holds across all 205 ticket holders, **91 people** will have waived their refunds — nearly half the entire festival — forgiving a collective **$10,481.38**.
-
-That would mean almost 1 in 2 NeoKizFest ticket holders looked at this situation and said *keep it* — not because they were asked to, but because 90 other people did, because the site told the story honestly, and because what Charles built meant something to them.
+**Headline**: if 46.8% holds all the way, **96 people** (nearly half the festival) will have waived — forgiving a collective **~$13,335** in ticket value. Almost 1 in 2 NeoKizFest pass holders looked at this and said *keep it*.
 
 ---
 
 ## Worst-Case Total Liability
-If every single one of the 106 no-filers filed a full refund (zero additional waivers):
-- Additional exposure: $18,476.95
-- Combined with active: **$22,894.23**
+If every single one of the ~96 no-filers filed a full refund (zero additional waivers):
+- Additional exposure: ~$16,010.60
+- Combined with active: **~$18,362.28**
 
-Realistic range given site is only 5 days old: **$10,300–$13,500**
-*(This will sharpen significantly within 2–3 weeks as filing velocity becomes clear.)*
+Realistic range given current trajectory: **$7,000–$11,000**
+*(Significantly tighter than Day 5 estimate of $10,300–$13,500 — the active backlog collapsed from 22 to 6.)*
 
 ---
 
 ## The Full Community Picture
 | What the community did | # of people | Value |
 |---|---|---|
-| Waived their refund | 44 | $5,067.96 |
-| Donated (all donors) | 35 | $2,815.00 |
-| Waived + donated | 9 | $905.00 (subset of above two) |
-| **Unique people who gave something back** | **70** | **$7,882.96** |
+| Waived their refund | 51 | $5,798.90 |
+| Donated (all donors) | 34 | $2,815.00 |
+| Waived + donated | 9 | (subset of above two) |
+| **Unique people who gave something back** | **76** | **$8,613.90** |
 
-**34% of all 205 ticket holders** — in the first 5 days alone — did something to actively support Charles and the festival rather than simply request their money back. This number will shift as the broader audience catches up, but the early signal is extraordinary.
+**37.1% of all 205 ticket holders** — by Day 9 — did something to actively support Charles and the festival rather than simply request their money back. Up from 34% on Day 5.
 
 ---
 
 ## Velocity Check-ins (Recommended)
-- [ ] **Day 14 (Feb 28)** — Check filing rate, see if pace is slowing or accelerating
+- [ ] **Day 14 (Feb 28)** — Check filing rate, see if pace is slowing or accelerating. Zelle should be back online.
 - [ ] **Day 30 (Mar 15)** — Refresh all numbers; waive rate should be stabilizing
 - [ ] **Day 60 (Apr 14)** — Near-final snapshot; most who will file have filed
 - [ ] **Final** — Refresh when process reaches ~85–90% completion
