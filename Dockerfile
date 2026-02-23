@@ -48,7 +48,7 @@ RUN bundle install && \
 COPY . .
 
 # Install JavaScript dependencies
-RUN yarn install --frozen-lockfile
+RUN yarn install --no-progress
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
