@@ -291,6 +291,46 @@ neokizfest.com
 
 ---
 
+## Post #7 — Feb 23, 2026 (Day 10)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+**Payment status at time of post:** PAUSED (Zelle limit — payments resume ~March 1). Wise active — 1 international refund sent today.
+
+**Snapshot:**
+- Total Requests: 109 (no change)
+- Completed: 45 (+1 via Wise)
+- Processing: 7
+- Waived: 51 (no change)
+- Donated: $2,865 from 35 supporters (+$50, +1 donor)
+
+**Caption:**
+
+Day 10 update — NeoKizFest Refund Process
+
+Still moving.
+
+→ 109 people have submitted a refund request
+→ 45 refunds have been completed (+1 — one international refund went out via Wise today)
+→ 51 people have waived their refund
+→ 7 requests are actively in process
+→ 35 people have donated to help carry this — $2,865 total (+$50 since yesterday)
+
+Zelle is still paused until around March 1. But the process didn't stop — one international refund went out via Wise today, and the remaining queue is staged and ready to move the moment Zelle resets.
+
+Something worth saying out loud: the 51 waivers and $2,865 in donations aren't just gestures. They're what's making this fund work. Every person who said "keep it" or gave something back is directly enabling the refunds that are going out. This isn't charity — it's the community carrying itself forward.
+
+If you haven't filed yet, now is the time. The form takes a few minutes and you get a confirmation number right away.
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going.
+
+neokizfest.com
+
+---
+
 ## Post #4 — Feb 20, 2026
 
 **Platform:** Facebook

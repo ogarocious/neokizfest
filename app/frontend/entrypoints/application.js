@@ -17,6 +17,7 @@ const theme = createTheme({
 });
 
 createInertiaApp({
+  title: (title) => title ? `${title} — Neo Kizomba Festival` : 'Neo Kizomba Festival',
   resolve: (name) => {
     const pages = import.meta.glob("../pages/**/*.tsx", { eager: true });
     return pages[`../pages/${name}.tsx`];
