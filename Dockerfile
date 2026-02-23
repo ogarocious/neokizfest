@@ -33,10 +33,9 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config curl && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Install Node.js and yarn for Vite
+# Install Node.js for Vite
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g yarn
+    apt-get install -y nodejs
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -47,8 +46,8 @@ RUN bundle install && \
 # Copy application code
 COPY . .
 
-# Install JavaScript dependencies
-RUN yarn install --no-progress
+# Install JavaScript dependencies (--include=optional ensures Linux-specific native binaries like @rollup/rollup-linux-x64-gnu are installed)
+RUN npm install --include=optional
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
