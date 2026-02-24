@@ -53,7 +53,9 @@ RUN npm install --include=optional
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL skips vite-ruby's built-in `npm ci` step,
+# since we already ran `npm install --include=optional` above with the Linux-specific rollup binary.
+RUN VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL=true SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
 
