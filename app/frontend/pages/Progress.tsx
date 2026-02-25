@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Head } from "@inertiajs/react";
 import {
   Stack,
@@ -11,6 +11,8 @@ import {
   ScrollArea,
   Popover,
   ActionIcon,
+  Box,
+  Divider,
 } from "@mantine/core";
 import {
   IconChartBar,
@@ -68,6 +70,9 @@ interface ProgressProps {
   zelle_paused?: boolean;
 }
 
+// 9:00 AM CST = 15:00 UTC (CST is UTC-6)
+const ZELLE_RESUME_DATE = new Date("2026-03-22T15:00:00Z");
+
 const Progress: React.FC<ProgressProps> = ({
   last_updated,
   stats,
@@ -107,6 +112,24 @@ const Progress: React.FC<ProgressProps> = ({
 
   const [activeTab, setActiveTab] = useState(defaultTab);
 
+  const calcTimeLeft = () => {
+    const diff = ZELLE_RESUME_DATE.getTime() - Date.now();
+    if (diff <= 0) return null;
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+      seconds: Math.floor((diff % (1000 * 60)) / 1000),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(calcTimeLeft);
+
+  useEffect(() => {
+    const interval = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Head title="Progress">
@@ -144,31 +167,83 @@ const Progress: React.FC<ProgressProps> = ({
             }}
           >
             <Stack gap="xs">
-              <Group gap="xs" align="center">
-                <IconAlertCircle
-                  size={18}
-                  color="#FFA500"
-                  style={{ animation: "zellePulse 2.2s ease-in-out infinite" }}
-                />
-                <Text fw={700} c="#FFA500" style={{ fontSize: responsiveText.small }}>
-                  Zelle Payments Temporarily Paused
-                </Text>
-              </Group>
-              <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
-                I've reached Zelle's 30-day sending limit. We can process your refund earlier — just message us your Wise information, Wise QR code, or Wise tag.
-              </Text>
-              <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
-                If Zelle is your only option, payments will resume next month. Your refund is confirmed and queued — nothing is lost.
-                {" "}Want to process sooner via Wise? Send your Wise username to the festival{" "}
-                <a
-                  href="https://www.facebook.com/neokizfestival"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "#FFA500", textDecoration: "underline" }}
-                >
-                  Facebook page.
-                </a>
-              </Text>
+              {timeLeft !== null ? (
+                <>
+                  <Group gap="xs" align="center">
+                    <IconAlertCircle
+                      size={18}
+                      color="#FFA500"
+                      style={{ animation: "zellePulse 2.2s ease-in-out infinite" }}
+                    />
+                    <Text fw={700} c="#FFA500" style={{ fontSize: responsiveText.small }}>
+                      Zelle Payments Temporarily Paused
+                    </Text>
+                  </Group>
+                  <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
+                    I've reached Zelle's 30-day sending limit. We can process your refund earlier — just message us your Wise information, Wise QR code, or Wise tag.
+                  </Text>
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                    If Zelle is your only option, payments will resume next month. Your refund is confirmed and queued — nothing is lost.
+                    {" "}Want to process sooner via Wise? Send your Wise username to the festival{" "}
+                    <a
+                      href="https://www.facebook.com/neokizfestival"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "#FFA500", textDecoration: "underline" }}
+                    >
+                      Facebook page.
+                    </a>
+                  </Text>
+                  <Divider color="rgba(255, 165, 0, 0.2)" mt={4} />
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs, textAlign: "center" }}>
+                    Zelle hit its monthly limit. Payments are queued and will resume in:
+                  </Text>
+                  <Group gap="xs" wrap="nowrap" justify="center">
+                    {[
+                      { value: timeLeft.days, label: "days" },
+                      { value: timeLeft.hours, label: "hrs" },
+                      { value: timeLeft.minutes, label: "min" },
+                      { value: timeLeft.seconds, label: "sec" },
+                    ].map(({ value, label }) => (
+                      <Box
+                        key={label}
+                        style={{
+                          background: "rgba(255, 165, 0, 0.1)",
+                          border: "1px solid rgba(255, 165, 0, 0.25)",
+                          borderRadius: 8,
+                          padding: "6px 10px",
+                          textAlign: "center",
+                          minWidth: 52,
+                        }}
+                      >
+                        <Text
+                          fw={700}
+                          c="#FFA500"
+                          style={{ fontSize: "1.1rem", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}
+                        >
+                          {String(value).padStart(2, "0")}
+                        </Text>
+                        <Text
+                          c={colors.textMuted}
+                          style={{ fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 2 }}
+                        >
+                          {label}
+                        </Text>
+                      </Box>
+                    ))}
+                  </Group>
+                </>
+              ) : (
+                <Group gap="xs" align="center">
+                  <IconCheck
+                    size={18}
+                    color="#4CAF50"
+                  />
+                  <Text fw={700} c="#4CAF50" style={{ fontSize: responsiveText.small }}>
+                    Zelle payments have resumed.
+                  </Text>
+                </Group>
+              )}
             </Stack>
           </GlassCard>
           </>
