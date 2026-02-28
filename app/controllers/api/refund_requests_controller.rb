@@ -341,6 +341,8 @@ module Api
     name = params[:name]
     refund_amount = params[:refundAmount].present? ? params[:refundAmount].to_f : nil
     amount_paid = params[:amountPaid].present? ? params[:amountPaid].to_f : nil
+    payment_method = params[:paymentMethod].presence || "zelle"
+    payment_contact = format_payment_contact(payment_method, params[:zelleInfo], params[:wiseInfo])
 
     RefundMailer.confirmation_email(
       email: email,
@@ -348,7 +350,9 @@ module Api
       decision: decision,
       name: name,
       refund_amount: refund_amount,
-      amount_paid: amount_paid
+      amount_paid: amount_paid,
+      payment_method: payment_method,
+      payment_contact: payment_contact
     ).deliver_later
 
     Rails.logger.info("[RefundRequestsController] Queued confirmation email to #{email} for #{confirmation_number}")

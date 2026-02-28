@@ -2,7 +2,7 @@
 
 class RefundMailer < ApplicationMailer
   # Sent after a refund request is successfully submitted
-  def confirmation_email(email:, confirmation_number:, decision:, name: nil, refund_amount: nil, amount_paid: nil)
+  def confirmation_email(email:, confirmation_number:, decision:, name: nil, refund_amount: nil, amount_paid: nil, payment_method: nil, payment_contact: nil)
     @confirmation_number = confirmation_number
     @decision = decision
     @name = name || "Valued Guest"
@@ -11,6 +11,8 @@ class RefundMailer < ApplicationMailer
     @amount_paid = amount_paid
     @waived = %w[waive waive_refund].include?(decision.to_s.downcase)
     @donated_amount = compute_donated_amount(decision, refund_amount, amount_paid)
+    @payment_method = payment_method
+    @payment_contact = payment_contact
     @status_url = status_url(confirmation_number)
 
     subject = if @waived

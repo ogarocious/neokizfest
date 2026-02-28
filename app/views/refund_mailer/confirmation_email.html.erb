@@ -55,6 +55,26 @@
     </td>
   </tr>
   <% end %>
+  <% if !@waived && @payment_method.present? %>
+  <tr>
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
+      <span style="color: #9A8F85; font-size: 14px;">Payment Method</span>
+    </td>
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
+      <span style="color: #E8E0D8; font-weight: 600;"><%= @payment_method == "wise" ? "Wise (International)" : "Zelle" %></span>
+    </td>
+  </tr>
+  <% end %>
+  <% if !@waived && @payment_contact.present? %>
+  <tr>
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
+      <span style="color: #9A8F85; font-size: 14px;"><%= @payment_method == "wise" ? "Wise Email" : "Zelle Contact" %></span>
+    </td>
+    <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
+      <span style="color: #E8E0D8; font-weight: 600;"><%= @payment_contact %></span>
+    </td>
+  </tr>
+  <% end %>
   <tr>
     <td style="padding: 12px 0;">
       <span style="color: #9A8F85; font-size: 14px;">Status</span>
