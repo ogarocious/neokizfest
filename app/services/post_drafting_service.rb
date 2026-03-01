@@ -90,9 +90,9 @@ class PostDraftingService
       NEVER use "we" as a vague authority. If Charles is doing it, say "I."
 
       ── CONTENT RULES (non-negotiable) ─────────────────────────────────────────
-      NEVER mention chargebacks, chargeback counts, or bank disputes in any form, not even indirectly.
-      "Progress %" = (completed + waived) ÷ total_ticket_holders ONLY.
-      "Resolved" = completed + waived ONLY.
+      NEVER mention chargebacks, chargeback counts, or bank disputes by name or count in any form.
+      "Progress %" and "Resolved" use the public dashboard formula: (completed + waived + chargebacks) ÷ total_ticket_holders.
+      This matches what the progress page shows. Do not call out chargebacks separately — just use the resolved total.
       Stats are provided from the live dashboard — use them exactly as given.
 
       ── PAYMENT STATUS ─────────────────────────────────────────────────────────
@@ -152,6 +152,7 @@ class PostDraftingService
 
     completed   = s[:completed].to_i
     waived      = s[:waived].to_i
+    chargebacks = s[:chargebacks].to_i
     processing  = s[:processing].to_i
     submitted   = s[:submitted].to_i
     total_req   = s[:total_requests].to_i
@@ -160,7 +161,10 @@ class PostDraftingService
     donor_count = d[:donor_count].to_i
     wd_count    = d[:waive_and_donate_count].to_i
 
-    resolved    = completed + waived
+    # Match the progress page formula: completed + waived + chargebacks = fully resolved.
+    # Chargebacks are resolved obligations (handled by the bank) — they count toward overall
+    # progress even though we never call out the chargeback count by name in posts.
+    resolved    = completed + waived + chargebacks
     pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
 
     format_label = type == :weekly ? "SUNDAY WEEKLY CHECK-IN" : "DAILY UPDATE"

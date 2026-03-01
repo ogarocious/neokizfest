@@ -6,6 +6,7 @@
 
   completed   = s[:completed].to_i
   waived      = s[:waived].to_i
+  chargebacks = s[:chargebacks].to_i
   processing  = s[:processing].to_i
   total_req   = s[:total_requests].to_i
   total_hold  = s[:total_ticket_holders].to_i
@@ -13,7 +14,7 @@
   donor_count = d[:donor_count].to_i
   wd_count    = d[:waive_and_donate_count].to_i
 
-  resolved    = completed + waived
+  resolved    = completed + waived + chargebacks
   pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
 %>
 
