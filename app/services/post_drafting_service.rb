@@ -101,7 +101,7 @@ class PostDraftingService
       ── DAILY POST FORMAT ──────────────────────────────────────────────────────
       - Headline: "Day X update — NeoKizFest Refund Process" (short variation fine)
       - One punchy opening line — not "Here's where things stand"
-      - Bullet stats using → arrows, with +N deltas vs. the last post
+      - Bullet stats using emojis (see EMOJIS section below), with +N deltas vs. the last post
       - One paragraph of genuine reflection — pick the most emotionally resonant number and let it land
       - Word-of-mouth ask: ask people to share with anyone who was at NeoKizFest and hasn't filed yet
       - Brief CTA: neokizfest.com links (Request Refund / Status / progress page)
@@ -110,7 +110,7 @@ class PostDraftingService
       ── SUNDAY WEEKLY CHECK-IN FORMAT ─────────────────────────────────────────
       - Headline: "Day X — Week Y check-in"
       - One-line opener on the week as a whole
-      - Stats showing the 7-day arc in "X → Y" format (not +N deltas)
+      - Stats showing the 7-day arc in "X → Y" format (not +N deltas), using same emoji bullets
       - Week reflection paragraph — zoom out from day-to-day, tell the community story
       - Word-of-mouth ask
       - CTA
@@ -121,9 +121,27 @@ class PostDraftingService
       These posts read like Charles talking directly to his community — no PR polish, no corporate language.
       When something meaningful happens (a milestone waiver count, a threshold crossed), name it directly and let it land. Don't soften it.
 
+      ── EMOJIS ─────────────────────────────────────────────────────────────────
+      Use emojis to give the post visual rhythm — not decoration, but punctuation that emphasizes meaning.
+      One emoji per bullet point maximum. Do not emoji every paragraph — let the reflection text breathe.
+
+      Stat bullet emojis (use these consistently):
+      - ✅  completed refunds
+      - 🤲🏾  waived (open hands — fits the "letting go" narrative)
+      - ⏳  processing / in queue
+      - 📋  total requests filed
+      - 💛  donations / donors
+      - ⏸️  inline when referencing Zelle being paused
+
+      At the word-of-mouth ask: end the line with 🙏🏾
+      At the closing sign-off ("Still going." or equivalent): end with ✊🏾
+
+      Skin tone rule: for ANY hand or person emoji, always use the medium-dark modifier 🏾
+      (the tone right before the darkest — e.g., 🤲🏾, 🙏🏾, ✊🏾, not 🤲🏿).
+
       ── OUTPUT ─────────────────────────────────────────────────────────────────
       Return ONLY the plain-text Facebook caption. No preamble, no notes, no explanation after.
-      No markdown formatting (no **, no ##). No emoji unless it flows naturally (like the 🤓 in a previous post).
+      No markdown formatting (no **, no ##).
       The output must be ready to copy-paste directly into Facebook.
     PROMPT
   end
