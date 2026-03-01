@@ -1,0 +1,78 @@
+<%
+  s           = @stats || {}
+  d           = @donation_stats || {}
+  completed   = s[:completed].to_i
+  waived      = s[:waived].to_i
+  chargebacks = s[:chargebacks].to_i
+  processing  = s[:processing].to_i
+  total_req   = s[:total_requests].to_i
+  total_hold  = s[:total_ticket_holders].to_i
+  donated_amt = d[:total_donated].to_f
+  donor_count = d[:donor_count].to_i
+  wd_count    = d[:waive_and_donate_count].to_i
+  resolved    = completed + waived + chargebacks
+  pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
+%>
+
+<!-- Hero -->
+<div style="text-align: center; margin-bottom: 28px;">
+  <p style="margin: 0 0 6px; font-size: 13px; color: #9A8F85; letter-spacing: 1px; text-transform: uppercase;">Refund Process Complete</p>
+  <p style="margin: 0; font-size: 36px; font-weight: 700; color: #66BB6A;">🎉 100%</p>
+  <p style="margin: 8px 0 0; font-size: 20px; font-weight: 600; color: #E8E0D8;">
+    Day <%= @day %> — Every pass holder has been resolved.
+  </p>
+  <p style="margin: 10px 0 0; font-size: 14px; color: #9A8F85;">
+    <%= Date.today.strftime("%B %d, %Y") %> &nbsp;·&nbsp; No more daily drafts will be sent.
+  </p>
+</div>
+
+<!-- Final stats -->
+<div style="background-color: #1f1f1f; border: 1px solid #2e2e2e; border-radius: 10px; padding: 20px; margin: 0 0 28px;">
+  <p style="margin: 0 0 14px; font-size: 13px; color: #9A8F85; letter-spacing: 1px; text-transform: uppercase;">📊 Final Snapshot</p>
+
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">📊 Overall Progress</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #66BB6A; font-weight: 700; text-align: right; font-size: 18px;"><%= pct %>%</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">✅ Resolved</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= resolved %> of <%= total_hold %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">💸 Completed Refunds</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= completed %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">🤲 Waived</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= waived %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">📋 Total Requests Filed</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= total_req %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">💛 Donations</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;">$<%= sprintf("%.2f", donated_amt) %> from <%= donor_count %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; color: #9A8F85; font-size: 14px;">🌟 Waived + Donated</td>
+      <td style="padding: 8px 0; color: #E8E0D8; font-weight: 600; text-align: right;"><%= wd_count %></td>
+    </tr>
+  </table>
+</div>
+
+<!-- Message -->
+<div style="background-color: #1a2a1a; border: 1px solid #2a4a2a; border-radius: 8px; padding: 20px; margin: 0 0 28px; text-align: center;">
+  <p style="margin: 0 0 8px; font-size: 16px; color: #E8E0D8; font-weight: 600;">That's a wrap.</p>
+  <p style="margin: 0; font-size: 14px; color: #9A8F85; line-height: 1.6;">
+    The daily post-draft agent has nothing left to do. You can disable the n8n trigger or leave it — it will just send this email each morning until you turn it off.
+  </p>
+</div>
+
+<!-- CTA -->
+<div style="text-align: center; margin: 0 0 28px;">
+  <a href="https://neokizfest.com/progress" style="display: inline-block; background: linear-gradient(135deg, #388E3C 0%, #1B5E20 100%); color: #ffffff; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+    🔍 View Final Progress Dashboard
+  </a>
+</div>

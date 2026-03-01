@@ -1,0 +1,36 @@
+<%
+  s           = @stats || {}
+  d           = @donation_stats || {}
+  completed   = s[:completed].to_i
+  waived      = s[:waived].to_i
+  chargebacks = s[:chargebacks].to_i
+  processing  = s[:processing].to_i
+  total_req   = s[:total_requests].to_i
+  total_hold  = s[:total_ticket_holders].to_i
+  donated_amt = d[:total_donated].to_f
+  donor_count = d[:donor_count].to_i
+  wd_count    = d[:waive_and_donate_count].to_i
+  resolved    = completed + waived + chargebacks
+  pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
+%>
+REFUND PROCESS COMPLETE — Day <%= @day %>
+<%= Date.today.strftime("%B %d, %Y") %>
+======================================================================
+
+Every pass holder has been resolved. No more daily drafts will be sent.
+
+FINAL SNAPSHOT
+Overall Progress  : <%= pct %>%
+Resolved          : <%= resolved %> of <%= total_hold %>
+Completed Refunds : <%= completed %>
+Waived            : <%= waived %>
+Processing        : <%= processing %>
+Total Requests    : <%= total_req %>
+Donations         : $<%= sprintf("%.2f", donated_amt) %> from <%= donor_count %>
+Waived + Donated  : <%= wd_count %>
+
+======================================================================
+That's a wrap. You can disable the n8n trigger or leave it running —
+it will send this summary each morning until you turn it off.
+
+https://neokizfest.com/progress

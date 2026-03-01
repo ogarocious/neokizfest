@@ -25,16 +25,32 @@ module Api
         Rails.application.executor.wrap do
           result = PostDraftingService.new(force_type: force_type).draft!
 
-          AdminMailer.post_draft(
-            draft:          result[:draft],
-            type:           result[:type],
-            day:            result[:day],
-            week:           result[:week],
-            stats:          result[:stats],
-            donation_stats: result[:donation_stats]
-          ).deliver_now
+          s           = result[:stats] || {}
+          completed   = s[:completed].to_i
+          waived      = s[:waived].to_i
+          chargebacks = s[:chargebacks].to_i
+          total_hold  = s[:total_ticket_holders].to_i
+          resolved    = completed + waived + chargebacks
+          pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
 
-          Rails.logger.info("[PostDraftController] Draft emailed — Day #{result[:day]}, #{result[:type]}")
+          if pct >= 100
+            AdminMailer.post_draft_complete(
+              day:            result[:day],
+              stats:          result[:stats],
+              donation_stats: result[:donation_stats]
+            ).deliver_now
+            Rails.logger.info("[PostDraftController] Process complete — completion summary emailed (Day #{result[:day]})")
+          else
+            AdminMailer.post_draft(
+              draft:          result[:draft],
+              type:           result[:type],
+              day:            result[:day],
+              week:           result[:week],
+              stats:          result[:stats],
+              donation_stats: result[:donation_stats]
+            ).deliver_now
+            Rails.logger.info("[PostDraftController] Draft emailed — Day #{result[:day]}, #{result[:type]} (#{pct}% resolved)")
+          end
         rescue => e
           Rails.logger.error("[PostDraftController] Background draft failed: #{e.message}")
         end

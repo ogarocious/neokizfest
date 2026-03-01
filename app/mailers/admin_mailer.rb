@@ -33,6 +33,14 @@ class AdminMailer < ApplicationMailer
     mail(to: ADMIN_EMAIL, subject: "Refund Waived: #{confirmation_number} - $#{sprintf('%.2f', amount_paid.to_f)}")
   end
 
+  def post_draft_complete(day:, stats:, donation_stats:)
+    @day            = day
+    @stats          = stats
+    @donation_stats = donation_stats
+
+    mail(to: ADMIN_EMAIL, cc: POST_DRAFT_CC, subject: "🎉 Day #{day} — Refund Process Complete! No more daily drafts.")
+  end
+
   def post_draft(draft:, type:, day:, week:, stats:, donation_stats:)
     @draft         = draft
     @type          = type   # :daily or :weekly
