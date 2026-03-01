@@ -1,0 +1,35 @@
+<%
+  type_label  = @type == :weekly ? "Week #{@week} Check-In" : "Daily Update"
+  s           = @stats || {}
+  d           = @donation_stats || {}
+  completed   = s[:completed].to_i
+  waived      = s[:waived].to_i
+  processing  = s[:processing].to_i
+  total_req   = s[:total_requests].to_i
+  total_hold  = s[:total_ticket_holders].to_i
+  donated_amt = d[:total_donated].to_f
+  donor_count = d[:donor_count].to_i
+  resolved    = completed + waived
+  pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
+%>
+POST DRAFT READY — Day <%= @day %> <%= type_label %>
+<%= Date.today.strftime("%B %d, %Y") %> · Week <%= @week %>
+======================================================================
+
+CURRENT SNAPSHOT
+Overall Progress : <%= pct %>%
+Resolved         : <%= resolved %> of <%= total_hold %>
+Completed        : <%= completed %>
+Waived           : <%= waived %>
+Processing       : <%= processing %>
+Total Requests   : <%= total_req %>
+Donations        : $<%= sprintf("%.2f", donated_amt) %> from <%= donor_count %>
+Zelle            : <%= PostDraftingService::ZELLE_PAUSED ? "PAUSED" : "ACTIVE" %>
+
+======================================================================
+FACEBOOK CAPTION — copy everything between the lines:
+----------------------------------------------------------------------
+<%= @draft %>
+----------------------------------------------------------------------
+
+After posting, record the snapshot in social-posts-log.md.

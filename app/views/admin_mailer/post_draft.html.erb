@@ -1,0 +1,95 @@
+<%
+  type_label   = @type == :weekly ? "Week #{@week} Check-In" : "Daily Update"
+  zelle_paused = PostDraftingService::ZELLE_PAUSED
+  s            = @stats || {}
+  d            = @donation_stats || {}
+
+  completed   = s[:completed].to_i
+  waived      = s[:waived].to_i
+  processing  = s[:processing].to_i
+  total_req   = s[:total_requests].to_i
+  total_hold  = s[:total_ticket_holders].to_i
+  donated_amt = d[:total_donated].to_f
+  donor_count = d[:donor_count].to_i
+  wd_count    = d[:waive_and_donate_count].to_i
+
+  resolved    = completed + waived
+  pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
+%>
+
+<!-- Day / type badge -->
+<div style="text-align: center; margin-bottom: 28px;">
+  <p style="margin: 0 0 6px; font-size: 13px; color: #9A8F85; letter-spacing: 1px; text-transform: uppercase;">Post Draft Ready</p>
+  <p style="margin: 0; font-size: 28px; font-weight: 700; color: #F45D00;">
+    📝 Day <%= @day %> — <%= type_label %>
+  </p>
+  <p style="margin: 8px 0 0; font-size: 14px; color: #9A8F85;">
+    <%= Date.today.strftime("%B %d, %Y") %> &nbsp;·&nbsp; Week <%= @week %>
+  </p>
+</div>
+
+<!-- Quick stats snapshot -->
+<div style="background-color: #1f1f1f; border: 1px solid #2e2e2e; border-radius: 10px; padding: 20px; margin: 0 0 28px;">
+  <p style="margin: 0 0 14px; font-size: 13px; color: #9A8F85; letter-spacing: 1px; text-transform: uppercase;">📊 Current Snapshot</p>
+
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">📊 Overall Progress</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #F45D00; font-weight: 700; text-align: right; font-size: 16px;"><%= pct %>%</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">✅ Resolved</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= resolved %> of <%= total_hold %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">💸 Completed Refunds</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= completed %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">🤲 Waived</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= waived %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">⏳ Processing</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= processing %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">📬 Total Requests Filed</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= total_req %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">💰 Donations</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;">$<%= sprintf("%.2f", donated_amt) %> from <%= donor_count %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #9A8F85; font-size: 14px;">🌟 Waived + Donated</td>
+      <td style="padding: 8px 0; border-bottom: 1px solid #2e2e2e; color: #E8E0D8; font-weight: 600; text-align: right;"><%= wd_count %></td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 0; color: #9A8F85; font-size: 14px;">⚡ Zelle</td>
+      <td style="padding: 8px 0; font-weight: 700; text-align: right; font-size: 14px; color: <%= zelle_paused ? '#E57373' : '#66BB6A' %>;">
+        <%= zelle_paused ? "PAUSED" : "ACTIVE" %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- The draft caption -->
+<p style="margin: 0 0 10px; font-size: 13px; color: #9A8F85; letter-spacing: 1px; text-transform: uppercase;">📋 Facebook Caption</p>
+<div style="background-color: #111111; border: 1px solid #333333; border-left: 3px solid #F45D00; border-radius: 6px; padding: 20px; margin: 0 0 28px;">
+  <pre style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 14px; color: #E8E0D8; line-height: 1.7; white-space: pre-wrap; word-wrap: break-word;"><%= @draft %></pre>
+</div>
+
+<!-- CTA -->
+<div style="text-align: center; margin: 0 0 28px;">
+  <a href="https://neokizfest.com/progress" style="display: inline-block; background: linear-gradient(135deg, #F45D00 0%, #A25A3C 100%); color: #ffffff; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 15px;">
+    🔍 View Progress Dashboard
+  </a>
+</div>
+
+<!-- Reminder -->
+<div style="background-color: #1a1f1a; border: 1px solid #2a3a2a; border-radius: 8px; padding: 16px; text-align: center;">
+  <p style="margin: 0; font-size: 14px; color: #9A8F85;">
+    📓 After posting, record the snapshot in <span style="color: #E8E0D8; font-family: monospace;">social-posts-log.md</span>
+  </p>
+</div>

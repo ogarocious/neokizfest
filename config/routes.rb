@@ -41,6 +41,9 @@ Rails.application.routes.draw do
 
     # Square webhook (supporter donations)
     post 'webhooks/square', to: 'webhooks#square'
+
+    # Post draft generation (triggered by n8n on a schedule)
+    post 'post-draft/generate', to: 'post_draft#generate'
   end
 
   # Health check endpoint

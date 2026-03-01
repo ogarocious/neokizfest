@@ -73,6 +73,45 @@ Chargeback amounts are excluded from "net still owed" because Stripe already rev
 
 ---
 
+## Stripe Balance Obligation
+
+As of Feb 28, 2026, the Stripe account balance is **-$4,997.33**. This is a real cash obligation — must deposit this to bring the account back to $0. Plan to resolve within a few weeks.
+
+This is separate from and in addition to the Zelle refund queue.
+
+**Full dispute breakdown (13 disputes, $6,658.75 total):**
+
+| Status | Customer | Amount | Disputed |
+|---|---|---|---|
+| Lost ❌ | nikitlamba@gmail.com | $1,153.84 | Jul 23, 2025 |
+| Lost ❌ | bobbykadeer1962@outlook.com | $1,297.00 | Jul 7, 2025 |
+| Lost ❌ | azhar.azharqureshi@gmail.com | $560.00 | Jul 10, 2025 |
+| Lost ❌ | gabriellex14@gmail.com | $280.00 | Jul 10, 2025 |
+| Lost ❌ | kmagni@cfuturell.com | $270.00 | Jul 5, 2025 |
+| Lost ❌ | stephanie.jean25@gmail.com | $125.00 | Jul 5, 2025 |
+| Deadline missed | danielwque@gmail.com | $1,172.30 | Sep 30, 2025 |
+| Deadline missed | danielwque@gmail.com | $105.27 | Sep 27, 2025 |
+| Deadline missed | scottromaine@hotmail.com | $150.00 | Sep 24, 2025 |
+| Deadline missed | maika0731@gmail.com | $104.42 | Oct 2, 2025 |
+| Deadline missed | hey_its_me_scalos@yahoo.com | $112.42 | Aug 25, 2025 |
+| **Pending** ⏳ | **vamika_bajaj@hotmail.com** | **$1,224.08** | **Feb 4, 2026** |
+| Inquiry closed ✓ | biba.ih@gmail.com | $104.42 | Jul 27, 2024 |
+
+**Total confirmed lost** (Lost + Deadline missed): **$5,330.25**
+**Still live**: $1,224.08 — vamika is withdrawing the dispute herself and will be refunded directly via Zelle. If withdrawn, Stripe balance improves to **-$3,773.25**.
+
+**Total immediate cash obligations (as of Feb 28, 2026):**
+
+| Obligation | Amount | Notes |
+|---|---|---|
+| Stripe balance to restore | $4,997.33 | Resolving in ~weeks |
+| Pending Zelle refunds (31 requests) | $5,241.40 | Resumes ~Mar 22 |
+| **Immediate total** | **$10,238.73** | |
+| Non-filer pool (48 holders) | $6,517.48 | Contingent — only if they file |
+| **Grand total worst case** | **$16,756.21** | |
+
+---
+
 ## Historical Log
 
 | Date | Day | Waived | Waived $ | Partials | Partial $ | Donors | Donations $ | Pardon Total | Pardon + Donations | Waive % (all) | Waive % (resolved) | Paid Out | Non-Filer Pool | Chargebacks | Net Still Owed |
@@ -81,4 +120,4 @@ Chargeback amounts are excluded from "net still owed" because Stripe already rev
 | Feb 25, 2026 | 12 | 62 | $6,993.10 | 8 | $1,017.36 | 35 | $2,865.00 | **$8,010.46** | **$10,875.46** | 47.3% | 56.9% | — | — | — | — |
 | Feb 26, 2026 | 13 | 63 | $7,105.52 | 8 | $1,017.36 | 35 | $2,865.00 | **$8,122.88** | **$10,987.88** | 47.4% | 57.3% | — | — | — | — |
 | Feb 27, 2026 | 14 | 67 | $7,539.20 | 8 | $1,017.36 | 35 | $2,865.00 | **$8,556.56** | **$11,421.56** | 47.2% | 58.8% | $7,365.50 | $7,019.90 (51) | $5,310.94 (11) | **$11,868.88** ($4,848.98 filers + $7,019.90 pool) |
-| Feb 28, 2026 | 15 | 67 | $7,539.20 | 8 | $1,017.36 | 36 | $2,890.00 | **$8,556.56** | **$11,446.56** | 46.9% | 58.8% | $7,365.50 (paused) | $6,749.90 (50) | $5,310.94 (11) | **$11,818.88** ($5,068.98 filers + $6,749.90 pool) |
+| Feb 28, 2026 | 15 | 67 | $7,539.20 | 10 | $1,234.20 | 37 | $2,890.00 | **$8,773.40** | **$11,663.40** | 46.2% | 58.8% | $7,365.50 (paused) | $6,517.48 (48) | $5,330.25 (11, per Stripe) | **$11,758.88** ($5,241.40 filers + $6,517.48 pool) + $4,997.33 Stripe |

@@ -12,10 +12,6 @@ module Notion
     CACHE_KEY = "neo_kiz_refund_progress"
     CACHE_TTL = 1.hour
 
-    def initialize
-      @client = Notion::ApiClient.new
-    end
-
     # Fetch sanitized progress data with caching
     # Returns data suitable for public display
     def fetch
@@ -32,19 +28,22 @@ module Notion
     private
 
     def fetch_fresh_data
-      # Fetch ticket holders first so we can build a name lookup for initials fallback
-      holder_data = fetch_ticket_holder_data
+      # Fire all 4 independent Notion queries concurrently.
+      # Each creates its own ApiClient instance to avoid thread-safety concerns.
+      # MRI Ruby releases the GIL during network I/O, so all 4 HTTP calls run in parallel.
+      holder_future     = Concurrent::Future.execute { fetch_ticket_holder_data }
+      supporters_future = Concurrent::Future.execute { fetch_all_supporter_orders }
+      zelle_future      = Concurrent::Future.execute { fetch_paid_request_ids }
+      requests_future   = Concurrent::Future.execute { fetch_all_refund_requests }
 
-      # Fetch donation data early so we can cross-reference waive+donate supporters
-      donation_data = fetch_donation_stats
+      # Each method returns a safe default on error, so .value! won't raise
+      holder_data      = holder_future.value!
+      supporter_pages  = supporters_future.value!
+      paid_request_ids = zelle_future.value!
+      all_requests     = requests_future.value!
 
-      # Fetch Zelle transfers to mark paid refunds
-      paid_request_ids = fetch_paid_request_ids
-
-      all_requests = @client.query_database(
-        database_id: DATABASE_ID,
-        sorts: [{ property: "Date Submitted", direction: "descending" }]
-      )
+      # Pure Ruby — no extra API call needed
+      donation_data = compute_donation_stats(supporter_pages)
 
       refunds = []
       waived = []
@@ -109,8 +108,30 @@ module Notion
         refunds: refunds.map { |r| sanitize_for_public(r) },
         community_support: waived.map { |w| sanitize_community_support(w) },
         donation_stats: donation_data[:stats],
-        community_messages: fetch_community_messages(all_requests, holder_data, donation_data)
+        community_messages: fetch_community_messages(all_requests, holder_data, donation_data, supporter_pages)
       }
+    end
+
+    # Fetch all refund requests, sorted newest first
+    def fetch_all_refund_requests
+      Notion::ApiClient.new.query_database(
+        database_id: DATABASE_ID,
+        sorts: [{ property: "Date Submitted", direction: "descending" }]
+      )
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[ProgressService] Failed to fetch refund requests: #{e.message}")
+      []
+    end
+
+    # Fetch all supporter orders (unfiltered). Used for both donation stats and
+    # community messages — avoids a second round-trip to the same database.
+    def fetch_all_supporter_orders
+      return [] unless SUPPORTER_ORDERS_DB_ID
+
+      Notion::ApiClient.new.query_database(database_id: SUPPORTER_ORDERS_DB_ID)
+    rescue Notion::ApiClient::NotionError => e
+      Rails.logger.error("[ProgressService] Failed to fetch supporter orders: #{e.message}")
+      []
     end
 
     # Fetch ticket holders and build a name lookup map (page_id → name)
@@ -118,7 +139,7 @@ module Notion
     def fetch_ticket_holder_data
       return { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {}, email_lookup: {} } unless TICKET_HOLDERS_DB_ID
 
-      results = @client.query_database(database_id: TICKET_HOLDERS_DB_ID)
+      results = Notion::ApiClient.new.query_database(database_id: TICKET_HOLDERS_DB_ID)
       chargebacks = results.count { |page| chargeback?(page) }
 
       name_lookup = {}
@@ -141,23 +162,18 @@ module Notion
       { total: 0, chargebacks: 0, name_lookup: {}, initials_lookup: {}, email_lookup: {} }
     end
 
-    # Returns { stats: { total_donated:, donor_count:, waive_and_donate_count: }, waive_donate_emails: Set }
-    def fetch_donation_stats
+    # Pure Ruby — compute donation stats from pre-fetched supporter order pages.
+    # Filters for Order Type = Donation in Ruby instead of a separate filtered API call.
+    def compute_donation_stats(pages)
       empty = { stats: { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 }, waive_donate_emails: Set.new }
-      return empty unless SUPPORTER_ORDERS_DB_ID
+      return empty if pages.empty?
 
-      results = @client.query_database(
-        database_id: SUPPORTER_ORDERS_DB_ID,
-        filter: {
-          property: "Order Type",
-          select: { equals: "Donation" }
-        }
-      )
+      donation_pages = pages.select { |p| p.properties.dig("Order Type", "select", "name") == "Donation" }
 
       total = 0.0
       waive_and_donate_count = 0
       waive_donate_emails = Set.new
-      results.each do |page|
+      donation_pages.each do |page|
         amount = page.properties.dig("Amount Paid", "number")
         total += amount.to_f if amount
 
@@ -170,19 +186,16 @@ module Notion
       end
 
       {
-        stats: { total_donated: total.round(2), donor_count: results.size, waive_and_donate_count: waive_and_donate_count },
+        stats: { total_donated: total.round(2), donor_count: donation_pages.size, waive_and_donate_count: waive_and_donate_count },
         waive_donate_emails: waive_donate_emails
       }
-    rescue Notion::ApiClient::NotionError => e
-      Rails.logger.error("[ProgressService] Failed to fetch donation stats: #{e.message}")
-      { stats: { total_donated: 0, donor_count: 0, waive_and_donate_count: 0 }, waive_donate_emails: Set.new }
     end
 
     # Fetch Zelle Transfers and return a Set of refund request page IDs that have been paid
     def fetch_paid_request_ids
       return Set.new unless ZELLE_TRANSFERS_DB_ID
 
-      results = @client.query_database(database_id: ZELLE_TRANSFERS_DB_ID)
+      results = Notion::ApiClient.new.query_database(database_id: ZELLE_TRANSFERS_DB_ID)
 
       paid_ids = Set.new
       results.each do |page|
@@ -196,9 +209,9 @@ module Notion
       Set.new
     end
 
-    # Collect approved community messages from both refund requests and donations
-    # Reuses already-fetched refund request pages to avoid extra API calls
-    def fetch_community_messages(refund_pages, holder_data, donation_data)
+    # Collect approved community messages from both refund requests and donations.
+    # Reuses already-fetched pages for both sources — no additional API calls.
+    def fetch_community_messages(refund_pages, holder_data, donation_data, supporter_pages)
       messages = []
 
       # From refund requests (already fetched)
@@ -219,29 +232,15 @@ module Notion
         messages << { initials: initials, message: text, type: msg_type }
       end
 
-      # From supporter orders (need a separate query for approved messages)
-      if SUPPORTER_ORDERS_DB_ID
-        begin
-          donation_pages = @client.query_database(
-            database_id: SUPPORTER_ORDERS_DB_ID,
-            filter: {
-              property: "Message Approved",
-              checkbox: { equals: true }
-            }
-          )
+      # From supporter orders — filter approved messages from pre-fetched pages (no API call)
+      supporter_pages.select { |p| p.properties.dig("Message Approved", "checkbox") == true }.each do |page|
+        text = extract_rich_text(page.properties["Community Message"])
+        next if text.blank?
 
-          donation_pages.each do |page|
-            text = extract_rich_text(page.properties["Community Message"])
-            next if text.blank?
+        name = extract_title(page.properties["Name"])
+        initials = name.present? ? initials_from_name(name) : "—"
 
-            name = extract_title(page.properties["Name"])
-            initials = name.present? ? initials_from_name(name) : "—"
-
-            messages << { initials: initials || "—", message: text, type: "donation" }
-          end
-        rescue Notion::ApiClient::NotionError => e
-          Rails.logger.error("[ProgressService] Failed to fetch donation messages: #{e.message}")
-        end
+        messages << { initials: initials || "—", message: text, type: "donation" }
       end
 
       messages
