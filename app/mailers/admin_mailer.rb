@@ -2,6 +2,7 @@
 
 class AdminMailer < ApplicationMailer
   ADMIN_EMAIL = "charles@neokizomba.com"
+  POST_DRAFT_CC = "ashleyrc8213@gmail.com"
 
   def new_donation(name:, email:, amount:, identifier:, waived_refund: false)
     @name = name.presence || "Anonymous"
@@ -43,6 +44,6 @@ class AdminMailer < ApplicationMailer
     type_label = type == :weekly ? "Week #{week} Check-In" : "Daily Update"
     subject = "📝 Day #{day} Draft Ready — #{type_label}"
 
-    mail(to: ADMIN_EMAIL, subject: subject)
+    mail(to: ADMIN_EMAIL, cc: POST_DRAFT_CC, subject: subject)
   end
 end
