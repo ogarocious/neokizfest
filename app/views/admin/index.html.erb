@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — NeoKizFest</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 2rem; max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.4rem; margin-bottom: 2rem; color: #fff; }
+    h2 { font-size: 1rem; margin: 0 0 1rem; color: #ccc; }
+    .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th { text-align: left; padding: 0.4rem 0.75rem; color: #777; font-weight: 500; border-bottom: 1px solid #2a2a2a; }
+    td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #1f1f1f; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    .conf { font-family: monospace; color: #a78bfa; }
+    .status-completed { color: #86efac; }
+    .status-waived { color: #fbbf24; }
+    .empty { color: #555; font-size: 0.875rem; font-style: italic; padding: 0.75rem 0; }
+    button {
+      background: #7c3aed; color: #fff; border: none; border-radius: 5px;
+      padding: 0.35rem 0.8rem; font-size: 0.8rem; cursor: pointer; white-space: nowrap;
+    }
+    button:hover { background: #6d28d9; }
+    button:disabled { background: #333; color: #666; cursor: not-allowed; }
+    .btn-all { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+    .send-all-row { margin-top: 1rem; }
+    .result-section { margin-top: 1.5rem; border-top: 1px solid #2a2a2a; padding-top: 1.25rem; }
+    .result-heading { font-size: 0.9rem; color: #aaa; margin-bottom: 0.75rem; }
+    .result-item { padding: 0.4rem 0; font-size: 0.875rem; border-bottom: 1px solid #1f1f1f; }
+    .result-item:last-child { border-bottom: none; }
+    .ok { color: #86efac; }
+    .err { color: #fca5a5; }
+    .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.4rem; }
+    .badge-green { background: #14532d; color: #86efac; }
+    .badge-red { background: #450a0a; color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <h1>NeoKizFest Admin</h1>
+
+  <div class="card">
+    <h2>
+      Pending Notifications
+      <% if @pending.any? %>
+        <span class="badge badge-green"><%= @pending.size %></span>
+      <% end %>
+    </h2>
+
+    <% if @pending.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Confirmation</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Decision</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pending.each do |r| %>
+            <tr>
+              <td class="conf"><%= r[:confirmation_number] %></td>
+              <td><%= r[:name] %></td>
+              <td class="status-<%= r[:status]&.downcase %>"><%= r[:status] %></td>
+              <td><%= r[:decision] %></td>
+              <td>
+                <%= form_with url: admin_send_one_path, method: :post, style: "display:inline" do |f| %>
+                  <%= f.hidden_field :confirmation_number, value: r[:confirmation_number] %>
+                  <%= f.submit "Send", onclick: "this.disabled=true; this.value='Sending…'; this.form.submit();" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <div class="send-all-row">
+        <%= form_with url: admin_send_notifications_path, method: :post do |f| %>
+          <%= f.submit "Send All (#{@pending.size})", class: "btn-all", onclick: "this.disabled=true; this.value='Sending…'; this.form.submit();" %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="empty">No pending notifications — all caught up.</p>
+    <% end %>
+
+    <% if @ran %>
+      <div class="result-section">
+        <div class="result-heading">
+          Last run:
+          <% if @sent&.any? %><span class="badge badge-green"><%= @sent.size %> sent</span><% end %>
+          <% if @errors&.any? %><span class="badge badge-red"><%= @errors.size %> errors</span><% end %>
+        </div>
+
+        <% @sent&.each do |r| %>
+          <div class="result-item ok">✓ <%= r[:confirmation_number] %> — <%= r[:name] %> &lt;<%= r[:email] %>&gt;</div>
+        <% end %>
+
+        <% @errors&.each do |r| %>
+          <div class="result-item err">✗ <%= r[:confirmation_number] %> — <%= r[:message] %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

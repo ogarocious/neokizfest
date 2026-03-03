@@ -12,8 +12,12 @@ Cross-reference Ticket Holder relation → `Amount Paid` on Master Ticket Holder
 Note: `Refund Amount Requested` is not reliably filled on waived records — use ticket holder `Amount Paid`.
 
 **2. Partial refund surpluses**
-Notion: `Refund Requests DB` → `Status = Completed`, where `Refund Amount Requested < Ticket Holder Amount Paid`
-Pardoned portion = `Ticket Holder Amount Paid` − `Refund Amount Requested` per record. Sum the gaps.
+Notion: `Refund Requests DB` → `Decision = Partial Refund` (all statuses)
+For each record, follow the `Ticket Holder` relation → look up `Amount Paid` on Master Ticket Holders DB.
+Gap = `Ticket Holder Amount Paid` − `Refund Amount Requested` per record.
+- Pardoned total = sum of gaps for **Completed** records only
+- Pending gap = sum of gaps for Submitted / Verified / Processing (potential future pardon)
+The script prints a full per-record breakdown showing original paid, requested, and gap for every partial filer.
 
 **3. Donations**
 Notion: `Supporter Orders DB` → sum all donation amounts + donor count.
@@ -41,24 +45,26 @@ Chargebacks:           X — $X,XXX.XX (already clawed back by Stripe)
 ─── COMMUNITY GOODWILL ────────────────────────────────
 Waived: X passes — $X,XXX.XX
 Partial refunds: X — $X,XXX.XX gap (pardoned portion)
+Private lesson settlements: X — $X,XXX.XX (fully forgiven)
 Donations: X donors — $X,XXX.XX
 
-Pardon total (waivers + partials): $X,XXX.XX
+Pardon total (waivers + partials + private lessons): $X,XXX.XX
 Pardon + donations: $X,XXX.XX
 
 Waive rate — of all filers (X/X): XX.X%
 Waive rate — of resolved only (X/X): XX.X%
 
 ─── PAYMENT ACCOUNTING ────────────────────────────────
-Total collected (gross):         $XX,XXX.XX
-Chargebacks (excluded):         -$X,XXX.XX
-Waived (forgiven):              -$X,XXX.XX
-Partial gaps (forgiven):        -$X,XXX.XX
-Already paid out (Zelle):       -$X,XXX.XX
-                                 ────────────────
-Net still owed:                  $XX,XXX.XX
-  └─ To open filers (pending):   $X,XXX.XX (X requests)
-  └─ Non-filer pool:             $X,XXX.XX (X holders)
+Total collected (gross):              $XX,XXX.XX
+Chargebacks (excluded):              -$X,XXX.XX
+Waived (forgiven):                   -$X,XXX.XX
+Partial gaps (forgiven):             -$X,XXX.XX
+Private lesson settlements (forgiven):-$X,XXX.XX
+Already paid out (Zelle):            -$X,XXX.XX
+                                      ────────────────
+Net still owed:                       $XX,XXX.XX
+  └─ To open filers (pending):        $X,XXX.XX (X requests)
+  └─ Non-filer pool:                  $X,XXX.XX (X holders)
 
 ─── RATIOS ─────────────────────────────────────────────
 Pardon vs. total collected: XX.X%
@@ -121,3 +127,5 @@ This is separate from and in addition to the Zelle refund queue.
 | Feb 26, 2026 | 13 | 63 | $7,105.52 | 8 | $1,017.36 | 35 | $2,865.00 | **$8,122.88** | **$10,987.88** | 47.4% | 57.3% | — | — | — | — |
 | Feb 27, 2026 | 14 | 67 | $7,539.20 | 8 | $1,017.36 | 35 | $2,865.00 | **$8,556.56** | **$11,421.56** | 47.2% | 58.8% | $7,365.50 | $7,019.90 (51) | $5,310.94 (11) | **$11,868.88** ($4,848.98 filers + $7,019.90 pool) |
 | Feb 28, 2026 | 15 | 67 | $7,539.20 | 10 | $1,234.20 | 37 | $2,890.00 | **$8,773.40** | **$11,663.40** | 46.2% | 58.8% | $7,365.50 (paused) | $6,517.48 (48) | $5,330.25 (11, per Stripe) | **$11,758.88** ($5,241.40 filers + $6,517.48 pool) + $4,997.33 Stripe |
+| Mar 1, 2026 | 16 | 68 | $7,651.62 | 8 | $1,017.36 | 36 | $2,890.00 | **$8,885.82** (incl. 2 private lessons $216.84) | **$11,775.82** | 45.3% | 58.6% | $7,365.50 (paused) | $6,088.22 (44) | $5,310.94 (11) | **$12,583.49** ($5,520.90 filers + $6,088.22 pool) + $4,997.33 Stripe |
+| Mar 2, 2026 | 17 | 69 | $7,756.04 | 7 | $1,012.94 | 36 | $2,890.00 | **$8,985.82** (incl. 2 private lessons $216.84) | **$11,875.82** | 45.4% | 59.0% | $7,365.50 (paused) | $5,879.38 (42) | $5,310.94 (11) | **$12,379.07** ($5,572.90 filers + $5,879.38 pool) + $4,997.33 Stripe |

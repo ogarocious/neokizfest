@@ -46,6 +46,11 @@ Rails.application.routes.draw do
     post 'post-draft/generate', to: 'post_draft#generate'
   end
 
+  # Admin panel (HTTP Basic Auth protected)
+  get 'admin', to: 'admin#index', as: :admin
+  post 'admin/send-notifications', to: 'admin#send_notifications', as: :admin_send_notifications
+  post 'admin/send-one', to: 'admin#send_one', as: :admin_send_one
+
   # Health check endpoint
   get "up" => "rails/health#show", as: :rails_health_check
 end

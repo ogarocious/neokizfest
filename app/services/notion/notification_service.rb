@@ -31,6 +31,11 @@ module Notion
       results
     end
 
+    # Returns parsed pending notifications without sending anything.
+    def fetch_pending
+      fetch_pending_notifications.map { |page| parse_page(page) }
+    end
+
     # Send (or re-send) notification for a single confirmation number.
     # Does NOT check "Notification Sent" — always sends and marks as sent.
     def send_for_confirmation!(confirmation_number)
