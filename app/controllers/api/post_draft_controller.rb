@@ -33,6 +33,8 @@ module Api
           resolved    = completed + waived + chargebacks
           pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
 
+          PostLogService.new(result).append!
+
           if pct >= 100
             AdminMailer.post_draft_complete(
               day:            result[:day],
