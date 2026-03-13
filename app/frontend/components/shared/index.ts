@@ -5,6 +5,7 @@ export { default as GlassCard } from "./GlassCard";
 export { default as GlassTabs } from "./GlassTabs";
 export { default as PageHeader } from "./PageHeader";
 export { default as BackToHome } from "./BackToHome";
+export { default as FilingDeadlineCountdown } from "./FilingDeadlineCountdown";
 
 // Buttons
 export { default as GradientButton } from "./GradientButton";

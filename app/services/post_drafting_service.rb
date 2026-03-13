@@ -22,8 +22,11 @@ class PostDraftingService
 
   # ── Update these when Zelle resumes ──────────────────────────────────────────
   ZELLE_PAUSED = true
-  ZELLE_RESUME_DATE = "late March 2026 (~March 22)"
+  ZELLE_RESUME_DATE = "March 22, 2026"
   # ─────────────────────────────────────────────────────────────────────────────
+
+  # Filing deadline — 90 days from launch (Feb 14 + 90 days = May 15, 2026)
+  FILING_DEADLINE = "May 15, 2026"
 
   def initialize(force_type: nil)
     # force_type: :daily, :weekly, or nil (auto-detect from day of week)
@@ -75,7 +78,8 @@ class PostDraftingService
     zelle_note = if ZELLE_PAUSED
       "PAUSED — Zelle hit its monthly transfer limit. Resumes #{ZELLE_RESUME_DATE}. " \
       "Wise (international) is still active. " \
-      "Do NOT imply payments are actively going out or reference specific payment timelines. " \
+      "You may mention the resume date or approximate days remaining, but calculate from TODAY's date accurately — do not use stale relative dates from the post history. " \
+      "Do NOT imply payments are actively going out right now. " \
       "Focus messaging on getting remaining pass holders to file."
     else
       "ACTIVE — payments are going out normally. It is fine to reference that refunds are being paid."
@@ -98,12 +102,30 @@ class PostDraftingService
       ── PAYMENT STATUS ─────────────────────────────────────────────────────────
       Zelle: #{zelle_note}
 
+      ── WAIVER FRAMING — ROTATE EACH POST ─────────────────────────────────────
+      The waiver stat appears in every post, but the framing must NEVER repeat back-to-back.
+      Read the post history to identify which angle was used most recently, then choose a DIFFERENT one.
+
+      Available angles (pick the one least recently used):
+      A. RELATIVE SCALE — compare to another number: "Waivers now outnumber the active queue" / "More people waived than are still waiting"
+      B. PERCENTAGE — frame as a share: "X% of everyone who filed chose to walk away from the money"
+      C. MILESTONE — call out a round-number crossing (50, 60, 70…); only use when the number actually crossed one since the last post
+      D. QUIET ACT — focus on the private, individual nature: no announcement, no ask — each person just decided
+      E. SILENT STAT — list it as a bullet only, NO reflection paragraph about waivers at all; let another stat (donors, progress %, new filers) carry the emotional weight
+
+      Rules:
+      - If the last post used angle A, do not use A again. Same for every other angle.
+      - Angle F (silent) should appear roughly every 3–4 posts to break the rhythm entirely.
+      - When using angle F, the reflection paragraph should center something else: a donor milestone, a threshold crossed, the queue shrinking, etc.
+      - Never combine two angles in one post — pick one and commit to it.
+
       ── DAILY POST FORMAT ──────────────────────────────────────────────────────
       - Headline: "Day X update — NeoKizFest Refund Process" (short variation fine)
-      - One punchy opening line — not "Here's where things stand"
+      - One punchy opening line — lead with the journey and progress, not the remaining gap. Zoom out: how far has this come? What has the community done together?
       - Bullet stats using emojis (see EMOJIS section below), with +N deltas vs. the last post
-      - One paragraph of genuine reflection — pick the most emotionally resonant number and let it land
-      - Word-of-mouth ask: ask people to share with anyone who was at NeoKizFest and hasn't filed yet
+      - One paragraph of genuine reflection — center the community story. NOT "still X people missing." See WAIVER FRAMING above for what to anchor it on.
+      - Filing deadline: one or two sentences, factual and kind. Example tone: "The filing window stays open through #{FILING_DEADLINE} — 90 days from when this all began. If you know someone still thinking about it, that's the date to keep in mind." Do not frame this as an ultimatum or pressure.
+      - Word-of-mouth ask: one brief, soft sentence — if someone was at NeoKizFest and hasn't filed yet, there's still time. This is NOT the emotional centerpiece of the post.
       - Brief CTA: neokizfest.com links (Request Refund / Status / progress page)
       - Short closing line, then "neokizfest.com" on its own line
 
@@ -111,8 +133,9 @@ class PostDraftingService
       - Headline: "Day X — Week Y check-in"
       - One-line opener on the week as a whole
       - Stats showing the 7-day arc in "X → Y" format (not +N deltas), using same emoji bullets
-      - Week reflection paragraph — zoom out from day-to-day, tell the community story
-      - Word-of-mouth ask
+      - Week reflection paragraph — zoom out from day-to-day, tell the community story; honor who showed up, not who's absent. Apply the same WAIVER FRAMING rotation rules — pick a different angle than the most recent post.
+      - Filing deadline: same kind, factual framing as the daily format (#{FILING_DEADLINE})
+      - Word-of-mouth ask: one brief, soft sentence at the end
       - CTA
       - "neokizfest.com" on its own line
 
@@ -164,8 +187,9 @@ class PostDraftingService
     # Match the progress page formula: completed + waived + chargebacks = fully resolved.
     # Chargebacks are resolved obligations (handled by the bank) — they count toward overall
     # progress even though we never call out the chargeback count by name in posts.
-    resolved    = completed + waived + chargebacks
-    pct         = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
+    resolved          = completed + waived + chargebacks
+    pct               = total_hold > 0 ? ((resolved.to_f / total_hold) * 100).round(1) : 0
+    waived_pct_filers = total_req > 0 ? ((waived.to_f / total_req) * 100).round(1) : 0
 
     format_label = type == :weekly ? "SUNDAY WEEKLY CHECK-IN" : "DAILY UPDATE"
 
@@ -179,13 +203,14 @@ class PostDraftingService
       Total pass holders:          #{total_hold}
       Refund requests filed:       #{total_req}
       Completed refunds:           #{completed}
-      Waived:                      #{waived}
+      Waived:                      #{waived} (#{waived_pct_filers}% of filers)
       Processing / in queue:       #{processing}
       Submitted (awaiting review): #{submitted}
       Resolved (completed+waived): #{resolved} of #{total_hold} (#{pct}%)
       Donations:                   $#{"%.2f" % donated_amt} from #{donor_count} supporters
       Waived + donated:            #{wd_count}
       Zelle status:                #{ZELLE_PAUSED ? "PAUSED (resumes #{ZELLE_RESUME_DATE})" : "ACTIVE"}
+      Filing deadline:             #{FILING_DEADLINE} (90 days from launch — kind, not an ultimatum)
 
       ── POST HISTORY (use to calculate deltas and match tone) ──────────────────
       #{log_content}

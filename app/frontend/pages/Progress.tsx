@@ -33,6 +33,7 @@ import {
   PageHeader,
   BackToHome,
   RefundEntry,
+  FilingDeadlineCountdown,
 } from "../components/shared";
 import { colors, responsiveText } from "../styles/theme";
 
@@ -144,6 +145,9 @@ const Progress: React.FC<ProgressProps> = ({
           title="Refund Progress"
           subtitle="Track our refund process transparently. We're committed to making everyone whole."
         />
+
+        {/* Filing Deadline Countdown */}
+        <FilingDeadlineCountdown />
 
         {/* Zelle Paused Notice */}
         {zelle_paused && (

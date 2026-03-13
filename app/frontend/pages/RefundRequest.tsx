@@ -3,7 +3,7 @@ import { Stack, Text, Box, Group, CloseButton } from "@mantine/core";
 import { Head, router } from "@inertiajs/react";
 import { IconAlertCircle, IconTicket } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
-import { GlassCard, PageHeader, LoadingOverlay } from "../components/shared";
+import { GlassCard, PageHeader, LoadingOverlay, FilingDeadlineCountdown } from "../components/shared";
 import FormProgress from "../components/refund/FormProgress";
 import EmailStep from "../components/refund/EmailStep";
 import PassDetailsStep from "../components/refund/PassDetailsStep";
@@ -15,7 +15,10 @@ import { useRefundSubmission } from "../hooks/useApi";
 import { colors, responsiveText } from "../styles/theme";
 import type { PassHolder, RefundDecision, PaymentInfo, RefundFormStep } from "../types/refund";
 
+const FILING_DEADLINE = new Date("2026-05-16T04:59:00Z");
+
 const RefundRequest: React.FC = () => {
+  const isFilingClosed = Date.now() >= FILING_DEADLINE.getTime();
   const form = useRefundForm();
   const { submit, loading: isSubmitting } = useRefundSubmission();
   const [submissionError, setSubmissionError] = useState<string | null>(null);
@@ -151,92 +154,96 @@ const RefundRequest: React.FC = () => {
           subtitle="Complete the form below to submit your refund request."
         />
 
-        <Text
-          ta="center"
-          fs="italic"
-          c={colors.textMuted}
-          style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}
-        >
-          "When life gives you lemons, make lemonade." — Every edition of
-          the festival has been driven by a commitment to improve on the last.
-          Even now, as we close this chapter, that spirit remains — applying my
-          coding, systems thinking, and organizational skills to see it through
-          the right way.
-        </Text>
+        <FilingDeadlineCountdown />
 
-        {/* Progress Indicator */}
-        <div
-          className="hide-scrollbar"
-          style={{
-            overflowX: "auto",
-            overflowY: "hidden",
-            WebkitOverflowScrolling: "touch",
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-            padding: "4px 0",
-            width: "100%",
-          }}
-        >
-          <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-          <Box style={{ minWidth: 480 }}>
-            <FormProgress
-              currentStep={form.currentStep}
-              completedSteps={form.completedSteps}
-              requiredSteps={form.requiredSteps}
-              onStepClick={(step) => {
-                if (form.canNavigateToStep(step)) {
-                  form.goToStep(step);
-                }
-              }}
-            />
-          </Box>
-        </div>
-
-        {/* Form Container */}
-        <GlassCard p="lg" mt="sm">
-          {submissionError && (
-            <GlassCard
-              p="sm"
-              mb="md"
-              style={{
-                background: "rgba(220, 38, 38, 0.1)",
-                border: "1px solid rgba(220, 38, 38, 0.3)",
-              }}
-            >
-              <Group justify="space-between" align="flex-start" wrap="nowrap">
-                <Group gap="xs" wrap="nowrap" style={{ flex: 1 }}>
-                  <IconAlertCircle size={16} color="#DC2626" style={{ flexShrink: 0 }} />
-                  <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
-                    {submissionError}
-                  </Text>
-                </Group>
-                <CloseButton
-                  size="sm"
-                  onClick={() => setSubmissionError(null)}
-                  style={{ color: "#DC2626" }}
-                />
-              </Group>
-            </GlassCard>
-          )}
-
-          {renderCurrentStep()}
-        </GlassCard>
-
-        {/* Back Navigation (when not on first step) */}
-        {form.currentStep !== "email" && (
+        {!isFilingClosed && <>
           <Text
-            c={colors.textMuted}
             ta="center"
-            style={{
-              cursor: "pointer",
-              fontSize: responsiveText.small,
-            }}
-            onClick={() => form.goBack()}
-            className="hover:text-[#F45D00]"
+            fs="italic"
+            c={colors.textMuted}
+            style={{ fontSize: responsiveText.small, lineHeight: 1.6 }}
           >
-            ← Go back to previous step
+            "When life gives you lemons, make lemonade." — Every edition of
+            the festival has been driven by a commitment to improve on the last.
+            Even now, as we close this chapter, that spirit remains — applying my
+            coding, systems thinking, and organizational skills to see it through
+            the right way.
           </Text>
-        )}
+
+          {/* Progress Indicator */}
+          <div
+            className="hide-scrollbar"
+            style={{
+              overflowX: "auto",
+              overflowY: "hidden",
+              WebkitOverflowScrolling: "touch",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              padding: "4px 0",
+              width: "100%",
+            }}
+          >
+            <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+            <Box style={{ minWidth: 480 }}>
+              <FormProgress
+                currentStep={form.currentStep}
+                completedSteps={form.completedSteps}
+                requiredSteps={form.requiredSteps}
+                onStepClick={(step) => {
+                  if (form.canNavigateToStep(step)) {
+                    form.goToStep(step);
+                  }
+                }}
+              />
+            </Box>
+          </div>
+
+          {/* Form Container */}
+          <GlassCard p="lg" mt="sm">
+            {submissionError && (
+              <GlassCard
+                p="sm"
+                mb="md"
+                style={{
+                  background: "rgba(220, 38, 38, 0.1)",
+                  border: "1px solid rgba(220, 38, 38, 0.3)",
+                }}
+              >
+                <Group justify="space-between" align="flex-start" wrap="nowrap">
+                  <Group gap="xs" wrap="nowrap" style={{ flex: 1 }}>
+                    <IconAlertCircle size={16} color="#DC2626" style={{ flexShrink: 0 }} />
+                    <Text style={{ fontSize: responsiveText.small }} c={colors.textSecondary}>
+                      {submissionError}
+                    </Text>
+                  </Group>
+                  <CloseButton
+                    size="sm"
+                    onClick={() => setSubmissionError(null)}
+                    style={{ color: "#DC2626" }}
+                  />
+                </Group>
+              </GlassCard>
+            )}
+
+            {renderCurrentStep()}
+          </GlassCard>
+
+          {/* Back Navigation (when not on first step) */}
+          {form.currentStep !== "email" && (
+            <Text
+              c={colors.textMuted}
+              ta="center"
+              style={{
+                cursor: "pointer",
+                fontSize: responsiveText.small,
+              }}
+              onClick={() => form.goBack()}
+              className="hover:text-[#F45D00]"
+            >
+              ← Go back to previous step
+            </Text>
+          )}
+        </>}
       </Stack>
     </FarewellLayout>
     </>
