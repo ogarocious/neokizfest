@@ -578,3 +578,50 @@ If you run into any issues, message the festival Facebook page directly and I'll
 I'm not done until everyone is taken care of.
 
 ---
+
+## Post #13 — Mar 15, 2026 (Day 30)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+**Type:** Sunday weekly check-in (Week 4 Wrap · 1 Month Milestone)
+**Payment status at time of post:** PAUSED (Zelle — resumes March 22). Wise active.
+
+**Snapshot:**
+- Overall Progress: 66.2% (135 of 204 resolved)
+- Total Requests Filed: 165
+- Completed: 49
+- Waived: 75
+- Processing: 16
+- Donated: $2,900.00 from 37 supporters
+- Waived + Donated: 10
+
+**Caption:**
+
+Day 30 — 1 Month In · Week 4 Wrap
+
+Thirty days. Two-thirds done. Here's the full arc.
+
+→ Requests filed: 63 → 165
+→ Resolved: 50 → 135 of 204
+→ Overall progress: 25% → 66.2%
+→ Completed refunds: 49
+→ Waived: 22 → 75
+→ Donations: $2,300 from 36 supporters → $2,900 from 37
+→ Zelle: paused — countdown to resume is live at neokizfest.com/progress
+
+A month ago I made a commitment to close this chapter with accountability and full transparency. The dashboard has been public every single day. Every request is logged. Every step is visible in real time — no back rooms, no guessing.
+
+What I didn't anticipate was the 75 waivers. Seventy-five people who had approved refunds in their name and chose to give instead of take — no ask, no pressure. More than half of everyone who resolved their request said keep it. That number has grown every single week, and it still lands the same way every time it does.
+
+The 16 requests in process are staged and ready. Zelle resumes around March 22 — about a week out. If you have Wise, I can process your refund sooner. Just message the festival page with your Wise info.
+
+If you know someone from NeoKizFest who hasn't filed yet, one message from you reaches them faster than I can. The deadline to file is May 15 — 61 days left, but no reason to wait.
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going.
+
+neokizfest.com
+
+---
