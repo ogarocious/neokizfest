@@ -24,9 +24,8 @@ Daily progress updates posted to Facebook. Screenshot of progress dashboard incl
 
 Check this before drafting each post. Affects tone and any mention of payment timelines.
 
-**Current status (as of Feb 22, 2026): PAUSED**
-Zelle monthly transfer limit hit. Payments resume March 22, 2026. March 22 used as safeguard — limit resets March 21 but processing may take one extra day.
-Wise (international) unaffected — those can still go out.
+**Current status (as of Mar 19, 2026): ACTIVE**
+Zelle resumed March 19, 2026. Payments going out as funds allow — pacing is fund-dependent, not a hard queue flush. Wise (international) also active.
 
 **When Zelle is PAUSED:**
 - Do not reference payments going out or specific payment timelines

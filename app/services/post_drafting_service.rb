@@ -21,7 +21,7 @@ class PostDraftingService
   SOCIAL_LOG_PATH = Rails.root.join("social-posts-log.md")
 
   # ── Update these when Zelle resumes ──────────────────────────────────────────
-  ZELLE_PAUSED = true
+  ZELLE_PAUSED = false
   ZELLE_RESUME_DATE = "March 22, 2026"
   # ─────────────────────────────────────────────────────────────────────────────
 
