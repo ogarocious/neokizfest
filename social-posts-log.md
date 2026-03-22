@@ -58,6 +58,7 @@ Zelle resumed March 19, 2026. Payments going out as funds allow — pacing is fu
 
 **Platform:** Facebook
 **Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
 
 **Snapshot:**
 - Overall Progress: 25%
@@ -79,6 +80,7 @@ All progress can be tracked at neokizfest.com/progress.
 
 **Platform:** Facebook
 **Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
 
 **Snapshot:**
 - Overall Progress: 28% (up from 25%)
@@ -171,6 +173,7 @@ The Flowers gallery is open to everyone. If you have a memory, a photo, a voice 
 
 **Platform:** Facebook
 **Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
 
 **Snapshot:**
 - Overall Progress: 38% (up from 28%)
@@ -211,6 +214,7 @@ Full picture: neokizfest.com/progress
 
 **Platform:** Facebook
 **Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
 **Payment status at time of post:** ACTIVE (payments still going out)
 
 **Snapshot:**
@@ -620,6 +624,100 @@ If you know someone from NeoKizFest who hasn't filed yet, one message from you r
 neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
 
 Still going.
+
+neokizfest.com
+
+---
+
+## Post #15 — Mar 22, 2026 (Day 37)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+**Type:** Sunday weekly check-in (Week 6)
+**Payment status at time of post:** ACTIVE (Zelle resumed March 19, 2026)
+
+**Snapshot:**
+- Overall Progress: 72.5% (148 of 204 resolved)
+- Total Requests Filed: 169
+- Completed: 61
+- Waived: 76
+- Processing: 32
+- Donated: $2,900 from 37 supporters
+- Waived + Donated: 10
+
+**Caption:**
+
+Day 37 — Week 6 check-in
+
+Six weeks in. The refund process has now cleared nearly three-quarters of every pass holder — and this week, Zelle came back.
+
+Here's how the week moved:
+
+✅ Completed refunds: 49 → 61
+🤲🏾 Waived: 75 → 76
+⏳ In queue / processing: 16 → 32
+📋 Total requests filed: 165 → 169
+💛 Donations: $2,900 from 37 supporters (10 waived + donated)
+📊 Resolved: 135 → 148 of 204 — 66.2% → 72.5%
+
+Twelve more refunds completed in seven days. That's what Zelle resuming looks like in real numbers — the queue that sat staged and waiting for weeks started moving, and it's still moving. Payments are going out as funds allow, and I'm working through the 32 in queue now.
+
+The waiver count is the one that quietly tells the whole story of this community. Seventy-six people — 45% of everyone who filed a request — chose to walk away from their money entirely. No announcement, no thread, no one asking them to. Each one just made that call on their own and hit submit. Forty-five percent. That's not a rounding error. That's who this community is.
+
+The filing window stays open through May 15, 2026 — 90 days from when this process launched. If you know someone still sitting on it, that's the date to pass along.
+
+If someone from NeoKizFest hasn't filed yet, there's still plenty of time — a word from you reaches them faster than I can. 🙏🏾
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going. ✊🏾
+
+neokizfest.com
+
+---
+
+## Post #14 — Mar 19, 2026 (Day 34)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Not posted (draft only)
+**Type:** Daily update
+**Payment status at time of post:** ACTIVE (Zelle resumed March 19, 2026)
+
+**Snapshot:**
+- Overall Progress: 69.1% (141 of 204 resolved)
+- Total Requests: 168
+- Completed: 55
+- Waived: 75
+- Processing: 38 (11 active, 27 submitted)
+- Donated: $2,900.00 from 37 supporters
+- Waived + Donated: 10
+
+**Caption:**
+
+Day 34 update — NeoKizFest Refund Process
+
+Six more refunds completed since the last update — and Zelle is back.
+
+✅ Completed refunds: 55 (+6)
+🤲🏾 Waived: 75
+⏳ In queue / processing: 38 (11 active, 27 submitted awaiting review)
+📋 Total requests filed: 168 (+3)
+💛 Donations: $2,900 from 37 supporters (10 waived + donated)
+📊 Resolved: 141 of 204 — 69.1%
+
+Zelle resumed on March 19 — that's today. Payments are going out as funds allow, and the 6 completions since the last update reflect that momentum picking back up.
+
+Here's the waiver number in a different frame: 75 people have waived. That's more than the total number of refunds paid out so far. More people chose to walk away from the money entirely than have received a check. That's not a small gesture buried in a stat — it's the biggest single column in this whole process, and it's been that way for weeks.
+
+The filing window stays open through May 15, 2026 — 90 days from when this all began. No pressure, no deadline anxiety — just a date to keep in mind if you know someone still sitting on it.
+
+If someone from NeoKizFest hasn't filed yet, there's still plenty of time — pass this along if you can. 🙏🏾
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going. ✊🏾
 
 neokizfest.com
 
