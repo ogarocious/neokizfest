@@ -24,7 +24,10 @@ namespace :post do
       next
     end
 
-    puts "  Fetching live stats from Notion + generating draft via Claude..."
+    puts "  Busting progress cache + fetching live stats from Notion..."
+    Notion::ProgressService.bust_cache
+
+    puts "  Generating draft via Claude..."
 
     service = PostDraftingService.new(force_type: type)
     result  = service.draft!

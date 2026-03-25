@@ -1,78 +1,78 @@
 # NeoKizFest — Financial Snapshot & Forecast
-> Updated: Feb 27, 2026 · Day 14 since launch (site went live Feb 14, 2026)
-> Previous snapshot: Feb 22, 2026 (Day 9)
+> Updated: Mar 24, 2026 · Day 39 since launch (site went live Feb 14, 2026)
+> Previous snapshot: Feb 27, 2026 (Day 14)
 
 ---
 
-## ⚠️ Payment Status Note
-**Zelle payments paused as of Feb 22, 2026** — monthly transfer limit reached.
-Payments resume ~March 22, 2026 (safeguard date; limit resets March 21).
-The 47 "Completed" refunds reflect all Zelle transfers that went out before the pause.
-27 open requests are approved/in-queue and will be paid when payments resume.
-Wise (international) is unaffected.
+## ✅ Payment Status Note
+**Zelle active as of March 19, 2026** — resumed after Feb 22 pause (monthly limit hit).
+Limit: **15 transactions per rolling 30-day window**.
+Cycle 1 (Mar 19 – Apr ~18): 15 payments sent → completed count moved from 47 → 62. Done.
+Cycle 2 opens ~Apr 19: up to 15 more payments.
+Wise (international) is unaffected and active.
 
 ---
 
-## Current Snapshot — Day 14
+## Current Snapshot — Day 39
 
 ### Ticket Holder Overview
 | Category | Count | Amount |
 |---|---|---|
 | Total ticket holders | 204 | — |
-| Filed a request | 140 | — |
-| Never filed (pool) | 53 | ~$7,190 (est.) |
+| Filed a request | 178 | — |
+| Never filed (pool) | 26 | ~$3,528 (est.) |
 | Chargebacks | 11 | $5,310.94 *(Stripe already reversed — not owed)* |
 
 ### Revenue & Inflows
 | Source | Amount |
 |---|---|
 | Ticket sales (204 holders) | $34,041.33 |
-| Community donations (35 donors) | $2,865.00 |
-| **Total ever received** | **$36,906.33** |
+| Community donations (37 donors) | $2,900.00 |
+| **Total ever received** | **$36,941.33** |
 
 ### Full Accounting (Bird's Eye)
 | Item | Amount | Notes |
 |---|---|---|
 | Total collected (gross) | $34,041.33 | From all ticket holders |
 | − Chargebacks | −$5,310.94 | 11 holders; Stripe clawed back |
-| − Waived (forgiven) | −~$7,435 (est.) | 66 passes |
+| − Waived (forgiven) | −~$8,679 (est.) | 77 passes (~$112.71 avg) |
 | − Partial refund gaps (forgiven) | −$1,017.36 | 8 completed partials |
-| − Already paid out (Zelle) | −$7,365.50 | 47 completed refunds |
-| **= Net still owed** | **~$11,989 (est.)** | |
-| &nbsp;&nbsp;&nbsp;└─ To open filers (pending) | $4,798.98 | 27 requests — waiting on Zelle resume |
-| &nbsp;&nbsp;&nbsp;└─ Non-filer pool | ~$7,190 (est.) | 53 holders who never filed |
+| − Already paid out | −~$9,716 (est.) | 62 completed refunds (~$156.71 avg) |
+| **= Net still owed** | **~$9,318 (est.)** | |
+| &nbsp;&nbsp;&nbsp;└─ Open filers (in process) | ~$3,790 (est.) | 39 requests — some will waive |
+| &nbsp;&nbsp;&nbsp;└─ Non-filer pool | ~$3,528 (est.) | 26 holders who never filed |
 
 ### Community Goodwill
 | Category | Count | Amount |
 |---|---|---|
-| Waived passes | 66 | ~$7,435 (est.) |
+| Waived passes | 77 | ~$8,679 (est.) |
 | Partial refund gaps (forgiven) | 8 | $1,017.36 |
-| **Pardon total** | — | **~$8,452 (est.)** |
-| Donations | 35 donors | $2,865.00 |
-| **Pardon + donations** | — | **~$11,317 (est.)** |
-| Waived *and* donated (overlap) | 9 | — |
+| **Pardon total** | — | **~$9,696 (est.)** |
+| Donations | 37 donors | $2,900.00 |
+| **Pardon + donations** | — | **~$12,596 (est.)** |
+| Waived *and* donated (overlap) | 10 | — |
 
-**Waive rate among all filers:** 47.1% (66/140)
-**Waive rate among resolved only:** 58.4% (66/113)
-**Pardon vs. total collected:** ~24.8% (est.)
-**Pardon vs. total paid out:** ~114.8% (est.) — community has forgiven more than has been paid out
+**Waive rate among all filers:** 43.3% (77/178) *(down from 47.1% at Day 14 as no-filers filed)*
+**Waive rate among resolved only:** 55.4% (77/139)
+**Pardon vs. total collected:** ~28.5% (est.)
+**Pardon vs. total paid out:** ~99.8% (est.) — community has now forgiven almost exactly what has been paid out
 
-**Progress:** 55.4% of all 204 ticket holders fully resolved (paid + waived). Up from 46.3% on Day 9.
+**Progress:** 73.5% of all 204 ticket holders fully resolved (paid + waived). Up from 55.4% on Day 14.
 
 ---
 
-## Observed Rates (Among 140 Filers)
+## Observed Rates
 
-| Metric | Day 9 (109 filers) | Day 14 (140 filers) |
-|---|---|---|
-| Waive rate among people who filed | 46.8% | **47.1%** |
-| Completed refund rate among filers | 40.4% | **33.6%** |
-| Still active / in-process rate | 5.5% | **19.3%** |
-| Avg ticket value waived per person | $113.70 | **~$112.65 (est.)** |
-| Avg refund paid out per person | $165.02 | **$156.71** |
-| Avg ticket value in no-filer pool | $166.78 | **~$135.66 (est.)** |
+| Metric | Day 9 (109 filers) | Day 14 (140 filers) | Day 39 (178 filers) |
+|---|---|---|---|
+| Waive rate among people who filed | 46.8% | 47.1% | **43.3%** |
+| Completed refund rate among filers | 40.4% | 33.6% | **34.8%** |
+| Still active / in-process rate | 5.5% | 19.3% | **21.9%** |
+| Avg ticket value waived per person | $113.70 | ~$112.65 (est.) | **~$112.71 (est.)** |
+| Avg refund paid out per person | $165.02 | $156.71 | **~$156.71 (est.)** |
+| Avg ticket value in no-filer pool | $166.78 | ~$135.66 (est.) | **~$135.69 (est.)** |
 
-> The waive rate has held remarkably steady (46.8% → 47.1%) as 31 more people filed. The active backlog grew from 6 to 27 — all held by the Zelle pause, not by any review delay. The non-filer pool has shrunk from ~96 to 53 as filing pace continues.
+> Waive rate has drifted down from 47.1% to 43.3% as the later wave of filers (non-filers who finally submitted) appears to lean more toward refunds than waivers — expected. The active backlog is 39 — Zelle's 15-transaction limit means this clears over 2 payment cycles.
 
 > **Chargeback note**: 11 chargebacks ($5,310.94) confirmed in Notion. Stripe dispute fees (~$15 each ≈ $165 total) are an additional cost not tracked here.
 
@@ -153,30 +153,84 @@ Realistic remaining obligation (pending filers + partial no-filers): **$6,000–
 
 ---
 
+## Zelle Payment Velocity (15-Transaction Rolling 30-Day Limit)
+
+Confirmed limit: **15 outbound Zelle transactions per rolling 30-day window.**
+
+### Payment Cycle Forecast
+
+| Cycle | Window | Payments Available | Projected Completed Total |
+|---|---|---|---|
+| Cycle 1 | Mar 19 – Apr ~18 | 15 | **62** ✅ Done |
+| Cycle 2 | Apr ~19 – May ~18 | 15 | ~77 |
+| Cycle 3 | May ~19 – Jun ~18 | up to 15 | ~85–92 (final) |
+
+### Queue Clearance Estimate
+
+Current processing queue: **39 requests**
+
+At 43.3% waive rate, roughly 22 of those 39 need payment (~$3,450 est.). The remaining ~17 are likely to waive.
+
+| Scenario | Payments needed | Cycles to clear | Estimated done by |
+|---|---|---|---|
+| 43% waive rate holds (22 need payment) | 22 | 2 cycles | ~May 18 |
+| 30% waive (27 need payment) | 27 | 2 cycles | ~May 18 |
+| No waivers (all 39 need payment) | 39 | 3 cycles | ~Jun 18 |
+
+Plus up to 26 non-filers may file before May 15 — some portion will need payment, potentially adding to the Cycle 3 queue.
+
+**Bottom line**: The queue clears across 2–3 monthly Zelle cycles. Final payments likely land between **May 18 – June 18, 2026**, well before any reasonable community expectation.
+
+---
+
 ## The Full Community Picture
 | What the community did | # of people | Value |
 |---|---|---|
-| Waived their refund | 66 | ~$7,435 (est.) |
-| Donated (all donors) | 35 | $2,865.00 |
-| Waived + donated | 9 | *(subset of above two)* |
-| **Unique people who gave something back** | **92** | **~$10,300 (est.)** |
+| Waived their refund | 77 | ~$8,679 (est.) |
+| Donated (all donors) | 37 | $2,900.00 |
+| Waived + donated | 10 | *(subset of above two)* |
+| **Unique people who gave something back** | **104** | **~$11,579 (est.)** |
 
-**45.1% of all 204 ticket holders** — by Day 14 — did something to actively support Charles and the festival rather than simply request their money back. Up from 37.1% on Day 9.
+**~50% of all 204 ticket holders** — by Day 39 — did something to actively support Charles and the festival rather than simply request their money back. Up from 45.1% on Day 14.
 
 ---
 
 ## Velocity Check-ins
 - [x] **Day 9 (Feb 22)** — Snapshot taken. Zelle paused. Backlog: 6 open.
 - [x] **Day 14 (Feb 27)** — Snapshot taken. Zelle still paused. Backlog: 27 open (held by Zelle, not review).
-- [ ] **~Day 37 (Mar 22)** — Zelle resumes. First check after payments restart. Clear the backlog.
-- [ ] **Day 30–35 (Mar 15–20)** — Refresh all numbers; waive rate should be stabilizing
-- [ ] **Day 60 (Apr 14)** — Near-final snapshot; most who will file have filed
-- [ ] **Final** — Refresh when process reaches ~85–90% completion
-- [ ] Update `refund-system-recap.md` with final numbers for the community post
+- [x] **Day 30–35 (Mar 15–20)** — Day 30 post published. Waive rate stabilizing at 43–45%.
+- [x] **~Day 37 (Mar 22)** — Zelle resumed Mar 19. Cycle 1: 15 payments sent (47→62 completed). Backlog: 39.
+- [x] **Day 39 (Mar 24)** — Snapshot updated. See current snapshot above.
+- [ ] **~Apr 19** — Zelle Cycle 2 opens (rolling 30 days from Mar 19). Up to 15 more payments.
+- [ ] **May 15** — Filing deadline. No new requests after this date.
+- [ ] **~May 19** — Zelle Cycle 3 opens. Final payments if queue remains.
+- [ ] **Day 60 (Apr 14)** — Snapshot refresh; most who will file have filed.
+- [ ] **Final** — Refresh when process reaches ~85–90% completion.
+- [ ] Update `refund-system-recap.md` with final numbers for the community post.
 
 ---
 
 ## Historical Snapshots
+
+### Day 39 — Mar 24, 2026
+| Category | # | Amount |
+|---|---|---|
+| Total holders | 204 | — |
+| Completed (paid) | 62 | ~$9,716 (est.) |
+| Waived | 77 | ~$8,679 (est.) |
+| Processing | 39 | ~$3,790 (est.) |
+| No-filer pool | 26 | ~$3,528 (est.) |
+| Donors | 37 | $2,900.00 |
+
+### Day 14 — Feb 27, 2026
+| Category | # | Amount |
+|---|---|---|
+| Total holders | 204 | — |
+| Completed (paid) | 47 | $7,365.50 |
+| Waived | 66 | ~$7,435 (est.) |
+| Open/active | 27 | $4,798.98 |
+| No-filer pool | ~53 | ~$7,190 (est.) |
+| Donors | 35 | $2,865.00 |
 
 ### Day 9 — Feb 22, 2026
 | Category | # | Amount |
