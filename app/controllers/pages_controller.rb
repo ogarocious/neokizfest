@@ -49,6 +49,12 @@ class PagesController < ApplicationController
     render inertia: 'ArtistPayments'
   end
 
+  def albir_payment_record
+    @og_title = "NeoKiz 2022 Payment Record — Charles Ogar"
+    @meta_description = "A documented public record of the NeoKiz 2022 artist payment timeline, with receipts and evidence."
+    render inertia: 'AlbirPaymentRecord'
+  end
+
   def choosing_myself
     @og_title = "Choosing Myself — Neo Kizomba Festival"
     @meta_description = "The full story behind the end of Neo Kizomba Festival. 10 years of building, what it cost, and why I'm choosing myself."

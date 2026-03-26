@@ -7,6 +7,8 @@ export interface Artist {
   /** Screenshots of payment proof — drop images in: public/images/artist-payments/proof/
    *  Example: "/images/artist-payments/proof/dj-example-2024.png" */
   proofImages?: string[];
+  /** Link to a full case file page for this artist, if one exists */
+  caseFileUrl?: string;
 }
 
 export interface FestivalEdition {
@@ -221,6 +223,16 @@ export const festivalEditions: FestivalEdition[] = [
           "/images/artist-payments/proof/dj-babyface-testimonial.png",
           "/images/artist-payments/proof/dj-babyface-venmo-2022.png",
         ],
+      },
+      {
+        name: "Albir Rojas",
+        image: "/images/artist-payments/artists/albir-rojas-2022.png",
+        confirmed: true,
+        proofImages: [
+          "/images/case/paypal_receipt_1.jpg",
+          "/images/case/paypal_receipt_2.jpg",
+        ],
+        caseFileUrl: "/albir-payment-record",
       },
       { name: "Artist 3", confirmed: false },
       { name: "Artist 4", confirmed: false },

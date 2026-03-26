@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Group, Avatar, Text, Badge, ActionIcon, Modal, Image, Stack, UnstyledButton, Box } from "@mantine/core";
+import { Group, Avatar, Text, Badge, ActionIcon, Modal, Image, Stack, UnstyledButton, Box, Anchor } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { IconEye, IconCheck, IconClock } from "@tabler/icons-react";
+import { IconEye, IconCheck, IconClock, IconExternalLink } from "@tabler/icons-react";
 import { colors, responsiveText } from "../../styles/theme";
 import type { Artist } from "../../data/artistPaymentsData";
 
@@ -112,6 +112,26 @@ const ArtistEntry: React.FC<ArtistEntryProps> = ({ artist }) => {
           >
             <IconEye size={14} />
           </ActionIcon>
+        )}
+
+        {!isMobile && artist.caseFileUrl && (
+          <Anchor
+            href={artist.caseFileUrl}
+            style={{ textDecoration: "none", display: "flex", alignItems: "center" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ActionIcon
+              variant="subtle"
+              size="sm"
+              title="View full payment record"
+              style={{
+                background: "rgba(255, 255, 255, 0.04)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+              }}
+            >
+              <IconExternalLink size={13} color={colors.textMuted} />
+            </ActionIcon>
+          </Anchor>
         )}
       </Group>
     </Group>

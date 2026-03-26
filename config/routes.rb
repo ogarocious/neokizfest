@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'behind-the-build', to: 'pages#behind_the_build'
   get 'artist-payments', to: 'pages#artist_payments'
   get 'choosing-myself', to: 'pages#choosing_myself'
+  get 'albir-payment-record', to: 'pages#albir_payment_record'
   get 'donation-thank-you', to: 'pages#donation_thank_you'
 
   # Progress Dashboard (with Notion integration)

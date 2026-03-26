@@ -723,6 +723,52 @@ neokizfest.com
 
 ---
 
+## Post #18 — Mar 25, 2026 (Day 40)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+**Type:** Daily update
+**Payment status at time of post:** ACTIVE (Zelle active)
+
+**Snapshot:**
+- Overall Progress: 75.0% (153 of 204 resolved)
+- Total Requests Filed: 178
+- Completed: 65
+- Waived: 77
+- Processing: 28 (20 in queue, 8 submitted)
+- Donated: $2,900 from 37 supporters
+- Waived + Donated: 10
+
+**Caption:**
+
+Day 40 update — NeoKizFest Refund Process
+
+Forty days in, and three-quarters of every pass holder is fully resolved.
+
+📋 178 refund requests filed (no change)
+✅ 65 refunds completed (+3)
+🤲🏾 77 people waived their refund (no change)
+⏳ 28 in process — 20 in queue, 8 submitted awaiting review (-11)
+💛 $2,900 from 37 supporters (10 waived + donated)
+📊 Resolved: 153 of 204 — 75.0%
+
+Three more refunds completed, and the queue dropped by eleven. Zelle is active, payments are going out, and that processing number shrinking is exactly what it's supposed to look like. Every request that comes in gets logged, reviewed, and moved through — nothing sitting untouched.
+
+Seventy-seven waivers. Forty-three percent of everyone who filed chose to walk away from the money. I want to let that stat stand on its own for a second, because it's the one that quietly carries everything else. No announcement drove it. No campaign. Each person made that call privately, on their own, and just submitted. That's 43% of all filers — not a rounding error, not noise. A genuine pattern of generosity that has run through this entire process from week one.
+
+The filing window stays open through May 15, 2026 — 90 days from when this process launched. If you know someone who was at NeoKizFest and still hasn't filed, that's the date to keep in mind. No pressure in it, just a practical close.
+
+If someone from NeoKizFest hasn't filed yet, there's still plenty of time — a word from you reaches them faster than I can. 🙏🏾
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going. ✊🏾
+
+neokizfest.com
+
+---
+
 ## Post #16 — Mar 23, 2026 (Day 38)
 
 **Platform:** Facebook
