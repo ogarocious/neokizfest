@@ -258,9 +258,9 @@ const TIMELINE: TimelineEvent[] = [
     date: "February 23 – March 11, 2025",
     title: "Albir Suggests a Call. Never Follows Through.",
     description:
-      "Albir proposes a video call — then goes silent. Despite three follow-up messages from Charles across three weeks, no call takes place and no clarification is offered.",
+      "After Albir suggests a video call, Charles follows up three times over three weeks: Feb 25 asking for available times, Mar 4 asking about the weekend, Mar 11 just staying in touch. Albir acknowledges the time zone difference (he's in Bali) but never proposes a time. No call ever happens. No clarification is ever offered.",
     imageFile: "whatsapp_mar2025.jpg",
-    imageCaption: "WhatsApp — Albir's non-response, Feb–Mar 2025",
+    imageCaption: "WhatsApp — Charles's three unanswered scheduling attempts, Feb 25–Mar 11, 2025",
     highlight: "negative",
     src: "/images/case/whatsapp_mar2025.jpg",
   },
@@ -979,7 +979,57 @@ const AlbirPaymentRecord: React.FC = () => {
             </Stack>
           </GlassCard>
 
-          {/* ── Section 6: Further Context ───────────────────── */}
+          {/* ── Section 6: Why This Is Public ────────────────── */}
+          <GlassCard variant="subtle" p={{ base: "md", sm: "xl" }}>
+            <Stack gap="lg">
+              <Title
+                order={2}
+                c={colors.textPrimary}
+                style={{ fontSize: responsiveText.sectionTitle }}
+              >
+                Why This Is Public
+              </Title>
+
+              <Stack gap="md">
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  I am not trying to cancel Albir Rojas. I have no interest in ending his
+                  career or damaging his reputation beyond what the facts already say. What I
+                  want is simple: for him to set the record straight on his end. A single
+                  post. A single acknowledgment that the payment was made. That's it.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  I went public because Lucas Nuance went public first — with a document that
+                  named me alongside people accused of sexual assault and fraud. That
+                  accusation was made in front of the entire kizomba community. I contacted
+                  Albir privately in February 2025, before publishing anything, and gave him
+                  every opportunity to address it without this page ever needing to exist. He
+                  suggested a call. Then went silent for three weeks across three follow-up
+                  messages. At some point, silence is its own answer.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  Honestly — I held my tongue too long. I absorbed the auto-replies, the
+                  delayed PayPal info, the Lucas DM, the Dance-Stein document, and kept
+                  trying to handle it privately. I stayed quiet while the narrative spread.
+                  That was a mistake. The truth had a right to be documented from the moment
+                  the first false claim was made. This page is the correction that should
+                  have existed sooner.
+                </Text>
+              </Stack>
+            </Stack>
+          </GlassCard>
+
+          {/* ── Section 7: Further Context ───────────────────── */}
           <GlassCard variant="subtle" p={{ base: "md", sm: "xl" }}>
             <Stack gap="lg">
               <Stack gap={4}>
@@ -1159,6 +1209,16 @@ const AlbirPaymentRecord: React.FC = () => {
                 they need to pay, promote, and book without chasing anyone down. This situation
                 — 20 months spent trying to obtain a single PayPal address — cannot happen on
                 that platform.
+              </Text>
+
+              <Text
+                c={colors.textSecondary}
+                style={{ fontSize: responsiveText.small, lineHeight: 1.75 }}
+              >
+                I built this for myself. And I built it for every other organizer in the dance
+                community who has ever had to track down a bank account number, a PayPal
+                address, or a promo photo three days before a festival. The problem is
+                industry-wide. The solution is free.
               </Text>
 
               <Text
