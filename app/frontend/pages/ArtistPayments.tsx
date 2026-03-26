@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { Stack, Text, Title, Group, TextInput, Progress, SimpleGrid, SegmentedControl, Box } from "@mantine/core";
 import { IconMusic, IconSearch, IconUsers, IconQuote, IconList, IconGridDots } from "@tabler/icons-react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
@@ -68,6 +68,38 @@ const ArtistPayments: React.FC = () => {
           title="Artist Payments"
           subtitle="Full transparency on artist payments across every edition of the Neo Kizomba Festival. Artists are being contacted to confirm they were paid."
         />
+
+        {/* Addressing the Claims */}
+        <GlassCard p={{ base: "md", sm: "lg" }}>
+          <Stack gap="sm">
+            <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
+              Addressing the Claims
+            </Text>
+            <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
+              In the{" "}
+              <Link
+                href="/choosing-myself"
+                style={{ color: "rgba(244, 93, 0, 0.85)", textDecoration: "underline" }}
+              >
+                farewell letter
+              </Link>
+              , I addressed the rumor directly: I paid 100% of my artists. There
+              have been three specific public claims made to the contrary. This
+              page documents the full payment record for each situation — with
+              receipts — so the record is clear.
+            </Text>
+            <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+              The first case file is live:{" "}
+              <Link
+                href="/albir-payment-record"
+                style={{ color: "rgba(244, 93, 0, 0.7)", textDecoration: "underline" }}
+              >
+                NeoKiz 2022 — Albir Rojas
+              </Link>
+              . Two additional records are being prepared.
+            </Text>
+          </Stack>
+        </GlassCard>
 
         {/* Overall Stats */}
         <GlassCard variant="accent" p={{ base: "md", sm: "xl" }}>

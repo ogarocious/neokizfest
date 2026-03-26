@@ -235,32 +235,32 @@ const TIMELINE: TimelineEvent[] = [
     src: "/images/case/lucas_instagram_dm.jpg",
   },
   {
-    date: "February 9, 2025",
+    date: "February 9, 2026",
     title: "\"The Dance-Stein Files: Volume 1\" Published",
     description:
       "Lucas Nuance publishes a public document falsely claiming Charles owes thousands — grouping his name alongside individuals accused of sexual assault and fraud. Published 19 months after full payment was made. This publication triggers Charles's private outreach to Albir.",
     imageFile: "dance_stein_files.jpg",
-    imageCaption: "The Dance-Stein Files: Volume 1 — published Feb 9, 2025",
+    imageCaption: "The Dance-Stein Files: Volume 1 — published Feb 9, 2026",
     highlight: "warning",
     src: "/images/case/dance_stein_files.jpg",
   },
   {
-    date: "February 16, 2025",
+    date: "February 16, 2026",
     title: "Charles Contacts Albir Privately — Before Going Public",
     description:
       "Before making anything public, Charles contacts Albir directly with full documentation. He asks direct questions and gives Albir every opportunity to correct the record privately.",
     imageFile: "whatsapp_feb16_2025.jpg",
-    imageCaption: "WhatsApp — Charles private outreach, Feb 16, 2025",
+    imageCaption: "WhatsApp — Charles private outreach, Feb 16, 2026",
     highlight: "neutral",
     src: "/images/case/whatsapp_feb16_2025.jpg",
   },
   {
-    date: "February 23 – March 11, 2025",
+    date: "February 23 – March 11, 2026",
     title: "Albir Suggests a Call. Never Follows Through.",
     description:
       "After Albir suggests a video call, Charles follows up three times over three weeks: Feb 25 asking for available times, Mar 4 asking about the weekend, Mar 11 just staying in touch. Albir acknowledges the time zone difference (he's in Bali) but never proposes a time. No call ever happens. No clarification is ever offered.",
     imageFile: "whatsapp_mar2025.jpg",
-    imageCaption: "WhatsApp — Charles's three unanswered scheduling attempts, Feb 25–Mar 11, 2025",
+    imageCaption: "WhatsApp — Charles's three unanswered scheduling attempts, Feb 25–Mar 11, 2026",
     highlight: "negative",
     src: "/images/case/whatsapp_mar2025.jpg",
   },
@@ -274,7 +274,7 @@ const QUESTIONS = [
   "Did you authorize Lucas to contact me claiming outstanding debt after I had already paid you in full?",
   `Did you authorize Lucas to publish "The Dance-Stein Files" using your name and our situation?`,
   "You were my first kizomba private lesson. I looked up to you. Is this how you treat someone who brought you to their festival, paid you, and respected you?",
-  "I tried to resolve this privately in February 2025. You suggested a call and then went silent again. Why?",
+  "I tried to resolve this privately in February 2026. You suggested a call and then went silent again. Why?",
   "One post from you clarifying the facts would end this. So why hasn't that happened?",
   "What are you going to do about what is being said and done in your name?",
 ];
@@ -1009,7 +1009,7 @@ const AlbirPaymentRecord: React.FC = () => {
                   I went public because Lucas Nuance went public first — with a document that
                   named me alongside people accused of sexual assault and fraud. That
                   accusation was made in front of the entire kizomba community. I contacted
-                  Albir privately in February 2025, before publishing anything, and gave him
+                  Albir privately in February 2026, before publishing anything, and gave him
                   every opportunity to address it without this page ever needing to exist. He
                   suggested a call. Then went silent for three weeks across three follow-up
                   messages. At some point, silence is its own answer.

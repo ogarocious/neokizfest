@@ -1,5 +1,5 @@
 import React from "react";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import {
   Stack,
   Title,
@@ -841,6 +841,18 @@ const ChoosingMyself: React.FC = () => {
             You're the bully. Meanwhile, you're the one who put your credit on
             the line, spent months planning, and created the very opportunity
             they're trying to exploit.
+          </Text>
+
+          <Text c={colors.textSecondary} style={bodyStyle}>
+            One specific situation I've chosen to document publicly is a NeoKiz
+            2022 payment dispute that resurfaced years later as a public
+            accusation.{" "}
+            <Link
+              href="/albir-payment-record"
+              style={{ color: "rgba(244, 93, 0, 0.85)", textDecoration: "underline" }}
+            >
+              The full payment record — with receipts — is here.
+            </Link>
           </Text>
 
           <Text c={colors.textSecondary} style={bodyStyle}>

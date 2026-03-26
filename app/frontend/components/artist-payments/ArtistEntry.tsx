@@ -114,7 +114,7 @@ const ArtistEntry: React.FC<ArtistEntryProps> = ({ artist }) => {
           </ActionIcon>
         )}
 
-        {!isMobile && artist.caseFileUrl && (
+        {artist.caseFileUrl && (
           <Anchor
             href={artist.caseFileUrl}
             style={{ textDecoration: "none", display: "flex", alignItems: "center" }}
