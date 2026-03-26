@@ -268,6 +268,7 @@ const TIMELINE: TimelineEvent[] = [
 
 const QUESTIONS = [
   `You said in your own words, "Sorry not to give you my PayPal info before." So why is the story going around that I never paid you?`,
+  `Was withholding your payment information intentional? Because the pattern is hard to ignore: you performed at NeoKiz 2022 and provided no way to pay you. For nearly two years, every attempt to get your payment details was met with silence or an auto-reply. Then — finally — you provided your PayPal. I paid you in full within three months. And then, less than a year later, Lucas published a document claiming I owe you money. And now, nearly two years after that payment was made, the accusations are surfacing again. Was any part of this coordinated? Did you and Lucas plan to withhold payment details, wait for a debt narrative to build, leverage it publicly — and then keep leveraging it, even after the debt was settled in full?`,
   "Your rate sheet listed every price in detail. Why was there no payment information on it?",
   "Lucas Nuance was managing your sound check on-site at NeoKiz 2022 — the same festival where you never provided payment details. He was also documented by our staff as causing multiple incidents that weekend. Then, over a year after I paid you in full, he contacted me claiming you were owed money. What is your relationship with Lucas, and was that contact coordinated?",
   "Did you authorize Lucas to contact me claiming outstanding debt after I had already paid you in full?",
