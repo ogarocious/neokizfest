@@ -46,6 +46,7 @@ interface TimelineEvent {
   highlight: EventHighlight;
   src?: string;
   emailExhibit?: EmailExhibit;
+  gapAfterMonths?: string[];
 }
 
 const TIMELINE: TimelineEvent[] = [
@@ -88,7 +89,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "August 5, 2022",
     title: "Charles Promotes Albir Publicly — While Trying to Pay Him",
     description:
-      "Three days after proactively reaching out about payment, Charles shares Albir's podcast episode to the NeoKiz Facebook audience: \"If you interested to hearing more about Albir, check out this podcast I did with him a few years ago!\" The podcast was originally recorded in August 2016 — a six-year relationship before the 2022 festival. Charles was publicly supporting Albir's brand at the same moment he was privately trying to settle his debt.",
+      "Three days after proactively reaching out about payment, Charles shares Albir's podcast episode to the NeoKiz Facebook audience: \"If you interested to hearing more about Albir, check out this podcast I did with him a few years ago!\" The podcast was originally recorded in August 2016 — a six-year relationship before the 2022 festival. Charles was publicly supporting Albir's brand at the same moment Charles was privately trying to settle the debt.",
     imageFile: "facebook_aug5_2022.jpg",
     imageCaption: "NeoKiz Facebook post promoting Albir Rojas podcast, August 5, 2022",
     highlight: "positive",
@@ -113,12 +114,13 @@ const TIMELINE: TimelineEvent[] = [
     imageCaption: "WhatsApp — Charles forwards internal accounting emails to Albir, Aug 17, 2022",
     highlight: "positive",
     src: "/images/case/whatsapp_aug17_2022_accounting.jpg",
+    gapAfterMonths: ["Sep 2022", "Oct 2022", "Nov 2022"],
   },
   {
     date: "November 11, 2022",
     title: "Charles Explains: His Father Passed Away",
     description:
-      "Charles breaks a period of silence with a painful explanation — his father died the previous month. Albir responds with sympathy and understanding.",
+      "Charles breaks a period of silence with a painful explanation — Charles's father had passed the previous month. Albir responds with sympathy and understanding.",
     imageFile: "whatsapp_nov11_2022.jpg",
     imageCaption: "WhatsApp — Charles shares his father's passing, Nov 11, 2022",
     highlight: "neutral",
@@ -128,7 +130,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "November – December 2022",
     title: "Charles Follows Up Repeatedly. Only Auto-Reply Responds.",
     description:
-      "Charles continues reaching out multiple times to settle payment. He receives only Albir's automated reply. No payment details are provided.",
+      "Charles continues reaching out multiple times to settle payment. Charles receives only Albir's automated reply. No payment details are provided.",
     imageFile: "whatsapp_nov_dec_2022.jpg",
     imageCaption: "WhatsApp — follow-up attempts, Nov–Dec 2022",
     highlight: "negative",
@@ -143,12 +145,13 @@ const TIMELINE: TimelineEvent[] = [
     imageCaption: "WhatsApp — continued outreach, Jan–Feb 2023",
     highlight: "negative",
     src: "/images/case/whatsapp_jan_feb_2023.jpg",
+    gapAfterMonths: ["Mar 2023", "Apr 2023", "May 2023", "Jun 2023", "Jul 2023", "Aug 2023"],
   },
   {
     date: "September 17, 2023",
     title: "Albir: \"You Haven't Said Anything About the Payment\"",
     description:
-      "Over a year after the festival, Albir sends a long message saying he was \"upset\" that Charles asked about future bookings without addressing last year's payment. He writes: \"After one year you haven't say anything about the payment knowing that this is my full time job. I came to your festival and I did my job in a professional way.\" What the message does not address: Charles had been reaching out repeatedly since August 2022. Albir's auto-reply had been the only response.",
+      "Over a year after the festival, Albir sends a long message — upset that Charles had asked about future bookings without addressing the prior year's payment. Albir writes: \"After one year you haven't say anything about the payment knowing that this is my full time job. I came to your festival and I did my job in a professional way.\" What the message does not address: Charles had been reaching out repeatedly since August 2022. Albir's auto-reply had been the only response.",
     imageFile: "whatsapp_sep17_2023.jpg",
     imageCaption: "WhatsApp — Albir's \"I was upset\" message, Sep 17, 2023",
     highlight: "warning",
@@ -158,7 +161,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "September 17, 2023",
     title: "Charles Replies: \"Getting in Communication With You Is Not the Easiest Task\"",
     description:
-      "Charles responds to Albir's message by forwarding the November and December 2022 messages he had already sent — evidence that he had been trying to reach Albir for months. His reply: \"Getting in communication with you is not the easiest task hermano. From my perspective, I was trying to use the limited window of your attention to address both subjects.\"",
+      "Charles responds to Albir's message by forwarding the November and December 2022 messages Charles had already sent — evidence that Charles had been trying to reach Albir for months. Charles's reply: \"Getting in communication with you is not the easiest task hermano. From my perspective, I was trying to use the limited window of your attention to address both subjects.\"",
     imageFile: "whatsapp_sep17_2023_reply.jpg",
     imageCaption: "WhatsApp — Charles's reply forwarding prior outreach, Sep 17, 2023",
     highlight: "neutral",
@@ -168,7 +171,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "September 17, 2023",
     title: "Albir: \"I'm Not That Good in Communication\"",
     description:
-      "In the same exchange, Albir responds to Charles pointing out how difficult it has been to reach him — and agrees: \"Ok bro, understand. And accept that, I'm not that good in communication, im working hard on that. Getting better but little by little.\" In his own words, on the same day he accused Charles of disrespecting his work.",
+      "In the same exchange, Albir responds to Charles pointing out how difficult it has been to reach Albir — and agrees: \"Ok bro, understand. And accept that, I'm not that good in communication, im working hard on that. Getting better but little by little.\" In Albir's own words, on the same day Albir accused Charles of disrespecting Albir's work.",
     imageFile: "whatsapp_sep17_2023_albir_admits.jpg",
     imageCaption: "WhatsApp — Albir acknowledges his communication problems, Sep 17, 2023",
     highlight: "neutral",
@@ -193,16 +196,18 @@ const TIMELINE: TimelineEvent[] = [
     imageCaption: "WhatsApp — Albir acknowledges PayPal, Sep 19, 2023",
     highlight: "negative",
     src: "/images/case/whatsapp_sep19_2023.jpg",
+    gapAfterMonths: ["Oct 2023", "Nov 2023", "Dec 2023", "Jan 2024", "Feb 2024"],
   },
   {
     date: "March 17, 2024",
     title: "Albir Finally Provides His PayPal Email",
     description:
-      "Nearly 20 months after the festival, Albir sends his PayPal address. His own words: \"Sorry not to give you my PayPal info before. Thank you for reminding.\"",
+      "Nearly 20 months after the festival, Albir sends a PayPal address. Albir's own words: \"Sorry not to give you my PayPal info before. Thank you for reminding.\"",
     imageFile: "whatsapp_mar17_2024.jpg",
     imageCaption: "WhatsApp — Albir provides PayPal info, Mar 17, 2024",
     highlight: "positive",
     src: "/images/case/whatsapp_mar17_2024.jpg",
+    gapAfterMonths: ["Apr 2024", "May 2024", "Jun 2024"],
   },
   {
     date: "June 8, 2024",
@@ -233,12 +238,18 @@ const TIMELINE: TimelineEvent[] = [
     imageCaption: "Instagram DM — Lucas Nuance claims outstanding balance",
     highlight: "warning",
     src: "/images/case/lucas_instagram_dm.jpg",
+    gapAfterMonths: [
+      "Jul 2024", "Aug 2024", "Sep 2024", "Oct 2024", "Nov 2024", "Dec 2024",
+      "Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025",
+      "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025",
+      "Jan 2026",
+    ],
   },
   {
     date: "February 9, 2026",
     title: "\"The Dance-Stein Files: Volume 1\" Published",
     description:
-      "Lucas Nuance publishes a public document falsely claiming Charles owes thousands — grouping his name alongside individuals accused of sexual assault and fraud. Published 19 months after full payment was made. This publication triggers Charles's private outreach to Albir.",
+      "Lucas Nuance publishes a public document falsely claiming Charles owes thousands — grouping Charles's name alongside individuals accused of sexual assault and fraud. Published 19 months after full payment was made. This publication triggers Charles's private outreach to Albir.",
     imageFile: "dance_stein_files.jpg",
     imageCaption: "The Dance-Stein Files: Volume 1 — published Feb 9, 2026",
     highlight: "warning",
@@ -248,7 +259,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "February 16, 2026",
     title: "Charles Contacts Albir Privately — Before Going Public",
     description:
-      "Before making anything public, Charles contacts Albir directly with full documentation. He asks direct questions and gives Albir every opportunity to correct the record privately.",
+      "Before making anything public, Charles contacts Albir directly with full documentation. Charles asks direct questions and gives Albir every opportunity to correct the record privately.",
     imageFile: "whatsapp_feb16_2025.jpg",
     imageCaption: "WhatsApp — Charles private outreach, Feb 16, 2026",
     highlight: "neutral",
@@ -258,7 +269,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "February 23 – March 11, 2026",
     title: "Albir Suggests a Call. Never Follows Through.",
     description:
-      "After Albir suggests a video call, Charles follows up three times over three weeks: Feb 25 asking for available times, Mar 4 asking about the weekend, Mar 11 just staying in touch. Albir acknowledges the time zone difference (he's in Bali) but never proposes a time. No call ever happens. No clarification is ever offered.",
+      "After Albir suggests a video call, Charles follows up three times over three weeks: Feb 25 asking for available times, Mar 4 asking about the weekend, Mar 11 just staying in touch. Albir acknowledges the time zone difference (Albir is in Bali) but never proposes a time. No call ever happens. No clarification is ever offered.",
     imageFile: "whatsapp_mar2025.jpg",
     imageCaption: "WhatsApp — Charles's three unanswered scheduling attempts, Feb 25–Mar 11, 2026",
     highlight: "negative",
@@ -270,7 +281,7 @@ const QUESTIONS = [
   `You said in your own words, "Sorry not to give you my PayPal info before." So why is the story going around that I never paid you?`,
   `Was withholding your payment information intentional? Because the pattern is hard to ignore: you performed at NeoKiz 2022 and provided no way to pay you. For nearly two years, every attempt to get your payment details was met with silence or an auto-reply. Then — finally — you provided your PayPal. I paid you in full within three months. And then, less than a year later, Lucas published a document claiming I owe you money. And now, nearly two years after that payment was made, the accusations are surfacing again. Was any part of this coordinated? Did you and Lucas plan to withhold payment details, wait for a debt narrative to build, leverage it publicly — and then keep leveraging it, even after the debt was settled in full?`,
   "Your rate sheet listed every price in detail. Why was there no payment information on it?",
-  "Lucas Nuance was managing your sound check on-site at NeoKiz 2022 — the same festival where you never provided payment details. He was also documented by our staff as causing multiple incidents that weekend. Then, over a year after I paid you in full, he contacted me claiming you were owed money. What is your relationship with Lucas, and was that contact coordinated?",
+  "Lucas Nuance was managing your sound check on-site at NeoKiz 2022 — the same festival where you never provided payment details. Lucas was also documented by our staff as causing multiple incidents that weekend. Then, over a year after I paid you in full, Lucas contacted me claiming you were owed money. What is your relationship with Lucas, and was that contact coordinated?",
   "Did you authorize Lucas to contact me claiming outstanding debt after I had already paid you in full?",
   `Did you authorize Lucas to publish "The Dance-Stein Files" using your name and our situation?`,
   "You were my first kizomba private lesson. I looked up to you. Is this how you treat someone who brought you to their festival, paid you, and respected you?",
@@ -295,6 +306,62 @@ function dotColor(highlight: EventHighlight): string {
       return "rgba(255, 255, 255, 0.25)";
   }
 }
+
+// ─── Time Gap ────────────────────────────────────────────────
+
+const TimelineGap: React.FC<{ months: string[] }> = ({ months }) => {
+  const ROW_H = 64;
+  return (
+    <Box style={{ position: "relative" }}>
+      {/* Top border */}
+      <Box style={{ height: 2, background: "rgba(244,93,0,0.25)" }} />
+
+      {months.map((month, i) => (
+        <Box
+          key={i}
+          style={{
+            height: ROW_H,
+            display: "flex",
+            alignItems: "center",
+            paddingLeft: 64,
+            background:
+              i % 2 === 0
+                ? "rgba(255,255,255,0.022)"
+                : "rgba(255,255,255,0.008)",
+            borderBottom: "1px solid rgba(255,255,255,0.04)",
+          }}
+        >
+          {/* Tick from the timeline rail */}
+          <Box
+            style={{
+              position: "absolute",
+              left: 19,
+              width: 28,
+              height: 3,
+              borderRadius: 2,
+              background: "rgba(244,93,0,0.45)",
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 22,
+              color: "rgba(255,255,255,0.5)",
+              fontFamily: "monospace",
+              letterSpacing: "0.07em",
+              textTransform: "uppercase",
+              userSelect: "none",
+            }}
+          >
+            {month}
+          </Text>
+        </Box>
+      ))}
+
+      {/* Bottom border */}
+      <Box style={{ height: 2, background: "rgba(244,93,0,0.25)" }} />
+    </Box>
+  );
+};
 
 // ─── Evidence Slot ───────────────────────────────────────────
 
@@ -632,7 +699,8 @@ const AlbirPaymentRecord: React.FC = () => {
                 {TIMELINE.map((event, i) => {
                   const dc = dotColor(event.highlight);
                   return (
-                    <Group key={i} gap="md" align="flex-start" wrap="nowrap">
+                    <React.Fragment key={i}>
+                    <Group gap="md" align="flex-start" wrap="nowrap">
                       {/* Dot */}
                       <Box
                         style={{
@@ -685,13 +753,13 @@ const AlbirPaymentRecord: React.FC = () => {
                           order={4}
                           c={colors.textPrimary}
                           mb="xs"
-                          style={{ fontSize: responsiveText.body, fontWeight: 600 }}
+                          style={{ fontSize: responsiveText.sectionTitle, fontWeight: 600 }}
                         >
                           {event.title}
                         </Title>
                         <Text
                           c={colors.textSecondary}
-                          style={{ fontSize: responsiveText.body, lineHeight: 1.65 }}
+                          style={{ fontSize: responsiveText.small, lineHeight: 1.65 }}
                         >
                           {event.description}
                         </Text>
@@ -802,6 +870,8 @@ const AlbirPaymentRecord: React.FC = () => {
                         )}
                       </Box>
                     </Group>
+                    {event.gapAfterMonths && <TimelineGap months={event.gapAfterMonths} />}
+                    </React.Fragment>
                   );
                 })}
               </Stack>
@@ -996,10 +1066,10 @@ const AlbirPaymentRecord: React.FC = () => {
                   c={colors.textSecondary}
                   style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
                 >
-                  I am not trying to cancel Albir Rojas. I have no interest in ending his
-                  career or damaging his reputation beyond what the facts already say. What I
-                  want is simple: for him to set the record straight on his end. A single
-                  post. A single acknowledgment that the payment was made. That's it.
+                  I am not trying to cancel Albir Rojas. I have no interest in ending Albir's
+                  career or damaging Albir's reputation beyond what the facts already say. What I
+                  want is simple: for Albir to set the record straight. A single post. A single
+                  acknowledgment that the payment was made. That's it.
                 </Text>
 
                 <Text
@@ -1010,7 +1080,7 @@ const AlbirPaymentRecord: React.FC = () => {
                   named me alongside people accused of sexual assault and fraud. That
                   accusation was made in front of the entire kizomba community. I contacted
                   Albir privately in February 2026, before publishing anything, and gave him
-                  every opportunity to address it without this page ever needing to exist. He
+                  every opportunity to address it without this page ever needing to exist. Albir
                   suggested a call. Then went silent for three weeks across three follow-up
                   messages. At some point, silence is its own answer.
                 </Text>
