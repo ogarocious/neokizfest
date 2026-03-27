@@ -47,33 +47,39 @@ interface TimelineEvent {
   src?: string;
   emailExhibit?: EmailExhibit;
   gapAfterMonths?: string[];
+  isContext?: boolean;
 }
 
 const TIMELINE: TimelineEvent[] = [
   {
+    date: "2014 – 2017",
+    title: "Charles and Albir: Student and Teacher",
+    description:
+      "Before any festival, before any booking, Charles was Albir's student. One private lesson — among the first in what we now call urbankiz — and years of festival classes observed and attended when Albir came through. Albir came to the US about once a year. Every time Charles had the opportunity, Charles was there — watching, studying, trying to get better. Albir was not just a booking. Albir was someone Charles looked up to, and who introduced Charles to what we now call urbankiz. That context matters for everything that follows.",
+    imageFile: "",
+    imageCaption: "",
+    highlight: "positive",
+    isContext: true,
+  },
+  {
+    date: "2018",
+    title: "Albir Invited to NeoKiz 2018 — Never Made It",
+    description:
+      "Charles invited Albir to teach at NeoKiz 2018. Albir's name was on the NeoKiz 2018 lineup (documented at neokizfest.com/artist-payments). A representative acting on Albir's behalf intentionally withheld flight information until it was too late to book. Albir never made it to the festival. Charles moved on without holding it against Albir — and four years later, booked Albir directly for NeoKiz 2022 based on their personal relationship. That decision, in hindsight, deserves to be part of this record.",
+    imageFile: "",
+    imageCaption: "",
+    highlight: "neutral",
+    isContext: true,
+  },
+  {
     date: "July 2022",
     title: "NeoKiz 2022 Festival Takes Place",
     description:
-      "Albir Rojas performs at NeoKiz 2022 in Austin, TX. A rate sheet was provided listing services and fees — but no payment information of any kind. Also present: Lucas Nuance, who managed Albir's on-site sound check and acted as a liaison for DJ Art throughout the weekend. Multiple incidents involving Lucas were documented by staff during the event. Charles formally summarized these in a letter to DJ Art's management the following year.",
+      "Albir Rojas performs at NeoKiz 2022 in Austin, TX. Charles booked Albir directly — their own personal relationship going back years. A rate sheet was provided listing services and fees, but no payment information of any kind. Also present that weekend: Lucas Nuance, who attended as a representative of DJ Art — not Albir. Lucas managed DJ Art's sound check and acted as a liaison for DJ Art's set throughout the weekend. Multiple incidents involving Lucas were documented by NeoKiz staff. Those incidents were the direct reason DJ Art was not invited back for NeoKiz 2023. Charles formally summarized everything in a letter to DJ Art's management in July 2023.",
     imageFile: "albir_rate_sheet.jpg",
     imageCaption: "Albir Rojas rate sheet — NeoKiz 2022",
     highlight: "neutral",
     src: "/images/case/albir_rate_sheet.jpg",
-    emailExhibit: {
-      from: "Charles Ogar",
-      to: "Management DJ Art Music",
-      date: "July 3, 2023, 10:48 PM",
-      subject: "Summary of Neokiz 2022 Interactions and Future Engagement Considerations",
-      points: [
-        "Lucas requested a staff pass from volunteers at the registration table, and subsequently from Sarah when flagged by the volunteers. This was for access to backstage and food; however, our records indicate this wasn't part of the original contracted agreement. Lucas was notified of this discrepancy and was not provided a wristband.",
-        "We noted a rather terse interaction between Lucas and our volunteers at the registration table, which resulted in Sarah's intervention. The discussion revolved around the sound check for JP & Stephy while Lucas was managing the sound check for Albir during the same class time slot. As per our records, the staff had not requested additional assistance with sound, as other artists were already assigned for sound management.",
-        "In the DJ area, while Lucas was acting as a \"liaison\" during your set, we received feedback from attendees expressing concerns that someone might be interfering with the DJs.",
-        "There were noticeable discrepancies in Lucas's communication regarding DJ slot changes on Sunday night. In his conversation with Yelena, Lucas was insistent, even to the point of belligerence, that your contract precluded you from doing the opening slot — however, after reviewing the contract with Charles, we found no such stipulation. On the other hand, his conversation with Charles was quite congenial and accommodating, citing short notice and family plans as the reason for the slot conflict.",
-      ],
-      closing:
-        "These instances had collectively played a significant role in our decision not to hire you for Neokiz 2023. It is with sincere regret that we made this decision; however, we would be open to discussions about future engagements, provided we can reach a mutual understanding to ensure such instances are not repeated.",
-      signature: "Charles Ogar & Sarah Throop",
-    },
   },
   {
     date: "August 2, 2022",
@@ -89,7 +95,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "August 5, 2022",
     title: "Charles Promotes Albir Publicly — While Trying to Pay Him",
     description:
-      "Three days after proactively reaching out about payment, Charles shares Albir's podcast episode to the NeoKiz Facebook audience: \"If you interested to hearing more about Albir, check out this podcast I did with him a few years ago!\" The podcast was originally recorded in August 2016 — a six-year relationship before the 2022 festival. Charles was publicly supporting Albir's brand at the same moment Charles was privately trying to settle the debt.",
+      "Three days after proactively reaching out about payment, Charles shares Albir's podcast episode to the NeoKiz Facebook audience: \"If you interested to hearing more about Albir, check out this podcast I did with him a few years ago!\" The podcast was originally recorded in August 2016 — part of a relationship going back to 2014, when Charles was Albir's student in San Antonio. Charles was publicly supporting Albir's brand at the same moment Charles was privately trying to settle the debt.",
     imageFile: "facebook_aug5_2022.jpg",
     imageCaption: "NeoKiz Facebook post promoting Albir Rojas podcast, August 5, 2022",
     highlight: "positive",
@@ -145,7 +151,31 @@ const TIMELINE: TimelineEvent[] = [
     imageCaption: "WhatsApp — continued outreach, Jan–Feb 2023",
     highlight: "negative",
     src: "/images/case/whatsapp_jan_feb_2023.jpg",
-    gapAfterMonths: ["Mar 2023", "Apr 2023", "May 2023", "Jun 2023", "Jul 2023", "Aug 2023"],
+    gapAfterMonths: ["Mar 2023", "Apr 2023", "May 2023", "Jun 2023"],
+  },
+  {
+    date: "July 3, 2023",
+    title: "Charles Documents Lucas's Behavior in Writing to DJ Art's Management",
+    description:
+      "Nearly a year after the festival, and while still unable to reach Albir about payment, Charles sends a formal email to DJ Art's management summarizing Lucas's conduct at NeoKiz 2022. This letter is the documented reason DJ Art was not invited back for NeoKiz 2023 — and the bridge that later led to the 2024 direct booking without Lucas.",
+    imageFile: "",
+    imageCaption: "",
+    highlight: "neutral",
+    emailExhibit: {
+      from: "Charles Ogar",
+      to: "Management DJ Art Music",
+      date: "July 3, 2023, 10:48 PM",
+      subject: "Summary of Neokiz 2022 Interactions and Future Engagement Considerations",
+      points: [
+        "Lucas requested a staff pass from volunteers at the registration table, and subsequently from Sarah when flagged by the volunteers. This was for access to backstage and food; however, our records indicate this wasn't part of the original contracted agreement. Lucas was notified of this discrepancy and was not provided a wristband.",
+        "We noted a rather terse interaction between Lucas and our volunteers at the registration table, which resulted in Sarah's intervention. The discussion revolved around the sound check for JP & Stephy while Lucas was managing the sound check for Albir during the same class time slot. As per our records, the staff had not requested additional assistance with sound, as other artists were already assigned for sound management.",
+        "In the DJ area, while Lucas was acting as a \"liaison\" during your set, we received feedback from attendees expressing concerns that someone might be interfering with the DJs.",
+        "There were noticeable discrepancies in Lucas's communication regarding DJ slot changes on Sunday night. In his conversation with Yelena, Lucas was insistent, even to the point of belligerence, that your contract precluded you from doing the opening slot — however, after reviewing the contract with Charles, we found no such stipulation. On the other hand, his conversation with Charles was quite congenial and accommodating, citing short notice and family plans as the reason for the slot conflict.",
+      ],
+      closing:
+        "These instances had collectively played a significant role in our decision not to hire you for Neokiz 2023. It is with sincere regret that we made this decision; however, we would be open to discussions about future engagements, provided we can reach a mutual understanding to ensure such instances are not repeated.",
+      signature: "Charles Ogar & Sarah Throop",
+    },
   },
   {
     date: "September 17, 2023",
@@ -213,7 +243,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "June 8, 2024",
     title: "Payment 1 Sent: €440.30",
     description:
-      "Charles sends €440.30 via PayPal to albirkizomba@gmail.com. Memo: \"Parte número 1 del pago\"",
+      "Charles sends €440.30 via PayPal to albirkizomba@gmail.com. Memo: \"Parte número 1 del pago\". The non-round amount reflects PayPal's conversion and fee handling. The payment was split across two transactions because funds were also being allocated to artist flights for NeoKiz 2024 during the same period.",
     imageFile: "paypal_receipt_1.jpg",
     imageCaption: "PayPal receipt — €440.30, June 8, 2024",
     highlight: "payment",
@@ -223,17 +253,27 @@ const TIMELINE: TimelineEvent[] = [
     date: "June 25, 2024",
     title: "Payment 2 Sent: €1,000. Account Settled.",
     description:
-      "Charles sends the remaining €1,000 via PayPal. Memo: \"Pago 2/2, final Neokiz 2022\". Total paid: €1,440.30. The account is settled in full.",
+      "Charles sends the remaining €1,000 via PayPal. Memo: \"Pago 2/2, final Neokiz 2022\". Total paid: €1,440.30. The account is settled in full. The split was a matter of cash flow — not avoidance.",
     imageFile: "paypal_receipt_2.jpg",
     imageCaption: "PayPal receipt — €1,000, June 25, 2024",
     highlight: "payment",
     src: "/images/case/paypal_receipt_2.jpg",
   },
   {
-    date: "After June 2024",
+    date: "Summer 2024",
+    title: "DJ Art Booked Directly for NeoKiz 2024 — No Lucas",
+    description:
+      "Following the July 2023 letter to DJ Art's management, Charles booked DJ Art directly for NeoKiz 2024. No Lucas. The professional relationship with DJ Art was preserved — on different terms. Lucas had been the variable all along, not DJ Art. That same month, Lucas contacted Charles via Instagram claiming Albir was still owed money — despite attending NeoKiz 2022 solely as DJ Art's representative. The question of why Lucas inserted himself into Albir's payment situation, and how the two are connected, has never been answered.",
+    imageFile: "",
+    imageCaption: "",
+    highlight: "positive",
+    isContext: true,
+  },
+  {
+    date: "June 2024",
     title: "Lucas Nuance Claims €1,500 Still Owed",
     description:
-      "Lucas Nuance — described as Albir's North America booking manager — contacts Charles via Instagram DM claiming €1,500 is still outstanding. Full payment had already been made.",
+      "Lucas Nuance — described as Albir's North America booking manager — contacts Charles via Instagram DM claiming €1,500 is still outstanding. Full payment had already been made. It is not confirmed whether this claim relates exclusively to the NeoKiz 2022 Albir payment or to other situations as well. What is confirmed: Lucas attended NeoKiz 2022 as DJ Art's representative, not Albir's — yet inserted himself into this payment dispute with no explanation of how or why.",
     imageFile: "lucas_instagram_dm.jpg",
     imageCaption: "Instagram DM — Lucas Nuance claims outstanding balance",
     highlight: "warning",
@@ -284,7 +324,7 @@ const QUESTIONS = [
   "Lucas Nuance was managing your sound check on-site at NeoKiz 2022 — the same festival where you never provided payment details. Lucas was also documented by our staff as causing multiple incidents that weekend. Then, over a year after I paid you in full, Lucas contacted me claiming you were owed money. What is your relationship with Lucas, and was that contact coordinated?",
   "Did you authorize Lucas to contact me claiming outstanding debt after I had already paid you in full?",
   `Did you authorize Lucas to publish "The Dance-Stein Files" using your name and our situation?`,
-  "You were my first kizomba private lesson. I looked up to you. Is this how you treat someone who brought you to their festival, paid you, and respected you?",
+  "You came to the US about once a year. Every time you did, I showed up — to watch, to study, to learn. You were one of the first people to show me what we now call urbankiz. I looked up to you. I was your student before I was your organizer. And when I had a festival, I flew you in, housed you, fed you, and paid you. Is this really how you treat someone who came up studying you?",
   "I tried to resolve this privately in February 2026. You suggested a call and then went silent again. Why?",
   "One post from you clarifying the facts would end this. So why hasn't that happened?",
   "What are you going to do about what is being said and done in your name?",
@@ -473,6 +513,9 @@ const AlbirPaymentRecord: React.FC = () => {
           content="Albir Rojas was paid in full — €1,440.30 via PayPal in June 2024. This is the documented timeline, with receipts, of why it took 20 months — and who is responsible for that delay."
         />
         <meta property="og:url" content={PAGE_URL} />
+        <meta property="og:image" content="/images/case/og-albir-payment-record.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:image" content="/images/case/og-albir-payment-record.png" />
         <style>{`
           @media print {
             body, [data-mantine-color-scheme] {
@@ -560,12 +603,25 @@ const AlbirPaymentRecord: React.FC = () => {
                   c={colors.textSecondary}
                   style={{ fontSize: responsiveText.small, lineHeight: 1.75 }}
                 >
-                  This page exists because a false narrative is circulating publicly about an
-                  unpaid artist at NeoKiz 2022. The payment was made in full — €1,440.30 — to
-                  Albir Rojas via PayPal in two installments in June 2024. The delay was not
-                  avoidance. It was a direct result of the artist failing to provide payment
-                  details for nearly 20 months. This is the documented record, in sequence, with
-                  evidence.
+                  Albir Rojas was not just another booking. Charles was once Albir's student —
+                  one private lesson and years of festival classes in San Antonio, Texas between
+                  2014 and 2017. Albir introduced Charles to what we now call urbankiz. When
+                  Charles became an organizer, he invited Albir to NeoKiz 2018 — a booking that
+                  fell through because a representative intentionally withheld flight information.
+                  Charles gave the benefit of the doubt and booked Albir directly for NeoKiz 2022
+                  anyway, based on their personal relationship. This is the context the public
+                  accusations leave out.
+                </Text>
+
+                <Text
+                  mt="xs"
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.75 }}
+                >
+                  The payment for NeoKiz 2022 was made in full — €1,440.30 to Albir Rojas via
+                  PayPal in June 2024. The delay was not avoidance. It was a direct result of
+                  Albir failing to provide payment details for nearly 20 months. This is the
+                  documented record, in sequence, with evidence.
                 </Text>
 
                 <Text
@@ -576,7 +632,8 @@ const AlbirPaymentRecord: React.FC = () => {
                   This case is one in a series. Multiple artists have made public claims of
                   non-payment against NeoKiz — none with supporting documentation. In response,
                   every festival edition is being reviewed and every artist payment is being
-                  documented with receipts. That full record lives at{" "}
+                  documented with receipts. Two additional case files are currently in
+                  preparation. That full record lives at{" "}
                   <Link
                     href="/artist-payments"
                     style={{ color: colors.primary, textDecoration: "none" }}
@@ -620,6 +677,7 @@ const AlbirPaymentRecord: React.FC = () => {
                     [
                       ["Festival", "NeoKiz 2022"],
                       ["Artist", "Albir Rojas"],
+                      ["Known Since", "2014 — Charles was Albir's student, San Antonio, TX"],
                       ["Total Paid", "€1,440.30"],
                       [
                         "Payment 1",
@@ -763,11 +821,30 @@ const AlbirPaymentRecord: React.FC = () => {
                         >
                           {event.description}
                         </Text>
-                        <EvidenceSlot
-                          filename={event.imageFile}
-                          caption={event.imageCaption}
-                          src={event.src}
-                        />
+                        {event.isContext && (
+                          <Box
+                            mt="sm"
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              background: "rgba(100,160,255,0.07)",
+                              border: "1px solid rgba(100,160,255,0.18)",
+                              borderRadius: 6,
+                              padding: "3px 10px",
+                            }}
+                          >
+                            <Text style={{ fontSize: responsiveText.xs, color: "rgba(130,180,255,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                              Context
+                            </Text>
+                          </Box>
+                        )}
+                        {event.imageFile && (
+                          <EvidenceSlot
+                            filename={event.imageFile}
+                            caption={event.imageCaption}
+                            src={event.src}
+                          />
+                        )}
 
                         {event.emailExhibit && (
                           <Box
@@ -1006,8 +1083,10 @@ const AlbirPaymentRecord: React.FC = () => {
                   Albir, I Have Questions.
                 </Title>
                 <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
-                  These are honest questions that deserve honest answers. I am not asking them
-                  to attack. I am asking because they remain unanswered.
+                  These are honest questions that deserve honest answers. This is a direct,
+                  man-to-man address to Albir Rojas. These questions were raised privately in
+                  February 2026 before this page existed. No answers were given.
+                  Charles will not engage with Lucas — these are directed at Albir alone.
                 </Text>
               </Stack>
 
@@ -1046,6 +1125,25 @@ const AlbirPaymentRecord: React.FC = () => {
                     </Text>
                   </Group>
                 ))}
+              </Stack>
+
+              <Divider color="rgba(190,160,90,0.12)" />
+
+              <Stack gap={6}>
+                <Text
+                  c={colors.textMuted}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.75 }}
+                >
+                  These questions were sent to Albir privately in February 2026, before this
+                  page was published. No answers were given. This record will remain public
+                  until they are.
+                </Text>
+                <Text
+                  c={colors.textDim}
+                  style={{ fontSize: responsiveText.xs, lineHeight: 1.65 }}
+                >
+                  One post. One acknowledgment. That is all it would take.
+                </Text>
               </Stack>
             </Stack>
           </GlassCard>
