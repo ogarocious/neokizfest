@@ -23,6 +23,13 @@ import { colors, responsiveText } from "../styles/theme";
 
 const PAGE_URL = "https://neokizfest.com/albir-payment-record";
 
+const underlineAccent: React.CSSProperties = {
+  textDecoration: "underline",
+  textDecorationColor: "#F45D00",
+  textUnderlineOffset: "4px",
+  textDecorationThickness: "2px",
+};
+
 // ─── Timeline Data ───────────────────────────────────────────
 
 type EventHighlight = "positive" | "neutral" | "negative" | "payment" | "warning";
@@ -176,6 +183,7 @@ const TIMELINE: TimelineEvent[] = [
         "These instances had collectively played a significant role in our decision not to book DJ Art for Neokiz 2023. It is with sincere regret that we made this decision; however, we would be open to discussions about future engagements, provided we can reach a mutual understanding to ensure such instances are not repeated.",
       signature: "Charles Ogar & Sarah Throop",
     },
+    gapAfterMonths: ["Aug 2023"],
   },
   {
     date: "September 17, 2023",
@@ -329,15 +337,14 @@ const TIMELINE: TimelineEvent[] = [
 
 const QUESTIONS = [
   `You said in your own words, "Sorry not to give you my PayPal info before." So why is the story going around that I never paid you?`,
-  `Was withholding your payment information intentional? Because the pattern is hard to ignore: you performed at NeoKiz 2022 and provided no way to pay you. For nearly two years, every attempt to get your payment details was met with silence or an auto-reply. Then — finally — you provided your PayPal. I paid you in full within three months. And then, less than a year later, Lucas published a document claiming I owe you money. And now, nearly two years after that payment was made, the accusations are surfacing again. Was any part of this coordinated? Did you and Lucas plan to withhold payment details, wait for a debt narrative to build, leverage it publicly — and then keep leveraging it, even after the debt was settled in full?`,
+  `Was withholding your payment information intentional? Because the pattern is hard to ignore: you performed at NeoKiz 2022 and provided no way to pay you. For nearly two years, every attempt to get your payment details was met with silence or an auto-reply. Then — finally — you provided your PayPal. I paid you in full within three months. And then, over a year later, Lucas published a document claiming I owe you money. And now, nearly two years after that payment was made, the accusations are surfacing again. Was any part of this coordinated? Did you and Lucas plan to withhold payment details, wait for a debt narrative to build, leverage it publicly — and then keep leveraging it, even after the debt was settled in full?`,
   "Your rate sheet listed every price in detail. Why was there no payment information on it?",
-  "Lucas Nuance was managing your sound check on-site at NeoKiz 2022 — the same festival where you never provided payment details. Lucas was also documented by our staff as causing multiple incidents that weekend. Then, over a year after I paid you in full, Lucas contacted me claiming you were owed money. What is your relationship with Lucas, and was that contact coordinated?",
-  "Did you authorize Lucas to contact me claiming outstanding debt after I had already paid you in full?",
+  "Albir, I need to ask you something directly: what is your relationship with Lucas Nuance? He was present at NeoKiz 2022 as DJ Art's representative — not yours. He later contacted me claiming money was still owed, before I had made any payment toward the outstanding balance. And his name is associated with the Dance-Stein Files that put my name alongside people accused of sexual assault and fraud. Is he your manager? Your booking agent? Your business partner? Because what he does in connection with your name and your situation has consequences — for both of us.",
   `Did you authorize Lucas to publish "The Dance-Stein Files" using your name and our situation?`,
   "You came to the US about once a year. Every time you did, I showed up — to watch, to study, to learn. You were one of the first people to show me what we now call urbankiz. I looked up to you. I was your student before I was your organizer. And when I had a festival, I flew you in, housed you, fed you, and paid you. Is this really how you treat someone who came up studying you?",
   "I tried to resolve this privately in February 2026. You suggested a call and then went silent again. Why?",
   "One post from you clarifying the facts would end this. So why hasn't that happened?",
-  "What are you going to do about what is being said and done in your name?",
+  "Lucas has used your name and your situation to make public claims — including the Dance-Stein Files, published 19 months after I had paid you in full. Whether any of that was done with your knowledge or without it, your name is now attached to it. I have asked you privately. I have followed up. I am asking you here, publicly: what is your response to what has been published in connection with your name and this situation?",
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────
@@ -604,7 +611,7 @@ const AlbirPaymentRecord: React.FC = () => {
                   <IconCalendar size={13} color={colors.textDim} />
                   <Text style={{ fontSize: responsiveText.xs, color: colors.textDim }}>
                     Published:{" "}
-                    <span style={{ color: colors.textMuted }}>March 26, 2026</span>
+                    <span style={{ color: colors.textMuted }}>March 27, 2026</span>
                   </Text>
                 </Group>
 
@@ -1199,13 +1206,15 @@ const AlbirPaymentRecord: React.FC = () => {
                 >
                   There is a word for what Albir's silence has been since June 2024 — since
                   the moment he was paid in full and the debt was closed. It is not absence.
-                  It is not a communication problem. It is tacit authorization. In practice,
-                  choosing not to stop something you are aware of is the same as allowing it.
-                  Albir has not posted that I paid him. Albir has not publicly distanced
-                  himself from the Dance-Stein Files or from what Lucas published in his name.
-                  Every day that passes without a correction is another day the false claim
-                  stands by default — with Albir's silence as its foundation. That is not
-                  oversight. That is a choice.
+                  It is not a communication problem.{" "}
+                  <Text span fw={700} style={underlineAccent}>It is tacit authorization.</Text>{" "}
+                  In practice, choosing not to stop something you are aware of is the same as
+                  allowing it. Albir has not posted that I paid him. Albir has not publicly
+                  distanced himself from the Dance-Stein Files or from what Lucas published in
+                  his name. Every day that passes without a correction is another day the false
+                  claim stands by default — with Albir's silence as its foundation. That is not
+                  oversight.{" "}
+                  <Text span fw={700} style={underlineAccent}>That is a choice.</Text>
                 </Text>
 
                 <Text
@@ -1224,8 +1233,8 @@ const AlbirPaymentRecord: React.FC = () => {
                   c={colors.textSecondary}
                   style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
                 >
-                  I want to be honest about something that is harder to say than any of
-                  the facts above: I am embarrassed. Not about what I did — the receipts
+                  <Text span fs="italic">I want to be honest about something that is harder to say than any of
+                  the facts above: I am embarrassed.</Text> Not about what I did — the receipts
                   speak for themselves. I am embarrassed that this is the reality of the
                   kizomba scene I have spent years trying to build and represent. I have
                   been an ambassador of this dance. I traveled, I organized, I invested,
@@ -1270,7 +1279,8 @@ const AlbirPaymentRecord: React.FC = () => {
                   — as a tool to coerce payment. Publishing false claims to damage
                   someone's reputation. Continuing that campaign 19 months after the
                   underlying dispute was fully resolved. That is not a misunderstanding.
-                  That is not a communication problem. That is bullying — a sustained
+                  That is not a communication problem.{" "}
+                  <Text span fw={700} style={underlineAccent}>That is bullying</Text> — a sustained
                   pattern of intimidation and reputational harm directed at someone
                   perceived as a target.
                 </Text>
@@ -1337,8 +1347,9 @@ const AlbirPaymentRecord: React.FC = () => {
                   they didn't know. That defense no longer applies. Anyone who now
                   chooses to publicly affiliate with Lucas — lending him their name,
                   their platform, their audience — is doing so with full knowledge of
-                  what is documented here. A name is an endorsement. An endorsement
-                  is a choice. And that choice, made knowingly, carries its own
+                  what is documented here.{" "}
+                  <Text span fw={700} style={underlineAccent}>A name is an endorsement. An endorsement
+                  is a choice.</Text> And that choice, made knowingly, carries its own
                   accountability.
                 </Text>
 
@@ -1380,13 +1391,14 @@ const AlbirPaymentRecord: React.FC = () => {
                   c={colors.textSecondary}
                   style={{ fontSize: responsiveText.small, lineHeight: 1.8, borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 16 }}
                 >
-                  And there is a broader question this community deserves to sit with:
-                  why are we accepting this? A pattern this clear — spanning multiple
-                  years, multiple incidents, multiple people — does not go unnoticed.
-                  Scenes are shaped by what they tolerate. If we want a kizomba
-                  community that is worth growing, worth inviting people into, worth
-                  defending — we have to be willing to name what is happening inside
-                  it, and decide together that we are not okay with it.
+                  And there is a broader question this community deserves to sit with:{" "}
+                  <Text span fw={700} style={underlineAccent}>why are we accepting this?</Text>{" "}
+                  A pattern this clear — spanning multiple years, multiple incidents,
+                  multiple people — does not go unnoticed.{" "}
+                  <Text span fw={700}>Scenes are shaped by what they tolerate.</Text>{" "}
+                  If we want a kizomba community that is worth growing, worth inviting
+                  people into, worth defending — we have to be willing to name what is
+                  happening inside it, and decide together that we are not okay with it.
                 </Text>
               </Stack>
             </Stack>
@@ -1648,7 +1660,7 @@ const AlbirPaymentRecord: React.FC = () => {
 
               <Text
                 c={colors.textSecondary}
-                style={{ fontSize: responsiveText.body, lineHeight: 1.8 }}
+                style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
               >
                 I ran NeoKiz for a decade. I built something real in this community. This page
                 exists because the truth deserves a permanent address. My records are open. My
@@ -1660,13 +1672,13 @@ const AlbirPaymentRecord: React.FC = () => {
               <Text
                 fw={600}
                 c={colors.textPrimary}
-                style={{ fontSize: responsiveText.body }}
+                style={{ fontSize: responsiveText.small }}
               >
                 — Charles Ogar
               </Text>
 
               <Text c={colors.textDim} style={{ fontSize: responsiveText.xs }}>
-                Last updated: March 26, 2026
+                Last updated: March 27, 2026
               </Text>
             </Stack>
           </GlassCard>
@@ -1684,7 +1696,7 @@ const AlbirPaymentRecord: React.FC = () => {
               </Text>
               <ArticleMeta
                 author="Charles Ogar"
-                date="March 26, 2026"
+                date="March 27, 2026"
                 page="/albir-payment-record"
                 shareUrl={PAGE_URL}
                 shareTitle="NeoKiz 2022 Payment Record — Charles Ogar"
