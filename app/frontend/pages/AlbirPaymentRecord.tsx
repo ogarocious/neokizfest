@@ -232,18 +232,28 @@ const TIMELINE: TimelineEvent[] = [
     date: "March 17, 2024",
     title: "Albir Finally Provides His PayPal Email",
     description:
-      "Nearly 20 months after the festival, Albir sends a PayPal address. Albir's own words: \"Sorry not to give you my PayPal info before. Thank you for reminding.\"",
+      "Nearly 20 months after the festival, Albir sends a PayPal address with a two-sentence acknowledgment: \"Sorry not to give you my PayPal info before. Thank you for reminding.\" By this point, Charles had already begun hearing rumors in the kizomba community that he had not paid his artists. Receiving Albir's payment information — finally, casually, 20 months later — confirmed several things at once: that the pattern of inaccessibility was not accidental, that the unpaid balance had become the basis of a story being told without Charles's knowledge, and that the personal relationship Charles had believed existed was something different than what he had thought. This was not relief. This was the moment something solidified.",
     imageFile: "whatsapp_mar17_2024.jpg",
     imageCaption: "WhatsApp — Albir provides PayPal info, Mar 17, 2024",
     highlight: "positive",
     src: "/images/case/whatsapp_mar17_2024.jpg",
-    gapAfterMonths: ["Apr 2024", "May 2024", "Jun 2024"],
+    gapAfterMonths: ["Apr 2024", "May 2024"],
+  },
+  {
+    date: "June 2024",
+    title: "Lucas Surfaces — Before Charles Has Paid a Single Dollar",
+    description:
+      "Before Charles has made any payment toward the outstanding balance, Lucas Nuance — described as Albir's North America booking manager — contacts Charles via Instagram DM. His message is short and deliberate: \"This doesn't have to be as public as it already has been.\" That one line confirms two things: the unpaid balance has been circulating publicly as a narrative, and Lucas believes he has some control over how far it spreads. Charles does not respond to Lucas. He does not engage with the implication. He simply does what he has been trying to do since August 2022 — he pays.",
+    imageFile: "lucas_instagram_dm.jpg",
+    imageCaption: "Instagram DM — Lucas Nuance, before payments were made",
+    highlight: "warning",
+    src: "/images/case/lucas_instagram_dm.jpg",
   },
   {
     date: "June 8, 2024",
     title: "Payment 1 Sent: €440.30",
     description:
-      "Charles sends €440.30 via PayPal to albirkizomba@gmail.com. Memo: \"Parte número 1 del pago\". The non-round amount reflects PayPal's conversion and fee handling. The payment was split across two transactions because funds were also being allocated to artist flights for NeoKiz 2024 during the same period.",
+      "Charles sends €440.30 via PayPal to albirkizomba@gmail.com. Memo: \"Parte número 1 del pago.\" The split payment reflects the financial reality of that month: Charles was simultaneously managing artist flight costs for NeoKiz 2024. The non-round amount reflects PayPal's conversion and fee handling. Charles did not respond to Lucas's DM. He did not negotiate. He paid.",
     imageFile: "paypal_receipt_1.jpg",
     imageCaption: "PayPal receipt — €440.30, June 8, 2024",
     highlight: "payment",
@@ -253,7 +263,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "June 25, 2024",
     title: "Payment 2 Sent: €1,000. Account Settled.",
     description:
-      "Charles sends the remaining €1,000 via PayPal. Memo: \"Pago 2/2, final Neokiz 2022\". Total paid: €1,440.30. The account is settled in full. The split was a matter of cash flow — not avoidance.",
+      "Charles sends the remaining €1,000 via PayPal. Memo: \"Pago 2/2, final Neokiz 2022\". Total paid: €1,440.30. The account is settled in full — two years after the festival, three months after Albir finally provided payment details, and weeks after Lucas implied the story was already public. The split was a matter of cash flow, not avoidance. The payment was always coming. The question was always whether Albir would provide a way to send it.",
     imageFile: "paypal_receipt_2.jpg",
     imageCaption: "PayPal receipt — €1,000, June 25, 2024",
     highlight: "payment",
@@ -263,21 +273,11 @@ const TIMELINE: TimelineEvent[] = [
     date: "Summer 2024",
     title: "DJ Art Booked Directly for NeoKiz 2024 — No Lucas",
     description:
-      "Following the July 2023 letter to DJ Art's management, Charles booked DJ Art directly for NeoKiz 2024. No Lucas. The professional relationship with DJ Art was preserved — on different terms. Lucas had been the variable all along, not DJ Art. That same month, Lucas contacted Charles via Instagram claiming Albir was still owed money — despite attending NeoKiz 2022 solely as DJ Art's representative. The question of why Lucas inserted himself into Albir's payment situation, and how the two are connected, has never been answered.",
+      "Following the July 2023 letter to DJ Art's management, Charles booked DJ Art directly for NeoKiz 2024. No Lucas. The professional relationship with DJ Art was preserved — on different terms. Lucas had been the variable all along, not DJ Art.",
     imageFile: "",
     imageCaption: "",
     highlight: "positive",
     isContext: true,
-  },
-  {
-    date: "June 2024",
-    title: "Lucas Nuance Claims €1,500 Still Owed",
-    description:
-      "Lucas Nuance — described as Albir's North America booking manager — contacts Charles via Instagram DM claiming €1,500 is still outstanding. Full payment had already been made. It is not confirmed whether this claim relates exclusively to the NeoKiz 2022 Albir payment or to other situations as well. What is confirmed: Lucas attended NeoKiz 2022 as DJ Art's representative, not Albir's — yet inserted himself into this payment dispute with no explanation of how or why.",
-    imageFile: "lucas_instagram_dm.jpg",
-    imageCaption: "Instagram DM — Lucas Nuance claims outstanding balance",
-    highlight: "warning",
-    src: "/images/case/lucas_instagram_dm.jpg",
     gapAfterMonths: [
       "Jul 2024", "Aug 2024", "Sep 2024", "Oct 2024", "Nov 2024", "Dec 2024",
       "Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025",
@@ -314,6 +314,16 @@ const TIMELINE: TimelineEvent[] = [
     imageCaption: "WhatsApp — Charles's three unanswered scheduling attempts, Feb 25–Mar 11, 2026",
     highlight: "negative",
     src: "/images/case/whatsapp_mar2025.jpg",
+  },
+  {
+    date: "March 27, 2026",
+    title: "Albir Responds — With a Dismissal, Not a Rebuttal",
+    description:
+      "After hearing that Charles had begun sharing early drafts of this public record, Albir breaks 16 days of silence. His message: \"Sad Charles, very sad what you have done. 'You gave me an opportunity'? Private conversations and information shared in public with no authorization. This was not personal with me. But is good, you showed how you really are. Take care, hope things will go good for you.\" He does not dispute the timeline. He does not dispute the payment receipts. He does not explain Lucas's role or the Dance-Stein Files. He does not acknowledge that the debt was settled in full. He objects to the record being public — and closes the door. That response is now part of the record.",
+    imageFile: "whatsapp_mar27_2026.jpg",
+    imageCaption: "WhatsApp — Albir's dismissal, March 27, 2026",
+    highlight: "warning",
+    src: "/images/case/whatsapp_mar27_2026.jpg",
   },
 ];
 

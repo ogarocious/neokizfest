@@ -858,3 +858,62 @@ Still going. ✊🏾
 neokizfest.com
 
 ---
+
+## Post #19 — Mar 27, 2026 (Day 42)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Draft (auto-logged)
+**Type:** Daily update
+
+**Snapshot:**
+- Overall Progress: 77.0% (157 of 204 resolved)
+- Total Requests: 178
+- Completed: 69
+- Waived: 77
+- Processing: 24
+- Donated: $2900.00 from 37 supporters
+- Waived + Donated: 10
+
+**Caption:**
+
+**Waiver angle check before drafting:**
+
+Most recent post (Day 40 / Post #18): angle D (Quiet Act) — "No announcement drove it. No campaign. Each person made that call privately, on their own, and just submitted."
+
+Before that (Day 39 / Post #17): no explicit waiver reflection paragraph — closest to E (Silent Stat), waivers listed in bullets only, reflection centered on "150 of 204" milestone.
+
+Before that (Day 38 / Post #16): angle B (Percentage) — "44% of everyone who filed chose to walk away from their money entirely."
+
+Before that (Day 37 / Post #15 — Sunday check-in): angle B (Percentage) — "Seventy-six people — 45% of everyone who filed."
+
+So the last used angle was D (Quiet Act). I need to avoid D. B was used twice recently. E was used Day 39. That points to A (Relative Scale) or C (Milestone). The waiver count is 77 — same as last post, no new milestone crossed. So Angle C is out. Use Angle A (Relative Scale).
+
+---
+
+Day 42 update — NeoKizFest Refund Process
+
+Forty-two days in. 77% of every pass holder is fully resolved.
+
+📋 178 refund requests filed (no change)
+✅ 69 refunds completed (+4)
+🤲🏾 77 people waived their refund (no change)
+⏳ 32 in process — 24 in queue, 8 submitted awaiting review (+4)
+💛 $2,900 from 37 supporters (10 waived + donated)
+📊 Resolved: 157 of 204 — 77.0%
+
+Four more refunds completed since yesterday. Zelle is active, payments are going out, and the queue is moving. Every request that comes in gets logged, reviewed, and worked through — nothing sitting untouched.
+
+Here's a frame I keep coming back to: the waivers now outnumber the active queue more than three to one. 77 people chose to let their money go. 32 are still waiting on a payment. The people who gave it back are the reason the people still waiting have a real path forward — those two numbers are directly connected. That's not an abstraction. That's how this fund works.
+
+The filing window stays open through May 15, 2026 — 90 days from when this process launched. If you know someone who was at NeoKizFest and still hasn't filed, that's the date to keep in mind.
+
+If someone from NeoKizFest hasn't filed yet, there's still plenty of time — a word from you reaches them faster than I can. 🙏🏾
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going. ✊🏾
+
+neokizfest.com
+
+---
