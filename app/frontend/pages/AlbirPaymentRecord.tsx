@@ -79,6 +79,17 @@ const TIMELINE: TimelineEvent[] = [
     isContext: true,
   },
   {
+    date: "May 16, 2022",
+    title: "Charles's Father Suffers a Stroke",
+    description:
+      "Six weeks before NeoKiz 2022, Charles's father Fidelis Ogar suffers a stroke and is hospitalized in Houston. Houston is a two-and-a-half hour drive from Austin. Charles and Sarah do not cancel the festival. They do not ask artists to wait. They push through — Charles making repeated drives to Houston and back while the final preparations for a multi-day festival are still underway. The artists don't know this. The attendees don't know this. This is what it looked like from the inside.",
+    imageFile: "fidelis_stroke_may2022.jpg",
+    imageCaption: "Fidelis Ogar in the hospital, May 2022",
+    highlight: "neutral",
+    src: "/images/case/fidelis_stroke_may2022.jpg",
+    isContext: true,
+  },
+  {
     date: "July 2022",
     title: "NeoKiz 2022 Festival Takes Place",
     description:
@@ -127,13 +138,23 @@ const TIMELINE: TimelineEvent[] = [
     imageCaption: "WhatsApp — Charles forwards internal accounting emails to Albir, Aug 17, 2022",
     highlight: "positive",
     src: "/images/case/whatsapp_aug17_2022_accounting.jpg",
-    gapAfterMonths: ["Sep 2022", "Oct 2022", "Nov 2022"],
+    gapAfterMonths: ["Sep 2022"],
+  },
+  {
+    date: "October 12, 2022",
+    title: "Fidelis Ogar Passes Away",
+    description:
+      "Charles's father, Fidelis Ogar — born February 10, 1959 — passes away. He was 63. The months between the stroke and this day had included the festival itself, the immediate aftermath, and ongoing drives to Houston for his father's care. Charles goes quiet. The payment thread goes quiet. This is why.",
+    imageFile: "fidelis_passing_oct2022.jpg",
+    imageCaption: "In loving memory of Fidelis Ogar, February 10, 1959 – October 12, 2022",
+    highlight: "neutral",
+    src: "/images/case/fidelis_passing_oct2022.jpg",
   },
   {
     date: "November 11, 2022",
-    title: "Charles Explains: His Father Passed Away",
+    title: "Charles Tells Albir What Happened",
     description:
-      "Charles breaks a period of silence with a painful explanation — Charles's father had passed the previous month. Albir responds with sympathy and understanding.",
+      "Charles reaches back out to Albir — telling him about his father's passing. Albir responds with sympathy and understanding.",
     imageFile: "whatsapp_nov11_2022.jpg",
     imageCaption: "WhatsApp — Charles shares his father's passing, Nov 11, 2022",
     highlight: "neutral",
@@ -551,10 +572,10 @@ const AlbirPaymentRecord: React.FC = () => {
           gap="xl"
           maw={860}
           mx="auto"
-          px={{ base: "sm", sm: "md" }}
           style={{ maxWidth: "100%" }}
         >
           {/* ── Section 1: Header ───────────────────────────── */}
+          <Box px={{ base: "sm", sm: "md" }}>
           <GlassCard variant="accent" p={{ base: "md", sm: "xl" }}>
             <Stack gap="xs">
                 <Group gap="xs">
@@ -673,7 +694,34 @@ const AlbirPaymentRecord: React.FC = () => {
                 </Text>
             </Stack>
           </GlassCard>
+          </Box>
 
+          {/* ── Artist Image ────────────────────────────────── */}
+          <Box>
+            <Image
+              src="/images/artist-payments/artists/albir-rojas-2022.png"
+              alt="Albir Rojas — NeoKiz 2022 artist booking"
+              w="100%"
+              style={{
+                display: "block",
+                maxHeight: "480px",
+                objectFit: "cover",
+                objectPosition: "top center",
+              }}
+            />
+            <Text
+              mt={6}
+              style={{
+                fontSize: responsiveText.xs,
+                color: colors.textDim,
+                textAlign: "center",
+              }}
+            >
+              Albir Rojas — NeoKiz 2022 artist booking
+            </Text>
+          </Box>
+
+          <Stack gap="xl" px={{ base: "sm", sm: "md" }}>
           {/* ── Section 2: Key Facts ─────────────────────────── */}
           <GlassCard variant="subtle" p={{ base: "md", sm: "xl" }}>
             <Stack gap="md">
@@ -1712,6 +1760,7 @@ const AlbirPaymentRecord: React.FC = () => {
           </GlassCard>
 
           <BackToHome />
+          </Stack>
         </Stack>
       </FarewellLayout>
     </>
