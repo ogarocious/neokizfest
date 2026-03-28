@@ -82,7 +82,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "May 16, 2022",
     title: "Charles's Father Suffers a Stroke",
     description:
-      "Six weeks before NeoKiz 2022, Charles's father Fidelis Ogar suffers a stroke and is hospitalized in Houston. Houston is a two-and-a-half hour drive from Austin. Charles and Sarah do not cancel the festival. They do not ask artists to wait. They push through — Charles making repeated drives to Houston and back while the final preparations for a multi-day festival are still underway. The artists don't know this. The attendees don't know this. This is what it looked like from the inside.",
+      "Six weeks before NeoKiz 2022, Charles's father Fidelis Ogar suffers a stroke and is hospitalized in Houston. Houston is a two-and-a-half hour drive from Austin. Charles is the oldest of eight children. His mother needs support. His siblings need coordination. And a multi-day festival is still six weeks out. Charles and Sarah do not cancel. They do not ask artists to wait. They push through — Charles making repeated drives to Houston and back, supporting his mom, keeping the family together, and still showing up to get NeoKiz 2022 across the finish line. The artists don't know this. The attendees don't know this. This is what it looked like from the inside.",
     imageFile: "fidelis_stroke_may2022.jpg",
     imageCaption: "Fidelis Ogar in the hospital, May 2022",
     highlight: "neutral",
