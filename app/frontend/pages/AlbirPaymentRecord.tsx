@@ -75,7 +75,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "July 2022",
     title: "NeoKiz 2022 Festival Takes Place",
     description:
-      "Albir Rojas performs at NeoKiz 2022 in Austin, TX. Charles booked Albir directly — their own personal relationship going back years. A rate sheet was provided listing services and fees, but no payment information of any kind. Also present that weekend: Lucas Nuance, who attended as a representative of DJ Art — not Albir. Lucas managed DJ Art's sound check and acted as a liaison for DJ Art's set throughout the weekend. Multiple incidents involving Lucas were documented by NeoKiz staff. Those incidents were the direct reason DJ Art was not invited back for NeoKiz 2023. Charles formally summarized everything in a letter to DJ Art's management in July 2023.",
+      "Albir Rojas performs at NeoKiz 2022 in Austin, TX. Charles booked Albir directly — their own personal relationship going back years. A rate sheet was provided listing services and fees, but no payment information of any kind. Also present that weekend: Lucas Nuance, who attended as a representative of DJ Art — not Albir. Lucas was not contracted or authorized by NeoKiz to perform any sound duties at the festival. He inserted himself into DJ Art's sound check process without being asked — an imposition that contributed to unnecessary confusion and tension with NeoKiz staff and other artists sharing the same time slots. Multiple incidents involving Lucas were documented by NeoKiz staff. Those incidents were a significant factor in the decision not to book DJ Art for NeoKiz 2023. Charles formally summarized everything in a letter to DJ Art's management in July 2023.",
     imageFile: "albir_rate_sheet.jpg",
     imageCaption: "Albir Rojas rate sheet — NeoKiz 2022",
     highlight: "neutral",
@@ -157,7 +157,7 @@ const TIMELINE: TimelineEvent[] = [
     date: "July 3, 2023",
     title: "Charles Documents Lucas's Behavior in Writing to DJ Art's Management",
     description:
-      "Nearly a year after the festival, and while still unable to reach Albir about payment, Charles sends a formal email to DJ Art's management summarizing Lucas's conduct at NeoKiz 2022. This letter is the documented reason DJ Art was not invited back for NeoKiz 2023 — and the bridge that later led to the 2024 direct booking without Lucas.",
+      "Nearly a year after the festival, and while still unable to reach Albir about payment, Charles sends a formal email to DJ Art's management summarizing Lucas's conduct at NeoKiz 2022. Important context: Lucas was not contracted or authorized by NeoKiz for any sound or production role at the festival. The incidents documented below are rooted in Lucas inserting himself into situations he had no authorized role in — adding friction that was unnecessary. This letter is the documented reason DJ Art was not invited back for NeoKiz 2023 — and the bridge that later led to the 2024 direct booking without Lucas.",
     imageFile: "",
     imageCaption: "",
     highlight: "neutral",
@@ -168,12 +168,12 @@ const TIMELINE: TimelineEvent[] = [
       subject: "Summary of Neokiz 2022 Interactions and Future Engagement Considerations",
       points: [
         "Lucas requested a staff pass from volunteers at the registration table, and subsequently from Sarah when flagged by the volunteers. This was for access to backstage and food; however, our records indicate this wasn't part of the original contracted agreement. Lucas was notified of this discrepancy and was not provided a wristband.",
-        "We noted a rather terse interaction between Lucas and our volunteers at the registration table, which resulted in Sarah's intervention. The discussion revolved around the sound check for JP & Stephy while Lucas was managing the sound check for Albir during the same class time slot. As per our records, the staff had not requested additional assistance with sound, as other artists were already assigned for sound management.",
-        "In the DJ area, while Lucas was acting as a \"liaison\" during your set, we received feedback from attendees expressing concerns that someone might be interfering with the DJs.",
-        "There were noticeable discrepancies in Lucas's communication regarding DJ slot changes on Sunday night. In his conversation with Yelena, Lucas was insistent, even to the point of belligerence, that your contract precluded you from doing the opening slot — however, after reviewing the contract with Charles, we found no such stipulation. On the other hand, his conversation with Charles was quite congenial and accommodating, citing short notice and family plans as the reason for the slot conflict.",
+        "We noted a rather terse interaction between Lucas and our volunteers at the registration table, which resulted in Sarah's intervention. The discussion revolved around the sound check for JP & Stephy while Lucas was managing the sound check for Albir during the same class time slot. As per our records, the NeoKiz staff had not requested additional assistance with sound, as other artists were already assigned for sound management.",
+        "In the DJ area, while Lucas was acting as a \"liaison\" during DJ Art's set, we received feedback from attendees expressing concerns that someone might be interfering with the DJs.",
+        "There were noticeable discrepancies in Lucas's communication regarding DJ slot changes on Sunday night. In his conversation with Yelena, Lucas was insistent, even to the point of belligerence, that DJ Art's contract precluded DJ Art from performing the opening slot — however, after reviewing the contract with Charles, we found no such stipulation. On the other hand, Lucas's conversation with Charles was quite congenial and accommodating, citing short notice and family plans as the reason for the slot conflict.",
       ],
       closing:
-        "These instances had collectively played a significant role in our decision not to hire you for Neokiz 2023. It is with sincere regret that we made this decision; however, we would be open to discussions about future engagements, provided we can reach a mutual understanding to ensure such instances are not repeated.",
+        "These instances had collectively played a significant role in our decision not to book DJ Art for Neokiz 2023. It is with sincere regret that we made this decision; however, we would be open to discussions about future engagements, provided we can reach a mutual understanding to ensure such instances are not repeated.",
       signature: "Charles Ogar & Sarah Throop",
     },
   },
@@ -1201,7 +1201,7 @@ const AlbirPaymentRecord: React.FC = () => {
                   the moment he was paid in full and the debt was closed. It is not absence.
                   It is not a communication problem. It is tacit authorization. In practice,
                   choosing not to stop something you are aware of is the same as allowing it.
-                  Albir has not posted that Charles paid him. Albir has not publicly distanced
+                  Albir has not posted that I paid him. Albir has not publicly distanced
                   himself from the Dance-Stein Files or from what Lucas published in his name.
                   Every day that passes without a correction is another day the false claim
                   stands by default — with Albir's silence as its foundation. That is not
@@ -1241,7 +1241,158 @@ const AlbirPaymentRecord: React.FC = () => {
             </Stack>
           </GlassCard>
 
-          {/* ── Section 7: Further Context ───────────────────── */}
+          {/* ── Section 7: A Note on Lucas Nuance ───────────── */}
+          <GlassCard variant="subtle" p={{ base: "md", sm: "xl" }}>
+            <Stack gap="lg">
+              <Stack gap={4}>
+                <Title
+                  order={2}
+                  c={colors.textPrimary}
+                  style={{ fontSize: responsiveText.sectionTitle }}
+                >
+                  A Note on Lucas Nuance
+                </Title>
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                  The following is drawn entirely from documented interactions in this
+                  record. No claims are made beyond what is evidenced above.
+                </Text>
+              </Stack>
+
+              <Stack gap="md">
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  What is documented in this record has a name. Inserting himself into
+                  situations without authorization. Being belligerent with staff who had
+                  less perceived power, congenial with those who had more. Using implied
+                  pressure — "this doesn't have to be as public as it already has been"
+                  — as a tool to coerce payment. Publishing false claims to damage
+                  someone's reputation. Continuing that campaign 19 months after the
+                  underlying dispute was fully resolved. That is not a misunderstanding.
+                  That is not a communication problem. That is bullying — a sustained
+                  pattern of intimidation and reputational harm directed at someone
+                  perceived as a target.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>
+                    If you are an artist working with Lucas as your manager or booking agent:
+                  </strong>{" "}
+                  This record documents Lucas inserting himself into a payment dispute
+                  between me and Albir — despite attending NeoKiz 2022 solely as
+                  DJ Art's representative, with no documented role in Albir's booking.
+                  He contacted an organizer claiming money was owed before any payment
+                  had been made. When the Dance-Stein Files were published, the debt he
+                  cited had already been settled in full for 19 months. What he says in
+                  your name, and what he publishes under your name, becomes part of your
+                  public record too. You should know what that is.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>
+                    If you are an organizer who has booked or is considering booking an
+                    artist through Lucas:
+                  </strong>{" "}
+                  The July 2023 letter documented in this record describes his conduct
+                  at NeoKiz 2022 — requesting credentials not covered by the contract,
+                  discrepant communications with different staff members about the same
+                  situation, and feedback from attendees about interference with DJs.
+                  After that festival, he contacted me with the line "this doesn't
+                  have to be as public as it already has been." Document everything
+                  directly with the artist. Do not rely on an intermediary's account of
+                  what was agreed to.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>
+                    If you are considering buying a pass to an event Lucas is affiliated
+                    with:
+                  </strong>{" "}
+                  The Dance-Stein Files were published 19 months after I had paid
+                  Albir in full — grouping my name alongside people accused of sexual
+                  assault and large-scale fraud, based on a debt that no longer existed.
+                  That is the standard of accuracy being applied to public claims made
+                  in this community. Factor that into what you trust, and who you trust
+                  it from.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>
+                    On continued association:
+                  </strong>{" "}
+                  Before this record existed, someone working with Lucas could claim
+                  they didn't know. That defense no longer applies. Anyone who now
+                  chooses to publicly affiliate with Lucas — lending him their name,
+                  their platform, their audience — is doing so with full knowledge of
+                  what is documented here. A name is an endorsement. An endorsement
+                  is a choice. And that choice, made knowingly, carries its own
+                  accountability.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>
+                    A question for the community:
+                  </strong>{" "}
+                  I cannot speak to what others may have experienced. But it
+                  would not be surprising if this pattern has touched other people
+                  in this scene — organizers or artists who ran into similar dynamics
+                  and didn't have the receipts, the platform, or the energy to
+                  document it publicly. The kizomba community is already a small,
+                  fragile world. It does not need this kind of unnecessary friction
+                  making it smaller. This record is part of an effort to grow the
+                  scene honestly — and that starts with the community being able to
+                  see clearly what is happening within it.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8, borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 16 }}
+                >
+                  <strong style={{ color: "rgba(255,255,255,0.85)" }}>
+                    A broader note for artists and organizers in this scene:
+                  </strong>{" "}
+                  This situation is a reminder that disputes can surface years after the
+                  fact — with or without Lucas involved. Keep your receipts. Keep your
+                  messages. Keep a paper trail of every payment sent and received, every
+                  agreement made, and every attempt to communicate. Not because you
+                  expect bad faith — but because memory fades, narratives shift, and the
+                  only thing that holds up years later is documentation. This record
+                  exists because I kept mine. Yours should too.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8, borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 16 }}
+                >
+                  And there is a broader question this community deserves to sit with:
+                  why are we accepting this? A pattern this clear — spanning multiple
+                  years, multiple incidents, multiple people — does not go unnoticed.
+                  Scenes are shaped by what they tolerate. If we want a kizomba
+                  community that is worth growing, worth inviting people into, worth
+                  defending — we have to be willing to name what is happening inside
+                  it, and decide together that we are not okay with it.
+                </Text>
+              </Stack>
+            </Stack>
+          </GlassCard>
+
+          {/* ── Section 8: Further Context ───────────────────── */}
           <GlassCard variant="subtle" p={{ base: "md", sm: "xl" }}>
             <Stack gap="lg">
               <Stack gap={4}>
