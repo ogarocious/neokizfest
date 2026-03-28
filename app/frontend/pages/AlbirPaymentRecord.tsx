@@ -1204,6 +1204,24 @@ const AlbirPaymentRecord: React.FC = () => {
                   the first false claim was made. This page is the correction that should
                   have existed sooner.
                 </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
+                  I want to be honest about something that is harder to say than any of
+                  the facts above: I am embarrassed. Not about what I did — the receipts
+                  speak for themselves. I am embarrassed that this is the reality of the
+                  kizomba scene I have spent years trying to build and represent. I have
+                  been an ambassador of this dance. I traveled, I organized, I invested,
+                  and I believed the community was worth it. Situations like this are
+                  exactly what drive people away — the ones already here, and the ones who
+                  might have joined us. This kind of drama does not just damage one person.
+                  It damages what we are all trying to build. I did not want to post this
+                  publicly. I was reluctant, and part of me still is. But there comes a
+                  point where silence is not humility — it is complicity. I had to draw a
+                  line somewhere. This page is where I drew it.
+                </Text>
               </Stack>
             </Stack>
           </GlassCard>
