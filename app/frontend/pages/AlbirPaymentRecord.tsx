@@ -1197,6 +1197,21 @@ const AlbirPaymentRecord: React.FC = () => {
                   c={colors.textSecondary}
                   style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
                 >
+                  There is a word for what Albir's silence has been since June 2024 — since
+                  the moment he was paid in full and the debt was closed. It is not absence.
+                  It is not a communication problem. It is tacit authorization. In practice,
+                  choosing not to stop something you are aware of is the same as allowing it.
+                  Albir has not posted that Charles paid him. Albir has not publicly distanced
+                  himself from the Dance-Stein Files or from what Lucas published in his name.
+                  Every day that passes without a correction is another day the false claim
+                  stands by default — with Albir's silence as its foundation. That is not
+                  oversight. That is a choice.
+                </Text>
+
+                <Text
+                  c={colors.textSecondary}
+                  style={{ fontSize: responsiveText.small, lineHeight: 1.8 }}
+                >
                   Honestly — I held my tongue too long. I absorbed the auto-replies, the
                   delayed PayPal info, the Lucas DM, the Dance-Stein document, and kept
                   trying to handle it privately. I stayed quiet while the narrative spread.
