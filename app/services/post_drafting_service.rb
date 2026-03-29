@@ -21,8 +21,8 @@ class PostDraftingService
   SOCIAL_LOG_PATH = Rails.root.join("social-posts-log.md")
 
   # ── Update these when Zelle resumes ──────────────────────────────────────────
-  ZELLE_PAUSED = false
-  ZELLE_RESUME_DATE = "March 22, 2026"
+  ZELLE_PAUSED = true
+  ZELLE_RESUME_DATE = "April 17, 2026"
   # ─────────────────────────────────────────────────────────────────────────────
 
   # Filing deadline — 90 days from launch (Feb 14 + 90 days = May 15, 2026)
