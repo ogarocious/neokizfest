@@ -692,6 +692,16 @@ const AlbirPaymentRecord: React.FC = () => {
                   progress dashboard. That system exists because accountability matters. These
                   records exist for the same reason.
                 </Text>
+
+                <Box mt="md">
+                  <ArticleMeta
+                    author="Charles Ogar"
+                    date="March 27, 2026"
+                    page="/albir-payment-record"
+                    shareUrl={PAGE_URL}
+                    shareTitle="NeoKiz 2022 Payment Record — Charles Ogar"
+                  />
+                </Box>
             </Stack>
           </GlassCard>
           </Box>
