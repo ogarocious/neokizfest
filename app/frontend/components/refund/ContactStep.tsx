@@ -150,7 +150,6 @@ const ContactStep: React.FC<ContactStepProps> = ({ onSubmit, initialMethod }) =>
             </Stack>
           </Group>
         </GlassCard>
-      </Stack>
 
         {/* Check Option */}
         <GlassCard
