@@ -79,7 +79,7 @@ const ArticleMeta: React.FC<ArticleMetaProps> = ({
 
   return (
     <Stack gap={8}>
-      {/* Byline row */}
+      {/* Byline row — includes view count so it's always visible */}
       <Group justify="center" gap="xs" wrap="wrap">
         <Text c={colors.textMuted} size="sm">
           By <Text span fw={600} c={colors.textSecondary}>{author}</Text>
@@ -92,21 +92,21 @@ const ArticleMeta: React.FC<ArticleMetaProps> = ({
             <Text c={colors.textMuted} size="sm">{readTime}</Text>
           </>
         )}
+        {views !== null && (
+          <>
+            <Text c={colors.textDim} size="sm">·</Text>
+            <Group gap={5}>
+              <IconEye size={14} color={colors.textMuted} />
+              <Text c={colors.textMuted} size="sm">
+                {views.toLocaleString()} views
+              </Text>
+            </Group>
+          </>
+        )}
       </Group>
 
-      {/* Stats + Share row */}
+      {/* Share row */}
       <Group justify="center" gap="md" wrap="wrap">
-        {views !== null && (
-          <Group gap={5}>
-            <IconEye size={15} color={colors.textMuted} />
-            <Text c={colors.textMuted} size="sm">
-              {views.toLocaleString()} views
-            </Text>
-          </Group>
-        )}
-
-        <Divider orientation="vertical" color={colors.borderMuted} size="sm" />
-
         <Group gap={4}>
           <Tooltip label="Share on Facebook" withArrow>
             <ActionIcon
