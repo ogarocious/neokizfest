@@ -60,6 +60,7 @@ interface TimelineEvent {
   emailExhibit?: EmailExhibit;
   gapAfterMonths?: string[];
   isContext?: boolean;
+  paragraphs?: string[];
 }
 
 const TIMELINE: TimelineEvent[] = [
@@ -106,9 +107,15 @@ const TIMELINE: TimelineEvent[] = [
   },
   {
     date: "July 2022",
-    title: "Full Artist Package Provided — Flight, Hotel, Luggage, Meals",
+    title: "Full Artist Package Provided — Flight, Luggage, Transportation, Meals",
     description:
-      "This is a complete record of what NeoKiz covered for Albir's appearance at NeoKiz 2022. A round-trip flight from Madrid was booked and paid for by NeoKiz — no receipt is published here, but this is stated as fact. Albir's inbound flight was delayed by a day; this was no one's fault and did not affect his outbound flight. A festival volunteer handled airport pickup. Albir had his own private hotel room from Thursday through Sunday night — approximately three to four nights. The luggage allowance was paid by NeoKiz as part of the flight booking. Throughout the festival, artists were provided buffet-style meals — Albir ate with the artist group at every meal during his stay. No guest passes were issued. This is standard NeoKiz artist treatment: round-trip travel, luggage, private room, airport transportation, and meals — all covered, all arranged, so that artists arrive and perform without spending a dollar out of pocket. Albir's rate — documented on the rate sheet above — was on top of every one of these costs. The outstanding balance that became the subject of public accusations was his artist fee alone. Everything else had already been paid before he stepped off the plane.",
+      "This is a complete record of what NeoKiz covered for Albir's appearance at NeoKiz 2022.",
+    paragraphs: [
+      "A round-trip flight from Madrid was booked and paid for by NeoKiz — no receipt is published here, but this is stated as fact. Albir's inbound flight was delayed by a day; this was no one's fault and did not affect his outbound flight. A festival volunteer handled airport pickup.",
+      "The luggage allowance was paid by NeoKiz as part of the flight booking. Albir had his own hotel room for the duration of the festival — approximately three to four nights. This is not provided to every artist. Throughout the festival, artists were provided buffet-style meals — Albir ate with the artist group at every meal during his stay. No guest passes were issued.",
+      "This is standard NeoKiz artist treatment: round-trip travel, luggage, airport transportation, and meals — all covered, all arranged, so that artists arrive and perform without spending a dollar out of pocket.",
+      "Albir's rate — documented on the rate sheet above — was on top of every one of these costs. The outstanding balance that became the subject of public accusations was his artist fee alone. Everything else had already been paid before he stepped off the plane.",
+    ],
     imageFile: "",
     imageCaption: "",
     highlight: "positive",
@@ -976,15 +983,41 @@ const AlbirPaymentRecord: React.FC = () => {
                             >
                               {event.title}
                             </Title>
-                            <Text
-                              c={colors.textSecondary}
-                              style={{
-                                fontSize: responsiveText.small,
-                                lineHeight: 1.65,
-                              }}
-                            >
-                              {event.description}
-                            </Text>
+                            {event.paragraphs ? (
+                              <Stack gap="sm">
+                                <Text
+                                  c={colors.textSecondary}
+                                  style={{
+                                    fontSize: responsiveText.small,
+                                    lineHeight: 1.65,
+                                  }}
+                                >
+                                  {event.description}
+                                </Text>
+                                {event.paragraphs.map((p, i) => (
+                                  <Text
+                                    key={i}
+                                    c={colors.textSecondary}
+                                    style={{
+                                      fontSize: responsiveText.small,
+                                      lineHeight: 1.65,
+                                    }}
+                                  >
+                                    {p}
+                                  </Text>
+                                ))}
+                              </Stack>
+                            ) : (
+                              <Text
+                                c={colors.textSecondary}
+                                style={{
+                                  fontSize: responsiveText.small,
+                                  lineHeight: 1.65,
+                                }}
+                              >
+                                {event.description}
+                              </Text>
+                            )}
                             {event.isContext && (
                               <Box
                                 mt="sm"
