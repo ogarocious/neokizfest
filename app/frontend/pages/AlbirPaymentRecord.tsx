@@ -642,8 +642,19 @@ const AlbirPaymentRecord: React.FC = () => {
         <Stack gap="xl" maw={860} mx="auto" style={{ maxWidth: "100%" }}>
           {/* ── Section 1: Header ───────────────────────────── */}
           <Box px={{ base: "sm", sm: "md" }}>
-            <GlassCard variant="accent" p={{ base: "md", sm: "xl" }}>
-              <Stack gap="xs">
+            <GlassCard variant="accent" p={0} style={{ overflow: "hidden" }}>
+              <Image
+                src="/images/artist-payments/artists/albir-rojas-2022.png"
+                alt="Albir Rojas — NeoKiz 2022 artist booking"
+                w="100%"
+                style={{
+                  display: "block",
+                  maxHeight: "480px",
+                  objectFit: "cover",
+                  objectPosition: "top center",
+                }}
+              />
+              <Stack gap="xs" p={{ base: "md", sm: "xl" }}>
                 <Group gap="xs">
                   <Badge
                     size="sm"
@@ -696,21 +707,6 @@ const AlbirPaymentRecord: React.FC = () => {
                 >
                   NeoKiz 2022 Artist Payment — The Full Record
                 </Title>
-
-                <Group gap="xs" mt={4}>
-                  <IconCalendar size={13} color={colors.textDim} />
-                  <Text
-                    style={{
-                      fontSize: responsiveText.xs,
-                      color: colors.textDim,
-                    }}
-                  >
-                    Published:{" "}
-                    <span style={{ color: colors.textMuted }}>
-                      March 27, 2026
-                    </span>
-                  </Text>
-                </Group>
 
                 <Text
                   mt="sm"
@@ -785,31 +781,6 @@ const AlbirPaymentRecord: React.FC = () => {
                 </Box>
               </Stack>
             </GlassCard>
-          </Box>
-
-          {/* ── Artist Image ────────────────────────────────── */}
-          <Box>
-            <Image
-              src="/images/artist-payments/artists/albir-rojas-2022.png"
-              alt="Albir Rojas — NeoKiz 2022 artist booking"
-              w="100%"
-              style={{
-                display: "block",
-                maxHeight: "480px",
-                objectFit: "cover",
-                objectPosition: "top center",
-              }}
-            />
-            <Text
-              mt={6}
-              style={{
-                fontSize: responsiveText.xs,
-                color: colors.textDim,
-                textAlign: "center",
-              }}
-            >
-              Albir Rojas — NeoKiz 2022 artist booking
-            </Text>
           </Box>
 
           <Stack gap="xl" px={{ base: "sm", sm: "md" }}>
