@@ -61,14 +61,14 @@
       <span style="color: #9A8F85; font-size: 14px;">Payment Method</span>
     </td>
     <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
-      <span style="color: #E8E0D8; font-weight: 600;"><%= @payment_method == "wise" ? "Wise (International)" : "Zelle" %></span>
+      <span style="color: #E8E0D8; font-weight: 600;"><%= @payment_method == "wise" ? "Wise (International)" : @payment_method == "check" ? "Check by Mail" : "Zelle" %></span>
     </td>
   </tr>
   <% end %>
   <% if !@waived && @payment_contact.present? %>
   <tr>
     <td style="padding: 12px 0; border-bottom: 1px solid #313131;">
-      <span style="color: #9A8F85; font-size: 14px;"><%= @payment_method == "wise" ? "Wise Email" : "Zelle Contact" %></span>
+      <span style="color: #9A8F85; font-size: 14px;"><%= @payment_method == "wise" ? "Wise Email" : @payment_method == "check" ? "Mailing Address" : "Zelle Contact" %></span>
     </td>
     <td style="padding: 12px 0; border-bottom: 1px solid #313131; text-align: right;">
       <span style="color: #E8E0D8; font-weight: 600;"><%= @payment_contact %></span>
@@ -99,7 +99,13 @@
 
   <ol style="padding-left: 20px; margin: 0;">
     <li style="margin-bottom: 12px; line-height: 1.6;">We'll verify your information against our records.</li>
+    <% if @payment_method == "check" %>
+    <li style="margin-bottom: 12px; line-height: 1.6;">Once verified, we'll mail a check to the address you provided. Please allow 7–10 business days for delivery after processing.</li>
+    <% elsif @payment_method == "wise" %>
+    <li style="margin-bottom: 12px; line-height: 1.6;">Once verified, we'll send your refund via Wise to the email you provided.</li>
+    <% else %>
     <li style="margin-bottom: 12px; line-height: 1.6;">Once verified, we'll begin processing your refund via Zelle.</li>
+    <% end %>
     <li style="margin-bottom: 12px; line-height: 1.6;">You'll receive an email when your refund has been sent.</li>
   </ol>
 <% end %>

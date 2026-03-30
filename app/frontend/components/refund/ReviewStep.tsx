@@ -15,6 +15,7 @@ import {
   IconCurrencyDollar,
   IconWorld,
   IconHeart,
+  IconBuildingBank,
 } from "@tabler/icons-react";
 import { colors, responsiveText } from "../../styles/theme";
 import { GlassCard, GradientButton } from "../shared";
@@ -24,6 +25,7 @@ import type {
   RefundPaymentMethod,
   ZelleInfo,
   WiseInfo,
+  CheckInfo,
   RefundFormStep,
 } from "../../types/refund";
 
@@ -34,6 +36,7 @@ interface ReviewStepProps {
   paymentMethod: RefundPaymentMethod | null;
   zelleInfo: ZelleInfo | null;
   wiseInfo: WiseInfo | null;
+  checkInfo: CheckInfo | null;
   finalRefund: number;
   onEdit: (step: RefundFormStep) => void;
   onSubmit: () => void;
@@ -53,6 +56,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
   paymentMethod,
   zelleInfo,
   wiseInfo,
+  checkInfo,
   finalRefund,
   onEdit,
   onSubmit,
@@ -155,17 +159,19 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
       </GlassCard>
 
       {/* Payment Info (if refund) */}
-      {paymentMethod && (zelleInfo || wiseInfo) && (
+      {paymentMethod && (zelleInfo || wiseInfo || checkInfo) && (
         <GlassCard variant="subtle">
           <Group justify="space-between" mb="md" wrap="wrap" gap="xs">
             <Group gap="xs">
               {paymentMethod === "wise" ? (
                 <IconWorld size={18} color="#9FE870" />
+              ) : paymentMethod === "check" ? (
+                <IconBuildingBank size={18} color="#93C5FD" />
               ) : (
                 <IconCurrencyDollar size={18} color={colors.primary} />
               )}
               <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.body }}>
-                {paymentMethod === "wise" ? "Wise Transfer" : "Zelle Payment"}
+                {paymentMethod === "wise" ? "Wise Transfer" : paymentMethod === "check" ? "Check by Mail" : "Zelle Payment"}
               </Text>
             </Group>
             <ActionIcon
@@ -180,10 +186,10 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
             <Group justify="space-between" wrap="wrap" gap="xs">
               <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Method</Text>
               <Badge
-                color={paymentMethod === "wise" ? "green" : "orange"}
+                color={paymentMethod === "wise" ? "green" : paymentMethod === "check" ? "blue" : "orange"}
                 variant="light"
               >
-                {paymentMethod === "wise" ? "Wise" : "Zelle"}
+                {paymentMethod === "wise" ? "Wise" : paymentMethod === "check" ? "Check by Mail" : "Zelle"}
               </Badge>
             </Group>
             {paymentMethod === "zelle" && zelleInfo && (
@@ -207,6 +213,24 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
                 <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Email</Text>
                 <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{wiseInfo.email}</Text>
               </Group>
+            )}
+            {paymentMethod === "check" && checkInfo && (
+              <>
+                <Group justify="space-between" wrap="wrap" gap="xs">
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Name on Check</Text>
+                  <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{checkInfo.fullName}</Text>
+                </Group>
+                <Group justify="space-between" wrap="wrap" gap="xs">
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Mailing Address</Text>
+                  <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small, textAlign: "right" }}>
+                    {checkInfo.street}<br />{checkInfo.city}, {checkInfo.state} {checkInfo.zip}
+                  </Text>
+                </Group>
+                <Group justify="space-between" wrap="wrap" gap="xs">
+                  <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>Phone</Text>
+                  <Text fw={500} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>{checkInfo.phone}</Text>
+                </Group>
+              </>
             )}
           </Stack>
         </GlassCard>

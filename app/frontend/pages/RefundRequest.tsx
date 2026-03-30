@@ -123,6 +123,7 @@ const RefundRequest: React.FC = () => {
             paymentMethod={form.paymentMethod}
             zelleInfo={form.zelleInfo}
             wiseInfo={form.wiseInfo}
+            checkInfo={form.checkInfo}
             finalRefund={form.finalRefund}
             onEdit={handleEdit}
             onSubmit={handleSubmit}

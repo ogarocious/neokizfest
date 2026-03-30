@@ -7,6 +7,7 @@ import type {
   RefundPaymentMethod,
   ZelleInfo,
   WiseInfo,
+  CheckInfo,
   PaymentInfo,
   RefundRequestData,
 } from "../types/refund";
@@ -21,6 +22,7 @@ const initialState: RefundFormState = {
   paymentMethod: null,
   zelleInfo: null,
   wiseInfo: null,
+  checkInfo: null,
   calculatedRefund: 0,
   finalRefund: 0,
 };
@@ -125,13 +127,14 @@ export function useRefundForm() {
     });
   }, []);
 
-  // Set payment info (Zelle or Wise)
+  // Set payment info (Zelle, Wise, or Check)
   const setPaymentInfo = useCallback((paymentInfo: PaymentInfo) => {
     setState((prev) => ({
       ...prev,
       paymentMethod: paymentInfo.method,
       zelleInfo: paymentInfo.zelle || null,
       wiseInfo: paymentInfo.wise || null,
+      checkInfo: paymentInfo.check || null,
       completedSteps: [...prev.completedSteps.filter((s) => s !== "contact"), "contact"],
       currentStep: "review",
     }));
@@ -180,6 +183,7 @@ export function useRefundForm() {
       paymentMethod: state.paymentMethod || "zelle",
       zelleInfo: state.zelleInfo || undefined,
       wiseInfo: state.wiseInfo || undefined,
+      checkInfo: state.checkInfo || undefined,
       ticketHolderPageId: state.passHolder.notionPageId,
     };
   }, [state, calculatedRefund, finalRefund]);
@@ -190,7 +194,7 @@ export function useRefundForm() {
 
     // Need contact info if getting refund
     if (state.decision === "full" || state.decision === "partial") {
-      if (!state.zelleInfo && !state.wiseInfo) return false;
+      if (!state.zelleInfo && !state.wiseInfo && !state.checkInfo) return false;
     }
 
     return true;

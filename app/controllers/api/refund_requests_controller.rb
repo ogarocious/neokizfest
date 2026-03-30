@@ -305,7 +305,7 @@ module Api
       platform: payment_method,
       refund_amount: params[:refundAmount],
       amount_paid: params[:amountPaid],
-      zelle_contact: format_payment_contact(payment_method, params[:zelleInfo], params[:wiseInfo]),
+      zelle_contact: format_payment_contact(payment_method, params[:zelleInfo], params[:wiseInfo], params[:checkInfo]),
       ticket_holder_page_id: params[:ticketHolderPageId]
     }
   end
@@ -323,10 +323,14 @@ module Api
     }
   end
 
-  def format_payment_contact(method, zelle_info, wise_info)
+  def format_payment_contact(method, zelle_info, wise_info, check_info = nil)
     if method == "wise"
       return nil unless wise_info.present?
       wise_info[:email].presence
+    elsif method == "check"
+      return nil unless check_info.present?
+      address = "#{check_info[:street]}, #{check_info[:city]} #{check_info[:state]} #{check_info[:zip]}"
+      "#{check_info[:fullName]} | #{address} | #{check_info[:phone]}"
     else
       return nil unless zelle_info.present?
       parts = []
@@ -342,7 +346,7 @@ module Api
     refund_amount = params[:refundAmount].present? ? params[:refundAmount].to_f : nil
     amount_paid = params[:amountPaid].present? ? params[:amountPaid].to_f : nil
     payment_method = params[:paymentMethod].presence || "zelle"
-    payment_contact = format_payment_contact(payment_method, params[:zelleInfo], params[:wiseInfo])
+    payment_contact = format_payment_contact(payment_method, params[:zelleInfo], params[:wiseInfo], params[:checkInfo])
 
     RefundMailer.confirmation_email(
       email: email,

@@ -20,8 +20,8 @@ Decision: <%= @decision_text %>
 <% if @amount_paid %>Original Ticket Price: $<%= sprintf("%.2f", @amount_paid) %>
 <% end %><% if @refund_amount && !@waived %>Refund Amount: $<%= sprintf("%.2f", @refund_amount) %>
 <% end %><% if @donated_amount %><%= @waived ? "Amount Waived" : "Amount Donated" %>: $<%= sprintf("%.2f", @donated_amount) %>
-<% end %><% if !@waived && @payment_method.present? %>Payment Method: <%= @payment_method == "wise" ? "Wise (International)" : "Zelle" %>
-<% end %><% if !@waived && @payment_contact.present? %><%= @payment_method == "wise" ? "Wise Email" : "Zelle Contact" %>: <%= @payment_contact %>
+<% end %><% if !@waived && @payment_method.present? %>Payment Method: <%= @payment_method == "wise" ? "Wise (International)" : @payment_method == "check" ? "Check by Mail" : "Zelle" %>
+<% end %><% if !@waived && @payment_contact.present? %><%= @payment_method == "wise" ? "Wise Email" : @payment_method == "check" ? "Mailing Address" : "Zelle Contact" %>: <%= @payment_contact %>
 <% end %>Status: <%= @waived ? "Waived" : "Submitted" %>
 
 <% if @waived %>
@@ -32,8 +32,10 @@ Your name will appear on our Community Support wall on the progress page as a th
 WHAT HAPPENS NEXT?
 ==================
 1. We'll verify your information against our records.
-2. Once verified, we'll begin processing your refund via Zelle.
-3. You'll receive an email when your refund has been sent.
+<% if @payment_method == "check" %>2. Once verified, we'll mail a check to the address you provided. Please allow 7–10 business days for delivery after processing.
+<% elsif @payment_method == "wise" %>2. Once verified, we'll send your refund via Wise to the email you provided.
+<% else %>2. Once verified, we'll begin processing your refund via Zelle.
+<% end %>3. You'll receive an email when your refund has been sent.
 <% end %>
 
 Check your status anytime at:

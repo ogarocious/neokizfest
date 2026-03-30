@@ -10,7 +10,7 @@ export type PassType =
 export type RefundDecision = "full" | "partial" | "waive";
 
 // Payment method for refund
-export type RefundPaymentMethod = "zelle" | "wise";
+export type RefundPaymentMethod = "zelle" | "wise" | "check";
 
 // Zelle contact info
 export interface ZelleInfo {
@@ -23,11 +23,22 @@ export interface WiseInfo {
   email: string;
 }
 
+// Check (bill pay) mailing info
+export interface CheckInfo {
+  fullName: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone: string;
+}
+
 // Combined payment info
 export interface PaymentInfo {
   method: RefundPaymentMethod;
   zelle?: ZelleInfo;
   wise?: WiseInfo;
+  check?: CheckInfo;
 }
 
 // Pass holder record from Notion
@@ -63,6 +74,7 @@ export interface RefundRequestData {
   paymentMethod: RefundPaymentMethod;
   zelleInfo?: ZelleInfo;
   wiseInfo?: WiseInfo;
+  checkInfo?: CheckInfo;
   ticketHolderPageId?: string;
 }
 
@@ -157,6 +169,7 @@ export interface RefundFormState {
   paymentMethod: RefundPaymentMethod | null;
   zelleInfo: ZelleInfo | null;
   wiseInfo: WiseInfo | null;
+  checkInfo: CheckInfo | null;
 
   // Computed
   calculatedRefund: number;
