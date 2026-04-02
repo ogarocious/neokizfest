@@ -13,7 +13,7 @@ import {
   Table,
   SimpleGrid,
 } from "@mantine/core";
-import { IconCalendar, IconFileText } from "@tabler/icons-react";
+import { IconFileText } from "@tabler/icons-react";
 import { Link } from "@inertiajs/react";
 import FarewellLayout from "../components/farewell/FarewellLayout";
 import { GlassCard, BackToHome, ArticleMeta } from "../components/shared";
@@ -107,7 +107,8 @@ const TIMELINE: TimelineEvent[] = [
   },
   {
     date: "July 2022",
-    title: "Full Artist Package Provided — Flight, Luggage, Transportation, Meals",
+    title:
+      "Full Artist Package Provided — Flight, Luggage, Transportation, Meals",
     description:
       "This is a complete record of what NeoKiz covered for Albir's appearance at NeoKiz 2022.",
     paragraphs: [
