@@ -72,7 +72,7 @@ interface ProgressProps {
 }
 
 // Update this date when Zelle is paused — set to the expected resume date (9:00 AM CST = 15:00 UTC)
-const ZELLE_RESUME_DATE = new Date("2026-04-22T15:00:00Z");
+const ZELLE_RESUME_DATE = new Date("2026-04-17T15:00:00Z");
 
 
 const Progress: React.FC<ProgressProps> = ({
