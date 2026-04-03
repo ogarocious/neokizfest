@@ -1113,7 +1113,7 @@ neokizfest.com
 **Snapshot:**
 - Overall Progress: 85.3% (174 of 204 resolved)
 - Total Requests: 178
-- Completed: 86
+- Completed: 85
 - Waived: 77
 - Processing: 15
 - Donated: $2900.00 from 37 supporters
@@ -1167,6 +1167,55 @@ The 77 waivers are the part I keep thinking about this week. There was no moment
 One important note on payments: Zelle hit its monthly transfer limit today and is paused until April 17. Every request in the queue is logged, staged, and ready to move — nothing is lost, and nothing needs to be re-submitted. Wise is still active for international refunds in the meantime. If you're waiting, your place is held.
 
 The filing window stays open through May 15, 2026 — 90 days from when this all began. If you know someone who was at NeoKizFest and still hasn't filed, that's the date to pass along. No pressure in it, just a practical close.
+
+If someone from NeoKizFest hasn't filed yet, there's still time — a word from you reaches them faster than I can. 🙏🏾
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going. ✊🏾
+
+neokizfest.com
+
+---
+
+## Post #24 — Apr 2, 2026 (Day 48)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+**Type:** Daily
+
+**Snapshot:**
+- Overall Progress: 85.0% (175 of 206 resolved)
+- Total Requests: 181
+- Completed: 87 (+2 today: RR-0151 Mary Grace Markham $220 check, RR-0191 Ryeder Dye $112.42 check)
+- Waived: 77
+- Processing: 17
+- Donated: $2,925.00 from 38 supporters
+- Waived + Donated: 10
+
+**Payment Status:** Zelle paused (hit monthly limit Mar 29). Resumes Apr 17. Wise active. 2 checks sent today (est. delivery Apr 8–9).
+
+**Caption:**
+
+Day 48 update — NeoKizFest Refund Process
+
+Forty-eight days in. 85% of every pass holder — a larger pool than this process started with — is fully resolved.
+
+📋 181 refund requests filed (+3)
+✅ 87 refunds completed (+2)
+🤲🏾 77 people waived their refund (no change)
+⏳ 17 in queue / processing (+2)
+💛 $2,925 from 38 supporters (+$25, +1 donor)
+📊 Resolved: 175 of 206 — 85.0%
+
+Three more people filed, one more refund completed, and a new donor came in. The process is still moving — just in a different gear while Zelle is paused. Wise is still active for international refunds in the meantime.
+
+Here's the scale that stands out to me right now: 77 people waived, 17 are still in the queue. That's more than four-to-one. The people who let their money go outnumber the people still waiting by more than four times over. That's not a coincidence — every waiver is directly connected to every refund that goes out. Those 17 people in the queue have a path forward in part because of the 77 who stepped back. That ratio is what this community built.
+
+Zelle resumes April 17 — that's 15 days out. Every request in the queue is logged, staged, and ready. Nothing needs to be re-submitted. Your place is held.
+
+The filing window stays open through May 15, 2026 — 90 days from when this all began. If you know someone who was at NeoKizFest and still hasn't filed, that's the date to keep in mind.
 
 If someone from NeoKizFest hasn't filed yet, there's still time — a word from you reaches them faster than I can. 🙏🏾
 
