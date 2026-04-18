@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   end
 
   def status
-    render inertia: 'StatusLookup', props: { zelle_paused: true }
+    render inertia: 'StatusLookup', props: { zelle_paused: false }
   end
 
   def support
