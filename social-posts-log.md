@@ -1373,3 +1373,50 @@ Still going. ✊🏾
 neokizfest.com
 
 ---
+
+## Post #27 — Apr 18, 2026 (Day 64)
+
+**Platform:** Facebook
+**Posted by:** Charles Neokiz Ogarocious
+**Status:** Posted
+**Type:** Daily update
+
+**Snapshot:**
+- Overall Progress: 90.8% (187 of 206 resolved)
+- Total Requests: 186
+- Completed: 95
+- Waived: 81
+- Processing: 10
+- Donated: $2925.00 from 38 supporters
+- Waived + Donated: 10
+
+**Caption:**
+
+Day 64 update — NeoKizFest Refund Process
+
+Sixty-four days in, and 90% of every pass holder is fully resolved.
+
+📋 186 refund requests filed (+3)
+✅ 95 refunds completed (+2)
+🤲🏾 81 people waived their refund (+3)
+⏳ 10 in queue / processing (-2)
+💛 $2,925 from 38 supporters (10 waived + donated)
+📊 Resolved: 187 of 206 — 90.8% (+5 since last update)
+
+Three more people filed, two more refunds completed, the queue shrank — and the waivers crossed 80.
+
+That's the number I want to sit with for a second. Eighty-one people have now chosen to let their refund go entirely. Eighty. That's a round number that took 64 days and 81 separate, individual decisions to reach — and nobody was keeping count on their way in. Each person just got to that form, made their own call, and submitted. No announcement preceded it. No campaign drove it. The fact that it crossed 80 quietly, the same way every single waiver before it did, says everything about the kind of people who came to NeoKizFest.
+
+On Zelle: the window reopened April 17. First payments of this cycle went out today. Every request in the queue is logged, staged, and ready — if you're waiting on a payment, your place is held and nothing needs to be re-submitted.
+
+The filing window stays open through May 15, 2026 — 90 days from when this all began. If you know someone who was at NeoKizFest and still hasn't filed, that's the date to keep in mind. No pressure in it, just a practical close.
+
+If someone from NeoKizFest hasn't filed yet, there's still time — a word from you reaches them faster than I can. 🙏🏾
+
+neokizfest.com — Request Refund, check Status, or see the full picture at neokizfest.com/progress.
+
+Still going. ✊🏾
+
+neokizfest.com
+
+---
