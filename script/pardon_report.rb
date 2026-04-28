@@ -9,7 +9,7 @@ REFUND_REQUESTS_DB_ID = Rails.application.credentials.dig(:notion, :refund_reque
 SUPPORTER_ORDERS_DB_ID = Rails.application.credentials.dig(:notion, :supporter_orders_db_id)
 ZELLE_TRANSFERS_DB_ID  = Rails.application.credentials.dig(:notion, :zelle_transfers_db_id)
 
-TOTAL_COLLECTED = 34_041.33  # gross ticket sales (from Stripe)
+TOTAL_COLLECTED = 33_599.65  # gross ticket sales (from Stripe); reduced by $441.68 in Stripe refunds (Sheila Wang $112.42 + Sarah Litty $112.42 + Joe Greene $104.42 + Anna Baumann $112.42 — Apr 23, 2026)
 
 def fmt(n)
   "$#{format('%.2f', n.round(2)).reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}"

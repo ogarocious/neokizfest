@@ -9,21 +9,21 @@ REFUND_REQUESTS_DB_ID  = Rails.application.credentials.dig(:notion, :refund_requ
 SUPPORTER_ORDERS_DB_ID = Rails.application.credentials.dig(:notion, :supporter_orders_db_id)
 ZELLE_TRANSFERS_DB_ID  = Rails.application.credentials.dig(:notion, :zelle_transfers_db_id)
 
-TOTAL_COLLECTED = 34_041.33  # gross ticket sales (from Stripe)
+TOTAL_COLLECTED = 33_599.65  # gross ticket sales (from Stripe); reduced by $112.42 Sheila Wang + $112.42 Sarah Litty + $104.42 Joe Greene + $112.42 Anna Baumann Stripe refunds (Apr 23, 2026); Delia Hernandez + Hysmin Martinez ($208.84, Apr 23) logged as transfer records, not deducted from gross
 
 # Last snapshot for deltas — update these after each financial-forecast.md update
 PREV_SNAPSHOT = {
-  label:         "Day 62, Apr 16",
-  paid_out:      14_780.34,
-  transfers:     90,
-  completed:     93,
-  waived:        81,
-  waived_amt:    9_041.08,
-  non_filers:    9,
-  pending:       12,
+  label:         "Day 73, Apr 27",
+  paid_out:      17_025.88,
+  transfers:     108,
+  completed:     113,
+  waived:        83,
+  waived_amt:    9_295.50,
+  non_filers:    0,
+  pending:       0,
   donors:        38,
   donated:       2_925.00,
-  pardon_total:  11_002.35,
+  pardon_total:  11_363.19,
 }
 
 def fmt(n)
@@ -69,11 +69,15 @@ puts "  ✓ #{holders.count} ticket holders / #{requests.count} requests / #{tra
 
 # ── Holder maps ───────────────────────────────────────────────────────────────
 holder_amount  = {}
+holder_name    = {}
+holder_email   = {}
 chargeback_ids = Set.new
 filed_ids      = Set.new
 
 holders.each do |h|
   holder_amount[h.id] = h.properties.dig("Amount Paid", "number").to_f
+  holder_name[h.id]   = extract_title(h.properties["Name"]) || "—"
+  holder_email[h.id]  = h.properties.dig("Email", "email") || "—"
   chargeback_ids << h.id if chargeback?(h)
 end
 requests.each { |r| holder_ids_from_relation(r).each { |id| filed_ids << id } }
@@ -188,11 +192,30 @@ puts "-" * 42
 puts "#{"Net still owed".ljust(col_w)} #{fmt(net_owed).rjust(12)}"
 puts "  └─ Pending filers (#{pending_reqs.count} requests):#{delta(pending_reqs.count, PREV_SNAPSHOT[:pending])} #{fmt(pending_amount)}"
 puts "  └─ Non-filer pool (#{non_filer_holders.count} holders): #{fmt(non_filer_amount)}"
+if non_filer_holders.any?
+  non_filer_holders.sort_by { |h| holder_name[h.id] }.each do |h|
+    puts "       #{holder_name[h.id].ljust(28)} #{holder_email[h.id].ljust(32)} #{fmt(holder_amount[h.id])}"
+  end
+end
 puts ""
 
 puts "STATUS"
 puts "- Completed: #{completed_reqs.count}#{delta(completed_reqs.count, PREV_SNAPSHOT[:completed])} | Waived: #{waived_reqs.count}#{delta(waived_reqs.count, PREV_SNAPSHOT[:waived])} | Verified: #{pending_reqs.count { |r| extract_status(r.properties["Status"])&.downcase == "verified" }} | Processing: #{pending_reqs.count { |r| extract_status(r.properties["Status"])&.downcase == "processing" }}"
-puts "- Total resolved: #{total_resolved}/#{requests.count} | Progress: #{progress_pct}% of all 206 holders"
+puts "- Total resolved: #{total_resolved}/#{requests.count} | Progress: #{progress_pct}% of all 207 holders"
+if pending_reqs.any?
+  puts "- Open requests:"
+  pending_reqs.sort_by { |r| r.properties.dig("Confirmation #", "unique_id", "number").to_i }.each do |r|
+    num    = r.properties.dig("Confirmation #", "unique_id", "number")
+    rr     = num ? "RR-#{num.to_s.rjust(4, '0')}" : "N/A "
+    name   = extract_title(r.properties["Name"])&.split(" — ")&.first || "—"
+    email  = r.properties.dig("Email", "email") || "—"
+    amt    = r.properties.dig("Refund Amount Requested", "number").to_f
+    id     = holder_ids_from_relation(r).first
+    amt    = holder_amount[id].to_f if amt < 0.01 && id
+    status = extract_status(r.properties["Status"]) || "?"
+    puts "    #{rr}  #{name.ljust(26)} #{status.ljust(12)} #{fmt(amt).rjust(9)}  #{email}"
+  end
+end
 puts ""
 
 if pending_partial_gap > 0.01

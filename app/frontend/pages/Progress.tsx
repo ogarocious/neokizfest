@@ -35,9 +35,12 @@ import {
   RefundEntry,
   FilingDeadlineCountdown,
 } from "../components/shared";
+import CompletionHero from "../components/progress/CompletionHero";
+import CompletionConfetti from "../components/progress/CompletionConfetti";
+import CompletionParticles from "../components/progress/CompletionParticles";
+import WhatThisMeantCard from "../components/progress/WhatThisMeantCard";
 import { colors, responsiveText } from "../styles/theme";
 
-// Types for Inertia props from Rails
 interface RefundEntryData {
   id: string;
   initials: string;
@@ -71,9 +74,8 @@ interface ProgressProps {
   zelle_paused?: boolean;
 }
 
-// Update this date when Zelle is paused — set to the expected resume date (9:00 AM CST = 15:00 UTC)
 const ZELLE_RESUME_DATE = new Date("2026-04-17T15:00:00Z");
-
+const SESSION_KEY = "nkf_complete_seen";
 
 const Progress: React.FC<ProgressProps> = ({
   last_updated,
@@ -93,18 +95,40 @@ const Progress: React.FC<ProgressProps> = ({
     });
   };
 
-  // Calculate completion percentage against all ticket holders
   const totalResolved = stats.completed + stats.waived + stats.chargebacks;
   const completionPercentage = stats.total_ticket_holders > 0
     ? Math.round((totalResolved / stats.total_ticket_holders) * 100)
     : 0;
 
-  // Filter refunds by status
+  const isComplete = completionPercentage === 100;
+
+  // Detect first load (session-scoped) — lazy initializer runs once on mount
+  const [isFirstLoad] = useState(() => {
+    if (!isComplete || typeof window === "undefined") return false;
+    const seen = sessionStorage.getItem(SESSION_KEY);
+    if (!seen) {
+      sessionStorage.setItem(SESSION_KEY, "1");
+      return true;
+    }
+    return false;
+  });
+
+  // For cinematic bar sweep on first load: animate from 0 → 100
+  const [displayProgress, setDisplayProgress] = useState(
+    isComplete && isFirstLoad ? 0 : completionPercentage
+  );
+
+  useEffect(() => {
+    if (isComplete && isFirstLoad) {
+      const t = setTimeout(() => setDisplayProgress(100), 350);
+      return () => clearTimeout(t);
+    }
+  }, []);
+
   const completedRefunds = refunds.filter((r) => r.status === "completed");
   const processingRefunds = refunds.filter((r) => r.status === "processing");
   const submittedRefunds = refunds.filter((r) => r.status === "submitted" || r.status === "pending");
 
-  // Default to first non-empty tab in priority order: Completed → Processing → Submitted
   const defaultTab =
     completedRefunds.length > 0
       ? "completed"
@@ -133,525 +157,600 @@ const Progress: React.FC<ProgressProps> = ({
     return () => clearInterval(interval);
   }, [zelle_paused]);
 
-
   return (
     <>
-      <Head title="Progress">
-        <meta name="description" content="Track refund progress transparently. Every step shown publicly." />
-        <meta property="og:title" content="Refund Progress — Neo Kizomba Festival" />
-        <meta property="og:description" content="Track refund progress transparently. Every step shown publicly." />
-      </Head>
-      <FarewellLayout>
-      <Stack gap="lg" maw={900} mx="auto" px={{ base: "sm", sm: "md" }}>
-        <PageHeader
-          icon={<IconChartBar size={32} color="white" />}
-          title="Refund Progress"
-          subtitle="Track our refund process transparently. We're committed to making everyone whole."
+      <Head title={isComplete ? "Complete — Every Refund Honored" : "Progress"}>
+        <meta
+          name="description"
+          content={
+            isComplete
+              ? `${stats.total_ticket_holders} pass holders. Every single one resolved. The full public record.`
+              : "Track refund progress transparently. Every step shown publicly."
+          }
         />
+        <meta
+          property="og:title"
+          content={isComplete ? "Every Refund Honored — Neo Kizomba Festival" : "Refund Progress — Neo Kizomba Festival"}
+        />
+        <meta
+          property="og:description"
+          content={
+            isComplete
+              ? `${stats.total_ticket_holders} for ${stats.total_ticket_holders}. Every refund kept.`
+              : "Track refund progress transparently. Every step shown publicly."
+          }
+        />
+      </Head>
 
-        {/* Filing Deadline Countdown */}
-        <FilingDeadlineCountdown />
+      {/* Completion overlays */}
+      {isComplete && isFirstLoad && <CompletionConfetti />}
+      {isComplete && <CompletionParticles />}
 
-        {/* Zelle Status Notice */}
-        {zelle_paused ? (
-          <>
+      <FarewellLayout>
+        <Stack gap="lg" maw={900} mx="auto" px={{ base: "sm", sm: "md" }}>
+          <PageHeader
+            icon={<IconChartBar size={32} color="white" />}
+            title="Refund Progress"
+            subtitle={
+              isComplete
+                ? "Every obligation honored. The full public record."
+                : "Track our refund process transparently. We're committed to making everyone whole."
+            }
+          />
+
+          {/* Completion hero — replaces Zelle notice and filing countdown */}
+          {isComplete ? (
+            <CompletionHero
+              totalHolders={stats.total_ticket_holders}
+              animated={isFirstLoad}
+            />
+          ) : (
+            <>
+              <FilingDeadlineCountdown />
+
+              {/* Zelle status notice */}
+              {zelle_paused ? (
+                <>
+                  <style>{`
+                    @keyframes zellePulse {
+                      0%, 100% { opacity: 1; transform: scale(1); }
+                      50% { opacity: 0.35; transform: scale(0.88); }
+                    }
+                    @keyframes zelleGlow {
+                      0%, 100% { box-shadow: 0 0 18px rgba(255, 165, 0, 0.06), 0 0 40px rgba(255, 165, 0, 0.03); }
+                      50% { box-shadow: 0 0 32px rgba(255, 165, 0, 0.14), 0 0 70px rgba(255, 165, 0, 0.07); }
+                    }
+                  `}</style>
+                  <GlassCard
+                    p={{ base: "sm", sm: "md" }}
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255, 165, 0, 0.08) 0%, rgba(255, 165, 0, 0.14) 100%)",
+                      border: "1px solid rgba(255, 165, 0, 0.45)",
+                      animation: "zelleGlow 2.2s ease-in-out infinite",
+                    }}
+                  >
+                    <Stack gap="xs">
+                      <Group gap="xs" align="center">
+                        <IconAlertCircle
+                          size={18}
+                          color="#FFA500"
+                          style={{ animation: "zellePulse 2.2s ease-in-out infinite" }}
+                        />
+                        <Text fw={700} c="#FFA500" style={{ fontSize: responsiveText.small }}>
+                          Zelle Payments Temporarily Paused
+                        </Text>
+                      </Group>
+                      <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
+                        I've reached Zelle's 30-day sending limit. We can process your refund earlier — just message us your Wise information, Wise QR code, or Wise tag.
+                      </Text>
+                      <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                        If Zelle is your only option, payments will resume next month. Your refund is confirmed and queued — nothing is lost.
+                        {" "}Want to process sooner via Wise? Send your Wise username to the festival{" "}
+                        <a
+                          href="https://www.facebook.com/neokizfestival"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: "#FFA500", textDecoration: "underline" }}
+                        >
+                          Facebook page.
+                        </a>
+                      </Text>
+                      {timeLeft !== null && (
+                        <>
+                          <Divider color="rgba(255, 165, 0, 0.2)" mt={4} />
+                          <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs, textAlign: "center" }}>
+                            Zelle hit its monthly limit. Payments are queued and will resume in:
+                          </Text>
+                          <Group gap="xs" wrap="nowrap" justify="center">
+                            {[
+                              { value: timeLeft.days, label: "days" },
+                              { value: timeLeft.hours, label: "hrs" },
+                              { value: timeLeft.minutes, label: "min" },
+                              { value: timeLeft.seconds, label: "sec" },
+                            ].map(({ value, label }) => (
+                              <Box
+                                key={label}
+                                style={{
+                                  background: "rgba(255, 165, 0, 0.1)",
+                                  border: "1px solid rgba(255, 165, 0, 0.25)",
+                                  borderRadius: 8,
+                                  padding: "6px 10px",
+                                  textAlign: "center",
+                                  minWidth: 52,
+                                }}
+                              >
+                                <Text
+                                  fw={700}
+                                  c="#FFA500"
+                                  style={{ fontSize: "1.1rem", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}
+                                >
+                                  {String(value).padStart(2, "0")}
+                                </Text>
+                                <Text
+                                  c={colors.textMuted}
+                                  style={{ fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 2 }}
+                                >
+                                  {label}
+                                </Text>
+                              </Box>
+                            ))}
+                          </Group>
+                        </>
+                      )}
+                    </Stack>
+                  </GlassCard>
+                </>
+              ) : (
+                <GlassCard
+                  p={{ base: "sm", sm: "md" }}
+                  style={{
+                    background: "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(34, 139, 34, 0.14) 100%)",
+                    border: "1px solid rgba(34, 139, 34, 0.4)",
+                  }}
+                >
+                  <Stack gap={4}>
+                    <Group gap="xs" align="center">
+                      <IconCheck size={18} color="#4CAF50" />
+                      <Text fw={700} c="#4CAF50" style={{ fontSize: responsiveText.small }}>
+                        Zelle payments are active.
+                      </Text>
+                    </Group>
+                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
+                      Payments are going out as funds allow. If your request is verified, you're in the queue.
+                    </Text>
+                  </Stack>
+                </GlassCard>
+              )}
+            </>
+          )}
+
+          {/* Overall Progress Bar */}
+          <GlassCard variant="accent" p={{ base: "sm", sm: "md" }}>
             <style>{`
-              @keyframes zellePulse {
-                0%, 100% { opacity: 1; transform: scale(1); }
-                50% { opacity: 0.35; transform: scale(0.88); }
-              }
-              @keyframes zelleGlow {
-                0%, 100% { box-shadow: 0 0 18px rgba(255, 165, 0, 0.06), 0 0 40px rgba(255, 165, 0, 0.03); }
-                50% { box-shadow: 0 0 32px rgba(255, 165, 0, 0.14), 0 0 70px rgba(255, 165, 0, 0.07); }
+              @keyframes nkfBarGlow {
+                0%, 100% { box-shadow: 0 0 18px rgba(255, 215, 0, 0.55), 0 0 36px rgba(255, 215, 0, 0.25); }
+                50%       { box-shadow: 0 0 30px rgba(255, 215, 0, 0.75), 0 0 60px rgba(255, 215, 0, 0.35); }
               }
             `}</style>
+            <Stack gap="xs">
+              <Group justify="space-between" align="center">
+                <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
+                  Overall Progress
+                </Text>
+                {isComplete ? (
+                  <Group gap={6} align="center">
+                    <IconCheck size={16} color="#FFD700" />
+                    <Text fw={700} style={{ fontSize: responsiveText.body, color: "#FFD700" }}>
+                      Complete
+                    </Text>
+                  </Group>
+                ) : (
+                  <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.body }}>
+                    {completionPercentage}%
+                  </Text>
+                )}
+              </Group>
+              <MantineProgress
+                value={displayProgress}
+                size="lg"
+                radius="md"
+                styles={{
+                  root: {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05)",
+                  },
+                  section: {
+                    background: isComplete
+                      ? "linear-gradient(90deg, #FFB347 0%, #FFD700 30%, #FFFACD 55%, #FFD700 75%, #FFB347 100%)"
+                      : "linear-gradient(90deg, #F45D00 0%, #FF8C00 40%, #FFB347 70%, #FFD700 100%)",
+                    backgroundSize: "100vw 100%",
+                    boxShadow: isComplete
+                      ? undefined
+                      : "0 0 12px rgba(244, 93, 0, 0.5)",
+                    animation: isComplete ? "nkfBarGlow 2.8s ease-in-out infinite" : undefined,
+                    transition: "width 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                  },
+                }}
+              />
+              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                {isComplete
+                  ? `All ${stats.total_ticket_holders} pass holders resolved`
+                  : `${totalResolved} of ${stats.total_ticket_holders} pass holders resolved`}
+              </Text>
+            </Stack>
+          </GlassCard>
+
+          {/* Stats Grid */}
+          <SimpleGrid cols={{ base: 2, sm: 3 }} spacing={{ base: "xs", sm: "sm" }}>
+            {/* 1. Total Pass Holders */}
+            <GlassCard p={{ base: "sm", sm: "md" }}>
+              <Stack gap={4} align="center">
+                <IconUsers size={20} color={colors.textMuted} />
+                <Group gap={4} align="center" justify="center">
+                  <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                    Total Pass Holders
+                  </Text>
+                  <Popover width={220} position="bottom" withArrow shadow="md">
+                    <Popover.Target>
+                      <ActionIcon variant="transparent" size="xs" aria-label="Info about Total Pass Holders">
+                        <IconInfoCircle size={14} color={colors.textMuted} />
+                      </ActionIcon>
+                    </Popover.Target>
+                    <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                      <Text size="xs" c={colors.textSecondary}>Everyone who purchased a pass for the festival</Text>
+                    </Popover.Dropdown>
+                  </Popover>
+                </Group>
+                <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
+                  {stats.total_ticket_holders}
+                </Text>
+              </Stack>
+            </GlassCard>
+
+            {/* 2. Total Requests */}
+            <GlassCard p={{ base: "sm", sm: "md" }}>
+              <Stack gap={4} align="center">
+                <IconChartBar size={20} color={colors.textMuted} />
+                <Group gap={4} align="center" justify="center">
+                  <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                    Total Requests
+                  </Text>
+                  <Popover width={220} position="bottom" withArrow shadow="md">
+                    <Popover.Target>
+                      <ActionIcon variant="transparent" size="xs" aria-label="Info about Total Requests">
+                        <IconInfoCircle size={14} color={colors.textMuted} />
+                      </ActionIcon>
+                    </Popover.Target>
+                    <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                      <Text size="xs" c={colors.textSecondary}>All refund obligations — includes form submissions and chargebacks. Equals Resolved + Processing.</Text>
+                    </Popover.Dropdown>
+                  </Popover>
+                </Group>
+                <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
+                  {stats.total_requests + stats.chargebacks}
+                </Text>
+              </Stack>
+            </GlassCard>
+
+            {/* 3. Resolved */}
             <GlassCard
               p={{ base: "sm", sm: "md" }}
               style={{
-                background: "linear-gradient(135deg, rgba(255, 165, 0, 0.08) 0%, rgba(255, 165, 0, 0.14) 100%)",
-                border: "1px solid rgba(255, 165, 0, 0.45)",
-                animation: "zelleGlow 2.2s ease-in-out infinite",
+                background: isComplete
+                  ? "linear-gradient(135deg, rgba(255, 215, 0, 0.07) 0%, rgba(255, 215, 0, 0.12) 100%)"
+                  : "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(34, 139, 34, 0.12) 100%)",
+                border: isComplete
+                  ? "1px solid rgba(255, 215, 0, 0.25)"
+                  : "1px solid rgba(34, 139, 34, 0.2)",
               }}
             >
-              <Stack gap="xs">
-                <Group gap="xs" align="center">
-                  <IconAlertCircle
-                    size={18}
-                    color="#FFA500"
-                    style={{ animation: "zellePulse 2.2s ease-in-out infinite" }}
-                  />
-                  <Text fw={700} c="#FFA500" style={{ fontSize: responsiveText.small }}>
-                    Zelle Payments Temporarily Paused
+              <Stack gap={4} align="center">
+                {isComplete
+                  ? <IconCheck size={20} color="#FFD700" />
+                  : <IconCheck size={20} color="#228B22" />}
+                <Group gap={4} align="center" justify="center">
+                  <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                    Resolved
                   </Text>
+                  <Popover width={220} position="bottom" withArrow shadow="md">
+                    <Popover.Target>
+                      <ActionIcon variant="transparent" size="xs" aria-label="Info about Resolved">
+                        <IconInfoCircle size={14} color={colors.textMuted} />
+                      </ActionIcon>
+                    </Popover.Target>
+                    <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                      <Text size="xs" c={colors.textSecondary}>All cases where the books are clean — includes refunds paid out, waived passes, and chargebacks</Text>
+                    </Popover.Dropdown>
+                  </Popover>
                 </Group>
-                <Text c={colors.textSecondary} style={{ fontSize: responsiveText.small }}>
-                  I've reached Zelle's 30-day sending limit. We can process your refund earlier — just message us your Wise information, Wise QR code, or Wise tag.
+                <Text
+                  fw={700}
+                  style={{ fontSize: responsiveText.large, color: isComplete ? "#FFD700" : "#228B22" }}
+                >
+                  {totalResolved}
                 </Text>
-                <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
-                  If Zelle is your only option, payments will resume next month. Your refund is confirmed and queued — nothing is lost.
-                  {" "}Want to process sooner via Wise? Send your Wise username to the festival{" "}
-                  <a
-                    href="https://www.facebook.com/neokizfestival"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "#FFA500", textDecoration: "underline" }}
-                  >
-                    Facebook page.
-                  </a>
+              </Stack>
+            </GlassCard>
+
+            {/* 4. Processing */}
+            <GlassCard
+              p={{ base: "sm", sm: "md" }}
+              style={{
+                background: "linear-gradient(135deg, rgba(255, 140, 0, 0.08) 0%, rgba(255, 140, 0, 0.12) 100%)",
+                border: "1px solid rgba(255, 140, 0, 0.2)",
+              }}
+            >
+              <Stack gap={4} align="center">
+                <IconLoader size={20} color="#FF8C00" />
+                <Group gap={4} align="center" justify="center">
+                  <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                    Processing
+                  </Text>
+                  <Popover width={220} position="bottom" withArrow shadow="md">
+                    <Popover.Target>
+                      <ActionIcon variant="transparent" size="xs" aria-label="Info about Processing">
+                        <IconInfoCircle size={14} color={colors.textMuted} />
+                      </ActionIcon>
+                    </Popover.Target>
+                    <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                      <Text size="xs" c={colors.textSecondary}>Requests currently being reviewed, verified, or awaiting payment</Text>
+                    </Popover.Dropdown>
+                  </Popover>
+                </Group>
+                <Text fw={700} c="#FF8C00" style={{ fontSize: responsiveText.large }}>
+                  {stats.processing + stats.submitted}
                 </Text>
-                {timeLeft !== null && (
-                  <>
-                    <Divider color="rgba(255, 165, 0, 0.2)" mt={4} />
-                    <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs, textAlign: "center" }}>
-                      Zelle hit its monthly limit. Payments are queued and will resume in:
-                    </Text>
-                    <Group gap="xs" wrap="nowrap" justify="center">
-                      {[
-                        { value: timeLeft.days, label: "days" },
-                        { value: timeLeft.hours, label: "hrs" },
-                        { value: timeLeft.minutes, label: "min" },
-                        { value: timeLeft.seconds, label: "sec" },
-                      ].map(({ value, label }) => (
-                        <Box
-                          key={label}
-                          style={{
-                            background: "rgba(255, 165, 0, 0.1)",
-                            border: "1px solid rgba(255, 165, 0, 0.25)",
-                            borderRadius: 8,
-                            padding: "6px 10px",
-                            textAlign: "center",
-                            minWidth: 52,
-                          }}
-                        >
-                          <Text
-                            fw={700}
-                            c="#FFA500"
-                            style={{ fontSize: "1.1rem", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}
-                          >
-                            {String(value).padStart(2, "0")}
-                          </Text>
-                          <Text
-                            c={colors.textMuted}
-                            style={{ fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 2 }}
-                          >
-                            {label}
-                          </Text>
-                        </Box>
-                      ))}
-                    </Group>
-                  </>
+              </Stack>
+            </GlassCard>
+
+            {/* 5. Waived */}
+            <GlassCard
+              p={{ base: "sm", sm: "md" }}
+              style={{
+                background: "linear-gradient(135deg, rgba(244, 93, 0, 0.08) 0%, rgba(244, 93, 0, 0.12) 100%)",
+                border: "1px solid rgba(244, 93, 0, 0.2)",
+              }}
+            >
+              <Stack gap={4} align="center">
+                <IconHeart size={20} color={colors.primary} fill={colors.primary} />
+                <Group gap={4} align="center" justify="center">
+                  <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                    Waived
+                  </Text>
+                  <Popover width={220} position="bottom" withArrow shadow="md">
+                    <Popover.Target>
+                      <ActionIcon variant="transparent" size="xs" aria-label="Info about Waived">
+                        <IconInfoCircle size={14} color={colors.textMuted} />
+                      </ActionIcon>
+                    </Popover.Target>
+                    <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                      <Text size="xs" c={colors.textSecondary}>Pass holders who generously chose to forgo their refund — included in the Resolved count</Text>
+                    </Popover.Dropdown>
+                  </Popover>
+                </Group>
+                <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.large }}>
+                  {stats.waived}
+                </Text>
+              </Stack>
+            </GlassCard>
+
+            {/* 6. Donated */}
+            <GlassCard
+              p={{ base: "sm", sm: "md" }}
+              style={{
+                background: "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(50, 205, 50, 0.12) 100%)",
+                border: "1px solid rgba(34, 139, 34, 0.2)",
+              }}
+            >
+              <Stack gap={4} align="center">
+                <IconCash size={20} color="#228B22" />
+                <Group gap={4} align="center" justify="center">
+                  <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                    Donated
+                  </Text>
+                  <Popover width={220} position="bottom" withArrow shadow="md">
+                    <Popover.Target>
+                      <ActionIcon variant="transparent" size="xs" aria-label="Info about Donated">
+                        <IconInfoCircle size={14} color={colors.textMuted} />
+                      </ActionIcon>
+                    </Popover.Target>
+                    <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
+                      <Text size="xs" c={colors.textSecondary}>Total community donations from supporters</Text>
+                    </Popover.Dropdown>
+                  </Popover>
+                </Group>
+                <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
+                  ${donation_stats.total_donated.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                </Text>
+                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+                  from {donation_stats.donor_count} {donation_stats.donor_count === 1 ? "supporter" : "supporters"}
+                </Text>
+                {donation_stats.waive_and_donate_count > 0 && (
+                  <Text c="#FFD700" ta="center" fw={600} style={{ fontSize: responsiveText.xs }}>
+                    {donation_stats.waive_and_donate_count} waived + donated
+                  </Text>
                 )}
               </Stack>
             </GlassCard>
-          </>
-        ) : (
-          <GlassCard
-            p={{ base: "sm", sm: "md" }}
-            style={{
-              background: "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(34, 139, 34, 0.14) 100%)",
-              border: "1px solid rgba(34, 139, 34, 0.4)",
-            }}
-          >
-            <Stack gap={4}>
-              <Group gap="xs" align="center">
-                <IconCheck size={18} color="#4CAF50" />
-                <Text fw={700} c="#4CAF50" style={{ fontSize: responsiveText.small }}>
-                  Zelle payments are active.
-                </Text>
-              </Group>
-              <Text c={colors.textMuted} style={{ fontSize: responsiveText.xs }}>
-                Payments are going out as funds allow. If your request is verified, you're in the queue.
-              </Text>
-            </Stack>
-          </GlassCard>
-        )}
+          </SimpleGrid>
 
-        {/* Overall Progress Bar */}
-        <GlassCard variant="accent" p={{ base: "sm", sm: "md" }}>
-          <Stack gap="xs">
-            <Group justify="space-between" align="center">
-              <Text fw={600} c={colors.textPrimary} style={{ fontSize: responsiveText.small }}>
-                Overall Progress
-              </Text>
-              <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.body }}>
-                {completionPercentage}%
-              </Text>
-            </Group>
-            <MantineProgress
-              value={completionPercentage}
-              size="lg"
-              radius="md"
-              styles={{
-                root: {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05)",
-                },
-                section: {
-                  background: "linear-gradient(90deg, #F45D00 0%, #FF8C00 40%, #FFB347 70%, #FFD700 100%)",
-                  backgroundSize: "100vw 100%",
-                  boxShadow: "0 0 12px rgba(244, 93, 0, 0.5)",
-                },
+          {/* Community Support */}
+          {community_support.length > 0 && (
+            <GlassCard
+              style={{
+                background: isComplete
+                  ? "linear-gradient(135deg, rgba(244, 93, 0, 0.10) 0%, rgba(255, 215, 0, 0.06) 100%)"
+                  : "linear-gradient(135deg, rgba(244, 93, 0, 0.08) 0%, rgba(162, 90, 60, 0.12) 100%)",
+                border: isComplete
+                  ? "1px solid rgba(244, 93, 0, 0.3)"
+                  : "1px solid rgba(244, 93, 0, 0.2)",
               }}
-            />
-            <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-              {totalResolved} of {stats.total_ticket_holders} pass holders resolved
-            </Text>
-          </Stack>
-        </GlassCard>
-
-        {/* Stats Grid */}
-        <SimpleGrid cols={{ base: 2, sm: 3 }} spacing={{ base: "xs", sm: "sm" }}>
-          {/* 1. Total Pass Holders (independent context) */}
-          <GlassCard p={{ base: "sm", sm: "md" }}>
-            <Stack gap={4} align="center">
-              <IconUsers size={20} color={colors.textMuted} />
-              <Group gap={4} align="center" justify="center">
-                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                  Total Pass Holders
+            >
+              <Stack gap="sm">
+                <Group gap="xs">
+                  <IconHeart size={18} color={colors.primary} fill={colors.primary} />
+                  <Title order={4} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
+                    {isComplete ? "The People Who Made It Possible" : "Community Support"}
+                  </Title>
+                </Group>
+                <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
+                  {isComplete
+                    ? "These individuals chose to give their refund back. That generosity is part of what closed this chapter with integrity."
+                    : "These generous individuals chose to waive their refunds, supporting the community during this transition."}
                 </Text>
-                <Popover width={220} position="bottom" withArrow shadow="md">
-                  <Popover.Target>
-                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Total Pass Holders">
-                      <IconInfoCircle size={14} color={colors.textMuted} />
-                    </ActionIcon>
-                  </Popover.Target>
-                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
-                    <Text size="xs" c={colors.textSecondary}>Everyone who purchased a pass for the festival</Text>
-                  </Popover.Dropdown>
-                </Popover>
-              </Group>
-              <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
-                {stats.total_ticket_holders}
-              </Text>
-            </Stack>
-          </GlassCard>
 
-          {/* 2. Total Requests (pipeline total = Resolved + Processing) */}
-          <GlassCard p={{ base: "sm", sm: "md" }}>
-            <Stack gap={4} align="center">
-              <IconChartBar size={20} color={colors.textMuted} />
-              <Group gap={4} align="center" justify="center">
-                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                  Total Requests
-                </Text>
-                <Popover width={220} position="bottom" withArrow shadow="md">
-                  <Popover.Target>
-                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Total Requests">
-                      <IconInfoCircle size={14} color={colors.textMuted} />
-                    </ActionIcon>
-                  </Popover.Target>
-                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
-                    <Text size="xs" c={colors.textSecondary}>All refund obligations — includes form submissions and chargebacks. Equals Resolved + Processing.</Text>
-                  </Popover.Dropdown>
-                </Popover>
-              </Group>
-              <Text fw={700} c={colors.textPrimary} style={{ fontSize: responsiveText.large }}>
-                {stats.total_requests + stats.chargebacks}
-              </Text>
-            </Stack>
-          </GlassCard>
-
-          {/* 3. Resolved (completed + waived + chargebacks — books are clean) */}
-          <GlassCard
-            p={{ base: "sm", sm: "md" }}
-            style={{
-              background: "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(34, 139, 34, 0.12) 100%)",
-              border: "1px solid rgba(34, 139, 34, 0.2)",
-            }}
-          >
-            <Stack gap={4} align="center">
-              <IconCheck size={20} color="#228B22" />
-              <Group gap={4} align="center" justify="center">
-                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                  Resolved
-                </Text>
-                <Popover width={220} position="bottom" withArrow shadow="md">
-                  <Popover.Target>
-                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Resolved">
-                      <IconInfoCircle size={14} color={colors.textMuted} />
-                    </ActionIcon>
-                  </Popover.Target>
-                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
-                    <Text size="xs" c={colors.textSecondary}>All cases where the books are clean — includes refunds paid out, waived passes, and chargebacks</Text>
-                  </Popover.Dropdown>
-                </Popover>
-              </Group>
-              <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
-                {totalResolved}
-              </Text>
-            </Stack>
-          </GlassCard>
-
-          {/* 4. Processing (submitted + processing + verified — still in pipeline) */}
-          <GlassCard
-            p={{ base: "sm", sm: "md" }}
-            style={{
-              background: "linear-gradient(135deg, rgba(255, 140, 0, 0.08) 0%, rgba(255, 140, 0, 0.12) 100%)",
-              border: "1px solid rgba(255, 140, 0, 0.2)",
-            }}
-          >
-            <Stack gap={4} align="center">
-              <IconLoader size={20} color="#FF8C00" />
-              <Group gap={4} align="center" justify="center">
-                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                  Processing
-                </Text>
-                <Popover width={220} position="bottom" withArrow shadow="md">
-                  <Popover.Target>
-                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Processing">
-                      <IconInfoCircle size={14} color={colors.textMuted} />
-                    </ActionIcon>
-                  </Popover.Target>
-                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
-                    <Text size="xs" c={colors.textSecondary}>Requests currently being reviewed, verified, or awaiting payment</Text>
-                  </Popover.Dropdown>
-                </Popover>
-              </Group>
-              <Text fw={700} c="#FF8C00" style={{ fontSize: responsiveText.large }}>
-                {stats.processing + stats.submitted}
-              </Text>
-            </Stack>
-          </GlassCard>
-
-          {/* 5. Waived (social proof — subset of Resolved) */}
-          <GlassCard
-            p={{ base: "sm", sm: "md" }}
-            style={{
-              background: "linear-gradient(135deg, rgba(244, 93, 0, 0.08) 0%, rgba(244, 93, 0, 0.12) 100%)",
-              border: "1px solid rgba(244, 93, 0, 0.2)",
-            }}
-          >
-            <Stack gap={4} align="center">
-              <IconHeart size={20} color={colors.primary} fill={colors.primary} />
-              <Group gap={4} align="center" justify="center">
-                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                  Waived
-                </Text>
-                <Popover width={220} position="bottom" withArrow shadow="md">
-                  <Popover.Target>
-                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Waived">
-                      <IconInfoCircle size={14} color={colors.textMuted} />
-                    </ActionIcon>
-                  </Popover.Target>
-                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
-                    <Text size="xs" c={colors.textSecondary}>Pass holders who generously chose to forgo their refund — included in the Resolved count</Text>
-                  </Popover.Dropdown>
-                </Popover>
-              </Group>
-              <Text fw={700} c={colors.primary} style={{ fontSize: responsiveText.large }}>
-                {stats.waived}
-              </Text>
-            </Stack>
-          </GlassCard>
-
-          {/* 6. Donated (independent — dollars from supporters, bottom-right anchor) */}
-          <GlassCard
-            p={{ base: "sm", sm: "md" }}
-            style={{
-              background: "linear-gradient(135deg, rgba(34, 139, 34, 0.08) 0%, rgba(50, 205, 50, 0.12) 100%)",
-              border: "1px solid rgba(34, 139, 34, 0.2)",
-            }}
-          >
-            <Stack gap={4} align="center">
-              <IconCash size={20} color="#228B22" />
-              <Group gap={4} align="center" justify="center">
-                <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                  Donated
-                </Text>
-                <Popover width={220} position="bottom" withArrow shadow="md">
-                  <Popover.Target>
-                    <ActionIcon variant="transparent" size="xs" aria-label="Info about Donated">
-                      <IconInfoCircle size={14} color={colors.textMuted} />
-                    </ActionIcon>
-                  </Popover.Target>
-                  <Popover.Dropdown style={{ backgroundColor: "rgba(30, 30, 30, 0.95)", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
-                    <Text size="xs" c={colors.textSecondary}>Total community donations from supporters</Text>
-                  </Popover.Dropdown>
-                </Popover>
-              </Group>
-              <Text fw={700} c="#228B22" style={{ fontSize: responsiveText.large }}>
-                ${donation_stats.total_donated.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-              </Text>
-              <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-                from {donation_stats.donor_count} {donation_stats.donor_count === 1 ? "supporter" : "supporters"}
-              </Text>
-              {donation_stats.waive_and_donate_count > 0 && (
-                <Text c="#FFD700" ta="center" fw={600} style={{ fontSize: responsiveText.xs }}>
-                  {donation_stats.waive_and_donate_count} waived + donated
-                </Text>
-              )}
-            </Stack>
-          </GlassCard>
-        </SimpleGrid>
-
-        {/* Community Support (Waived) — positioned after stats for visibility */}
-        {community_support.length > 0 && (
-          <GlassCard
-            style={{
-              background: "linear-gradient(135deg, rgba(244, 93, 0, 0.08) 0%, rgba(162, 90, 60, 0.12) 100%)",
-              border: "1px solid rgba(244, 93, 0, 0.2)",
-            }}
-          >
-            <Stack gap="sm">
-              <Group gap="xs">
-                <IconHeart size={18} color={colors.primary} fill={colors.primary} />
-                <Title order={4} c={colors.primary} style={{ fontSize: responsiveText.sectionTitle }}>
-                  Community Support
-                </Title>
-              </Group>
-              <Text c={colors.textMuted} style={{ fontSize: responsiveText.small }}>
-                These generous individuals chose to waive their refunds, supporting the community during this transition.
-              </Text>
-
-              <Group gap="xs" wrap="wrap" justify={{ base: "center", sm: "flex-start" }}>
-                {community_support.map((entry) => (
-                  <Badge
-                    key={entry.id}
-                    size="md"
-                    variant="light"
-                    color={entry.donated ? "yellow" : "orange"}
-                    leftSection={
-                      entry.donated
-                        ? <IconStar size={12} fill="#FFD700" color="#FFD700" />
-                        : <IconHeart size={12} fill={colors.primary} color={colors.primary} />
-                    }
-                    style={{
-                      backgroundColor: entry.donated
-                        ? "rgba(255, 215, 0, 0.15)"
-                        : "rgba(244, 93, 0, 0.15)",
-                      color: colors.textPrimary,
-                      fontWeight: 600,
-                      border: entry.donated ? "1px solid rgba(255, 215, 0, 0.3)" : undefined,
-                    }}
-                  >
-                    {entry.initials}
-                  </Badge>
-                ))}
-              </Group>
-            </Stack>
-          </GlassCard>
-        )}
-
-        {/* Refund Requests List */}
-        {refunds.length > 0 && (
-          <GlassCard>
-            <Stack gap="md">
-              <Group gap="xs">
-                <IconChartBar size={18} color={colors.textSecondary} />
-                <Title order={4} c={colors.textPrimary} style={{ fontSize: responsiveText.sectionTitle }}>
-                  Refund Requests
-                </Title>
-              </Group>
-
-              <GlassTabs defaultValue={defaultTab} onChange={(val) => setActiveTab(val ?? defaultTab)}>
-                <GlassTabs.List mb="sm">
-                  {completedRefunds.length > 0 && (
-                    <GlassTabs.Tab
-                      value="completed"
-                      color="green"
-                      leftSection={<IconCheck size={14} />}
-                      rightSection={
-                        <Badge size="xs" variant={activeTab === "completed" ? "white" : "light"} color="green" ml={4}>
-                          {completedRefunds.length}
-                        </Badge>
+                <Group gap="xs" wrap="wrap" justify={{ base: "center", sm: "flex-start" }}>
+                  {community_support.map((entry) => (
+                    <Badge
+                      key={entry.id}
+                      size="md"
+                      variant="light"
+                      color={entry.donated ? "yellow" : "orange"}
+                      leftSection={
+                        entry.donated
+                          ? <IconStar size={12} fill="#FFD700" color="#FFD700" />
+                          : <IconHeart size={12} fill={colors.primary} color={colors.primary} />
                       }
+                      style={{
+                        backgroundColor: entry.donated
+                          ? "rgba(255, 215, 0, 0.15)"
+                          : "rgba(244, 93, 0, 0.15)",
+                        color: colors.textPrimary,
+                        fontWeight: 600,
+                        border: entry.donated ? "1px solid rgba(255, 215, 0, 0.3)" : undefined,
+                      }}
                     >
-                      Completed
-                    </GlassTabs.Tab>
-                  )}
-                  {processingRefunds.length > 0 && (
-                    <GlassTabs.Tab
-                      value="processing"
-                      color="orange"
-                      leftSection={<IconLoader size={14} />}
-                      rightSection={
-                        <Badge size="xs" variant={activeTab === "processing" ? "white" : "light"} color="orange" ml={4}>
-                          {processingRefunds.length}
-                        </Badge>
-                      }
-                    >
-                      Processing
-                    </GlassTabs.Tab>
-                  )}
-                  {submittedRefunds.length > 0 && (
-                    <GlassTabs.Tab
-                      value="submitted"
-                      color="gray"
-                      leftSection={<IconClock size={14} />}
-                      rightSection={
-                        <Badge size="xs" variant={activeTab === "submitted" ? "white" : "light"} color="gray" ml={4}>
-                          {submittedRefunds.length}
-                        </Badge>
-                      }
-                    >
-                      Submitted
-                    </GlassTabs.Tab>
-                  )}
-                </GlassTabs.List>
+                      {entry.initials}
+                    </Badge>
+                  ))}
+                </Group>
+              </Stack>
+            </GlassCard>
+          )}
 
-                <GlassTabs.Panel value="completed">
-                  <ScrollArea.Autosize mah={400} type="auto">
-                    <Stack gap="xs">
-                      {completedRefunds.map((entry) => (
-                        <RefundEntry
-                          key={entry.id}
-                          confirmationId={entry.id}
-                          initials={entry.initials}
-                          status="completed"
-                          paid={entry.paid}
-                          compact
-                        />
-                      ))}
-                    </Stack>
-                  </ScrollArea.Autosize>
-                </GlassTabs.Panel>
+          {/* What This Meant — only at 100% */}
+          {isComplete && <WhatThisMeantCard waivedCount={stats.waived} />}
 
-                <GlassTabs.Panel value="processing">
-                  <ScrollArea.Autosize mah={400} type="auto">
-                    <Stack gap="xs">
-                      {processingRefunds.map((entry) => (
-                        <RefundEntry
-                          key={entry.id}
-                          confirmationId={entry.id}
-                          initials={entry.initials}
-                          status="processing"
-                          paid={entry.paid}
-                          compact
-                        />
-                      ))}
-                    </Stack>
-                  </ScrollArea.Autosize>
-                </GlassTabs.Panel>
+          {/* Refund Requests List */}
+          {refunds.length > 0 && (
+            <GlassCard>
+              <Stack gap="md">
+                <Group gap="xs">
+                  <IconChartBar size={18} color={colors.textSecondary} />
+                  <Title order={4} c={colors.textPrimary} style={{ fontSize: responsiveText.sectionTitle }}>
+                    Refund Requests
+                  </Title>
+                </Group>
 
-                <GlassTabs.Panel value="submitted">
-                  <ScrollArea.Autosize mah={400} type="auto">
-                    <Stack gap="xs">
-                      {submittedRefunds.map((entry) => (
-                        <RefundEntry
-                          key={entry.id}
-                          confirmationId={entry.id}
-                          initials={entry.initials}
-                          status="submitted"
-                          paid={entry.paid}
-                          compact
-                        />
-                      ))}
-                    </Stack>
-                  </ScrollArea.Autosize>
-                </GlassTabs.Panel>
-              </GlassTabs>
-            </Stack>
-          </GlassCard>
-        )}
+                <GlassTabs defaultValue={defaultTab} onChange={(val) => setActiveTab(val ?? defaultTab)}>
+                  <GlassTabs.List mb="sm">
+                    {completedRefunds.length > 0 && (
+                      <GlassTabs.Tab
+                        value="completed"
+                        color="green"
+                        leftSection={<IconCheck size={14} />}
+                        rightSection={
+                          <Badge size="xs" variant={activeTab === "completed" ? "white" : "light"} color="green" ml={4}>
+                            {completedRefunds.length}
+                          </Badge>
+                        }
+                      >
+                        Completed
+                      </GlassTabs.Tab>
+                    )}
+                    {processingRefunds.length > 0 && (
+                      <GlassTabs.Tab
+                        value="processing"
+                        color="orange"
+                        leftSection={<IconLoader size={14} />}
+                        rightSection={
+                          <Badge size="xs" variant={activeTab === "processing" ? "white" : "light"} color="orange" ml={4}>
+                            {processingRefunds.length}
+                          </Badge>
+                        }
+                      >
+                        Processing
+                      </GlassTabs.Tab>
+                    )}
+                    {submittedRefunds.length > 0 && (
+                      <GlassTabs.Tab
+                        value="submitted"
+                        color="gray"
+                        leftSection={<IconClock size={14} />}
+                        rightSection={
+                          <Badge size="xs" variant={activeTab === "submitted" ? "white" : "light"} color="gray" ml={4}>
+                            {submittedRefunds.length}
+                          </Badge>
+                        }
+                      >
+                        Submitted
+                      </GlassTabs.Tab>
+                    )}
+                  </GlassTabs.List>
 
-        {/* Last Updated */}
-        <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
-          Last updated: {formatLastUpdated(last_updated)} · Data refreshes every hour
-        </Text>
+                  <GlassTabs.Panel value="completed">
+                    <ScrollArea.Autosize mah={400} type="auto">
+                      <Stack gap="xs">
+                        {completedRefunds.map((entry) => (
+                          <RefundEntry
+                            key={entry.id}
+                            confirmationId={entry.id}
+                            initials={entry.initials}
+                            status="completed"
+                            paid={entry.paid}
+                            compact
+                          />
+                        ))}
+                      </Stack>
+                    </ScrollArea.Autosize>
+                  </GlassTabs.Panel>
 
-        <BackToHome />
-      </Stack>
-    </FarewellLayout>
+                  <GlassTabs.Panel value="processing">
+                    <ScrollArea.Autosize mah={400} type="auto">
+                      <Stack gap="xs">
+                        {processingRefunds.map((entry) => (
+                          <RefundEntry
+                            key={entry.id}
+                            confirmationId={entry.id}
+                            initials={entry.initials}
+                            status="processing"
+                            paid={entry.paid}
+                            compact
+                          />
+                        ))}
+                      </Stack>
+                    </ScrollArea.Autosize>
+                  </GlassTabs.Panel>
+
+                  <GlassTabs.Panel value="submitted">
+                    <ScrollArea.Autosize mah={400} type="auto">
+                      <Stack gap="xs">
+                        {submittedRefunds.map((entry) => (
+                          <RefundEntry
+                            key={entry.id}
+                            confirmationId={entry.id}
+                            initials={entry.initials}
+                            status="submitted"
+                            paid={entry.paid}
+                            compact
+                          />
+                        ))}
+                      </Stack>
+                    </ScrollArea.Autosize>
+                  </GlassTabs.Panel>
+                </GlassTabs>
+              </Stack>
+            </GlassCard>
+          )}
+
+          {/* Last Updated */}
+          <Text c={colors.textMuted} ta="center" style={{ fontSize: responsiveText.xs }}>
+            Last updated: {formatLastUpdated(last_updated)} · Data refreshes every hour
+          </Text>
+
+          <BackToHome />
+        </Stack>
+      </FarewellLayout>
     </>
   );
 };
