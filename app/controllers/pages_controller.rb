@@ -52,6 +52,7 @@ class PagesController < ApplicationController
   def albir_payment_record
     @og_title = "NeoKiz 2022 Payment Record — Charles Ogar"
     @meta_description = "A documented public record of the NeoKiz 2022 artist payment timeline, with receipts and evidence."
+    @og_image = "/images/og-default.png"
     render inertia: 'AlbirPaymentRecord'
   end
 
