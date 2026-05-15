@@ -724,6 +724,16 @@ const AlbirPaymentRecord: React.FC = () => {
                   NeoKiz 2022 Artist Payment — The Full Record
                 </Title>
 
+                <Box mt="xs">
+                  <ArticleMeta
+                    author="Charles Ogar"
+                    date="March 27, 2026"
+                    page="/albir-payment-record"
+                    shareUrl={PAGE_URL}
+                    shareTitle="NeoKiz 2022 Payment Record — Charles Ogar"
+                  />
+                </Box>
+
                 <Text
                   mt="sm"
                   c={colors.textSecondary}
@@ -786,15 +796,6 @@ const AlbirPaymentRecord: React.FC = () => {
                   These records exist for the same reason.
                 </Text>
 
-                <Box mt="md">
-                  <ArticleMeta
-                    author="Charles Ogar"
-                    date="March 27, 2026"
-                    page="/albir-payment-record"
-                    shareUrl={PAGE_URL}
-                    shareTitle="NeoKiz 2022 Payment Record — Charles Ogar"
-                  />
-                </Box>
               </Stack>
             </GlassCard>
           </Box>
