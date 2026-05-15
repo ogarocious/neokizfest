@@ -90,7 +90,7 @@ const TIMELINE: TimelineEvent[] = [
     description:
       "Six weeks before NeoKiz 2022, Charles's father Fidelis Ogar suffers a stroke and is hospitalized in Houston. Houston is a two-and-a-half hour drive from Austin. Charles is the oldest of eight children. His mother needs support. His siblings need coordination. And a multi-day festival is still six weeks out. Charles and Sarah do not cancel. They do not ask artists to wait. They push through — Charles making repeated drives to Houston and back, supporting his mom, keeping the family together, and still showing up to get NeoKiz 2022 across the finish line. The artists don't know this. The attendees don't know this. This is what it looked like from the inside.",
     imageFile: "fidelis_stroke_may2022.jpg",
-    imageCaption: "Fidelis Ogar in the hospital, May 2022",
+    imageCaption: "Fidelis Ogar in the hospital, May 2022 — he is sleeping, not deceased (he passed away in October 2022)",
     highlight: "neutral",
     src: "/images/case/fidelis_stroke_may2022.jpg",
     isContext: true,
@@ -550,7 +550,22 @@ const EvidenceSlot: React.FC<EvidenceSlotProps> = ({
           </Text>
         </Group>
         {src ? (
-          <Image src={src} alt={caption} radius="sm" />
+          <>
+            <Image src={src} alt={caption} radius="sm" />
+            {caption && (
+              <Text
+                mt={6}
+                style={{
+                  fontSize: responsiveText.xs,
+                  color: colors.textDim,
+                  fontStyle: "italic",
+                  lineHeight: 1.5,
+                }}
+              >
+                {caption}
+              </Text>
+            )}
+          </>
         ) : (
           <Text
             ta="center"
