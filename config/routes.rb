@@ -37,8 +37,7 @@ Rails.application.routes.draw do
     # Flowers submissions
     post 'flowers', to: 'flowers#create'
 
-    # Page view stats (Plausible proxy)
-    get 'stats/page-views', to: 'stats#page_views'
+    get 'article/meta', to: 'stats#page_views'
 
     # Square webhook (supporter donations)
     post 'webhooks/square', to: 'webhooks#square'

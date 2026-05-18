@@ -35,7 +35,7 @@ const ArticleMeta: React.FC<ArticleMetaProps> = ({
   const title = shareTitle || document.title;
 
   useEffect(() => {
-    fetch(`/api/stats/page-views?page=${encodeURIComponent(page)}`)
+    fetch(`/api/article/meta?page=${encodeURIComponent(page)}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.views > 0) setViews(data.views);
